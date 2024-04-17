@@ -42,6 +42,8 @@ export default function Team() {
 
 const StyledH1 = styled.h1`
   font-size: 2rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
   color: black;
 `;
 

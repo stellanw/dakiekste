@@ -11,11 +11,6 @@ export default function Navigation() {
     setAnimationActive(!menuOpen);
   };
 
-  // const handleCloseMenu = () => {
-  //   setMenuOpen(false);
-  //   setAnimationActive(false);
-  // };
-
   return (
     <StyledNavigation menuOpen={menuOpen}>
       <StyledMenuToggle onClick={handleMenuToggle}>
@@ -76,13 +71,13 @@ export default function Navigation() {
       </StyledMenuToggle>
       <StyledUl>
         <StyledNavButton>
-          <StyledLink href="/">dakiekste</StyledLink>
-        </StyledNavButton>
-        <StyledNavButton>
           <StyledLink href="/leistung">wat</StyledLink>
         </StyledNavButton>
         <StyledNavButton>
           <StyledLink href="/team">team</StyledLink>
+        </StyledNavButton>
+        <StyledNavButton>
+          <StyledLink href="/klubstudio">klubstudio</StyledLink>
         </StyledNavButton>
         <StyledNavButton>
           <StyledLink href="/kontakt">kontakt</StyledLink>
@@ -113,9 +108,9 @@ const StyledIconsWrapper = styled.div`
 const StyledNavigation = styled.nav`
   display: flex;
   position: fixed;
-  right: ${({ menuOpen }) => (!menuOpen ? "-15.5rem" : "-2px")};
+  right: ${({ menuOpen }) => (!menuOpen ? "-18.5rem" : "-2px")};
   top: 0.5rem;
-  width: 300px;
+  width: 350px;
   height: 50px;
   background-color: white;
   box-shadow: 10px 0 5px 50% black;
@@ -146,18 +141,20 @@ const StyledIconWrapper = styled.div`
 
 const StyledUl = styled.ul`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   list-style: none;
+  flex-shrink: 1;
   width: 100%;
   margin: 0;
   padding: 0;
   padding-top: 1rem;
+  padding-right: 0.1rem;
+  padding-left: 0.1rem;
   padding-bottom: 1rem;
+  gap: 0.6rem;
 `;
 
 const StyledNavButton = styled.li`
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
   font-size: 0.9rem;
   font-family: "Bricolage Grotesque", sans-serif;
   &:hover {

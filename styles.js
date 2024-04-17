@@ -16,19 +16,12 @@ export default createGlobalStyle`
 a {
 color: black;
 text-decoration: none;
-/* background-color: lightgray;
-padding:0.5rem;
-border-radius:5px; */
 };
-main{
-  display: flex;
-  flex-grow: 1;
-  height: 100%;
-    width: 100%;
-}
-header, main, Footer {
+
+/* header, main, Footer {
     flex-shrink: 0;
-}
+    flex-grow: 0;
+} */
 
 a:hover {
 
