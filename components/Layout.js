@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
         <Navigation />
       </header>
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

@@ -9,7 +9,6 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: system-ui;
     height: 100%;
     width: 100%;
     font-family: "Bricolage Grotesque", sans-serif;
@@ -32,6 +31,7 @@ header, main, Footer {
 }
 
 a:hover {
-  font-weight: bold;}
+
+  }
 
 `;
