@@ -1,5 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
+export const theme = {
+  textColor: "#1D1D1B",
+  primaryColor1: "#11A984",
+  primaryColor2: "#16C097",
+  secondaryColor: "#E9E8FB",
+  alertColor: "red",
+  confirmColor: "green",
+};
+
 export default createGlobalStyle`
   *,
   *::before,
@@ -14,7 +23,7 @@ export default createGlobalStyle`
     font-family: "Bricolage Grotesque", sans-serif;
   }
 a {
-color: black;
+color: ${theme.textColor};
 text-decoration: none;
 };
 
@@ -22,6 +31,10 @@ text-decoration: none;
     flex-shrink: 0;
     flex-grow: 0;
 } */
+
+li{
+  list-style: none;
+}
 
 a:hover {
 

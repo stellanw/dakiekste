@@ -1,27 +1,30 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
 const SliderWrapper = styled.div`
   position: relative;
-  padding-top: 2rem;
+  padding: 0;
 `;
 
 const SliderContainer = styled.div`
   display: flex;
   overflow-x: auto; /* Horizontales Scrollen aktivieren */
-  width: 100%;
 `;
 
 const Slide = styled.div`
   flex: 0 0 auto; /* Flex-Elemente bleiben immer gleich breit */
-  width: 100%; /* Jeder Slide nimmt die gesamte Breite ein */
 `;
 
 const ButtonWrapper = styled.div`
+  display: flex;
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 50%;
+  width: 100%;
+  justify-content: space-between;
+  padding-right: 0.2rem;
+  padding-left: 0.2rem;
+  opacity: 20%;
 `;
 
 const Slider = ({ slides }) => {
@@ -52,8 +55,8 @@ const Slider = ({ slides }) => {
         ))}
       </SliderContainer>
       <ButtonWrapper>
-        <button onClick={prevSlide}>Previous</button>
-        <button onClick={nextSlide}>Next</button>
+        <IoChevronBackOutline onClick={prevSlide} />
+        <IoChevronForwardOutline onClick={nextSlide} />
       </ButtonWrapper>
     </SliderWrapper>
   );

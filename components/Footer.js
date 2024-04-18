@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { IoLogoInstagram, IoMailOutline, IoCallOutline } from "react-icons/io5";
@@ -57,7 +56,7 @@ const StyledFooter = styled.footer`
   width: 100%;
   font-size: 1.2rem;
   margin: 0;
-  height: 6rem;
+  height: 8rem;
   background-color: #e9e8fb;
   color: #11a984;
 `;

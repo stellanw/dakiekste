@@ -2,19 +2,50 @@ import Layout from "@/components/Layout";
 import styled from "styled-components";
 import Image from "next/image";
 import Slider from "@/components/Slider";
-import Gallery from "@/components/Gallery";
+import SliderContent from "@/components/SliderContent";
+import { theme } from "@/styles";
 
 export default function HomePage() {
   const slides = [
-    ["Slide 1 Section 1 Content", "Slide 1 Section 2 Content"],
-    ["Slide 2 Section 1 Content", "Slide 2 Section 2 Content"],
-    ["Slide 3 Section 1 Content", "Slide 3 Section 2 Content"],
-  ];
-
-  const items = [
-    <div key={1}>Container 1</div>,
-    <div key={2}>Container 2</div>,
-    <div key={3}>Container 3</div>,
+    <StyledSlideContainer key={1}>
+      <SliderContent
+        title1="LEISTUNG"
+        title2="BEISPIEL 01"
+        paragraph="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. "
+        svgColor={theme.primaryColor2}
+        listItems={["USP BEISPIEL 1", "USP BEISPIEL 2", "USP BEISPIEL 3"]}
+      />
+    </StyledSlideContainer>,
+    <StyledSlideContainer2 key={2}>
+      {" "}
+      <SliderContent
+        title1="LEISTUNG"
+        title2="BEISPIEL 02"
+        paragraph="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. "
+        svgColor={theme.secondaryColor}
+        listItems={["USP BEISPIEL 1", "USP BEISPIEL 2", "USP BEISPIEL 3"]}
+      />
+    </StyledSlideContainer2>,
+    <StyledSlideContainer key={3}>
+      {" "}
+      <SliderContent
+        title1="LEISTUNG"
+        title2="BEISPIEL 03"
+        paragraph="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. "
+        svgColor={theme.primaryColor2}
+        listItems={["USP BEISPIEL 1", "USP BEISPIEL 2", "USP BEISPIEL 3"]}
+      />
+    </StyledSlideContainer>,
+    <StyledSlideContainer2 key={2}>
+      {" "}
+      <SliderContent
+        title1="LEISTUNG"
+        title2="BEISPIEL 04"
+        paragraph="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. "
+        svgColor={theme.secondaryColor}
+        listItems={["USP BEISPIEL 1", "USP BEISPIEL 2", "USP BEISPIEL 3"]}
+      />
+    </StyledSlideContainer2>,
   ];
 
   return (
@@ -27,7 +58,7 @@ export default function HomePage() {
           height={500}
         />
       </StyledImageHeadContainer>
-      <StyledH1>Corperate Fotografie</StyledH1>
+      <StyledH1>CORPORATE FOTOGRAFIE</StyledH1>
       <StyledContentArea>
         <StyledTextWrapper>
           <h2>VISION</h2>
@@ -74,17 +105,145 @@ export default function HomePage() {
           height={500}
         />
       </StyledImageContainer>
-      <div>
-        <h1>My Slider Component</h1>
+      <StyledSliderWrapper>
+        <h1>Leistungen</h1>
         <Slider slides={slides} />
-      </div>
-      <div>
-        <h1>Horizontal Gallery</h1>
-        <Gallery items={items} />
-      </div>
+      </StyledSliderWrapper>
+      <StyledImageContainer>
+        <StyledImage
+          src="/images/Platzhalter.jpg"
+          alt="Klubstudio"
+          width={1200}
+          height={500}
+        />
+      </StyledImageContainer>
+      <StyledTeamMembersContainer>
+        <StyledTeamMemberContainerLeft>
+          <StyledMemberImageContainer>
+            <StyledMemberImage
+              src="/images/Platzhalter.jpg"
+              alt="Klubstudio"
+              width={1200}
+              height={500}
+            />
+          </StyledMemberImageContainer>
+          <StyledParagraph>
+            Hallo ich bin <StyledSpanBold>Maischa</StyledSpanBold> und ich kann
+            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+          </StyledParagraph>
+        </StyledTeamMemberContainerLeft>
+        <StyledTeamMemberContainerRight>
+          <StyledMemberImageContainer>
+            <StyledMemberImage
+              src="/images/Platzhalter.jpg"
+              alt="Klubstudio"
+              width={1200}
+              height={500}
+            />
+          </StyledMemberImageContainer>
+          <StyledParagraph>
+            Hallo ich bin <StyledSpanBold>Stellan</StyledSpanBold> und ich kann
+            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+          </StyledParagraph>
+        </StyledTeamMemberContainerRight>
+        <StyledTeamMemberContainerLeft>
+          <StyledMemberImageContainer>
+            <StyledMemberImage
+              src="/images/Platzhalter.jpg"
+              alt="Klubstudio"
+              width={1200}
+              height={500}
+            />
+          </StyledMemberImageContainer>
+          <StyledParagraph>
+            Hallo ich bin <StyledSpanBold>Clara</StyledSpanBold> und ich kann
+            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+          </StyledParagraph>
+        </StyledTeamMemberContainerLeft>
+      </StyledTeamMembersContainer>
     </Layout>
   );
 }
+
+const StyledSliderWrapper = styled.div`
+  margin-top: 6rem;
+`;
+
+const StyledTeamMembersContainer = styled.div`
+  padding: 1rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+`;
+
+const StyledMemberImageContainer = styled.div`
+  width: 200px;
+  height: 200px;
+  padding: 1rem;
+`;
+
+const StyledMemberImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+`;
+
+const StyledParagraph = styled.p`
+  line-height: 1.5;
+  color: ${theme.primaryColor1};
+`;
+
+const StyledSpanBold = styled.span`
+  font-weight: 800;
+`;
+
+const StyledSpanBorder = styled.span`
+  font-weight: 800;
+  padding: 0.15rem;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
+  margin-left: 0.15rem;
+  margin-right: 0.15rem;
+  border-radius: 15px;
+  border: solid ${theme.primaryColor1};
+`;
+
+const StyledTeamMemberContainerLeft = styled.div`
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  height: fit-content;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+`;
+
+const StyledTeamMemberContainerRight = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: right;
+  width: 100%;
+  height: fit-content;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /* text-align: right; */
+`;
+
+const StyledSlideContainer = styled.div`
+  width: 300px;
+  height: 500px;
+  padding: 1.5rem;
+  background-color: ${theme.secondaryColor};
+  color: ${theme.primaryColor2};
+`;
+
+const StyledSlideContainer2 = styled.div`
+  width: 300px;
+  height: 500px;
+  padding: 1.5rem;
+  background-color: ${theme.primaryColor2};
+  color: ${theme.secondaryColor};
+`;
 
 const StyledImageHeadContainer = styled.div`
   display: flex;
@@ -100,7 +259,7 @@ const StyledH1 = styled.h1`
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   margin: 0;
   margin-top: 10rem;
   margin-bottom: 3rem;
@@ -113,7 +272,8 @@ const StyledContentArea = styled.div`
   justify-content: space-evenly;
   width: 100%;
   margin: 0;
-  margin-top: 11rem;
+  margin-top: 13.5rem;
+  margin-bottom: 6rem;
 `;
 
 const StyledTextWrapper = styled.div`
@@ -129,8 +289,7 @@ const StyledImageContainer = styled.div`
   width: 100%;
   height: 400px;
   overflow: hidden;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  margin-top: -0.2rem;
 `;
 
 const StyledImage = styled(Image)`

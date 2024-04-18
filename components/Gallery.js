@@ -24,3 +24,9 @@ const Gallery = ({ items }) => {
 };
 
 export default Gallery;
+
+// const items = [
+//     <StyledSlideContainer key={1}>Container 1</StyledSlideContainer>,
+//     <StyledSlideContainer key={2}>Container 2</StyledSlideContainer>,
+//     <StyledSlideContainer key={3}>Container 3</StyledSlideContainer>,
+//   ];
