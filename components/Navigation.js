@@ -119,6 +119,7 @@ const StyledNavigation = styled.nav`
   transition: right 0.5s ease; /* Transition for menu animation */
   background-color: #11a984;
   color: white;
+  z-index: 100;
 `;
 
 const StyledMenuToggle = styled.div`

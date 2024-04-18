@@ -58,7 +58,9 @@ export default function HomePage() {
           height={500}
         />
       </StyledImageHeadContainer>
-      <StyledH1>CORPORATE FOTOGRAFIE</StyledH1>
+      <StyledH1>
+        CORPORATE&nbsp;&nbsp;<StyledSpanThin> FOTOGRAFIE</StyledSpanThin>
+      </StyledH1>
       <StyledContentArea>
         <StyledTextWrapper>
           <h2>VISION</h2>
@@ -207,6 +209,10 @@ const StyledSpanBorder = styled.span`
   margin-right: 0.15rem;
   border-radius: 15px;
   border: solid ${theme.primaryColor1};
+`;
+
+const StyledSpanThin = styled.span`
+  font-weight: 200;
 `;
 
 const StyledTeamMemberContainerLeft = styled.div`
