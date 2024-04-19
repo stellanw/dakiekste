@@ -258,7 +258,7 @@ const StyledImageHeadContainer = styled.div`
   width: 100%;
   height: 400px;
   overflow: hidden;
-  top: 0;
+  top: -0.1rem;
 `;
 
 const StyledH1 = styled.h1`

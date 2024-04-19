@@ -71,13 +71,13 @@ export default function Navigation() {
       </StyledMenuToggle>
       <StyledUl>
         <StyledNavButton>
-          <StyledLink href="/leistung">wat</StyledLink>
-        </StyledNavButton>
-        <StyledNavButton>
           <StyledLink href="/team">team</StyledLink>
         </StyledNavButton>
         <StyledNavButton>
-          <StyledLink href="/klubstudio">klubstudio</StyledLink>
+          <StyledLink href="/leistung">leistung</StyledLink>
+        </StyledNavButton>
+        <StyledNavButton>
+          <StyledLink href="/klubstudio">studio</StyledLink>
         </StyledNavButton>
         <StyledNavButton>
           <StyledLink href="/kontakt">kontakt</StyledLink>
@@ -92,7 +92,7 @@ const rotateAnimation = keyframes`
     transform: rotate(0deg);
   }
   to {
-    transform: rotate(105deg);
+    transform: rotate(-10deg);
   }
 `;
 
@@ -132,6 +132,7 @@ const StyledIconWrapper = styled.div`
   align-items: center;
   padding: 0.1rem;
   transition: transform 0.5s ease;
+  transform: scaleX(-1);
 
   ${({ animationActive }) =>
     animationActive &&
