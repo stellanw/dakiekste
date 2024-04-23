@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import styled from "styled-components";
 
-export default function Leistung() {
+export default function Preise() {
   return (
     <Layout>
       <StyledDiv>

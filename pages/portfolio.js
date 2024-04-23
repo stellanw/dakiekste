@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout";
 import styled from "styled-components";
 
-export default function Team() {
+export default function Portfolio() {
   return (
     <Layout>
       <StyledDiv>
-        <StyledH1>Dakiekste Team</StyledH1>
-        <p>Unser Team besteht aus fünf kreativen Köpfen mit ...</p>
+        <StyledH1>Portfolio</StyledH1>
+        <p>Hier kommt unser Portfolio ...</p>
         <h2>Maischa</h2>
         <p>
           Mit 10 Jahren Erfahrung hinter der Kamera ist Maischa besonders in den

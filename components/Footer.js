@@ -44,19 +44,16 @@ export default function Footer() {
 }
 
 const StyledFooter = styled.footer`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Zwei Spalten mit gleicher Breite */
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
-  padding: 1rem;
+  padding: 2rem;
   bottom: 0;
   flex-shrink: 0;
   width: 100%;
   font-size: 1.2rem;
   margin: 0;
-  height: 8rem;
+  height: 14rem;
   background-color: #e9e8fb;
   color: #11a984;
 `;
