@@ -66,6 +66,7 @@ const StyledLogoWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-left: 2rem;
+  padding-top: 1rem;
 `;
 
 const StyledLogoH1 = styled.h3`

@@ -78,4 +78,8 @@ const StyledBottomContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 2rem;
+
+  @media (max-width: 1030px) {
+    justify-content: center;
+  }
 `;

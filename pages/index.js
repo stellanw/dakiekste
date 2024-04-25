@@ -5,6 +5,8 @@ import { theme } from "@/styles";
 import SliderComplete from "@/components/SlideComplete";
 import SplitTextBox from "@/components/SplitTextBox";
 import HeadTextBox from "@/components/HeadTextBox";
+import LeistungBox from "@/components/LeistungBox";
+import EndBox from "@/components/EndBox";
 
 export default function HomePage() {
   return (
@@ -23,6 +25,7 @@ export default function HomePage() {
         <StyledH1>ZUR STRATEGIE</StyledH1>
       </StyledHeadlineContainer>
       <HeadTextBox />
+      {/* <LeistungBox /> */}
       <StyledImageContainer>
         <StyledImage
           src="/images/Platzhalter.jpg"
@@ -84,6 +87,7 @@ export default function HomePage() {
           </StyledParagraph>
         </StyledTeamMemberContainerLeft>
       </StyledTeamMembersContainer>
+      <EndBox />
     </Layout>
   );
 }
