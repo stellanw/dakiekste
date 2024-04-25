@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import styled, { keyframes, css } from "styled-components";
+import { theme } from "@/styles";
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -71,16 +72,13 @@ export default function Navigation() {
       </StyledMenuToggle>
       <StyledUl>
         <StyledNavButton>
-          <StyledLink href="/team">team</StyledLink>
-        </StyledNavButton>
-        <StyledNavButton>
-          <StyledLink href="/leistung">leistung</StyledLink>
+          <StyledLink href="/portfolio">portfolio</StyledLink>
         </StyledNavButton>
         <StyledNavButton>
           <StyledLink href="/klubstudio">studio</StyledLink>
         </StyledNavButton>
         <StyledNavButton>
-          <StyledLink href="/kontakt">kontakt</StyledLink>
+          <StyledLink href="/preise">preise</StyledLink>
         </StyledNavButton>
       </StyledUl>
     </StyledNavigation>
@@ -117,7 +115,7 @@ const StyledNavigation = styled.nav`
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   transition: right 0.5s ease; /* Transition for menu animation */
-  background-color: #11a984;
+  background-color: ${theme.primaryColor};
   color: white;
   z-index: 100;
 `;

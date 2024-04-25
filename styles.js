@@ -2,11 +2,20 @@ import { createGlobalStyle } from "styled-components";
 
 export const theme = {
   textColor: "#1D1D1B",
-  primaryColor1: "#11A984",
-  primaryColor2: "#16C097",
-  secondaryColor: "#E9E8FB",
+  primaryColor: "#11A984",
+  secondaryColorPurple: "#E2E0F5",
+  secondaryColorBeige: "#F9F8F3",
   alertColor: "red",
   confirmColor: "green",
+
+  fontSizes: {
+    xs: "0.8rem",
+    small: "1rem",
+    medium: "1.3rem",
+    large: "1.6rem",
+    xl: "2rem",
+    xxl: "2.5rem",
+  },
 };
 
 export default createGlobalStyle`
