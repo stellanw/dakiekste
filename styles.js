@@ -35,6 +35,8 @@ export default createGlobalStyle`
     height: 100%;
     width: 100%;
     font-family: "Bricolage Grotesque", sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 a {
 color: ${theme.textColor};
@@ -53,5 +55,7 @@ li{
 a:hover {
 
   }
+
+
 
 `;
