@@ -82,4 +82,8 @@ const StyledBottomContainer = styled.div`
   @media (max-width: 1030px) {
     justify-content: center;
   }
+
+  @media (max-width: 700px) {
+    justify-content: start;
+  }
 `;

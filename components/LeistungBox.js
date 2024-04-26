@@ -7,7 +7,7 @@ export default function LeistungBox() {
   return (
     <StyledLeistungContainer>
       <StyledLeftContainer>
-        <h2>HEADLINE ZU UNSEREN TOLLEN LEISTUNGEN</h2>
+        <StyledHeadline>UNSERE LEISTUNGEN</StyledHeadline>
         <p>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
           nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
@@ -74,6 +74,10 @@ const StyledLeftContainer = styled.div`
   @media (min-width: 385px) {
     width: 100%;
   }
+`;
+
+const StyledHeadline = styled.h1`
+  padding-bottom: 1rem;
 `;
 
 const StyledRightContainer = styled.div`

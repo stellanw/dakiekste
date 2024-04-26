@@ -15,6 +15,7 @@ export const theme = {
     large: "1.6rem",
     xl: "2rem",
     xxl: "2.5rem",
+    xxxl: "3rem",
   },
 };
 
@@ -40,10 +41,10 @@ color: ${theme.textColor};
 text-decoration: none;
 };
 
-/* header, main, Footer {
+header, main, Footer {
     flex-shrink: 0;
     flex-grow: 0;
-} */
+}
 
 li{
   list-style: none;
