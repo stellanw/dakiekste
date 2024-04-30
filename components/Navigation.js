@@ -72,6 +72,9 @@ export default function Navigation() {
       </StyledMenuToggle>
       <StyledUl>
         <StyledNavButton>
+          <StyledLink href="/">home</StyledLink>
+        </StyledNavButton>
+        <StyledNavButton>
           <StyledLink href="/portfolio">portfolio</StyledLink>
         </StyledNavButton>
         <StyledNavButton>

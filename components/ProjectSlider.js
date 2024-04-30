@@ -24,16 +24,25 @@ export default function ProjectSlider({ projects }) {
       { threshold: [0, 0.3, 0.7, 1] }
     );
 
-    if (sliderRef.current) {
-      observer.observe(sliderRef.current);
+    // Ensure that sliderRef and its children are valid
+    if (
+      sliderRef.current &&
+      sliderRef.current.children &&
+      sliderRef.current.children.length > 0
+    ) {
+      observer.observe(sliderRef.current.children[0]);
     }
 
     return () => {
-      if (sliderRef.current) {
-        observer.unobserve(sliderRef.current);
+      if (
+        sliderRef.current &&
+        sliderRef.current.children &&
+        sliderRef.current.children.length > 0
+      ) {
+        observer.unobserve(sliderRef.current.children[0]);
       }
     };
-  }, []);
+  }, [sliderRef.current]);
 
   const handleAfterChange = (index) => {
     if (isVisible) {
@@ -64,13 +73,23 @@ export default function ProjectSlider({ projects }) {
 
   const handlePrevClick = () => {
     if (sliderRef.current && sliderRef.current.slickPrev) {
+      // Check if the current slide is already at the beginning
+      if (currentSlide === 0) {
+        return; // Exit the function early to prevent decrementing the index below 0
+      }
       sliderRef.current.slickPrev();
+      setCurrentSlide((prevSlide) => prevSlide - 1);
     }
   };
 
   const handleNextClick = () => {
     if (sliderRef.current && sliderRef.current.slickNext) {
+      // Check if the current slide is already at the end
+      if (currentSlide === totalSlides - 1) {
+        return; // Exit the function early to prevent incrementing the index beyond the last slide
+      }
       sliderRef.current.slickNext();
+      setCurrentSlide((prevSlide) => prevSlide + 1);
     }
   };
 
@@ -79,81 +98,97 @@ export default function ProjectSlider({ projects }) {
       <StyledIndex className="current-project">
         {currentSlide + 1}/{totalSlides}
       </StyledIndex>
-      <SliderContainer ref={sliderRef} onScroll={handleScroll}>
-        <StyledSlider {...settings}>
+      <SliderContainer onScroll={handleScroll}>
+        <StyledSlider ref={sliderRef} {...settings}>
           {projects.map((project, index) => (
             <Slide key={index}>
-              <ContentContainer>
-                <StyledImage1
-                  src={project.image1}
-                  alt={project.title}
-                  width={1400}
-                  height={500}
-                />
-                <ProjectDetails>
-                  <h1>{project.title}</h1>
-                  <StyledImage2
-                    src={project.image2}
-                    alt={project.title}
-                    width={1400}
-                    height={500}
-                  />
-
-                  <p>{project.description}</p>
-                </ProjectDetails>
-              </ContentContainer>
+              <StyledImage
+                src={project.image}
+                alt={project.title}
+                width={1400}
+                height={1400}
+              />
+              <ProjectDetails>
+                <StyledTitle>{project.title}</StyledTitle>
+                <StyledTags>
+                  {project.tags.map((tag, index) => (
+                    <StyledTag key={index}>#{tag}</StyledTag>
+                  ))}
+                </StyledTags>
+                <StyledLink href="/portfolio">Mehr Projekte</StyledLink>
+                <CustomPrevArrow onClick={handlePrevClick}>
+                  <IoChevronBackOutline />
+                </CustomPrevArrow>
+                <CustomNextArrow onClick={handleNextClick}>
+                  <IoChevronForwardOutline />
+                </CustomNextArrow>
+              </ProjectDetails>
             </Slide>
           ))}
         </StyledSlider>
       </SliderContainer>
-      <StyledLink href="/portfolio">Mehr Projekte</StyledLink>
-      {/* <CustomPrevArrow onClick={handlePrevClick}>
-        <IoChevronBackOutline />
-      </CustomPrevArrow>
-      <CustomNextArrow onClick={handleNextClick}>
-        <IoChevronForwardOutline />
-      </CustomNextArrow> */}
     </ProjectSliderWrapper>
   );
 }
+
+const StyledTitle = styled.h1`
+  margin-top: 1rem;
+  font-weight: 500;
+`;
+
+const StyledTags = styled.ul`
+  display: flex;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  gap: 1rem;
+  justify-content: end;
+  align-items: end;
+  height: 100%;
+`;
+
+const StyledTag = styled.li`
+  color: ${theme.primaryColor};
+  font-size: ${theme.fontSizes.xs};
+  border: solid 1px;
+  border-radius: 20px;
+  padding: 0.3rem 0.5rem 0.3rem;
+`;
+
 const Slide = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
 `;
 
-const ContentContainer = styled.div`
-  display: flex;
+const StyledImage = styled(Image)`
   width: 100%;
-`;
-
-const StyledImage1 = styled(Image)`
-  flex: 0 0 50%;
+  height: 800px;
   overflow: hidden;
   object-fit: cover;
   object-position: center;
-  height: 600px;
-`;
-
-const StyledImage2 = styled(Image)`
-  position: absolute;
-  top: 6rem;
-  right: 3em;
-  height: 300px;
-  width: auto;
+  @media (max-width: 1000px) {
+    height: 700px;
+  }
+  @media (max-width: 800px) {
+    height: 600px;
+  }
 `;
 
 const ProjectDetails = styled.div`
   color: ${theme.primaryColor};
-  flex: 1;
-  position: relative;
-  background-color: ${theme.secondaryColorPurple};
-  height: 600px;
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
   padding: 2rem;
 `;
 
 const ProjectSliderWrapper = styled.div`
-  margin: 20px 0;
-  position: relative; /* Ensure positioning context for arrows */
+  margin: 0;
+  margin-bottom: -0.5rem;
+  position: relative;
+  /* height: 600px; */
 `;
 
 const SliderContainer = styled.div`
@@ -180,28 +215,33 @@ const StyledIndex = styled.div`
 const CustomPrevArrow = styled.div`
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 1rem;
   z-index: 1;
+  color: ${theme.primaryColor};
   cursor: pointer;
-  color: ${theme.secondaryColorBeige};
 `;
 
 const CustomNextArrow = styled.div`
   position: absolute;
   top: 50%;
-  right: 20px;
+  transform: translateY(-50%);
+  right: 1rem;
   z-index: 1;
+  color: ${theme.primaryColor};
   cursor: pointer;
-  color: ${theme.secondaryColorBeige};
 `;
 
 const StyledLink = styled(Link)`
   position: absolute;
   bottom: 2rem;
   left: 2rem;
-  color: ${theme.primaryColor};
+  background-color: ${theme.primaryColor};
+  color: white;
   font-size: ${theme.fontSizes.xs};
-  border: solid;
   border-radius: 20px;
   padding: 0.3rem 0.5rem 0.3rem;
+  &:hover {
+    padding: 0.35rem 0.55rem 0.35rem;
+    font-weight: 500;
+  }
 `;

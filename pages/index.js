@@ -14,26 +14,26 @@ export default function HomePage() {
     {
       title: "PROJEKT 01",
       description: "Description of Project 1",
-      image1: "/images/Projekt.png",
-      image2: "/images/Projekt.png",
+      image: "/images/Projekt.png",
+      tags: ["Corporate", "Image", "Reportage"],
     },
     {
-      title: "Project 2",
+      title: "PROJEKT 2",
       description: "Description of Project 2",
-      image1: "/images/Projekt.png",
-      image2: "/images/Projekt.png",
+      image: "/images/Projekt.png",
+      tags: ["Mitarbeiter Portrait", "Business Fotografie"],
     },
     {
-      title: "Project 3",
+      title: "PROJEKT 3",
       description: "Description of Project 2",
-      image1: "/images/Projekt.png",
-      image2: "/images/Projekt.png",
+      image: "/images/Projekt.png",
+      tags: ["Fotoreportage", "Reportage"],
     },
   ];
   return (
     <Layout>
       <StyledImageHeadContainer>
-        <StyledImage
+        <StyledHeadImage
           src="/images/Dakiekste_header_image_.jpg"
           alt="dakiekste header image"
           priority
@@ -73,6 +73,19 @@ const StyledImageHeadContainer = styled.div`
   height: 400px;
   /* overflow: hidden; */
   top: -3rem;
+  @media (min-width: 750px) {
+    height: 600px;
+  }
+  @media (min-width: 1100px) {
+    height: 800px;
+  }
+`;
+
+const StyledHeadImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 `;
 
 const StyledHeadlineContainer = styled.div`

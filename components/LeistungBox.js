@@ -5,28 +5,14 @@ import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
 
 export default function LeistungBox() {
-  const [isOpen1, setIsOpen1] = useState(false); // State for first overlay
-  const [isOpen2, setIsOpen2] = useState(false); // State for second overlay
-  const [isOpen3, setIsOpen3] = useState(false); // State for third overlay
-  const [isOpen4, setIsOpen4] = useState(false); // State for fourth overlay
+  const [isOpen, setIsOpen] = useState([false, false, false, false]);
 
   const toggleOverlay = (index) => {
-    switch (index) {
-      case 1:
-        setIsOpen1(!isOpen1);
-        break;
-      case 2:
-        setIsOpen2(!isOpen2);
-        break;
-      case 3:
-        setIsOpen3(!isOpen3);
-        break;
-      case 4:
-        setIsOpen4(!isOpen4);
-        break;
-      default:
-        break;
-    }
+    setIsOpen((prev) => {
+      const newState = [...prev];
+      newState[index] = !newState[index];
+      return newState;
+    });
   };
 
   return (
@@ -48,35 +34,43 @@ export default function LeistungBox() {
           <StyledLi>
             <span>01</span>{" "}
             <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(1)} />
-            {isOpen1 && (
-              <OverlayParagraph>
-                This is the content for overlay 1. You can customize it as
-                needed.
-              </OverlayParagraph>
-            )}
+            <IoAddOutline onClick={() => toggleOverlay(0)} />
           </StyledLi>
+          {isOpen[0] && (
+            <StyledOverlayParagraph>
+              This is the content for overlay 1. You can customize it as needed.
+            </StyledOverlayParagraph>
+          )}
           <StyledLi>
             <span>02</span>{" "}
             <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(2)} />
-            {isOpen2 && (
-              <OverlayParagraph>
-                This is the content for overlay 1. You can customize it as
-                needed.
-              </OverlayParagraph>
-            )}
+            <IoAddOutline onClick={() => toggleOverlay(1)} />
           </StyledLi>
+          {isOpen[1] && (
+            <StyledOverlayParagraph>
+              This is the content for overlay 2. You can customize it as needed.
+            </StyledOverlayParagraph>
+          )}
           <StyledLi>
             <span>03</span>{" "}
             <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(3)} />
+            <IoAddOutline onClick={() => toggleOverlay(2)} />
           </StyledLi>
+          {isOpen[2] && (
+            <StyledOverlayParagraph>
+              This is the content for overlay 3. You can customize it as needed.
+            </StyledOverlayParagraph>
+          )}
           <StyledLi>
             <span>04</span>{" "}
             <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(4)} />
+            <IoAddOutline onClick={() => toggleOverlay(3)} />
           </StyledLi>
+          {isOpen[3] && (
+            <StyledOverlayParagraph>
+              This is the content for overlay 4. You can customize it as needed.
+            </StyledOverlayParagraph>
+          )}
         </StyledUl>
       </StyledLeftContainer>
       <StyledRightContainer>
@@ -90,20 +84,6 @@ export default function LeistungBox() {
     </StyledLeistungContainer>
   );
 }
-
-const OverlayParagraph = styled.p`
-  position: absolute;
-  top: 3.28rem;
-  left: -0.06rem;
-  height: 200px;
-  background-color: ${theme.primaryColor};
-  color: white;
-  padding: 20px;
-  /* border-top: solid white 1px; */
-  border-radius: 0 0 5px 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 5;
-`;
 
 const StyledLeistungContainer = styled.section`
   display: flex;
@@ -154,7 +134,7 @@ const StyledRightContainer = styled.div`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  height: 660px;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   @media (max-width: 385px) {
@@ -166,25 +146,33 @@ const StyledSpanBold = styled.span`
   font-weight: 800;
 `;
 
+const StyledUl = styled.ul`
+  position: relative;
+  min-width: 350px;
+  max-width: 500px;
+
+  padding: 0;
+  padding-right: 2rem;
+  padding-top: 4rem;
+`;
+
 const StyledLi = styled.li`
   display: flex;
   position: relative;
   justify-content: space-between;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  border-bottom: solid white 1px;
+  overflow: hidden;
 `;
 
-const StyledUl = styled.ul`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: space-evenly; */
-  position: relative;
-  min-width: 350px;
-  max-width: 500px;
-  /* margin: auto; */
-  padding: 0;
-  padding-right: 2rem;
-  padding-top: 4rem;
+const StyledOverlayParagraph = styled.p`
+  margin-top: ${({ isOpen }) =>
+    isOpen ? "0" : "-100%"}; /* Start the paragraph outside of the view */
+  margin-top: -15px;
+  font-weight: 200;
+  padding-top: 0.5rem;
   padding-bottom: 1rem;
+  background-color: ${theme.primaryColor};
+  border-bottom: solid white 1px;
+  transition: margin-top 5s ease;
 `;
