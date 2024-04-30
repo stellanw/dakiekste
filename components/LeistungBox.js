@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { theme } from "@/styles";
 import Image from "next/image";
 import { IoAddOutline } from "react-icons/io5";
@@ -100,7 +100,7 @@ const StyledLeistungContainer = styled.section`
 `;
 
 const StyledLeftContainer = styled.div`
-  padding: 4rem;
+  padding: 2rem;
   width: 50%;
   @media (max-width: 700px) {
     width: 100%;
@@ -148,11 +148,11 @@ const StyledSpanBold = styled.span`
 
 const StyledUl = styled.ul`
   position: relative;
-  min-width: 350px;
+  min-width: 250px;
   max-width: 500px;
-
+  margin: auto;
   padding: 0;
-  padding-right: 2rem;
+
   padding-top: 4rem;
 `;
 
@@ -162,17 +162,28 @@ const StyledLi = styled.li`
   justify-content: space-between;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 const StyledOverlayParagraph = styled.p`
-  margin-top: ${({ isOpen }) =>
-    isOpen ? "0" : "-100%"}; /* Start the paragraph outside of the view */
-  margin-top: -15px;
   font-weight: 200;
   padding-top: 0.5rem;
-  padding-bottom: 1rem;
+
+  height: 100px;
   background-color: ${theme.primaryColor};
-  border-bottom: solid white 1px;
-  transition: margin-top 5s ease;
+  border-top: solid white 1px;
+
+  animation-name: slide-animation;
+  animation-duration: 0.5s;
+
+  @keyframes slide-animation {
+    0% {
+      height: 0;
+      opacity: -2;
+    }
+    100% {
+      height: 100px;
+      opacity: 1;
+    }
+  }
 `;

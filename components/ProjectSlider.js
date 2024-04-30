@@ -116,17 +116,17 @@ export default function ProjectSlider({ projects }) {
                   ))}
                 </StyledTags>
                 <StyledLink href="/portfolio">Mehr Projekte</StyledLink>
-                <CustomPrevArrow onClick={handlePrevClick}>
-                  <IoChevronBackOutline />
-                </CustomPrevArrow>
-                <CustomNextArrow onClick={handleNextClick}>
-                  <IoChevronForwardOutline />
-                </CustomNextArrow>
               </ProjectDetails>
             </Slide>
           ))}
         </StyledSlider>
       </SliderContainer>
+      <CustomPrevArrow onClick={handlePrevClick}>
+        <IoChevronBackOutline />
+      </CustomPrevArrow>
+      <CustomNextArrow onClick={handleNextClick}>
+        <IoChevronForwardOutline />
+      </CustomNextArrow>
     </ProjectSliderWrapper>
   );
 }
@@ -224,7 +224,7 @@ const CustomPrevArrow = styled.div`
 const CustomNextArrow = styled.div`
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  /* transform: translateY(-50%); */
   right: 1rem;
   z-index: 1;
   color: ${theme.primaryColor};
