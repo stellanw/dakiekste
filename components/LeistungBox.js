@@ -11,6 +11,11 @@ export default function LeistungBox() {
     setIsOpen((prev) => {
       const newState = [...prev];
       newState[index] = !newState[index];
+      for (let i = 0; i < newState.length; i++) {
+        if (i !== index) {
+          newState[i] = false;
+        }
+      }
       return newState;
     });
   };
@@ -38,7 +43,11 @@ export default function LeistungBox() {
           </StyledLi>
           {isOpen[0] && (
             <StyledOverlayParagraph>
-              This is the content for overlay 1. You can customize it as needed.
+              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+              accusam et justo duo dolores et ea rebum. Stet clita kasd
+              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             </StyledOverlayParagraph>
           )}
           <StyledLi>
@@ -48,7 +57,11 @@ export default function LeistungBox() {
           </StyledLi>
           {isOpen[1] && (
             <StyledOverlayParagraph>
-              This is the content for overlay 2. You can customize it as needed.
+              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+              accusam et justo duo dolores et ea rebum. Stet clita kasd
+              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             </StyledOverlayParagraph>
           )}
           <StyledLi>
@@ -58,7 +71,11 @@ export default function LeistungBox() {
           </StyledLi>
           {isOpen[2] && (
             <StyledOverlayParagraph>
-              This is the content for overlay 3. You can customize it as needed.
+              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+              accusam et justo duo dolores et ea rebum. Stet clita kasd
+              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             </StyledOverlayParagraph>
           )}
           <StyledLi>
@@ -68,17 +85,21 @@ export default function LeistungBox() {
           </StyledLi>
           {isOpen[3] && (
             <StyledOverlayParagraph>
-              This is the content for overlay 4. You can customize it as needed.
+              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
+              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+              accusam et justo duo dolores et ea rebum. Stet clita kasd
+              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             </StyledOverlayParagraph>
           )}
         </StyledUl>
       </StyledLeftContainer>
       <StyledRightContainer>
         <StyledImage
-          width={500}
-          height={1200}
-          src="/images/PlatzhalterLeistungen.png"
+          src="/images/Klubstudio.png"
           alt="image of person working"
+          layout="fill"
+          objectFit="cover"
         />
       </StyledRightContainer>
     </StyledLeistungContainer>
@@ -88,27 +109,46 @@ export default function LeistungBox() {
 const StyledLeistungContainer = styled.section`
   display: flex;
   flex-direction: row;
+
   width: 100%;
+  max-height: 800px;
   margin: 0;
   padding: 0;
+
   background-color: ${theme.primaryColor};
   color: ${theme.secondaryColorBeige};
   margin-bottom: -0.5rem;
-  @media (max-width: 700px) {
-    flex-wrap: wrap-reverse;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    max-height: 2000px;
   }
 `;
 
 const StyledLeftContainer = styled.div`
   padding: 2rem;
-  width: 50%;
-  @media (max-width: 700px) {
-    width: 100%;
-  }
+  width: 100%;
+  min-width: 300px;
+  max-width: 600px;
+`;
 
-  @media (min-width: 385px) {
-    width: 100%;
-  }
+const StyledRightContainer = styled.div`
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 800px;
+`;
+
+const StyledImage = styled(Image)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const StyledHeadline = styled.h1`
@@ -118,28 +158,7 @@ const StyledHeadline = styled.h1`
 
 const StyledParagraph = styled.p`
   font-weight: 300;
-`;
-
-const StyledRightContainer = styled.div`
-  width: 50%;
-
-  @media (max-width: 700px) {
-    width: 100%;
-  }
-
-  @media (min-width: 385px) {
-    width: 100%;
-  }
-`;
-
-const StyledImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  @media (max-width: 385px) {
-    height: 400px;
-  }
+  max-width: 500px;
 `;
 
 const StyledSpanBold = styled.span`
@@ -148,21 +167,21 @@ const StyledSpanBold = styled.span`
 
 const StyledUl = styled.ul`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   min-width: 250px;
   max-width: 500px;
-  margin: auto;
+
   padding: 0;
 
-  padding-top: 4rem;
+  height: 500px;
 `;
 
 const StyledLi = styled.li`
   display: flex;
   position: relative;
   justify-content: space-between;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  /* overflow: hidden; */
 `;
 
 const StyledOverlayParagraph = styled.p`
@@ -172,7 +191,7 @@ const StyledOverlayParagraph = styled.p`
   height: 100px;
   background-color: ${theme.primaryColor};
   border-top: solid white 1px;
-
+  height: fit-content;
   animation-name: slide-animation;
   animation-duration: 0.5s;
 
@@ -182,7 +201,7 @@ const StyledOverlayParagraph = styled.p`
       opacity: -2;
     }
     100% {
-      height: 100px;
+      height: fit-content;
       opacity: 1;
     }
   }

@@ -8,6 +8,7 @@ import EndBox from "@/components/EndBox";
 
 import Team from "@/components/Team";
 import ProjectSlider from "../components/ProjectSlider";
+import WorkflowSlider from "@/components/WorkflowSlider";
 
 export default function HomePage() {
   const projects = [
@@ -47,16 +48,17 @@ export default function HomePage() {
       </StyledHeadlineContainer>
       <HeadTextBox />
       <LeistungBox />
-      <StyledImageContainer>
+      {/* <StyledImageContainer>
         <StyledImage
           src="/images/Platzhalter.jpg"
           alt="Klubstudio"
           width={1200}
           height={500}
         />
-      </StyledImageContainer>
+      </StyledImageContainer> */}
       <Team />
       <ProjectSlider projects={projects} />
+      <WorkflowSlider />
       <EndBox />
     </Layout>
   );

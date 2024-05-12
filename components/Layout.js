@@ -70,16 +70,19 @@ const StyledLogoWrapper = styled.div`
 `;
 
 const StyledLogoH1 = styled.h3`
-  color: ${(props) => (props.isHomepage ? "white" : "black")};
+  /* color: ${(props) => (props.isHomepage ? "white" : "black")}; */
+  color: white;
 `;
 
 const StyledIconWrapper = styled.div`
   padding-left: 0.2rem;
   .logo-path {
-    stroke: ${(props) => (props.isHomepage ? "white" : "black")};
+    /* stroke: ${(props) => (props.isHomepage ? "white" : "black")}; */
+    stroke: white;
   }
   .logo-fill {
-    fill: ${(props) => (props.isHomepage ? "white" : "black")};
+    /* fill: ${(props) => (props.isHomepage ? "white" : "black")}; */
+    fill: white;
   }
 `;
 

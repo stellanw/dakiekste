@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
-import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick.css"; /** import benötigt? */
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
 import Image from "next/image";

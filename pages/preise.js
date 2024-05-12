@@ -1,35 +1,91 @@
 import Layout from "@/components/Layout";
 import styled from "styled-components";
+import Image from "next/image";
 
 export default function Preise() {
   return (
     <Layout>
-      <StyledDiv>
-        <StyledH1>Wat du kriegst / Leistung</StyledH1>
-        <p>Unser Team besteht aus fünf kreativen Köpfen mit ...</p>
-        <h2>Angebot</h2>
-        <p>
-          Mit 10 Jahren Erfahrung hinter der Kamera ist Maischa besonders in den
-          Bereichen Portrait, Stilllife und Dokumentation versiert. Neben der
-          Fotografie hat sie eine Leidenschaft für Kommunikationsdesign,
-          insbesondere Corporate und Editorial Design, sowie für Upcycling und
-          Nachhaltigkeit. Maischa ist motiviert, offen für Zusammenarbeit und
-          stets auf der Suche nach neuen kreativen Projekten.
-        </p>
-      </StyledDiv>
+      <StyledImageHeadContainer>
+        <StyledHeadImage
+          src="/images/Dakiekste_header_image_.jpg"
+          alt="dakiekste header image"
+          priority
+          width={1400}
+          height={500}
+        />
+      </StyledImageHeadContainer>
+      <StyledHeadlineContainer>
+        <StyledH1Thin>PREISE&nbsp;&nbsp;</StyledH1Thin>
+        <StyledH1>ZU UNSEREM SERVICE</StyledH1>
+      </StyledHeadlineContainer>
     </Layout>
   );
 }
 
-const StyledH1 = styled.h1`
-  font-size: 2rem;
-  margin: 0;
-  padding-bottom: 0.5rem;
-  color: black;
+const StyledSpanThin = styled.span`
+  font-weight: 200;
+`;
+const StyledImageHeadContainer = styled.div`
+  display: flex;
+  position: relative;
+  z-index: -5;
+  width: 100%;
+  height: 400px;
+  /* overflow: hidden; */
+  top: -3rem;
+  @media (min-width: 750px) {
+    height: 600px;
+  }
+  @media (min-width: 1100px) {
+    height: 800px;
+  }
 `;
 
-const StyledDiv = styled.div`
+const StyledHeadImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+`;
+
+const StyledHeadlineContainer = styled.div`
   margin-left: 2rem;
-  margin-right: 2rem;
-  margin-top: 0;
+`;
+
+const StyledH1Thin = styled.h1`
+  /* display: flex;
+  justify-content: start;
+  flex-wrap: nowrap; */
+  font-size: 2.2rem;
+  font-weight: 200;
+  margin: 0;
+  margin-top: -14rem;
+  /* margin-bottom: 3rem; */
+  color: white;
+`;
+
+const StyledH1 = styled.h1`
+  /* display: flex;
+  justify-content: start;
+  flex-wrap: nowrap; */
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0;
+  /* margin-top: 10rem; */
+  margin-bottom: 3rem;
+  color: white;
+`;
+
+const StyledImageContainer = styled.div`
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  margin-top: -0.2rem;
+`;
+
+const StyledImage = styled(Image)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
