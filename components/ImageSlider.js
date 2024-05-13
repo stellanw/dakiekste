@@ -4,8 +4,24 @@ import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 import styled from "styled-components";
 import { theme } from "@/styles";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
+import { useState } from "react";
 
 export default function ImageSlider({ images, headline }) {
+  const [photoIndex, setPhotoIndex] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleImageClick = (index) => {
+    setPhotoIndex(index);
+    setIsOpen(true);
+  };
+
+  const handleCloseLightbox = () => {
+    setPhotoIndex(null);
+    setIsOpen(false);
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -23,7 +39,10 @@ export default function ImageSlider({ images, headline }) {
       <StyledHeadline>{headline}</StyledHeadline>
       <StyledSlider {...settings}>
         {images.map((image, index) => (
-          <StyledImageContainer key={index}>
+          <StyledImageContainer
+            key={index}
+            onClick={() => handleImageClick(index)}
+          >
             <StyledImage
               src={image}
               alt={`Image ${index}`}
@@ -33,6 +52,20 @@ export default function ImageSlider({ images, headline }) {
           </StyledImageContainer>
         ))}
       </StyledSlider>
+      {isOpen && (
+        <Lightbox
+          mainSrc={images[photoIndex]}
+          nextSrc={images[(photoIndex + 1) % images.length]}
+          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+          onCloseRequest={handleCloseLightbox}
+          onMovePrevRequest={() =>
+            setPhotoIndex((photoIndex + images.length - 1) % images.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIndex((photoIndex + 1) % images.length)
+          }
+        />
+      )}
     </StyledSlideConatiner>
   );
 }

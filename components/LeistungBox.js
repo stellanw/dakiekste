@@ -99,6 +99,7 @@ export default function LeistungBox() {
           src="/images/Klubstudio.png"
           alt="image of person working"
           layout="fill"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           objectFit="cover"
         />
       </StyledRightContainer>
@@ -118,7 +119,7 @@ const StyledLeistungContainer = styled.section`
   background-color: ${theme.primaryColor};
   color: ${theme.secondaryColorBeige};
   margin-bottom: -0.5rem;
-  @media (max-width: 600px) {
+  @media (max-width: 750px) {
     flex-direction: column;
     max-height: 2000px;
   }
@@ -129,6 +130,9 @@ const StyledLeftContainer = styled.div`
   width: 100%;
   min-width: 300px;
   max-width: 600px;
+  @media (max-width: 750px) {
+    margin: auto;
+  }
 `;
 
 const StyledRightContainer = styled.div`
@@ -169,7 +173,7 @@ const StyledUl = styled.ul`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   min-width: 250px;
   max-width: 500px;
 
@@ -182,12 +186,13 @@ const StyledLi = styled.li`
   display: flex;
   position: relative;
   justify-content: space-between;
+  padding: 2rem;
 `;
 
 const StyledOverlayParagraph = styled.p`
   font-weight: 200;
   padding-top: 0.5rem;
-
+  margin: -1rem 2rem 0 2rem;
   height: 100px;
   background-color: ${theme.primaryColor};
   border-top: solid white 1px;
