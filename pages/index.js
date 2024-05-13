@@ -37,7 +37,7 @@ export default function HomePage() {
         <StyledHeadImage
           src="/images/Dakiekste_header_image_.jpg"
           alt="dakiekste header image"
-          priority
+          priority={true}
           width={1400}
           height={500}
         />

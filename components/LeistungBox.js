@@ -99,6 +99,8 @@ export default function LeistungBox() {
           src="/images/Klubstudio.png"
           alt="image of person working"
           layout="fill"
+          // width={1400}
+          // height={1400}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           objectFit="cover"
         />
