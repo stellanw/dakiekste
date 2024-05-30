@@ -50,8 +50,8 @@ export default function HomePage() {
       <LeistungBox />
       {/* <StyledImageContainer>
         <StyledImage
-          src="/images/Platzhalter.jpg"
-          alt="Klubstudio"
+          src="/images/Team.png"
+          alt="Teamfoto"
           width={1200}
           height={500}
         />
@@ -120,9 +120,9 @@ const StyledH1 = styled.h1`
 
 const StyledImageContainer = styled.div`
   width: 100%;
-  height: 400px;
+  height: 800px;
   overflow: hidden;
-  margin-top: -0.2rem;
+  margin-top: 0.5rem;
 `;
 
 const StyledImage = styled(Image)`

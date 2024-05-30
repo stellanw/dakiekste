@@ -20,35 +20,7 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Foto_MaischaSouaga.jpg"
-              alt="Klubstudio"
-              width={1200}
-              height={500}
-            />
-          </StyledMemberImageContainer>
-          <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Maischa</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
-          </StyledParagraph>
-          <StyledRightWrapper>
-            <StyledLink href="https://www.maischasouaga.com/">
-              <IoEarthOutline />
-            </StyledLink>
-            <StyledLink href="mailto:maischa@dakiekste.com">
-              <IoMailOutline />
-            </StyledLink>
-            {/* <StyledLink href="tel:+4917682472921">
-          <IoCallOutline />
-        </StyledLink> */}
-            <StyledLink href="https://www.instagram.com/maischa_s/">
-              <IoLogoInstagram />
-            </StyledLink>
-          </StyledRightWrapper>
-        </StyledTeamMemberContainer>
-        <StyledTeamMemberContainer>
-          <StyledMemberImageContainer>
-            <StyledMemberImage
-              src="/images/stellan.jpg"
+              src="/images/Stellan_Portrait.jpg"
               alt="Klubstudio"
               width={1200}
               height={500}
@@ -59,7 +31,11 @@ export default function Team() {
             dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
           </StyledParagraph>
           <StyledRightWrapper>
-            <StyledLink href="https://stellanwetzig.de/">
+            <StyledLink
+              href="https://stellanwetzig.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IoEarthOutline />
             </StyledLink>
             <StyledLink href="mailto:stellan@dakiekste.com">
@@ -68,7 +44,11 @@ export default function Team() {
             {/* <StyledLink href="tel:+4917682472921">
           <IoCallOutline />
         </StyledLink> */}
-            <StyledLink href="https://www.instagram.com/stellanwetzig.photography/">
+            <StyledLink
+              href="https://www.instagram.com/stellanwetzig.photography/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IoLogoInstagram />
             </StyledLink>
           </StyledRightWrapper>
@@ -76,7 +56,7 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Clara.jpg"
+              src="/images/Clara_Portrait.jpg"
               alt="Klubstudio"
               width={1200}
               height={500}
@@ -87,7 +67,11 @@ export default function Team() {
             dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
           </StyledParagraph>
           <StyledRightWrapper>
-            <StyledLink href="https://www.claraide.com/home">
+            <StyledLink
+              href="https://www.claraide.com/home"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IoEarthOutline />
             </StyledLink>
             <StyledLink href="mailto:clara@dakiekste.com">
@@ -96,7 +80,47 @@ export default function Team() {
             {/* <StyledLink href="tel:+4917682472921">
           <IoCallOutline />
         </StyledLink> */}
-            <StyledLink href="https://www.instagram.com/claraidephoto/">
+            <StyledLink
+              href="https://www.instagram.com/claraidephoto/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IoLogoInstagram />
+            </StyledLink>
+          </StyledRightWrapper>
+        </StyledTeamMemberContainer>
+        <StyledTeamMemberContainer>
+          <StyledMemberImageContainer>
+            <StyledMemberImage
+              src="/images/Maischa_Portrait.jpg"
+              alt="Klubstudio"
+              width={1200}
+              height={500}
+            />
+          </StyledMemberImageContainer>
+          <StyledParagraph>
+            Hallo ich bin <StyledSpanBold>Maischa</StyledSpanBold> und ich kann
+            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+          </StyledParagraph>
+          <StyledRightWrapper>
+            <StyledLink
+              href="https://www.maischasouaga.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IoEarthOutline />
+            </StyledLink>
+            <StyledLink href="mailto:maischa@dakiekste.com">
+              <IoMailOutline />
+            </StyledLink>
+            {/* <StyledLink href="tel:+4917682472921">
+          <IoCallOutline />
+        </StyledLink> */}
+            <StyledLink
+              href="https://www.instagram.com/maischa_s/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <IoLogoInstagram />
             </StyledLink>
           </StyledRightWrapper>
