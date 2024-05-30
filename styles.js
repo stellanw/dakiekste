@@ -17,6 +17,10 @@ export const theme = {
     xxl: "2.5rem",
     xxxl: "3rem",
   },
+
+  spacing: {
+    xs: "0.2rem",
+  },
 };
 
 export default createGlobalStyle`
