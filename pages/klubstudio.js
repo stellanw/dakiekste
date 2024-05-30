@@ -2,15 +2,8 @@ import Layout from "@/components/Layout";
 import styled from "styled-components";
 import Image from "next/image";
 import { theme } from "@/styles";
-import ImageSlider from "@/components/ImageSlider";
 
 export default function Klubstudio() {
-  const images = [
-    "/images/Klubstudio_1.png",
-    "/images/Klubstudio_2.png",
-    "/images/Klubstudio_3.png",
-  ];
-
   return (
     <Layout>
       <StyledImageHeadContainer>
@@ -36,7 +29,6 @@ export default function Klubstudio() {
           anzufertigen.
         </p>
       </StyledTextContainer>
-      <ImageSlider images={images} headline="IMPRESSIONEN" />
     </Layout>
   );
 }
