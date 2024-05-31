@@ -1,0 +1,20 @@
+[
+  {
+    "title": "PROJEKT 01",
+    "description": "Description of Project 1",
+    "image": "/images/Projekt.png",
+    "tags": ["Corporate", "Image", "Reportage"]
+  },
+  {
+    "title": "PROJEKT 2",
+    "description": "Description of Project 2",
+    "image": "/images/Projekt.png",
+    "tags": ["Mitarbeiter Portrait", "Business Fotografie"]
+  },
+  {
+    "title": "PROJEKT 3",
+    "description": "Description of Project 3",
+    "image": "/images/Projekt.png",
+    "tags": ["Fotoreportage", "Reportage"]
+  }
+]

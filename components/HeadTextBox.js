@@ -5,29 +5,41 @@ export default function HeadTextBox() {
   return (
     <StyledTextContainer>
       <StyledTopTextWrapper>
-        <StyledHeadline>VISION</StyledHeadline>
+        {/* <StyledHeadline>
+          {" "}
+          Ihr schreibt Geschichten - wir halten sie fest
+        </StyledHeadline> */}
         <StyledTopText>
-          Branding-Fotografie visuelle Identität. Moderne
-          Unternehmensfotografie, um Ihre Marke authentisch zu präsentieren
+          Moderne Unternehmensfotografie, die euch und eure Marke nach vorne
+          bringt und einen bleibenden Eindruck hinterlässt.
         </StyledTopText>
       </StyledTopTextWrapper>
       <StyledBottomContainer>
         <StyledBottomTextWrapper>
-          <StyledHeadline>BRANDING FOTOGRAFIE</StyledHeadline>
+          <StyledHeadline>STÄRKT EURE MARKE</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos für Unternehmen zur Präsentation ihrer Marke.
+            Gute Fotos sind das Aushängeschild eurer Marke. Mit unserer
+            individuellen Business-Fotografie präsentiert ihr euch mit
+            besonderem Wiedererkennungswert. Zeigt euren Kunden authentisch,
+            wofür ihr steht.
           </StyledBottomText>
         </StyledBottomTextWrapper>
         <StyledBottomTextWrapper>
-          <StyledHeadline>BRANDING FOTOGRAFIE</StyledHeadline>
+          <StyledHeadline>VERTRAUEN DURCH QUALITÄT</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos für Unternehmen zur Präsentation ihrer Marke.
+            Hochwertige Fotos von euch und eurem Team schaffen Vertrauen. Zeigt
+            eure Wertschätzung für Qualität und fördert eine positive
+            Markenwahrnehmung. Mit professionellen Bildern, die eure
+            Unternehmensgeschichte eindrucksvoll erzählen.
           </StyledBottomText>
         </StyledBottomTextWrapper>
         <StyledBottomTextWrapper>
-          <StyledHeadline>BRANDING FOTOGRAFIE</StyledHeadline>
+          <StyledHeadline>MAXIMIERT EURE SICHTBARKEIT</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos für Unternehmen zur Präsentation ihrer Marke.
+            Ansprechende und einladende Bilder sind euer Schlüssel zu mehr
+            Aufmerksamkeit und sorgen dafür, dass eure Botschaft im Gedächtnis
+            bleibt. Nutzt die Kraft der visuellen Kommunikation, um eure
+            Reichweite zu maximieren.
           </StyledBottomText>
         </StyledBottomTextWrapper>
       </StyledBottomContainer>
@@ -53,6 +65,7 @@ const StyledHeadline = styled.h2`
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
   max-width: 600px;
+  padding-bottom: 2rem;
 `;
 
 const StyledTopText = styled.p`
