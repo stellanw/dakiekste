@@ -64,8 +64,9 @@ const StyledHeadline = styled.h2`
 
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
-  max-width: 600px;
+  max-width: 900px;
   padding-bottom: 2rem;
+  /* margin: auto; */
 `;
 
 const StyledTopText = styled.p`

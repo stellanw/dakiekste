@@ -9,7 +9,8 @@ export default function Navigation() {
   const [animationActive, setAnimationActive] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
-  const eyesRef = useRef(null);
+  const leftEyeRef = useRef(null);
+  const rightEyeRef = useRef(null);
 
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
@@ -64,27 +65,29 @@ export default function Navigation() {
     return angle;
   };
 
-  const rotation = calculateRotation(
-    eyesRef.current,
-    cursorPosition.x,
-    cursorPosition.y
-  );
-
   return (
     <StyledNavigation menuOpen={menuOpen}>
       <StyledMenuToggle onClick={handleMenuToggle}>
         <StyledIconsWrapper>
           <StyledIconWrapper
-            ref={eyesRef}
+            ref={leftEyeRef}
             animationActive={animationActive}
-            rotation={rotation}
+            rotation={calculateRotation(
+              leftEyeRef.current,
+              cursorPosition.x,
+              cursorPosition.y
+            )}
           >
             <AugenIcon />
           </StyledIconWrapper>
           <StyledIconWrapper
-            ref={eyesRef}
+            ref={rightEyeRef}
             animationActive={animationActive}
-            rotation={rotation}
+            rotation={calculateRotation(
+              rightEyeRef.current,
+              cursorPosition.x,
+              cursorPosition.y
+            )}
           >
             <AugenIcon />
           </StyledIconWrapper>
@@ -107,6 +110,7 @@ export default function Navigation() {
     </StyledNavigation>
   );
 }
+
 const rotateAnimation = keyframes`
   from {
     transform: rotate(0deg);
