@@ -91,7 +91,7 @@ export default function LeistungBox() {
       </StyledLeftContainer>
       <StyledRightContainer>
         <StyledImage
-          src="/images/Klubstudio.png"
+          src="/images/Leistungen.jpg"
           alt="image of person working"
           layout="fill"
           // width={1400}
@@ -197,7 +197,7 @@ const StyledLi = styled.li`
 
 const StyledOverlayParagraph = styled.p`
   font-weight: 200;
-  padding-top: 0.5rem;
+  padding: 0.5rem 3rem 0 3rem;
   margin: -1rem 2rem 0 2rem;
   height: 100px;
   background-color: ${theme.primaryColor};
@@ -206,6 +206,9 @@ const StyledOverlayParagraph = styled.p`
   animation-name: slide-animation;
   animation-duration: 0.5s;
 
+  @media (max-width: 400px) {
+    margin: -1rem 0rem 0 0rem;
+  }
   @keyframes slide-animation {
     0% {
       height: 0;

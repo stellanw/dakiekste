@@ -16,6 +16,19 @@ export default function Team() {
       <StyledHeadline>
         <StyledSpanThin>DAS DAKIEKSTE</StyledSpanThin> TEAM
       </StyledHeadline>
+      <StyledTopParagraph>
+        Wir sind ein Trio aus kreativen Köpfen mit den Schwerpunkten Fotografie,
+        Videografie, Kommunikationsdesign und Webentwicklung. Seit unserer
+        gemeinsamen Ausbildung in den OTTO-Fotostudios vor zehn Jahren arbeiten
+        wir als eingespieltes Team und legen großen Wert auf ein harmonisches
+        und empathisches Miteinander.
+      </StyledTopParagraph>
+      <StyledTopParagraph>
+        Durch interdisziplinäre Zusammenarbeit und den engen Austausch mit
+        unseren Kund*innen setzen wir Visionen authentisch um. Mit Herz und
+        Engagement schaffen wir kreative Bildwelten, in denen Menschen und ihre
+        Geschichten im Mittelpunkt stehen.
+      </StyledTopParagraph>
       <StyledTeamMembersContainer>
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
@@ -27,8 +40,19 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Stellan</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+            Hey, ich bin <StyledSpanBold>Stellan</StyledSpanBold>. Neben der
+            Fotografie gehören die
+            <StyledSpanBorder>Videografie</StyledSpanBorder> und das
+            <StyledSpanBorder>Web-Developement</StyledSpanBorder> zu meinen
+            weiteren Disziplinen. Neben der Portraitfotografie habe ich
+            besonderen Spaß an der
+            <StyledSpanBorder>Eventfotografie</StyledSpanBorder>, weil sie
+            lebendige und authentische Momente festhält. Ich bin ein
+            Improvisationstalent und finde immer eine Lösung, wenn mal etwas
+            nicht wie geplant läuft. Als Verfechter von Gleichberechtigung und
+            LGBTQ*-Rechten sehe ich die Vielfalt unter Menschen als große
+            Bereicherung und bringe diese Überzeugung durch eine offene und
+            einladende Atmosphäre in meine Arbeit mit ein.
           </StyledParagraph>
           <StyledRightWrapper>
             <StyledLink
@@ -63,8 +87,17 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Clara</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+            Hi, ich bin <StyledSpanBold>Clara</StyledSpanBold>. Mir fällt es
+            leicht, Menschen vor der Kamera zu animieren, loszulassen und
+            einfach Spaß zu haben. In der{" "}
+            <StyledSpanBorder>Fotografie</StyledSpanBorder> liebe ich intensive
+            und
+            <StyledSpanBorder>ausdrucksstarke Portraits.</StyledSpanBorder> Für
+            mich sollten Portraits die Essenz der Menschen einfangen. Mit meinem
+            konzeptionellen Denken und meinem Ideenreichtum möchte ich für euch
+            fotografisch neue Welten schaffen, die genau zu euch passen. Es ist
+            mir wichtig, euch in eurer natürlichsten und authentischsten Form zu
+            zeigen.
           </StyledParagraph>
           <StyledRightWrapper>
             <StyledLink
@@ -99,8 +132,19 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Maischa</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+            Moin, ich bin <StyledSpanBold>Maischa</StyledSpanBold> und habe
+            zusätzlich zur
+            <StyledSpanBorder>Fotografie</StyledSpanBorder> noch
+            <StyledSpanBorder>Kommunikationsdesign</StyledSpanBorder> studiert
+            mit Schwerpunkt auf Konzept, Grafik, Layout und Logo-Gestaltung.
+            Auch als <StyledSpanBorder>UIX-Designerin</StyledSpanBorder> kann
+            ich euch von der Idee bis zum fertigen Design eurer Webseite
+            begleiten. Mit meinem Gespür für Farben, Formen und Layouts
+            entwickle ich maßgeschneiderte, kreative und innovative
+            <StyledSpanBorder>Konzepte.</StyledSpanBorder> Für mich ist es
+            wichtig, Gefühle durch Formen, Linien, Licht und Schatten
+            auszudrücken. Meine Leidenschaft ist es, visuelle Geschichten zu
+            erzählen, die Emotionen wecken und nachhaltig beeindrucken.
           </StyledParagraph>
           <StyledRightWrapper>
             <StyledLink
@@ -156,6 +200,11 @@ const StyledHeadline = styled.h1`
   color: ${theme.primaryColor};
 `;
 
+const StyledTopParagraph = styled.p`
+  margin: 1rem 4rem 0rem 4rem;
+  color: ${theme.primaryColor};
+`;
+
 const StyledMemberImageContainer = styled.div`
   width: 300px;
   height: 400px;
@@ -190,6 +239,7 @@ const StyledSpanBorder = styled.span`
   margin-right: 0.15rem;
   border-radius: 15px;
   border: solid ${theme.primaryColor};
+  line-height: 1.8;
 `;
 
 const StyledTeamMemberContainer = styled.div`
