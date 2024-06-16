@@ -5,29 +5,35 @@ export default function HeadTextBox() {
   return (
     <StyledTextContainer>
       <StyledTopTextWrapper>
-        <StyledHeadline>VISION</StyledHeadline>
+        {/* <StyledHeadline>
+          {" "}
+          Ihr schreibt Geschichten - wir halten sie fest
+        </StyledHeadline> */}
         <StyledTopText>
-          Branding-Fotografie visuelle Identität. Moderne
-          Unternehmensfotografie, um Ihre Marke authentisch zu präsentieren
+          Unsere Business-Fotografie bringt eure Vision und Leidenschaft zum
+          Ausdruck. Mit modernen Ideen und jungem Blick rücken wir den Menschen
+          hinter der Marke in den Fokus.
         </StyledTopText>
       </StyledTopTextWrapper>
       <StyledBottomContainer>
         <StyledBottomTextWrapper>
-          <StyledHeadline>BRANDING FOTOGRAFIE</StyledHeadline>
+          <StyledHeadline>STÄRKT EURE MARKE</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos für Unternehmen zur Präsentation ihrer Marke.
+            Authentische Fotografie mit Wiedererkennungswert die zeigt, wofür
+            ihr steht.
           </StyledBottomText>
         </StyledBottomTextWrapper>
         <StyledBottomTextWrapper>
-          <StyledHeadline>BRANDING FOTOGRAFIE</StyledHeadline>
+          <StyledHeadline>VERTRAUEN DURCH QUALITÄT</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos für Unternehmen zur Präsentation ihrer Marke.
+            Hochwertige Fotos schaffen Vertrauen und fördern eine positive
+            Wahrnehmung eurer Marke.
           </StyledBottomText>
         </StyledBottomTextWrapper>
         <StyledBottomTextWrapper>
-          <StyledHeadline>BRANDING FOTOGRAFIE</StyledHeadline>
+          <StyledHeadline>MAXIMIERT EURE SICHTBARKEIT</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos für Unternehmen zur Präsentation ihrer Marke.
+            Besondere Bilder bleiben im Gedächtnis und erhöhen eure Reichweite.
           </StyledBottomText>
         </StyledBottomTextWrapper>
       </StyledBottomContainer>
@@ -40,8 +46,8 @@ const StyledTextContainer = styled.div`
   margin-top: 5.8rem;
   padding-top: 6rem;
   padding-bottom: 6rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
   background-color: ${theme.secondaryColorBeige};
 `;
 
@@ -52,7 +58,9 @@ const StyledHeadline = styled.h2`
 
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
-  max-width: 600px;
+  max-width: 900px;
+  padding-bottom: 2rem;
+  /* margin: auto; */
 `;
 
 const StyledTopText = styled.p`
@@ -79,11 +87,11 @@ const StyledBottomContainer = styled.div`
   justify-content: space-between;
   gap: 2rem;
 
-  @media (max-width: 1030px) {
+  /* @media (max-width: 1030px) {
     justify-content: center;
   }
 
   @media (max-width: 700px) {
     justify-content: start;
-  }
+  } */
 `;

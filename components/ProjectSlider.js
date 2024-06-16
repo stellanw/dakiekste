@@ -153,6 +153,7 @@ const StyledTag = styled.li`
   border: solid 1px;
   border-radius: 20px;
   padding: 0.3rem 0.5rem 0.3rem;
+  background-color: rgb(255, 255, 255, 75%);
 `;
 
 const Slide = styled.div`
