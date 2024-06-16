@@ -50,9 +50,9 @@ export default function Team() {
             authentische Momente einfängt.
           </StyledParagraph>
           <StyledQuote>
-            "<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als Bereicherung
-            und bringe diese Überzeugung durch eine offene Atmosphäre in meine
-            Arbeit ein."
+            &quot;<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als
+            Bereicherung und bringe diese Überzeugung durch eine offene
+            Atmosphäre in meine Arbeit ein.&quot;
           </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
@@ -99,8 +99,9 @@ export default function Team() {
             Ideenreichtum erzeugt sie fotografisch neue Welten.
           </StyledParagraph>
           <StyledQuote>
-            “Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
-            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk ist!”
+            &quot;Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
+            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk
+            ist!&quot;
           </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
@@ -143,9 +144,9 @@ export default function Team() {
             von der Vision bis zur Umsetzung auf vielen Ebenen begleiten.
           </StyledParagraph>
           <StyledQuote>
-            "Visuelle Geschichten zu erzählen und dabei einen{" "}
+            &quot;Visuelle Geschichten zu erzählen und dabei einen{" "}
             <StyledSpanBold>Vertrauensraum </StyledSpanBold>
-            zu schaffen, motiviert mich."
+            zu schaffen, motiviert mich.&quot;
           </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
