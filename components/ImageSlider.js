@@ -4,9 +4,11 @@ import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 import styled from "styled-components";
 import { theme } from "@/styles";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
+import Modal from "react-modal";
 import { useState } from "react";
+import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa"; // Import icons
+
+Modal.setAppElement("#__next");
 
 export default function ImageSlider({ images, headline }) {
   const [photoIndex, setPhotoIndex] = useState(null);
@@ -17,9 +19,19 @@ export default function ImageSlider({ images, headline }) {
     setIsOpen(true);
   };
 
-  const handleCloseLightbox = () => {
+  const handleCloseModal = () => {
     setPhotoIndex(null);
     setIsOpen(false);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setPhotoIndex((photoIndex + 1) % images.length);
+  };
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setPhotoIndex((photoIndex + images.length - 1) % images.length);
   };
 
   const settings = {
@@ -35,7 +47,7 @@ export default function ImageSlider({ images, headline }) {
   };
 
   return (
-    <StyledSlideConatiner>
+    <StyledSlideContainer>
       <StyledHeadline>{headline}</StyledHeadline>
       <StyledSlider {...settings}>
         {images.map((image, index) => (
@@ -52,25 +64,54 @@ export default function ImageSlider({ images, headline }) {
           </StyledImageContainer>
         ))}
       </StyledSlider>
-      {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={handleCloseLightbox}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + images.length - 1) % images.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % images.length)
-          }
-        />
-      )}
-    </StyledSlideConatiner>
+      <Modal
+        isOpen={isOpen}
+        contentLabel="Image Modal"
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+          },
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            padding: 0,
+            border: "none",
+            background: "none",
+          },
+        }}
+        onRequestClose={handleCloseModal}
+      >
+        {photoIndex !== null && (
+          <ModalContent>
+            <CloseButton onClick={handleCloseModal}>
+              <FaTimes size={30} />
+            </CloseButton>
+            <ArrowLeft onClick={handlePrev}>
+              <FaArrowLeft size={30} />
+            </ArrowLeft>
+            <ImageWrapper onClick={(e) => e.stopPropagation()}>
+              <StyledModalImage
+                src={images[photoIndex]}
+                alt={`Image ${photoIndex}`}
+                layout="fill"
+                objectFit="contain"
+              />
+            </ImageWrapper>
+            <ArrowRight onClick={handleNext}>
+              <FaArrowRight size={30} />
+            </ArrowRight>
+          </ModalContent>
+        )}
+      </Modal>
+    </StyledSlideContainer>
   );
 }
 
-const StyledSlideConatiner = styled.div`
+const StyledSlideContainer = styled.div`
   height: 500px;
   width: 100%;
 `;
@@ -91,21 +132,65 @@ const StyledImage = styled(Image)`
 
 const StyledSlider = styled(Slider)`
   .slick-slide {
-    /* padding: 0 1rem; */
     box-sizing: border-box;
   }
   .slick-dots {
     & li {
       button {
         &::before {
-          color: ${theme.primaryColor}; // Color for inactive dots
+          color: ${theme.primaryColor};
         }
       }
       &.slick-active {
         button::before {
-          color: ${theme.primaryColor}; // Color for active dot
+          color: ${theme.primaryColor};
         }
       }
     }
   }
+`;
+
+const ModalContent = styled.div`
+  position: relative;
+  cursor: pointer;
+`;
+
+const ImageWrapper = styled.div`
+  width: 80vw;
+  height: 80vh;
+  position: relative;
+`;
+
+const StyledModalImage = styled(Image)`
+  max-width: 100%;
+  max-height: 100%;
+`;
+
+const ArrowLeft = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  z-index: 10;
+`;
+
+const ArrowRight = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: white;
+  z-index: 10;
+`;
+
+const CloseButton = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: white;
+  z-index: 10;
 `;

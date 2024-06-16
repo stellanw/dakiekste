@@ -13,10 +13,9 @@ import {
 export default function Team() {
   return (
     <>
-      <StyledHeadline>
-        <StyledSpanThin>DAS DAKIEKSTE</StyledSpanThin> TEAM
-      </StyledHeadline>
-      <StyledTopParagraph>
+      <StyledHeadline>Gemeinsam realisieren </StyledHeadline>
+      <StyledHeadline2>wir eure Vision.</StyledHeadline2>
+      {/* <StyledTopParagraph>
         Wir sind ein kreatives Trio, das seit über zehn Jahren als Team
         zusammenarbeitet. Respekt und Empathie sind die Basis unserer Arbeit.
       </StyledTopParagraph>
@@ -30,7 +29,7 @@ export default function Team() {
         Wir lieben interdisziplinäre Zusammenarbeit und nutzen unser Netzwerk an
         3D-Artists, Produktdesigner*innen, Visagist*innen, Stylist*innen und
         mehr.
-      </StyledTopParagraph>
+      </StyledTopParagraph> */}
       <StyledTeamMembersContainer>
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
@@ -50,9 +49,9 @@ export default function Team() {
             authentische Momente einfängt.
           </StyledParagraph>
           <StyledQuote>
-            &quot;<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als
-            Bereicherung und bringe diese Überzeugung durch eine offene
-            Atmosphäre in meine Arbeit ein.&quot;
+            »<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als Bereicherung
+            und bringe diese Überzeugung durch eine offene Atmosphäre in meine
+            Arbeit ein.«
           </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
@@ -99,9 +98,8 @@ export default function Team() {
             Ideenreichtum erzeugt sie fotografisch neue Welten.
           </StyledParagraph>
           <StyledQuote>
-            &quot;Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
-            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk
-            ist!&quot;
+            »Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
+            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk ist!«
           </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
@@ -144,9 +142,9 @@ export default function Team() {
             von der Vision bis zur Umsetzung auf vielen Ebenen begleiten.
           </StyledParagraph>
           <StyledQuote>
-            &quot;Visuelle Geschichten zu erzählen und dabei einen{" "}
+            »Visuelle Geschichten zu erzählen und dabei einen{" "}
             <StyledSpanBold>Vertrauensraum </StyledSpanBold>
-            zu schaffen, motiviert mich.&quot;
+            zu schaffen, motiviert mich.«
           </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
@@ -178,17 +176,16 @@ export default function Team() {
 
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
   padding: 4rem;
 
-  padding-bottom: 10rem;
   width: 100%;
-  gap: 1rem;
+  gap: 4rem;
 
-  @media (max-width: 1060px) {
+  /* @media (max-width: 1060px) {
     justify-content: center;
-  }
+  } */
 `;
 
 const StyledSpanThin = styled.span`
@@ -202,9 +199,18 @@ const StyledHeadline = styled.h1`
   color: ${theme.primaryColor};
 `;
 
+const StyledHeadline2 = styled.h1`
+  padding-top: 0rem;
+  padding-left: 4rem;
+  font-size: ${theme.fontSizes.xxxl};
+  color: ${theme.primaryColor};
+`;
+
 const StyledTopParagraph = styled.p`
   margin: 1rem 4rem 0rem 4rem;
   color: ${theme.primaryColor};
+  min-width: 300px;
+  max-width: 1000px;
 `;
 
 const StyledMemberImageContainer = styled.div`
@@ -221,6 +227,7 @@ const StyledMemberImage = styled(Image)`
   /* border-radius: 10px; */
   object-fit: cover;
   object-position: 50% 50%;
+  border-radius: 20px;
 `;
 
 const StyledParagraph = styled.p`
@@ -247,7 +254,7 @@ const StyledSpanBorder = styled.span`
   margin-left: 0.15rem;
   margin-right: 0.15rem;
   border-radius: 15px;
-  border: solid ${theme.primaryColor};
+  border: solid 1px ${theme.primaryColor};
   line-height: 1.8;
 `;
 

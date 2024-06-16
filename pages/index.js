@@ -10,6 +10,7 @@ import Team from "@/components/Team";
 import ProjectSlider from "../components/ProjectSlider";
 import WorkflowSlider from "@/components/WorkflowSlider";
 import Header from "@/components/Header";
+import CenterTextBox from "@/components/CenterTextBox";
 
 export default function HomePage() {
   return (
@@ -31,6 +32,7 @@ export default function HomePage() {
         />
       </StyledImageContainer> */}
       <Team />
+      <CenterTextBox />
       <ProjectSlider projects={projects} />
       <WorkflowSlider />
       <EndBox />

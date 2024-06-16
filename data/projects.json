@@ -1,6 +1,6 @@
 [
   {
-    "title": "AVERDUNG IMAGE-CAMPAGNE",
+    "title": "IMAGE KAMPAGNE",
     "description": "Description of Project 1",
     "image": "/images/Projekt_01_Averdung.jpg",
     "tags": ["Corporate", "Image", "Story"]
@@ -12,9 +12,9 @@
     "tags": ["Mitarbeiter Portrait", "Business Portrait"]
   },
   {
-    "title": "KAFFERÖSTEREI REPORTAGE",
+    "title": "FOTO REPORTAGE",
     "description": "Description of Project 3",
-    "image": "/images/Project_03.jpg",
+    "image": "/images/Projekt_03.jpg",
     "tags": ["Fotoreportage", "Reportage"]
   }
 ]
