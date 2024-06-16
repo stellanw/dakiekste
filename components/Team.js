@@ -17,17 +17,19 @@ export default function Team() {
         <StyledSpanThin>DAS DAKIEKSTE</StyledSpanThin> TEAM
       </StyledHeadline>
       <StyledTopParagraph>
-        Wir sind ein Trio aus kreativen Köpfen mit den Schwerpunkten Fotografie,
-        Videografie, Kommunikationsdesign und Webentwicklung. Seit unserer
-        gemeinsamen Ausbildung in den OTTO-Fotostudios vor zehn Jahren arbeiten
-        wir als eingespieltes Team und legen großen Wert auf ein harmonisches
-        und empathisches Miteinander.
+        Wir sind ein kreatives Trio, das seit über zehn Jahren als Team
+        zusammenarbeitet. Respekt und Empathie sind die Basis unserer Arbeit.
       </StyledTopParagraph>
       <StyledTopParagraph>
-        Durch interdisziplinäre Zusammenarbeit und den engen Austausch mit
-        unseren Kund*innen setzen wir Visionen authentisch um. Mit Herz und
-        Engagement schaffen wir kreative Bildwelten, in denen Menschen und ihre
-        Geschichten im Mittelpunkt stehen.
+        Im engen Austausch mit unseren Kund*innen schaffen wir Bildwelten, die
+        Menschen und ihre Geschichten in den Mittelpunkt stellen. Mit unserer
+        Expertise in Fotografie, Videografie, Kommunikationsdesign und
+        Webentwicklung bieten wir euch alles aus einer Hand.
+      </StyledTopParagraph>
+      <StyledTopParagraph>
+        Wir lieben interdisziplinäre Zusammenarbeit und nutzen unser Netzwerk an
+        3D-Artists, Produktdesigner*innen, Visagist*innen, Stylist*innen und
+        mehr.
       </StyledTopParagraph>
       <StyledTeamMembersContainer>
         <StyledTeamMemberContainer>
@@ -40,20 +42,18 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hey, ich bin <StyledSpanBold>Stellan</StyledSpanBold>. Neben der
-            Fotografie gehören die
-            <StyledSpanBorder>Videografie</StyledSpanBorder> und das
-            <StyledSpanBorder>Web-Developement</StyledSpanBorder> zu meinen
-            weiteren Disziplinen. Neben der Portraitfotografie habe ich
-            besonderen Spaß an der
-            <StyledSpanBorder>Eventfotografie</StyledSpanBorder>, weil sie
-            lebendige und authentische Momente festhält. Ich bin ein
-            Improvisationstalent und finde immer eine Lösung, wenn mal etwas
-            nicht wie geplant läuft. Als Verfechter von Gleichberechtigung und
-            LGBTQ*-Rechten sehe ich die Vielfalt unter Menschen als große
-            Bereicherung und bringe diese Überzeugung durch eine offene und
-            einladende Atmosphäre in meine Arbeit mit ein.
+            <StyledSpanBold>Stellan</StyledSpanBold> ist ein vielseitiger
+            <StyledSpanBorder>Fotograf</StyledSpanBorder>, der auch in der
+            <StyledSpanBorder>Videografie</StyledSpanBorder> und im{" "}
+            <StyledSpanBorder>Web-Development</StyledSpanBorder> zu Hause ist.
+            Besonders liebt er die Eventfotografie, weil sie lebendige und
+            authentische Momente einfängt.
           </StyledParagraph>
+          <StyledQuote>
+            "<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als Bereicherung
+            und bringe diese Überzeugung durch eine offene Atmosphäre in meine
+            Arbeit ein."
+          </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
               href="https://stellanwetzig.de/"
@@ -87,18 +87,21 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hi, ich bin <StyledSpanBold>Clara</StyledSpanBold>. Mir fällt es
-            leicht, Menschen vor der Kamera zu animieren, loszulassen und
-            einfach Spaß zu haben. In der{" "}
-            <StyledSpanBorder>Fotografie</StyledSpanBorder> liebe ich intensive
-            und
-            <StyledSpanBorder>ausdrucksstarke Portraits.</StyledSpanBorder> Für
-            mich sollten Portraits die Essenz der Menschen einfangen. Mit meinem
-            konzeptionellen Denken und meinem Ideenreichtum möchte ich für euch
-            fotografisch neue Welten schaffen, die genau zu euch passen. Es ist
-            mir wichtig, euch in eurer natürlichsten und authentischsten Form zu
-            zeigen.
+            <StyledSpanBold>Clara</StyledSpanBold> ist
+            <StyledSpanBorder>Werbe-Fotografin</StyledSpanBorder> und{" "}
+            <nobr>
+              hat sich auf{" "}
+              <StyledSpanBorder>Portraitfotografie</StyledSpanBorder>
+            </nobr>
+            <br></br>
+            spezialisiert. Sie hat das Talent, einen Raum zu schaffen, in dem
+            sich alle wohlfühlen. Mit ihrem konzeptionellen Denken und
+            Ideenreichtum erzeugt sie fotografisch neue Welten.
           </StyledParagraph>
+          <StyledQuote>
+            “Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
+            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk ist!”
+          </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
               href="https://www.claraide.com/home"
@@ -132,20 +135,18 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Moin, ich bin <StyledSpanBold>Maischa</StyledSpanBold> und habe
-            zusätzlich zur
-            <StyledSpanBorder>Fotografie</StyledSpanBorder> noch
-            <StyledSpanBorder>Kommunikationsdesign</StyledSpanBorder> studiert
-            mit Schwerpunkt auf Konzept, Grafik, Layout und Logo-Gestaltung.
-            Auch als <StyledSpanBorder>UIX-Designerin</StyledSpanBorder> kann
-            ich euch von der Idee bis zum fertigen Design eurer Webseite
-            begleiten. Mit meinem Gespür für Farben, Formen und Layouts
-            entwickle ich maßgeschneiderte, kreative und innovative
-            <StyledSpanBorder>Konzepte.</StyledSpanBorder> Für mich ist es
-            wichtig, Gefühle durch Formen, Linien, Licht und Schatten
-            auszudrücken. Meine Leidenschaft ist es, visuelle Geschichten zu
-            erzählen, die Emotionen wecken und nachhaltig beeindrucken.
+            <StyledSpanBold>Maischa</StyledSpanBold> bringt zusätzlich zur{" "}
+            <StyledSpanBorder>Fotografie</StyledSpanBorder> Erfahrungen im
+            Bereich <StyledSpanBorder>Kommunikationsdesign</StyledSpanBorder>{" "}
+            mit den Schwerpunkten Branding, Corporate Design und{" "}
+            <StyledSpanBorder>Webdesign</StyledSpanBorder> mit. Sie kann euch
+            von der Vision bis zur Umsetzung auf vielen Ebenen begleiten.
           </StyledParagraph>
+          <StyledQuote>
+            "Visuelle Geschichten zu erzählen und dabei einen{" "}
+            <StyledSpanBold>Vertrauensraum </StyledSpanBold>
+            zu schaffen, motiviert mich."
+          </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
               href="https://www.maischasouaga.com/"
@@ -224,6 +225,13 @@ const StyledMemberImage = styled(Image)`
 const StyledParagraph = styled.p`
   line-height: 1.5;
   color: ${theme.primaryColor};
+  height: 12rem;
+`;
+
+const StyledQuote = styled.p`
+  margin-top: 1.5rem;
+  color: ${theme.primaryColor};
+  font-style: italic;
 `;
 
 const StyledSpanBold = styled.span`

@@ -10,36 +10,30 @@ export default function HeadTextBox() {
           Ihr schreibt Geschichten - wir halten sie fest
         </StyledHeadline> */}
         <StyledTopText>
-          Moderne Unternehmensfotografie, die euch und eure Marke nach vorne
-          bringt und einen bleibenden Eindruck hinterlässt.
+          Unsere Business-Fotografie bringt eure Vision und Leidenschaft zum
+          Ausdruck. Mit modernen Ideen und jungem Blick rücken wir den Menschen
+          hinter der Marke in den Fokus.
         </StyledTopText>
       </StyledTopTextWrapper>
       <StyledBottomContainer>
         <StyledBottomTextWrapper>
           <StyledHeadline>STÄRKT EURE MARKE</StyledHeadline>
           <StyledBottomText>
-            Gute Fotos sind das Aushängeschild eurer Marke. Mit unserer
-            individuellen Business-Fotografie präsentiert ihr euch mit
-            besonderem Wiedererkennungswert. Zeigt euren Kunden authentisch,
-            wofür ihr steht.
+            Authentische Fotografie mit Wiedererkennungswert die zeigt, wofür
+            ihr steht.
           </StyledBottomText>
         </StyledBottomTextWrapper>
         <StyledBottomTextWrapper>
           <StyledHeadline>VERTRAUEN DURCH QUALITÄT</StyledHeadline>
           <StyledBottomText>
-            Hochwertige Fotos von euch und eurem Team schaffen Vertrauen. Zeigt
-            eure Wertschätzung für Qualität und fördert eine positive
-            Markenwahrnehmung. Mit professionellen Bildern, die eure
-            Unternehmensgeschichte eindrucksvoll erzählen.
+            Hochwertige Fotos schaffen Vertrauen und fördern eine positive
+            Wahrnehmung eurer Marke.
           </StyledBottomText>
         </StyledBottomTextWrapper>
         <StyledBottomTextWrapper>
           <StyledHeadline>MAXIMIERT EURE SICHTBARKEIT</StyledHeadline>
           <StyledBottomText>
-            Ansprechende und einladende Bilder sind euer Schlüssel zu mehr
-            Aufmerksamkeit und sorgen dafür, dass eure Botschaft im Gedächtnis
-            bleibt. Nutzt die Kraft der visuellen Kommunikation, um eure
-            Reichweite zu maximieren.
+            Besondere Bilder bleiben im Gedächtnis und erhöhen eure Reichweite.
           </StyledBottomText>
         </StyledBottomTextWrapper>
       </StyledBottomContainer>
@@ -52,8 +46,8 @@ const StyledTextContainer = styled.div`
   margin-top: 5.8rem;
   padding-top: 6rem;
   padding-bottom: 6rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
   background-color: ${theme.secondaryColorBeige};
 `;
 
@@ -93,11 +87,11 @@ const StyledBottomContainer = styled.div`
   justify-content: space-between;
   gap: 2rem;
 
-  @media (max-width: 1030px) {
+  /* @media (max-width: 1030px) {
     justify-content: center;
   }
 
   @media (max-width: 700px) {
     justify-content: start;
-  }
+  } */
 `;
