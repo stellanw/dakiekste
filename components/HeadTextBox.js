@@ -5,10 +5,10 @@ export default function HeadTextBox() {
   return (
     <StyledTextContainer>
       <StyledTopTextWrapper>
-        {/* <StyledHeadline>
+        <StyledHeadline>
           {" "}
           Ihr schreibt Geschichten - wir halten sie fest
-        </StyledHeadline> */}
+        </StyledHeadline>
         <StyledTopText>
           Unsere Business-Fotografie bringt eure Vision und Leidenschaft zum
           Ausdruck. Mit modernen Ideen und jungem Blick rücken wir den Menschen

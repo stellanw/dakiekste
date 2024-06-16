@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import styled from "styled-components";
 import Image from "next/image";
 import { theme } from "@/styles";
-// import ImageSlider from "@/components/ImageSlider";
+import ImageSlider from "@/components/ImageSlider";
 
 export default function Klubstudio() {
   const images = [
@@ -23,7 +23,7 @@ export default function Klubstudio() {
         />
       </StyledImageHeadContainer>
       <StyledHeadlineContainer>
-        <StyledH1Thin>KLUBSTUDIO&nbsp;&nbsp;</StyledH1Thin>
+        <StyledH1Thin>KLUB STUDIO&nbsp;&nbsp;</StyledH1Thin>
         <StyledH1>UNSER FOTOSTUDIO</StyledH1>
       </StyledHeadlineContainer>
       <StyledTextContainer>
@@ -36,7 +36,7 @@ export default function Klubstudio() {
           anzufertigen.
         </p>
       </StyledTextContainer>
-      {/* <ImageSlider images={images} headline="IMPRESSIONEN" /> */}
+      <ImageSlider images={images} />
     </Layout>
   );
 }
@@ -65,7 +65,7 @@ const StyledHeadImage = styled(Image)`
 `;
 
 const StyledHeadlineContainer = styled.div`
-  margin-left: 2rem;
+  margin-left: 4rem;
 `;
 
 const StyledH1Thin = styled.h1`
@@ -88,7 +88,7 @@ const StyledH1 = styled.h1`
 
 const StyledTextContainer = styled.div`
   font-size: ${theme.fontSizes.small};
-  margin: 9rem 2rem 4rem 2rem;
+  margin: 9rem 2rem 4rem 4rem;
   max-width: 600px;
 `;
 

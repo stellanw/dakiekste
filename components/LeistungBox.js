@@ -199,6 +199,7 @@ const StyledHeadline = styled.h1`
 const StyledParagraph = styled.p`
   font-weight: 300;
   max-width: 500px;
+  padding-bottom: 1.5rem;
 `;
 
 const StyledSpanBold = styled.span`
@@ -210,7 +211,6 @@ const StyledUl = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   min-width: 250px;
   max-width: 500px;
 
