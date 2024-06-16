@@ -42,11 +42,11 @@ const StyledHeadImage = styled(Image)`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
 `;
 
 const StyledHeadlineContainer = styled.div`
-  margin-left: 2rem;
+  margin-left: 4rem;
 `;
 
 const StyledH1Thin = styled.h1`

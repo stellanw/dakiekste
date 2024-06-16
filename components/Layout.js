@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import AugeIcon from "@/Icons/AugeIcon";
+import DakieksteLogo from "@/Icons/Dakiekste_Logo";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -21,32 +22,28 @@ const Layout = ({ children }) => {
       <header>
         <Link href="/">
           <StyledLogoWrapper>
-            <StyledLogoH1
-            // isHomepage={isHomepage}
-            >
-              DAKIEKSTE
-            </StyledLogoH1>
-            <StyledIconWrapper
-            // isHomepage={isHomepage}
-            >
-              <AugeIcon />
-            </StyledIconWrapper>
+            <StyledDakieksteLogo />
           </StyledLogoWrapper>
         </Link>
         <Navigation />
       </header>
-      <main>{children}</main>
+      <StyledMain>{children}</StyledMain>
       <Footer />
     </div>
   );
 };
 
 const StyledLogoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 2rem;
-  padding-top: 1rem;
+  margin-left: 2.6rem;
+
+  margin-top: 0.4rem;
 `;
+
+const StyledMain = styled.main`
+  margin-top: -1.8rem;
+`;
+
+const StyledDakieksteLogo = styled(DakieksteLogo)``;
 
 const StyledLogoH1 = styled.h3`
   /* color: ${(props) => (props.isHomepage ? "white" : "black")}; */
