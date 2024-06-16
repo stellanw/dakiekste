@@ -9,9 +9,7 @@ export default function EndBox() {
         <AugenGrossIcon />
       </StyledSVG>
       <StyledHeadline>ZEIGT WER IHR SEID</StyledHeadline>
-      <StyledText>
-        DAKIEKSTE VERLEIHT DEINER MARKE VISUELLEN AUSDRUCK
-      </StyledText>
+      <StyledText>DAKIEKSTE VERLEIHT EURER MARKE VISUELLEN AUSDRUCK</StyledText>
     </StyledContainer>
   );
 }

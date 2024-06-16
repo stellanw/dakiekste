@@ -3,6 +3,7 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
+import { FaPlus } from "react-icons/fa6";
 
 export default function LeistungBox() {
   const [isOpen, setIsOpen] = useState([false, false, false, false]);
@@ -29,74 +30,90 @@ export default function LeistungBox() {
           IM ÜBERBLICK
         </StyledHeadline>
         <StyledParagraph>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet.
+          Wir bieten ein breites Spektrum an Leistungen, um euer Unternehmen
+          optimal zu präsentieren. Ob Image-Kampagne, Webseite, Mitarbeiterfotos
+          oder Firmenevents – mit Dakiekste habt ihr ein starkes Team an eurer
+          Seite, das euch ins beste Licht rückt.
         </StyledParagraph>
         <StyledUl>
           <StyledLi>
-            <span>01</span>{" "}
-            <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(0)} />
+            <StyledSpanBold>CORPORATE BRANDING</StyledSpanBold>{" "}
+            <StyledPlusIcon
+              className={isOpen[0] ? "rotate" : ""}
+              onClick={() => toggleOverlay(0)}
+            />
           </StyledLi>
           {isOpen[0] && (
             <StyledOverlayParagraph>
-              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-              accusam et justo duo dolores et ea rebum. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              Unsere Corporate Branding Fotografie visualisiert eure
+              Unternehmensidentität und Werte, stärkt eure Markenpräsenz und
+              fördert mir einprägsamen Bildern eine emotionale Bindung zu eurer
+              Zielgruppe.
             </StyledOverlayParagraph>
           )}
           <StyledLi>
-            <span>02</span>{" "}
-            <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(1)} />
+            <StyledSpanBold>BUSINESS PORTRAITS</StyledSpanBold>{" "}
+            <StyledPlusIcon
+              className={isOpen[1] ? "rotate" : ""}
+              onClick={() => toggleOverlay(1)}
+            />
           </StyledLi>
           {isOpen[1] && (
             <StyledOverlayParagraph>
-              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-              accusam et justo duo dolores et ea rebum. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              Mit individuellen Business-Portraits setzen wir euch und eure
+              Führungskräfte perfekt in Szene. Authentische Bilder vermitteln
+              Kompetenz und Vertrauen für Webseiten, Geschäftsberichte und
+              PR-Materialien.
             </StyledOverlayParagraph>
           )}
           <StyledLi>
-            <span>03</span>{" "}
-            <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(2)} />
+            {" "}
+            <StyledSpanBold>MITARBEITER*INNEN FOTOS</StyledSpanBold>{" "}
+            <StyledPlusIcon
+              className={isOpen[2] ? "rotate" : ""}
+              onClick={() => toggleOverlay(2)}
+            />
           </StyledLi>
           {isOpen[2] && (
             <StyledOverlayParagraph>
-              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-              accusam et justo duo dolores et ea rebum. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              Zeigt die Menschen hinter eurer Marke mit hochwertigen Fotos eurer
+              Mitarbeiter*innen. Wir präsentieren euer Team von seiner besten
+              Seite.
             </StyledOverlayParagraph>
           )}
           <StyledLi>
-            <span>04</span>{" "}
-            <StyledSpanBold>BRANDING + CORPORATE</StyledSpanBold>{" "}
-            <IoAddOutline onClick={() => toggleOverlay(3)} />
+            <StyledSpanBold>EVENT FOTOGRAFIE</StyledSpanBold>{" "}
+            <StyledPlusIcon
+              className={isOpen[3] ? "rotate" : ""}
+              onClick={() => toggleOverlay(3)}
+            />
           </StyledLi>
           {isOpen[3] && (
             <StyledOverlayParagraph>
-              Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-              sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-              et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
-              accusam et justo duo dolores et ea rebum. Stet clita kasd
-              gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              Unsere Event-Fotografie hält die besonderen Momente eurer
+              Firmenveranstaltungen fest. Ob Konferenzen, Feiern oder
+              Produktpräsentationen – wir fangen die besten Momente ein.
+            </StyledOverlayParagraph>
+          )}
+          <StyledLi>
+            <StyledSpanBold>SOCIAL MEDIA CONTENT</StyledSpanBold>{" "}
+            <StyledPlusIcon
+              className={isOpen[4] ? "rotate" : ""}
+              onClick={() => toggleOverlay(4)}
+            />
+          </StyledLi>
+          {isOpen[4] && (
+            <StyledOverlayParagraph>
+              Unser Team produziert speziell auf eure Marke zugeschnittenen
+              Content für Social Media Kanäle. Mit fesselnden und ansprechenden
+              Inhalten helfen wir euch, eure Online-Präsenz zu steigern.
             </StyledOverlayParagraph>
           )}
         </StyledUl>
       </StyledLeftContainer>
       <StyledRightContainer>
         <StyledImage
-          src="/images/Klubstudio.png"
+          src="/images/Leistungen.jpg"
           alt="image of person working"
           layout="fill"
           // width={1400}
@@ -108,6 +125,23 @@ export default function LeistungBox() {
     </StyledLeistungContainer>
   );
 }
+
+const StyledPlusIcon = styled(FaPlus)`
+  transform: scale(1.2);
+
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.2);
+    stroke-width: 10;
+  }
+
+  &.rotate {
+    transform: rotate(45deg);
+    stroke-width: 10;
+  }
+`;
 
 const StyledLeistungContainer = styled.section`
   display: flex;
@@ -128,7 +162,7 @@ const StyledLeistungContainer = styled.section`
 `;
 
 const StyledLeftContainer = styled.div`
-  padding: 2rem;
+  padding: 4rem;
   width: 100%;
   min-width: 300px;
   max-width: 600px;
@@ -176,6 +210,7 @@ const StyledUl = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   min-width: 250px;
   max-width: 500px;
 
@@ -189,19 +224,23 @@ const StyledLi = styled.li`
   position: relative;
   justify-content: space-between;
   padding: 2rem;
+  padding-left: 0;
+  padding-right: 0;
 `;
 
 const StyledOverlayParagraph = styled.p`
   font-weight: 200;
-  padding-top: 0.5rem;
-  margin: -1rem 2rem 0 2rem;
+  margin: -1rem 0rem 0 0rem;
   height: 100px;
   background-color: ${theme.primaryColor};
-  border-top: solid white 1px;
+  /* border-top: solid white 1px; */
   height: fit-content;
   animation-name: slide-animation;
   animation-duration: 0.5s;
 
+  @media (max-width: 400px) {
+    margin: -1rem 0rem 0 0rem;
+  }
   @keyframes slide-animation {
     0% {
       height: 0;

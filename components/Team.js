@@ -16,6 +16,21 @@ export default function Team() {
       <StyledHeadline>
         <StyledSpanThin>DAS DAKIEKSTE</StyledSpanThin> TEAM
       </StyledHeadline>
+      <StyledTopParagraph>
+        Wir sind ein kreatives Trio, das seit über zehn Jahren als Team
+        zusammenarbeitet. Respekt und Empathie sind die Basis unserer Arbeit.
+      </StyledTopParagraph>
+      <StyledTopParagraph>
+        Im engen Austausch mit unseren Kund*innen schaffen wir Bildwelten, die
+        Menschen und ihre Geschichten in den Mittelpunkt stellen. Mit unserer
+        Expertise in Fotografie, Videografie, Kommunikationsdesign und
+        Webentwicklung bieten wir euch alles aus einer Hand.
+      </StyledTopParagraph>
+      <StyledTopParagraph>
+        Wir lieben interdisziplinäre Zusammenarbeit und nutzen unser Netzwerk an
+        3D-Artists, Produktdesigner*innen, Visagist*innen, Stylist*innen und
+        mehr.
+      </StyledTopParagraph>
       <StyledTeamMembersContainer>
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
@@ -27,9 +42,18 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Stellan</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+            <StyledSpanBold>Stellan</StyledSpanBold> ist ein vielseitiger
+            <StyledSpanBorder>Fotograf</StyledSpanBorder>, der auch in der
+            <StyledSpanBorder>Videografie</StyledSpanBorder> und im{" "}
+            <StyledSpanBorder>Web-Development</StyledSpanBorder> zu Hause ist.
+            Besonders liebt er die Eventfotografie, weil sie lebendige und
+            authentische Momente einfängt.
           </StyledParagraph>
+          <StyledQuote>
+            &quot;<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als
+            Bereicherung und bringe diese Überzeugung durch eine offene
+            Atmosphäre in meine Arbeit ein.&quot;
+          </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
               href="https://stellanwetzig.de/"
@@ -63,9 +87,22 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Clara</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+            <StyledSpanBold>Clara</StyledSpanBold> ist
+            <StyledSpanBorder>Werbe-Fotografin</StyledSpanBorder> und{" "}
+            <nobr>
+              hat sich auf{" "}
+              <StyledSpanBorder>Portraitfotografie</StyledSpanBorder>
+            </nobr>
+            <br></br>
+            spezialisiert. Sie hat das Talent, einen Raum zu schaffen, in dem
+            sich alle wohlfühlen. Mit ihrem konzeptionellen Denken und
+            Ideenreichtum erzeugt sie fotografisch neue Welten.
           </StyledParagraph>
+          <StyledQuote>
+            &quot;Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
+            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk
+            ist!&quot;
+          </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
               href="https://www.claraide.com/home"
@@ -99,9 +136,18 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            Hallo ich bin <StyledSpanBold>Maischa</StyledSpanBold> und ich kann
-            dir <StyledSpanBorder>Fotografie</StyledSpanBorder> anbieten{" "}
+            <StyledSpanBold>Maischa</StyledSpanBold> bringt zusätzlich zur{" "}
+            <StyledSpanBorder>Fotografie</StyledSpanBorder> Erfahrungen im
+            Bereich <StyledSpanBorder>Kommunikationsdesign</StyledSpanBorder>{" "}
+            mit den Schwerpunkten Branding, Corporate Design und{" "}
+            <StyledSpanBorder>Webdesign</StyledSpanBorder> mit. Sie kann euch
+            von der Vision bis zur Umsetzung auf vielen Ebenen begleiten.
           </StyledParagraph>
+          <StyledQuote>
+            &quot;Visuelle Geschichten zu erzählen und dabei einen{" "}
+            <StyledSpanBold>Vertrauensraum </StyledSpanBold>
+            zu schaffen, motiviert mich.&quot;
+          </StyledQuote>
           <StyledRightWrapper>
             <StyledLink
               href="https://www.maischasouaga.com/"
@@ -156,6 +202,11 @@ const StyledHeadline = styled.h1`
   color: ${theme.primaryColor};
 `;
 
+const StyledTopParagraph = styled.p`
+  margin: 1rem 4rem 0rem 4rem;
+  color: ${theme.primaryColor};
+`;
+
 const StyledMemberImageContainer = styled.div`
   width: 300px;
   height: 400px;
@@ -175,6 +226,13 @@ const StyledMemberImage = styled(Image)`
 const StyledParagraph = styled.p`
   line-height: 1.5;
   color: ${theme.primaryColor};
+  height: 12rem;
+`;
+
+const StyledQuote = styled.p`
+  margin-top: 1.5rem;
+  color: ${theme.primaryColor};
+  font-style: italic;
 `;
 
 const StyledSpanBold = styled.span`
@@ -190,6 +248,7 @@ const StyledSpanBorder = styled.span`
   margin-right: 0.15rem;
   border-radius: 15px;
   border: solid ${theme.primaryColor};
+  line-height: 1.8;
 `;
 
 const StyledTeamMemberContainer = styled.div`
