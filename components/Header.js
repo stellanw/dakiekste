@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 import Image from "next/image";
+import { theme } from "@/styles";
 
 export default function Header({ src, headlineThin, headlineBold }) {
   return (
@@ -28,8 +29,6 @@ const StyledImageHeadContainer = styled.div`
   z-index: -5;
   width: 100%;
   height: 400px;
-  /* overflow: hidden; */
-  top: -3rem;
   @media (min-width: 750px) {
     height: 600px;
   }
@@ -58,7 +57,8 @@ const StyledH1Thin = styled.h1`
   margin: 0;
   margin-top: -14rem;
   /* margin-bottom: 3rem; */
-  color: white;
+  color: ${theme.secondaryColorBeige};
+  /* color: ${theme.primaryColor}; */
 `;
 
 const StyledH1 = styled.h1`
@@ -70,5 +70,6 @@ const StyledH1 = styled.h1`
   margin: 0;
   /* margin-top: 10rem; */
   margin-bottom: 3rem;
-  color: white;
+  color: ${theme.secondaryColorBeige};
+  /* color: ${theme.primaryColor}; */
 `;

@@ -34,7 +34,7 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Stellan_Portrait.jpg"
+              src="/images/stellan.jpg"
               alt="Klubstudio"
               width={1200}
               height={500}
@@ -79,7 +79,7 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Clara_Portrait.jpg"
+              src="/images/Clara.jpg"
               alt="Klubstudio"
               width={1200}
               height={500}
@@ -127,7 +127,7 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Maischa_Portrait.jpg"
+              src="/images/Foto_MaischaSouaga.jpg"
               alt="Klubstudio"
               width={1200}
               height={500}
@@ -176,16 +176,16 @@ export default function Team() {
 
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   flex-wrap: wrap;
   padding: 4rem;
 
   width: 100%;
   gap: 4rem;
 
-  /* @media (max-width: 1060px) {
+  @media (max-width: 1060px) {
     justify-content: center;
-  } */
+  }
 `;
 
 const StyledSpanThin = styled.span`
@@ -278,6 +278,6 @@ const StyledRightWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: #11a984;
+  color: ${theme.primaryColor};
   margin-bottom: -0.2rem;
 `;

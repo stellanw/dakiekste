@@ -2,8 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export const theme = {
   textColor: "#1D1D1B",
-  primaryColor: "#11A984",
-  secondaryColorPurple: "#E2E0F5",
+  textColorBright: "#F9F8F3",
+  primaryColor: "#3b524a",
+  secondaryColorPurple: "#F9F8F3",
   secondaryColorBeige: "#F9F8F3",
   alertColor: "red",
   confirmColor: "green",
@@ -21,6 +22,9 @@ export const theme = {
   spacing: {
     xs: "0.2rem",
     s: "0.4rem",
+    m: "1rem",
+    l: "2rem",
+    xl: "4rem",
   },
 };
 
@@ -40,8 +44,8 @@ export default createGlobalStyle`
     height: 100%;
     width: 100%;
     font-family: "Bricolage Grotesque", sans-serif;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /* overflow-x: hidden; 
+    overflow-y: auto; */
   }
 a {
 color: ${theme.textColor};
