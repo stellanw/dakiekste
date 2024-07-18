@@ -5,8 +5,10 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import AugeIcon from "@/Icons/AugeIcon";
-import DakieksteLogo from "@/Icons/Dakiekste_Logo";
+import DakieksteLogoWhite from "@/Icons/DakieksteLogoWhite";
+import DakieksteLogoBlack from "@/Icons/DakieksteLogoBlack";
+import NavBar from "./NavBar";
+import Header from "./Header";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -20,12 +22,13 @@ const Layout = ({ children }) => {
   return (
     <div>
       <header>
-        <Link href="/">
-          <StyledLogoWrapper>
-            <StyledDakieksteLogo />
-          </StyledLogoWrapper>
-        </Link>
-        <Navigation />
+        <NavBar />
+        <Header
+          src="/images/Head_Image.jpg"
+          headlineThin="BILDWELTEN"
+          headlineBold="FÜR EURE VISION"
+        />
+        {/* <Navigation /> */}
       </header>
       <StyledMain>{children}</StyledMain>
       <Footer />
@@ -41,25 +44,6 @@ const StyledLogoWrapper = styled.div`
 
 const StyledMain = styled.main`
   margin-top: -1.8rem;
-`;
-
-const StyledDakieksteLogo = styled(DakieksteLogo)``;
-
-const StyledLogoH1 = styled.h3`
-  /* color: ${(props) => (props.isHomepage ? "white" : "black")}; */
-  color: white;
-`;
-
-const StyledIconWrapper = styled.div`
-  padding-left: 0.2rem;
-  .logo-path {
-    /* stroke: ${(props) => (props.isHomepage ? "white" : "black")}; */
-    stroke: white;
-  }
-  .logo-fill {
-    /* fill: ${(props) => (props.isHomepage ? "white" : "black")}; */
-    fill: white;
-  }
 `;
 
 export default Layout;

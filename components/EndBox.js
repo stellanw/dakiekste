@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
 import AugenGrossIcon from "@/Icons/AugenGrossIcon";
+import AugeIcon from "@/Icons/AugeIcon";
 
 export default function EndBox() {
   return (
@@ -9,7 +10,17 @@ export default function EndBox() {
         <AugenGrossIcon />
       </StyledSVG>
       <StyledHeadline>ZEIGT WER IHR SEID</StyledHeadline>
-      <StyledText>DAKIEKSTE VERLEIHT EURER MARKE VISUELLEN AUSDRUCK</StyledText>
+      <StyledText>
+        FOTOGRAFIE{" "}
+        <StyledSpan>
+          <StyledIcon />
+        </StyledSpan>{" "}
+        NATÜRLICH{" "}
+        <span>
+          <AugeIcon />
+        </span>{" "}
+        ECHT
+      </StyledText>
     </StyledContainer>
   );
 }
@@ -42,4 +53,12 @@ const StyledText = styled.p`
   font-weight: 200;
   text-align: center;
   margin: 0;
+`;
+
+const StyledSpan = styled.span`
+  width: 2px;
+`;
+
+const StyledIcon = styled(AugeIcon)`
+  width: 50px;
 `;
