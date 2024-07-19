@@ -18,14 +18,14 @@ export default function Team() {
       {/* <StyledTopParagraph>
         Wir sind ein kreatives Trio, das seit über zehn Jahren als Team
         zusammenarbeitet. Respekt und Empathie sind die Basis unserer Arbeit.
-      </StyledTopParagraph>
-      <StyledTopParagraph>
+        </StyledTopParagraph>
+        <StyledTopParagraph>
         Im engen Austausch mit unseren Kund*innen schaffen wir Bildwelten, die
         Menschen und ihre Geschichten in den Mittelpunkt stellen. Mit unserer
         Expertise in Fotografie, Videografie, Kommunikationsdesign und
         Webentwicklung bieten wir euch alles aus einer Hand.
-      </StyledTopParagraph>
-      <StyledTopParagraph>
+        </StyledTopParagraph>
+        <StyledTopParagraph>
         Wir lieben interdisziplinäre Zusammenarbeit und nutzen unser Netzwerk an
         3D-Artists, Produktdesigner*innen, Visagist*innen, Stylist*innen und
         mehr.
@@ -179,13 +179,14 @@ const StyledTeamMembersContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 4rem;
-
+  background-color: ${theme.secondaryColorBeige};
   width: 100%;
   gap: 4rem;
 
   @media (max-width: 1060px) {
     justify-content: center;
   }
+  margin-bottom: 4rem;
 `;
 
 const StyledSpanThin = styled.span`
@@ -197,6 +198,7 @@ const StyledHeadline = styled.h1`
   padding-left: 4rem;
   font-size: ${theme.fontSizes.xxxl};
   color: ${theme.primaryColor};
+  background-color: ${theme.secondaryColorBeige};
 `;
 
 const StyledHeadline2 = styled.h1`
@@ -204,6 +206,7 @@ const StyledHeadline2 = styled.h1`
   padding-left: 4rem;
   font-size: ${theme.fontSizes.xxxl};
   color: ${theme.primaryColor};
+  background-color: ${theme.secondaryColorBeige};
 `;
 
 const StyledTopParagraph = styled.p`
