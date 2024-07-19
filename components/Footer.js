@@ -7,6 +7,7 @@ import {
   IoLocationOutline,
 } from "react-icons/io5";
 import AugenIconGreen from "@/Icons/AugenIconGreen";
+import { theme } from "@/styles";
 
 export default function Footer() {
   return (
@@ -53,8 +54,8 @@ const StyledFooter = styled.footer`
   font-size: 1.2rem;
   margin: 0;
   height: 18rem;
-  background-color: #e9e8fb;
-  color: #11a984;
+  background-color: ${theme.secondaryColorBeige};
+  color: ${theme.primaryColor};
 `;
 
 const StyledIconWrapper = styled.div`
@@ -77,7 +78,7 @@ const StyledLeftWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: #11a984;
+  color: ${theme.primaryColor};
   margin-bottom: -0.2rem;
 `;
 
