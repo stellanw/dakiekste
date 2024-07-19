@@ -15,12 +15,6 @@ import CenterTextBox from "@/components/CenterTextBox";
 export default function HomePage() {
   return (
     <Layout>
-      <Header
-        src="/images/Head_Image.jpg"
-        headlineThin="BILDWELTEN"
-        headlineBold="FÜR EURE VISION"
-      />
-
       <HeadTextBox />
       <LeistungBox />
       {/* <StyledImageContainer>

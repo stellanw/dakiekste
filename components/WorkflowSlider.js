@@ -51,10 +51,7 @@ export default function WorkflowSlider() {
       <StyledH1>SCHRITT FÜR SCHRITT</StyledH1>
       <StyledSlider {...settings}>
         <StyledBox>
-          <StyledHeadline>
-            SCHRITT 1 <br />
-            VORBEREITUNG
-          </StyledHeadline>
+          <StyledHeadline>01 | VORBEREITUNG</StyledHeadline>
 
           <StyledUl>
             <StyledLi>Kennenlernen</StyledLi>
@@ -73,7 +70,7 @@ export default function WorkflowSlider() {
         </StyledBox>
 
         <StyledBox>
-          <StyledHeadline>02 MAKE-UP UND STYLING</StyledHeadline>
+          <StyledHeadline>02 | MAKE-UP UND STYLING</StyledHeadline>
           <StyledUl>
             <StyledLi>Make-Up & Styling vor dem Shooting</StyledLi>
             <StyledLi>Besprechung der Garderobe</StyledLi>
@@ -89,7 +86,7 @@ export default function WorkflowSlider() {
         </StyledBox>
 
         <StyledBox>
-          <StyledHeadline>03 DAS SHOOTING</StyledHeadline>
+          <StyledHeadline>03 | DAS SHOOTING</StyledHeadline>
 
           <StyledUl>
             <StyledLi>Lichtset-up</StyledLi>
@@ -109,7 +106,7 @@ export default function WorkflowSlider() {
         </StyledBox>
 
         <StyledBox>
-          <StyledHeadline>04 FOTORETUSCHE UND LOOK</StyledHeadline>
+          <StyledHeadline>04 | FOTORETUSCHE UND LOOK</StyledHeadline>
 
           <StyledUl>
             <StyledLi>Finale Foto-Auswahl treffen</StyledLi>
