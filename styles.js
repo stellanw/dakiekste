@@ -9,7 +9,8 @@ export const theme = {
   alertColor: "red",
   confirmColor: "green",
   highlightColor: "#A3FFB7",
-  darkBackgroundColor: "#A5A294",
+  darkBackgroundColor: "#252422",
+  brightBackgroundColor: "#D1F2D8",
 
   fontSizes: {
     xs: "0.8rem",

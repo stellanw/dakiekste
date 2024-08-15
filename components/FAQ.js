@@ -23,11 +23,10 @@ export default function FAQ() {
 
   return (
     <StyledFAQContainer>
-      <StyledHeadlineContainer>
-        <StyledH1>OFFENE FRAGEN</StyledH1>
-        <StyledH2>Deine Fragen - unsere Antworten</StyledH2>
-      </StyledHeadlineContainer>
       <StyledUl>
+        <StyledHeadlineContainer>
+          <h1>Häufige Fragen</h1>
+        </StyledHeadlineContainer>
         <StyledLi>
           <StyledSpanBold>
             Welche Vorbereitung ist für ein Shooting erforderlich?
@@ -167,15 +166,15 @@ const StyledPlusIcon = styled(FaPlus)`
 const StyledFAQContainer = styled.section`
   display: flex;
   flex-direction: column;
-
   align-items: center;
+  position: relative;
   width: 100%;
 
   margin: 0;
   padding: 0;
 
-  background-color: ${theme.darkBackgroundColor};
-  color: ${theme.secondaryColorBeige};
+  background-color: ${theme.secondaryColorBeige};
+
   margin-bottom: -0.5rem;
   /* @media (max-width: 750px) {
     flex-direction: column;
@@ -186,23 +185,16 @@ const StyledFAQContainer = styled.section`
 const StyledHeadlineContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 3rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  align-items: start;
+  position: relative;
+  margin: 0rem 2rem 2rem 0rem;
   color: ${theme.textColor};
-`;
+  width: 100%;
 
-const StyledH1 = styled.h1`
-  font-size: ${theme.fontSizes.small};
-  font-weight: 500;
-
-  padding-bottom: 1rem;
-`;
-
-const StyledH2 = styled.h2`
-  font-size: ${theme.fontSizes.large};
-  font-weight: 250;
+  h1 {
+    font-size: ${theme.fontSizes.xl};
+    text-transform: uppercase;
+  }
 `;
 
 const StyledSpanBold = styled.span`
@@ -223,7 +215,7 @@ const StyledUl = styled.ul`
   margin-bottom: 3rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  color: ${theme.highlightColor};
+  margin: 5rem 2rem 4rem 2rem;
 `;
 
 const StyledLi = styled.li`

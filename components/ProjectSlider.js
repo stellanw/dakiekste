@@ -2,7 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { theme } from "@/styles";
-import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import {
+  IoChevronBackOutline,
+  IoChevronForwardOutline,
+  IoArrowForwardOutline,
+  IoArrowBackOutline,
+} from "react-icons/io5";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
@@ -16,7 +21,9 @@ export default function ProjectSlider({ projects }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.intersectionRatio >= 0.7) {
-          setCurrentSlide(sliderRef.current?.slickCurrentSlide() || 0);
+          setCurrentSlide(
+            sliderRef.current?.innerSlider?.state.currentSlide || 0
+          );
         }
       },
       { threshold: 0.7 }
@@ -70,17 +77,21 @@ export default function ProjectSlider({ projects }) {
                 </span>
                 <h1>{project.title}</h1>
               </TitleAndIndex>
-              <StyledLink href="/portfolio">Zum Projekt</StyledLink>
+              {/* <StyledLink href="/portfolio">Zum Projekt</StyledLink> */}
             </ProjectDetails>
           </Slide>
         ))}
       </StyledSlider>
-      <Arrow onClick={handlePrevClick} direction="left">
-        <IoChevronBackOutline />
-      </Arrow>
-      <Arrow onClick={handleNextClick} direction="right">
-        <IoChevronForwardOutline />
-      </Arrow>
+      <ArrowContainer>
+        <Arrow onClick={handlePrevClick}>
+          {/* <IoChevronBackOutline /> */}
+          <IoArrowBackOutline />
+        </Arrow>
+        <Arrow onClick={handleNextClick}>
+          {/* <IoChevronForwardOutline /> */}
+          <IoArrowForwardOutline />
+        </Arrow>
+      </ArrowContainer>
     </SliderWrapper>
   );
 }
@@ -90,7 +101,7 @@ const SliderWrapper = styled.div`
   margin-bottom: -0.5rem;
   color: ${theme.textColor};
   overflow: hidden;
-  z-index: 0;
+
   &::after {
     position: absolute;
 
@@ -105,7 +116,6 @@ const SliderWrapper = styled.div`
       rgba(255, 255, 255, 0.5) 100%
     );
     pointer-events: none;
-    z-index: 1;
   }
 `;
 
@@ -120,7 +130,6 @@ const Slide = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  z-index: 0;
 `;
 
 const StyledImage = styled(Image)`
@@ -129,7 +138,7 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   object-position: center;
   overflow: hidden;
-  z-index: 0;
+
   @media (max-width: 1000px) {
     height: 700px;
   }
@@ -142,7 +151,7 @@ const StyledImage = styled(Image)`
 const ProjectDetails = styled.div`
   position: absolute;
   bottom: 0;
-  z-index: 100;
+
   height: 100%;
   width: 100%;
   padding: 2rem;
@@ -157,7 +166,7 @@ const TitleAndIndex = styled.div`
   top: 3rem;
   left: 4rem;
   font-weight: 600;
-  z-index: 101;
+
   span {
     letter-spacing: 0.2rem;
   }
@@ -177,17 +186,22 @@ const StyledLink = styled(Link)`
   font-size: ${theme.fontSizes.xs};
   border-radius: 20px;
   padding: 0.3rem 0.9rem;
-  z-index: 200;
+
   &:hover {
     padding: 0.35rem 0.55rem 0.35rem;
     font-weight: 500;
   }
 `;
 
-const Arrow = styled.div`
+const ArrowContainer = styled.div`
+  display: flex;
   position: absolute;
-  top: 50%;
-  ${(props) => props.direction}: 1rem;
-  z-index: 150;
+  justify-content: space-between;
+  top: 3.15rem;
+  right: 2rem;
+  width: 40px;
+`;
+const Arrow = styled.div`
+  position: relative;
   cursor: pointer;
 `;
