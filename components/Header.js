@@ -3,10 +3,15 @@ import styled from "styled-components";
 import Image from "next/image";
 import { theme } from "@/styles";
 
-export default function Header({ src, headlineThin, headlineBold }) {
+export default function Header({
+  src,
+  headlineThin,
+  headlineBold1,
+  headlineBold2,
+}) {
   return (
     <>
-      <StyledImageHeadContainer>
+      <StyledHeadContainer>
         <StyledHeadImage
           src={src}
           alt="dakiekste header image"
@@ -14,18 +19,19 @@ export default function Header({ src, headlineThin, headlineBold }) {
           width={1400}
           height={500}
         />
-      </StyledImageHeadContainer>
+      </StyledHeadContainer>
       <StyledHeadlineContainer>
-        <StyledH1Thin>{headlineThin}</StyledH1Thin>
-        <StyledH1>{headlineBold}</StyledH1>
+        <StyledH1Top>{headlineBold1}</StyledH1Top>
+        <StyledH1>
+          <StyledThinSpan>{headlineThin}</StyledThinSpan>
+          {headlineBold2}
+        </StyledH1>
       </StyledHeadlineContainer>
     </>
   );
 }
 
-const StyledImageHeadContainer = styled.div`
-  display: flex;
-  position: relative;
+const StyledHeadContainer = styled.div`
   z-index: -5;
   width: 100%;
   height: 400px;
@@ -46,30 +52,28 @@ const StyledHeadImage = styled(Image)`
 
 const StyledHeadlineContainer = styled.div`
   margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: end;
+  margin-top: -8rem;
 `;
 
-const StyledH1Thin = styled.h1`
-  /* display: flex;
-  justify-content: start;
-  flex-wrap: nowrap; */
-  font-size: 2.2rem;
-  font-weight: 200;
-  margin: 0;
-  margin-top: -14rem;
-  /* margin-bottom: 3rem; */
-  color: ${theme.secondaryColorBeige};
-  /* color: ${theme.primaryColor}; */
-`;
-
-const StyledH1 = styled.h1`
-  /* display: flex;
-  justify-content: start;
-  flex-wrap: nowrap; */
+const StyledH1Top = styled.span`
   font-size: 2.2rem;
   font-weight: 600;
   margin: 0;
-  /* margin-top: 10rem; */
-  margin-bottom: 3rem;
   color: ${theme.secondaryColorBeige};
-  /* color: ${theme.primaryColor}; */
+`;
+
+const StyledH1 = styled.h1`
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0;
+  color: ${theme.secondaryColorBeige};
+`;
+
+const StyledThinSpan = styled.span`
+  font-weight: 200;
+  padding-right: 0.3rem;
 `;

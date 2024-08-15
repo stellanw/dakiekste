@@ -1,21 +1,20 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
+import LogoCarousel from "./LogoCarousel";
 
 export default function HeadTextBox() {
   return (
     <StyledTextContainer>
       <StyledTopTextWrapper>
-        <StyledHeadline>
-          {" "}
-          Ihr schreibt Geschichten - wir halten sie fest
-        </StyledHeadline>
+        <StyledHeadline> fotografie echt sichtbar</StyledHeadline>
         <StyledTopText>
-          Unsere Business-Fotografie bringt eure Vision und Leidenschaft zum
-          Ausdruck. Mit modernen Ideen und jungem Blick rücken wir den Menschen
-          hinter der Marke in den Fokus.
+          Wir machen deine Marke sichtbar und bringen deine Werte und
+          Persönlichkeit visuell auf den Punkt – mit modernen Ideen und frischen
+          Ansätzen.
         </StyledTopText>
       </StyledTopTextWrapper>
-      <StyledBottomContainer>
+      <LogoCarousel />
+      {/* <StyledBottomContainer>
         <StyledBottomTextWrapper>
           <StyledHeadline>STÄRKT EURE MARKE</StyledHeadline>
           <StyledBottomText>
@@ -36,31 +35,35 @@ export default function HeadTextBox() {
             Besondere Bilder bleiben im Gedächtnis und erhöhen eure Reichweite.
           </StyledBottomText>
         </StyledBottomTextWrapper>
-      </StyledBottomContainer>
+      </StyledBottomContainer> */}
     </StyledTextContainer>
   );
 }
 const StyledTextContainer = styled.div`
   width: 100%;
+
   margin: 0;
-  margin-top: 5.8rem;
+  margin-top: 4rem;
   padding-top: 6rem;
   padding-bottom: 6rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   background-color: ${theme.secondaryColorBeige};
 `;
 
 const StyledHeadline = styled.h2`
   font-size: ${theme.fontSizes.xs};
   margin: 0;
+  text-transform: uppercase;
 `;
 
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
-  max-width: 900px;
+  /* max-width: 900px; */
+  width: 550px;
   padding-bottom: 2rem;
-  /* margin: auto; */
+  margin: auto;
+  text-align: center;
 `;
 
 const StyledTopText = styled.p`
@@ -68,6 +71,7 @@ const StyledTopText = styled.p`
   margin: 0;
   padding-top: 0.5rem;
   padding-bottom: 2.5rem;
+  font-weight: 300;
 `;
 
 const StyledBottomTextWrapper = styled.div`

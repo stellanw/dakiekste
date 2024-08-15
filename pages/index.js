@@ -11,12 +11,16 @@ import ProjectSlider from "../components/ProjectSlider";
 import WorkflowSlider from "@/components/WorkflowSlider";
 import Header from "@/components/Header";
 import CenterTextBox from "@/components/CenterTextBox";
+import FAQ from "@/components/FAQ";
+import Leistungen from "@/components/Leistungen";
+import SplitTextBox from "@/components/SplitTextBox";
+import Workflow from "@/components/Workflow";
 
 export default function HomePage() {
   return (
     <Layout>
       <HeadTextBox />
-      <LeistungBox />
+
       {/* <StyledImageContainer>
         <StyledImage
           src="/images/Team.png"
@@ -25,10 +29,13 @@ export default function HomePage() {
           height={500}
         />
       </StyledImageContainer> */}
+      <Leistungen />
+      <ProjectSlider projects={projects} />
+      <SplitTextBox />
+      <Workflow />
       <Team />
       <CenterTextBox />
-      <ProjectSlider projects={projects} />
-      <WorkflowSlider />
+      <FAQ />
       <EndBox />
     </Layout>
   );

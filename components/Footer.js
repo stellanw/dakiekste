@@ -6,15 +6,17 @@ import {
   IoCallOutline,
   IoLocationOutline,
 } from "react-icons/io5";
-import AugenIconGreen from "@/Icons/AugenIconGreen";
+
 import { theme } from "@/styles";
+import AugenIcon from "@/Icons/AugenIcon";
 
 export default function Footer() {
   return (
     <StyledFooter>
       <StyledLeftWrapper>
         <StyledIconWrapper>
-          <AugenIconGreen />
+          <AugenIcon color={theme.textColor} />
+          <AugenIcon color={theme.textColor} />
         </StyledIconWrapper>
         <div>
           <StyledLink href="mailto:info@dakiekste.com">
@@ -55,10 +57,12 @@ const StyledFooter = styled.footer`
   margin: 0;
   height: 18rem;
   background-color: ${theme.secondaryColorBeige};
-  color: ${theme.primaryColor};
+  color: ${theme.textColor};
 `;
 
 const StyledIconWrapper = styled.div`
+  display: flex;
+  gap: 0.2rem;
   height: auto;
   width: 2rem;
 `;
@@ -78,7 +82,6 @@ const StyledLeftWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: ${theme.primaryColor};
   margin-bottom: -0.2rem;
 `;
 
