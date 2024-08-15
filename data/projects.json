@@ -2,19 +2,16 @@
   {
     "title": "IMAGE KAMPAGNE",
     "description": "Description of Project 1",
-    "image": "/images/Projekt_01_Averdung.jpg",
-    "tags": ["Corporate", "Image", "Story"]
+    "image": "/images/Projekt_01_Averdung.jpg"
   },
   {
     "title": "BUSINESS PORTRAIT",
     "description": "Description of Project 2",
-    "image": "/images/Business_Portrait.jpg",
-    "tags": ["Mitarbeiter Portrait", "Business Portrait"]
+    "image": "/images/Business_Portrait.jpg"
   },
   {
     "title": "FOTO REPORTAGE",
     "description": "Description of Project 3",
-    "image": "/images/Projekt_03.jpg",
-    "tags": ["Fotoreportage", "Reportage"]
+    "image": "/images/Projekt_03.jpg"
   }
 ]

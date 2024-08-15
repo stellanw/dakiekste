@@ -5,47 +5,50 @@ export default function CenterTextBox() {
   return (
     <StyledTextContainer>
       <StyledTopTextWrapper>
-        <StyledHeadline> WIR BRINGEN FRISCHEN WIND</StyledHeadline>
-        <StyledTopText>
-          Dakiekste ist ein kreatives Trio, das seit über zehn Jahren als Team
-          zusammenarbeitet. Respekt und Empathie sind die Basis unserer Arbeit.
-          Im engen Austausch mit unseren Kund*innen schaffen wir Bildwelten, die
-          Menschen und ihre Geschichten in den Mittelpunkt stellen. Mit unserer
-          Expertise in Fotografie, Videografie, Kommunikationsdesign und
-          Webentwicklung bieten wir euch alles aus einer Hand. Wir lieben
-          interdisziplinäre Zusammenarbeit und nutzen unser Netzwerk an
-          3D-Artists, Produktdesigner*innen, Visagist*innen, Stylist*innen und
-          vielen mehr.
-        </StyledTopText>
+        <h1> Wir bringen frischen Wind in deine Positionierung</h1>
+        <p>
+          Wir sind ein kreatives Trio, das seit über <span>14 Jahren</span> als
+          eingespieltes <span>Team</span> arbeitet.{" "}
+          <span>Respekt und Empathie</span> bilden die Grundlage unserer Arbeit.
+          Unser Studio in Berne befindet sich in einer ehemaligen Schule, wo wir
+          unsere Projekte realisieren. In engem Austausch mit unseren Kund*innen
+          schaffen wir Bildwelten, die <span>Menschen</span> und ihre
+          Geschichten in den
+          <pan>Mittelpunkt</pan> stellen. Mit unserer Expertise in Fotografie,
+          Videografie, Design und Webentwicklung bieten wir alles aus einer Hand
+          und nutzen unser <span>interdisziplinäres Netzwerk</span>, um eure
+          Bedürfnisse optimal zu erfüllen.
+        </p>
       </StyledTopTextWrapper>
     </StyledTextContainer>
   );
 }
 const StyledTextContainer = styled.div`
   width: 100%;
-  margin: 0;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  background-color: ${theme.secondaryColorBeige};
-`;
-
-const StyledHeadline = styled.h2`
-  font-size: ${theme.fontSizes.xs};
-  margin: 0;
+  margin: auto;
+  padding: 6rem 8rem 6rem 4rem;
+  background-color: ${theme.highlightColor};
 `;
 
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
-  max-width: 900px;
-`;
 
-const StyledTopText = styled.p`
-  font-size: ${theme.fontSizes.medium};
-  font-weight: 300;
-  line-height: 2rem;
-  margin: 0;
-  padding-top: 2rem;
-  padding-bottom: 0;
+  h1 {
+    font-size: ${theme.fontSizes.xs};
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  p {
+    font-size: ${theme.fontSizes.medium};
+    font-weight: 300;
+    line-height: 2rem;
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 0;
+  }
+
+  span {
+    font-weight: 600;
+  }
 `;
