@@ -38,12 +38,12 @@ const StyledSplitTextBox = styled.div`
   position: relative;
   justify-content: space-evenly;
   width: 100%;
-  background-color: ${theme.highlightColor};
+  background-color: ${theme.brightBackgroundColor};
 `;
 
 const StyledTextWrapper = styled.div`
   flex: 1;
-
+  min-width: 370px;
   max-width: 800px;
   padding: 4rem;
   margin: auto;
@@ -64,14 +64,17 @@ const StyledImage = styled(Image)`
   top: 0;
   left: 0;
   width: 100%;
+
   height: 100%;
   object-fit: cover;
+  overflow: hidden;
 `;
 
 const StyledImageContainer = styled.div`
   position: relative;
   flex: 1;
   width: 30%;
+  min-width: 370px;
   min-height: 500px;
   &::after {
     position: absolute;

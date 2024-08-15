@@ -4,7 +4,7 @@ import styled, { keyframes, css } from "styled-components";
 import { theme } from "@/styles";
 import AugenIcon from "@/Icons/AugenIcon";
 
-export default function EyeAnimation() {
+export default function EyeAnimation({ color }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animationActive, setAnimationActive] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -72,14 +72,14 @@ export default function EyeAnimation() {
         animationActive={animationActive}
         rotation={rotation}
       >
-        <AugenIcon />
+        <AugenIcon color={color} />
       </StyledIconWrapper>
       <StyledIconWrapper
         ref={eyesRef}
         animationActive={animationActive}
         rotation={rotation}
       >
-        <AugenIcon />
+        <AugenIcon color={color} />
       </StyledIconWrapper>
     </StyledIconsWrapper>
   );

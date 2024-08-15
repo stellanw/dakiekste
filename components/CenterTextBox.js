@@ -27,7 +27,7 @@ const StyledTextContainer = styled.div`
   width: 100%;
   margin: auto;
   padding: 6rem 8rem 6rem 4rem;
-  background-color: ${theme.highlightColor};
+  background-color: ${theme.brightBackgroundColor};
 `;
 
 const StyledTopTextWrapper = styled.div`

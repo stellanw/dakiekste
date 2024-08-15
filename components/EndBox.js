@@ -7,11 +7,11 @@ export default function EndBox() {
   return (
     <StyledContainer>
       <StyledSVG>
-        <AugenGrossIcon />
+        <AugenGrossIcon color={theme.highlightColor} />
       </StyledSVG>
-      <StyledHeadline>ZEIGT WER IHR SEID</StyledHeadline>
+      <StyledHeadline>Zeigt wer ihr seid mit dakiekste</StyledHeadline>
       <StyledText>
-        FOTOGRAFIE <span>.</span> NATÜRLICH <span>.</span> ECHT
+        fotografie <span>.</span> natürlich <span>.</span> Sichtbar
       </StyledText>
     </StyledContainer>
   );
@@ -21,28 +21,31 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6rem;
+  padding: 1rem 2rem 4rem 2rem;
   width: 100%;
-  background-color: ${theme.primaryColor};
+  background-color: ${theme.darkBackgroundColor};
   color: ${theme.secondaryColorBeige};
 `;
 
 const StyledSVG = styled.div`
   display: flex;
   width: fit-content;
-  width: 200px;
+  width: 80px;
+  height: 120px;
 `;
 
 const StyledHeadline = styled.h1`
-  font-size: ${theme.fontSizes.xxl};
+  font-size: ${theme.fontSizes.small};
   margin-bottom: 0.2rem;
-  margin-top: 1rem;
   text-align: center;
+  font-weight: 200;
+  text-transform: uppercase;
 `;
 
 const StyledText = styled.p`
-  font-size: ${theme.fontSizes.xxl};
-  font-weight: 200;
+  font-size: ${theme.fontSizes.large};
+  font-weight: 500;
   text-align: center;
   margin: 0;
+  text-transform: uppercase;
 `;
