@@ -25,8 +25,9 @@ const Layout = ({ children }) => {
         <NavBar />
         <Header
           src="/images/Head_Image.jpg"
-          headlineThin="BILDWELTEN"
-          headlineBold="FÜR EURE VISION"
+          headlineBold1="DEIN IMAGE"
+          headlineThin="KLAR"
+          headlineBold2="IM BLICK"
         />
         {/* <Navigation /> */}
       </header>

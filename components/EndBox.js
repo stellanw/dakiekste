@@ -11,15 +11,7 @@ export default function EndBox() {
       </StyledSVG>
       <StyledHeadline>ZEIGT WER IHR SEID</StyledHeadline>
       <StyledText>
-        FOTOGRAFIE{" "}
-        <StyledSpan>
-          <StyledIcon />
-        </StyledSpan>{" "}
-        NATÜRLICH{" "}
-        <span>
-          <AugeIcon />
-        </span>{" "}
-        ECHT
+        FOTOGRAFIE <span>.</span> NATÜRLICH <span>.</span> ECHT
       </StyledText>
     </StyledContainer>
   );
@@ -53,12 +45,4 @@ const StyledText = styled.p`
   font-weight: 200;
   text-align: center;
   margin: 0;
-`;
-
-const StyledSpan = styled.span`
-  width: 2px;
-`;
-
-const StyledIcon = styled(AugeIcon)`
-  width: 50px;
 `;

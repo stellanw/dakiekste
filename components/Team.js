@@ -5,31 +5,21 @@ import Link from "next/link";
 import {
   IoLogoInstagram,
   IoMailOutline,
-  IoCallOutline,
-  IoLocationOutline,
   IoEarthOutline,
 } from "react-icons/io5";
 
 export default function Team() {
   return (
     <>
-      <StyledHeadline>Gemeinsam realisieren </StyledHeadline>
-      <StyledHeadline2>wir eure Vision.</StyledHeadline2>
-      {/* <StyledTopParagraph>
-        Wir sind ein kreatives Trio, das seit über zehn Jahren als Team
-        zusammenarbeitet. Respekt und Empathie sind die Basis unserer Arbeit.
-        </StyledTopParagraph>
-        <StyledTopParagraph>
-        Im engen Austausch mit unseren Kund*innen schaffen wir Bildwelten, die
-        Menschen und ihre Geschichten in den Mittelpunkt stellen. Mit unserer
-        Expertise in Fotografie, Videografie, Kommunikationsdesign und
-        Webentwicklung bieten wir euch alles aus einer Hand.
-        </StyledTopParagraph>
-        <StyledTopParagraph>
-        Wir lieben interdisziplinäre Zusammenarbeit und nutzen unser Netzwerk an
-        3D-Artists, Produktdesigner*innen, Visagist*innen, Stylist*innen und
-        mehr.
-      </StyledTopParagraph> */}
+      <StyledTextWrapper>
+        <h1>Wir sind dakiekste </h1>
+
+        <p>
+          Mit unserer langjährigen Expertise helfen wir dir, deiner Marke ein
+          Gesicht zu geben.
+        </p>
+      </StyledTextWrapper>
+
       <StyledTeamMembersContainer>
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
@@ -41,19 +31,16 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            <StyledSpanBold>Stellan</StyledSpanBold> ist ein vielseitiger
-            <StyledSpanBorder>Fotograf</StyledSpanBorder>, der auch in der
-            <StyledSpanBorder>Videografie</StyledSpanBorder> und im{" "}
-            <StyledSpanBorder>Web-Development</StyledSpanBorder> zu Hause ist.
-            Besonders liebt er die Eventfotografie, weil sie lebendige und
-            authentische Momente einfängt.
+            Moin ich bin <StyledSpanBold>Stellan</StyledSpanBold>!
           </StyledParagraph>
-          <StyledQuote>
-            »<StyledSpanBold>Vielfalt</StyledSpanBold> sehe ich als Bereicherung
-            und bringe diese Überzeugung durch eine offene Atmosphäre in meine
-            Arbeit ein.«
-          </StyledQuote>
-          <StyledRightWrapper>
+          <TagWrapper>
+            <StyledSpanBorder>Fotografie</StyledSpanBorder>{" "}
+            <StyledSpanBorder>Videografie</StyledSpanBorder>
+            <StyledSpanBorder>Portraitfotografie</StyledSpanBorder>
+            <StyledSpanBorder>Eventfotografie</StyledSpanBorder>
+            <StyledSpanBorder>Web-Development</StyledSpanBorder>{" "}
+          </TagWrapper>
+          <StyledLinkWrapper>
             <StyledLink
               href="https://stellanwetzig.de/"
               target="_blank"
@@ -64,9 +51,7 @@ export default function Team() {
             <StyledLink href="mailto:stellan@dakiekste.com">
               <IoMailOutline />
             </StyledLink>
-            {/* <StyledLink href="tel:+4917682472921">
-          <IoCallOutline />
-        </StyledLink> */}
+
             <StyledLink
               href="https://www.instagram.com/stellanwetzig.photography/"
               target="_blank"
@@ -74,7 +59,7 @@ export default function Team() {
             >
               <IoLogoInstagram />
             </StyledLink>
-          </StyledRightWrapper>
+          </StyledLinkWrapper>
         </StyledTeamMemberContainer>
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
@@ -86,22 +71,17 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            <StyledSpanBold>Clara</StyledSpanBold> ist
-            <StyledSpanBorder>Werbe-Fotografin</StyledSpanBorder> und{" "}
-            <nobr>
-              hat sich auf{" "}
-              <StyledSpanBorder>Portraitfotografie</StyledSpanBorder>
-            </nobr>
-            <br></br>
-            spezialisiert. Sie hat das Talent, einen Raum zu schaffen, in dem
-            sich alle wohlfühlen. Mit ihrem konzeptionellen Denken und
-            Ideenreichtum erzeugt sie fotografisch neue Welten.
+            Moin ich bin <StyledSpanBold>Clara</StyledSpanBold>!
           </StyledParagraph>
-          <StyledQuote>
-            »Ich liebe ausdrucksstarte Portraits, weil für mich{" "}
-            <StyledSpanBold>jeder Mensch</StyledSpanBold> ein Meisterwerk ist!«
-          </StyledQuote>
-          <StyledRightWrapper>
+          <TagWrapper>
+            <StyledSpanBorder>Fotografie</StyledSpanBorder>
+
+            <StyledSpanBorder>Portraitfotografie</StyledSpanBorder>
+
+            <StyledSpanBorder>Konzeption</StyledSpanBorder>
+            <StyledSpanBorder>Content Creation</StyledSpanBorder>
+          </TagWrapper>
+          <StyledLinkWrapper>
             <StyledLink
               href="https://www.claraide.com/home"
               target="_blank"
@@ -122,7 +102,7 @@ export default function Team() {
             >
               <IoLogoInstagram />
             </StyledLink>
-          </StyledRightWrapper>
+          </StyledLinkWrapper>
         </StyledTeamMemberContainer>
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
@@ -134,19 +114,17 @@ export default function Team() {
             />
           </StyledMemberImageContainer>
           <StyledParagraph>
-            <StyledSpanBold>Maischa</StyledSpanBold> bringt zusätzlich zur{" "}
-            <StyledSpanBorder>Fotografie</StyledSpanBorder> Erfahrungen im
-            Bereich <StyledSpanBorder>Kommunikationsdesign</StyledSpanBorder>{" "}
-            mit den Schwerpunkten Branding, Corporate Design und{" "}
-            <StyledSpanBorder>Webdesign</StyledSpanBorder> mit. Sie kann euch
-            von der Vision bis zur Umsetzung auf vielen Ebenen begleiten.
+            Moin ich bin <StyledSpanBold>Maischa</StyledSpanBold>!<br />
           </StyledParagraph>
-          <StyledQuote>
-            »Visuelle Geschichten zu erzählen und dabei einen{" "}
-            <StyledSpanBold>Vertrauensraum </StyledSpanBold>
-            zu schaffen, motiviert mich.«
-          </StyledQuote>
-          <StyledRightWrapper>
+          <TagWrapper>
+            <StyledSpanBorder>Fotografie</StyledSpanBorder>
+            <StyledSpanBorder>Kommunikationsdesign</StyledSpanBorder>
+            <StyledSpanBorder>Branding</StyledSpanBorder>
+            <StyledSpanBorder>Corporate Design</StyledSpanBorder>
+            <StyledSpanBorder>Webdesign</StyledSpanBorder>
+          </TagWrapper>
+
+          <StyledLinkWrapper>
             <StyledLink
               href="https://www.maischasouaga.com/"
               target="_blank"
@@ -157,9 +135,7 @@ export default function Team() {
             <StyledLink href="mailto:maischa@dakiekste.com">
               <IoMailOutline />
             </StyledLink>
-            {/* <StyledLink href="tel:+4917682472921">
-          <IoCallOutline />
-        </StyledLink> */}
+
             <StyledLink
               href="https://www.instagram.com/maischa_s/"
               target="_blank"
@@ -167,18 +143,46 @@ export default function Team() {
             >
               <IoLogoInstagram />
             </StyledLink>
-          </StyledRightWrapper>
+          </StyledLinkWrapper>
         </StyledTeamMemberContainer>
       </StyledTeamMembersContainer>
     </>
   );
 }
 
+const TagWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-left: -0.5rem;
+`;
+
+const StyledTextWrapper = styled.div`
+  padding: 4rem 4rem 2rem 4rem;
+  margin: auto;
+  text-align: center;
+  background-color: ${theme.secondaryColorBeige};
+
+  h1 {
+    font-size: ${theme.fontSizes.small};
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: ${theme.fontSizes.large};
+    font-weight: 300;
+    max-width: 500px;
+    margin: auto;
+  }
+`;
+
 const StyledTeamMembersContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 4rem;
+  padding: 0rem 4rem 2rem 4rem;
   background-color: ${theme.secondaryColorBeige};
   width: 100%;
   gap: 4rem;
@@ -186,34 +190,6 @@ const StyledTeamMembersContainer = styled.div`
   @media (max-width: 1060px) {
     justify-content: center;
   }
-  margin-bottom: 4rem;
-`;
-
-const StyledSpanThin = styled.span`
-  font-weight: 400;
-`;
-
-const StyledHeadline = styled.h1`
-  padding-top: 6rem;
-  padding-left: 4rem;
-  font-size: ${theme.fontSizes.xxxl};
-  color: ${theme.primaryColor};
-  background-color: ${theme.secondaryColorBeige};
-`;
-
-const StyledHeadline2 = styled.h1`
-  padding-top: 0rem;
-  padding-left: 4rem;
-  font-size: ${theme.fontSizes.xxxl};
-  color: ${theme.primaryColor};
-  background-color: ${theme.secondaryColorBeige};
-`;
-
-const StyledTopParagraph = styled.p`
-  margin: 1rem 4rem 0rem 4rem;
-  color: ${theme.primaryColor};
-  min-width: 300px;
-  max-width: 1000px;
 `;
 
 const StyledMemberImageContainer = styled.div`
@@ -227,22 +203,15 @@ const StyledMemberImageContainer = styled.div`
 const StyledMemberImage = styled(Image)`
   width: 100%;
   height: 100%;
-  /* border-radius: 10px; */
+
   object-fit: cover;
   object-position: 50% 50%;
-  border-radius: 20px;
 `;
 
 const StyledParagraph = styled.p`
   line-height: 1.5;
+  /* letter-spacing: 0.1rem; */
   color: ${theme.primaryColor};
-  height: 12rem;
-`;
-
-const StyledQuote = styled.p`
-  margin-top: 1.5rem;
-  color: ${theme.primaryColor};
-  font-style: italic;
 `;
 
 const StyledSpanBold = styled.span`
@@ -251,14 +220,18 @@ const StyledSpanBold = styled.span`
 
 const StyledSpanBorder = styled.span`
   font-weight: 800;
-  padding: 0.15rem;
+  font-size: ${theme.fontSizes.xs};
+  color: ${theme.primaryColor};
+  text-transform: lowercase;
+  display: inline-block;
   padding-left: 0.35rem;
   padding-right: 0.35rem;
   margin-left: 0.15rem;
   margin-right: 0.15rem;
+  margin-top: 0.3rem;
   border-radius: 15px;
   border: solid 1px ${theme.primaryColor};
-  line-height: 1.8;
+  line-height: 1.5;
 `;
 
 const StyledTeamMemberContainer = styled.div`
@@ -266,14 +239,14 @@ const StyledTeamMemberContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   width: 300px;
-  /* height: fit-content; */
+
   padding-top: 1rem;
   padding-bottom: 1rem;
 `;
 
-const StyledRightWrapper = styled.div`
+const StyledLinkWrapper = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: start;
   align-items: end;
   gap: 1rem;
   margin-bottom: 1.5rem;
