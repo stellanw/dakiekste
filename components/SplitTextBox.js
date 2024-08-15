@@ -1,61 +1,90 @@
+import { theme } from "@/styles";
+import Image from "next/image";
 import styled from "styled-components";
 
 export default function SplitTextBox() {
   return (
-    <StyledContentArea>
+    <StyledSplitTextBox>
       <StyledTextWrapper>
-        <h2>VISION</h2>
-        <StyledText>
+        <h1>
+          Einheitlicher Auftritt <br />
+          auf allen Kanälen
+        </h1>
+        <p>
           {" "}
-          Willkommen bei Dakiekste! Wir sind eine Agentur für
-          Branding-Fotografie und bieten ein umfassendes Paket an
-          Dienstleistungen im Bereich Kommunikations-Design, Webdevelopment und
-          UI/UX Design an. Unser Ziel ist es, Unternehmen dabei zu unterstützen,
-          sich durch hochwertige Fotografie und kreative Gestaltung zu
-          präsentieren. Wir bieten Unterstützung bei der Entwicklung von
-          Unternehmens-Webauftritten, der Erstellung von Marketing- und
-          Image-Fotos für Web- und Social-Media-Auftritte, der Logo-Erstellung,
-          dem Corporate Design, Marken-Branding, Konzepterstellung und
-          Moodboards. Mit unserer langjährigen Erfahrung und vielfältigen
-          Fähigkeiten sind wir bereit, Ihre Vision zum Leben zu erwecken.
-        </StyledText>
+          Wir bringen die Persönlichkeit deines Unternehmens in Fotos und Videos
+          zum Ausdruck. Mit einem durchdachten Konzept stärken wir das Vertrauen
+          deiner Wunschkund*innen und machen deine Marke klar erkennbar. Unser
+          Ziel ist es, einen passenden Look und einen umfassenden Bild- und
+          Videopool zu schaffen, den du selbstständig für deine
+          Kommunikations-kanäle nutzen kannst.
+        </p>
       </StyledTextWrapper>
-      <StyledTextWrapper>
-        <h2>WAS WIR MACHEN</h2>
-        <StyledText>
-          {" "}
-          Willkommen bei Dakiekste! Wir sind eine Agentur für
-          Branding-Fotografie und bieten ein umfassendes Paket an
-          Dienstleistungen im Bereich Kommunikations-Design, Webdevelopment und
-          UI/UX Design an. Unser Ziel ist es, Unternehmen dabei zu unterstützen,
-          sich durch hochwertige Fotografie und kreative Gestaltung zu
-          präsentieren. Wir bieten Unterstützung bei der Entwicklung von
-          Unternehmens-Webauftritten, der Erstellung von Marketing- und
-          Image-Fotos für Web- und Social-Media-Auftritte, der Logo-Erstellung,
-          dem Corporate Design, Marken-Branding, Konzepterstellung und
-          Moodboards. Mit unserer langjährigen Erfahrung und vielfältigen
-          Fähigkeiten sind wir bereit, Ihre Vision zum Leben zu erwecken.
-        </StyledText>
-      </StyledTextWrapper>
-    </StyledContentArea>
+      <StyledImageContainer>
+        <StyledImage
+          src="/images/Herr Raffel_Tisch_1_final.jpg" // Update with your image path
+          alt="Description of image"
+          width={500} // Adjust width as needed
+          height={500} // Adjust height as needed
+        />
+      </StyledImageContainer>
+    </StyledSplitTextBox>
   );
 }
 
-const StyledContentArea = styled.div`
+const StyledSplitTextBox = styled.div`
   display: flex;
   flex-wrap: wrap;
+  position: relative;
   justify-content: space-evenly;
   width: 100%;
-  margin: 0;
-  margin-top: 13.5rem;
-  margin-bottom: 6rem;
+  background-color: ${theme.highlightColor};
 `;
 
 const StyledTextWrapper = styled.div`
-  padding-left: 2rem;
-  padding-right: 2rem;
-  min-width: auto;
-  max-width: 600px;
+  flex: 1;
+
+  max-width: 800px;
+  padding: 4rem;
+  margin: auto;
+
+  h1 {
+    font-size: ${theme.fontSizes.large};
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+  }
+
+  p {
+    font-size: ${theme.fontSizes.xs};
+  }
 `;
 
-const StyledText = styled.p``;
+const StyledImage = styled(Image)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const StyledImageContainer = styled.div`
+  position: relative;
+  flex: 1;
+  width: 30%;
+  min-height: 500px;
+  &::after {
+    position: absolute;
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20%;
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.5) 100%
+    );
+    pointer-events: none;
+  }
+`;

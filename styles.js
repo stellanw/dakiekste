@@ -8,6 +8,8 @@ export const theme = {
   secondaryColorBeige: "#F9F8F3",
   alertColor: "red",
   confirmColor: "green",
+  highlightColor: "#A3FFB7",
+  darkBackgroundColor: "#A5A294",
 
   fontSizes: {
     xs: "0.8rem",
