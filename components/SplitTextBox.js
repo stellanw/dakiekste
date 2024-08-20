@@ -2,28 +2,22 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import styled from "styled-components";
 
-export default function SplitTextBox() {
+export default function SplitTextBox({
+  headline,
+  text,
+  imageURL,
+  imageDescription,
+}) {
   return (
     <StyledSplitTextBox>
       <StyledTextWrapper>
-        <h1>
-          Einheitlicher Auftritt <br />
-          auf allen Kanälen
-        </h1>
-        <p>
-          {" "}
-          Wir bringen die Persönlichkeit deines Unternehmens in Fotos und Videos
-          zum Ausdruck. Mit einem durchdachten Konzept stärken wir das Vertrauen
-          deiner Wunschkund*innen und machen deine Marke klar erkennbar. Unser
-          Ziel ist es, einen passenden Look und einen umfassenden Bild- und
-          Videopool zu schaffen, den du selbstständig für deine
-          Kommunikations-kanäle nutzen kannst.
-        </p>
+        <h1>{headline}</h1>
+        <p>{text}</p>
       </StyledTextWrapper>
       <StyledImageContainer>
         <StyledImage
-          src="/images/Herr Raffel_Tisch_1_final.jpg" // Update with your image path
-          alt="Description of image"
+          src={imageURL}
+          alt={imageDescription}
           width={500} // Adjust width as needed
           height={500} // Adjust height as needed
         />
@@ -55,7 +49,7 @@ const StyledTextWrapper = styled.div`
   }
 
   p {
-    font-size: ${theme.fontSizes.xs};
+    font-size: ${theme.fontSizes.small};
   }
 `;
 

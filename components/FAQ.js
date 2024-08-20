@@ -174,6 +174,7 @@ const StyledFAQContainer = styled.section`
   padding: 0;
 
   background-color: ${theme.secondaryColorBeige};
+  color: ${theme.textColor};
 
   margin-bottom: -0.5rem;
   /* @media (max-width: 750px) {
@@ -188,7 +189,7 @@ const StyledHeadlineContainer = styled.div`
   align-items: start;
   position: relative;
   margin: 0rem 2rem 2rem 0rem;
-  color: ${theme.textColor};
+
   width: 100%;
 
   h1 {
