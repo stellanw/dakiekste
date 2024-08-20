@@ -9,7 +9,8 @@ export default function EndBox() {
       <StyledSVG>
         <AugenGrossIcon color={theme.highlightColor} />
       </StyledSVG>
-      <StyledHeadline>Zeigt wer ihr seid mit dakiekste</StyledHeadline>
+      <StyledHeadline>Zeigt wer ihr seid</StyledHeadline>
+      <StyledHeadline>mit dakiekste</StyledHeadline>
       <StyledText>
         fotografie <span>.</span> natürlich <span>.</span> Sichtbar
       </StyledText>

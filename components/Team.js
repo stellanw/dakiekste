@@ -14,10 +14,11 @@ export default function Team() {
       <StyledTextWrapper>
         <h1>Wir sind dakiekste </h1>
 
-        <p>
+        {/* <p>
           Mit unserer langjährigen Expertise helfen wir dir, deiner Marke ein
           Gesicht zu geben.
-        </p>
+        </p> */}
+        <p>Wir verhelfen dir zu mehr Sichtbarkeit.</p>
       </StyledTextWrapper>
 
       <StyledTeamMembersContainer>
@@ -182,19 +183,26 @@ const StyledTeamMembersContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0rem 4rem 2rem 4rem;
+  padding: 0rem 4rem 4rem 4rem;
   background-color: ${theme.secondaryColorBeige};
   width: 100%;
-  gap: 4rem;
+  gap: 2rem;
 
   @media (max-width: 1060px) {
     justify-content: center;
   }
 `;
 
+const StyledTeamMemberContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 250px;
+`;
+
 const StyledMemberImageContainer = styled.div`
-  width: 300px;
-  height: 400px;
+  width: 250px;
+  height: 300px;
   padding: 0;
   padding-bottom: 1.5rem;
   overflow: hidden;
@@ -210,8 +218,6 @@ const StyledMemberImage = styled(Image)`
 
 const StyledParagraph = styled.p`
   line-height: 1.5;
-  /* letter-spacing: 0.1rem; */
-  color: ${theme.primaryColor};
 `;
 
 const StyledSpanBold = styled.span`
@@ -221,7 +227,7 @@ const StyledSpanBold = styled.span`
 const StyledSpanBorder = styled.span`
   font-weight: 800;
   font-size: ${theme.fontSizes.xs};
-  color: ${theme.primaryColor};
+
   text-transform: lowercase;
   display: inline-block;
   padding-left: 0.35rem;
@@ -234,26 +240,15 @@ const StyledSpanBorder = styled.span`
   line-height: 1.5;
 `;
 
-const StyledTeamMemberContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  width: 300px;
-
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-`;
-
 const StyledLinkWrapper = styled.div`
   display: flex;
   justify-content: start;
   align-items: end;
   gap: 1rem;
-  margin-bottom: 1.5rem;
   height: 2rem;
 `;
 
 const StyledLink = styled(Link)`
-  color: ${theme.primaryColor};
+  color: ${theme.textColor};
   margin-bottom: -0.2rem;
 `;
