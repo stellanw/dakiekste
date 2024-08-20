@@ -49,6 +49,7 @@ const StyledTextContainer = styled.div`
   padding-left: 2rem;
   padding-right: 2rem;
   background-color: ${theme.secondaryColorBeige};
+  overflow: hidden;
 `;
 
 const StyledHeadline = styled.h2`
@@ -60,10 +61,11 @@ const StyledHeadline = styled.h2`
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
   /* max-width: 900px; */
-  width: 550px;
+
   padding-bottom: 2rem;
   margin: auto;
   text-align: center;
+  overflow: hidden;
 `;
 
 const StyledTopText = styled.p`
