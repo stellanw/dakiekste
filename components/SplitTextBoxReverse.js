@@ -36,7 +36,6 @@ const StyledSplitTextBox = styled.div`
   position: relative;
   width: 100%;
   background-color: ${theme.secondaryColorBeige};
-  height: 600px;
 `;
 
 const StyledTextWrapper = styled.div`
