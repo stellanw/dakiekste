@@ -7,18 +7,23 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function LogoCarousel() {
   const logos = [
-    { src: "/images/otto-logo.png", alt: "Logo 1", width: 150, height: 75 },
-    { src: "/images/otto-logo.png", alt: "Logo 2", width: 150, height: 75 },
-    { src: "/images/otto-logo.png", alt: "Logo 3", width: 150, height: 75 },
-    { src: "/images/otto-logo.png", alt: "Logo 4", width: 150, height: 75 },
-    { src: "/images/otto-logo.png", alt: "Logo 5", width: 150, height: 75 },
+    { src: "/images/otto_logo.png", alt: "Logo 1", width: 150, height: 75 },
+    { src: "/images/averdung_logo.png", alt: "Logo 2", width: 150, height: 75 },
+    { src: "/images/neuland_logo.png", alt: "Logo 3", width: 150, height: 75 },
+    {
+      src: "/images/milk-made-ice-cream_logo.png",
+      alt: "Logo 4",
+      width: 150,
+      height: 75,
+    },
+    { src: "/images/hofa_logo.png", alt: "Logo 5", width: 150, height: 75 },
     // Add more logos with their respective alt text, width, and height
   ];
 
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 700,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -51,12 +56,14 @@ export default function LogoCarousel() {
       <Slider {...settings}>
         {logos.map((logo, index) => (
           <Slide key={index}>
-            <LogoImage
-              src={logo.src}
-              alt={logo.alt}
-              width={logo.width}
-              height={logo.height}
-            />
+            <LogoContainer>
+              <LogoImage
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+              />
+            </LogoContainer>
           </Slide>
         ))}
       </Slider>
@@ -75,7 +82,18 @@ const Slide = styled.div`
   align-items: center;
 `;
 
+const LogoContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const LogoImage = styled(Image)`
   max-width: 100%;
-  height: auto;
+  max-height: 100%;
+
+  object-fit: contain;
+  display: block;
 `;

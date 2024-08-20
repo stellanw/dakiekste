@@ -32,7 +32,9 @@ export default function NavBar() {
           {scrollY > 100 ? <DakieksteLogoBlack /> : <DakieksteLogoWhite />}
         </StyledLogoWrapper>
       </Link>
-      <EyeAnimation />
+      <EyeAnimation
+        color={scrollY > 100 ? theme.textColor : theme.secondaryColorBeige}
+      />
     </StyledNavBar>
   );
 }

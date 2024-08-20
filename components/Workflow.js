@@ -44,7 +44,7 @@ export default function Workflow() {
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 8000,
+    autoplaySpeed: 3000,
     pauseOnHover: true,
     swipe: true,
     nextArrow: <StyledIoChevronForwardOutline />,
@@ -56,8 +56,8 @@ export default function Workflow() {
       <StyledTextBox>
         <h1>Sorgloser Ablauf</h1>
         <p>
-          Du kannst dich auf das Wesentliche konzentrieren, während wir uns um
-          den Rest kümmern.
+          Konzentriere dich auf das Wesentliche während wir uns um den Rest
+          kümmern.
         </p>
       </StyledTextBox>
       <StyledSlider {...settings}>
@@ -107,22 +107,18 @@ export default function Workflow() {
 }
 
 const StyledIoChevronForwardOutline = styled(IoChevronForwardOutline)`
-  color: ${theme.primaryColor};
-  opacity: 0.5;
+  color: ${theme.secondaryColorBeige};
 
   &:hover {
-    color: ${theme.primaryColor};
-    opacity: 1;
+    color: ${theme.highlightColor};
   }
 `;
 
 const StyledIoChevronBackOutline = styled(IoChevronBackOutline)`
-  color: ${theme.primaryColor};
-  opacity: 0.5;
+  color: ${theme.secondaryColorBeige};
 
   &:hover {
-    color: ${theme.primaryColor};
-    opacity: 1;
+    color: ${theme.highlightColor};
   }
 `;
 
@@ -161,13 +157,15 @@ const StyledTextBox = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
+  color: ${theme.secondaryColorBeige};
   h1 {
     font-size: ${theme.fontSizes.small};
     text-transform: uppercase;
     margin: 0 0 1rem 0;
+    font-weight: 400;
   }
   p {
-    font-size: ${theme.fontSizes.large};
+    font-size: ${theme.fontSizes.xl};
     max-width: 600px;
     font-weight: 300;
   }
@@ -194,14 +192,6 @@ const StyledBox = styled.div`
     width: 200px;
     line-height: 1.2rem;
   }
-`;
-
-const StyledIoMegaphoneOutline = styled(IoMegaphoneOutline)`
-  font-size: 3rem;
-  width: 200px;
-  margin: 0 0 1.5rem 0;
-  color: ${theme.highlightColor};
-  display: block;
 `;
 
 const StyledIoBulbOutline = styled(IoBulbOutline)`
