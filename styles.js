@@ -47,6 +47,7 @@ export default createGlobalStyle`
     height: 100%;
     width: 100%;
     font-family: "Bricolage Grotesque", sans-serif;
+    font-size: 18px;
     /* overflow-x: hidden; 
     overflow-y: auto; */
   }

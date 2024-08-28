@@ -25,8 +25,8 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/stellan.jpg"
-              alt="Klubstudio"
+              src={`/images/Team_Portrait_Stellan.jpg?v=${Date.now()}`}
+              alt="Portrait of Stellan"
               width={1200}
               height={500}
             />
@@ -65,8 +65,8 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Clara.jpg"
-              alt="Klubstudio"
+              src={`/images/Team_Portrait_Clara.jpg?v=${Date.now()}`}
+              alt="Portrait of Clara"
               width={1200}
               height={500}
             />
@@ -108,8 +108,8 @@ export default function Team() {
         <StyledTeamMemberContainer>
           <StyledMemberImageContainer>
             <StyledMemberImage
-              src="/images/Foto_MaischaSouaga.jpg"
-              alt="Klubstudio"
+              src={`/images/Team_Portrait_Maischa.jpg?v=${Date.now()}`}
+              alt="Portrait of Maischa"
               width={1200}
               height={500}
             />
@@ -159,7 +159,7 @@ const TagWrapper = styled.div`
 `;
 
 const StyledTextWrapper = styled.div`
-  padding: 4rem 4rem 2rem 4rem;
+  padding: 6rem 4rem 4rem 4rem;
   margin: auto;
   text-align: center;
   background-color: ${theme.secondaryColorBeige};
@@ -183,7 +183,7 @@ const StyledTeamMembersContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0rem 4rem 4rem 4rem;
+  padding: 0rem 4rem 6rem 4rem;
   background-color: ${theme.secondaryColorBeige};
   width: 100%;
   gap: 2rem;
