@@ -12,22 +12,33 @@ export const theme = {
   darkBackgroundColor: "#252422",
   brightBackgroundColor: "#D1F2D8",
 
+  borderRadius: "15px",
+
   fontSizes: {
-    xs: "0.8rem",
-    small: "1rem",
-    medium: "1.3rem",
-    large: "1.6rem",
-    xl: "2rem",
-    xxl: "2.5rem",
-    xxxl: "3rem",
+    xs: "0.75rem", // 12px
+    s: "1rem", // 16px (Standardgröße in den meisten Browsern)
+    m: "1.3rem", // 20.8px
+    l: "1.6rem", // 25.6px
+    xl: "2rem", // 32px
+    xxl: "2.5rem", // 40px
+    xxxl: "3rem", // 48px
   },
 
   spacing: {
-    xs: "0.2rem",
-    s: "0.4rem",
-    m: "1rem",
-    l: "2rem",
-    xl: "4rem",
+    xs: "0.2rem", // 3.2px
+    s: "0.4rem", // 6.4px
+    m: "1rem", // 16px
+    l: "2rem", // 32px
+    xl: "4rem", // 64px
+    xxl: "6rem", // 96px
+    xxxl: "10rem", //160px
+  },
+
+  breakpoints: {
+    s: "480px",
+    m: "768px",
+    l: "1024px",
+    xl: "1200px",
   },
 };
 
