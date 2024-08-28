@@ -29,9 +29,18 @@ export const theme = {
     s: "0.4rem", // 6.4px
     m: "1rem", // 16px
     l: "2rem", // 32px
-    xl: "4rem", // 64px
-    xxl: "6rem", // 96px
-    xxxl: "10rem", //160px
+    xl: "3rem", // 48px
+    xxl: "4rem", // 64px
+    xxxl: "6rem", //96px
+  },
+
+  lineHeight: {
+    xs: "0.8rem",
+    s: "1.2rem",
+    m: "1.3rem",
+    l: "1.5rem",
+    xl: "1.8rem",
+    xxl: "2rem",
   },
 
   breakpoints: {
