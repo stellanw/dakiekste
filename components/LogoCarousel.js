@@ -37,7 +37,7 @@ export default function LogoCarousel() {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
         },
@@ -73,7 +73,7 @@ export default function LogoCarousel() {
 
 const CarouselWrapper = styled.div`
   margin: 0 auto;
-  width: 90%;
+  width: 70%;
 `;
 
 const Slide = styled.div`

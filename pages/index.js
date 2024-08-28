@@ -8,7 +8,6 @@ import EndBox from "@/components/EndBox";
 import projects from "@/data/projects.json";
 import Team from "@/components/Team";
 import ProjectSlider from "../components/ProjectSlider";
-
 import CenterTextBox from "@/components/CenterTextBox";
 import FAQ from "@/components/FAQ";
 import Leistungen from "@/components/Leistungen";
