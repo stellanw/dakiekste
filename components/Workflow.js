@@ -7,9 +7,6 @@ import { theme } from "@/styles";
 import {
   IoChevronBackOutline,
   IoChevronForwardOutline,
-  IoMegaphoneOutline,
-  IoPeopleOutline,
-  IoLogoInstagram,
   IoBulbOutline,
   IoCameraReverseOutline,
   IoFingerPrintOutline,
@@ -51,60 +48,94 @@ export default function Workflow() {
     prevArrow: <StyledIoChevronBackOutline />,
   };
 
+  const boxData = [
+    {
+      Icon: IoBulbOutline,
+      title: "ERSTGESPRÄCH & KONZEPTION",
+      text: "Mit einer detaillierten Analyse deiner Werte und Ziele entwickeln wir eine Strategie die deine Positionierung klar stärkt.",
+    },
+    {
+      Icon: IoCameraReverseOutline,
+      title: "SHOOTING, ABLAUF & ORGANISATION",
+      text: "Wir erstellen Briefings & Timetables, organisieren alles fürs Shooting und kümmern uns um Styling, Setdesign und ums Hair & Make-up.",
+    },
+    {
+      Icon: IoFingerPrintOutline,
+      title: "HOCHWERTIGES VISUELLES FOOTAGE",
+      text: "Die fertigen, professionell bearbeiteten Fotos stehen dir zeitnah zur Verfügung und sind sofort für alle Kanäle einsatzbereit.",
+    },
+  ];
+
   return (
     <StyledSlideContainer>
       <StyledTextBox>
         <h1>Sorgloser Ablauf</h1>
-        <p>
-          Konzentriere dich auf das Wesentliche während wir uns um den Rest
-          kümmern.
-        </p>
+        <p>Konzentriere dich auf das Wesentliche während wir uns um den Rest kümmern.</p>
       </StyledTextBox>
       <StyledSlider {...settings}>
-        <StyledBox>
-          <StyledIoBulbOutline />
-          <h1>
-            ERSTGESPRÄCH &
-            <br />
-            KONZEPTION
-          </h1>
-          <p>
-            {" "}
-            Mit einer detaillierten Analyse deiner Werte und Ziele entwickeln
-            wir eine Strategie die deine Positionierung klar stärkt.
-          </p>
-        </StyledBox>
-        <StyledBox>
-          <StyledIoCameraReverseOutline />
-          <h1>
-            SHOOTING, ABLAUF &
-            <br />
-            ORGANISATION
-          </h1>
-          <p>
-            {" "}
-            Wir erstellen Briefings & Timetables, organisieren alles fürs
-            Shooting und kümmern uns um Styling, Setdesign und ums Hair &
-            Make-up.
-          </p>
-        </StyledBox>
-        <StyledBox>
-          <StyledIoFingerPrintOutline />
-          <h1>
-            HOCHWERTIGES
-            <br />
-            VISUELLES FOOTAGE
-          </h1>
-          <p>
-            {" "}
-            Die fertigen, professionell bearbeiteten Fotos stehen dir zeitnah
-            zur Verfügung und sind sofort für alle Kanäle einsatzbereit.
-          </p>
-        </StyledBox>
+        {boxData.map(({ Icon, title, text }, index) => (
+          <StyledBox key={index}>
+            <StyledIconWrapper>
+              <Icon />
+            </StyledIconWrapper>
+            <h1>{title}</h1>
+            <p>{text}</p>
+          </StyledBox>
+        ))}
       </StyledSlider>
     </StyledSlideContainer>
   );
 }
+
+const StyledTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: ${theme.secondaryColorBeige};
+  margin: 0 0 ${theme.spacing.l} 0;
+  h1 {
+    font-size: ${theme.fontSizes.xs};
+    text-transform: uppercase;
+    margin: 0 0 ${theme.spacing.m} 0;
+    font-weight: 200;
+    letter-spacing: 0.1rem;
+  }
+  p {
+    font-size: ${theme.fontSizes.l};
+    max-width: 600px;
+    font-weight: 300;
+  }
+`;
+
+const StyledSlideContainer = styled.div`
+  background-color: ${theme.darkBackgroundColor};
+  padding: ${theme.spacing.xxxl} ${theme.spacing.l} ${theme.spacing.xxxl} ${theme.spacing.l};
+`;
+
+const StyledSlider = styled(Slider)`
+  padding: ${theme.spacing.l} 0 0 0;
+  .slick-slide {
+    display: flex;
+    justify-content: center;
+    padding: ${theme.spacing.s};
+    box-sizing: border-box;
+  }
+  .slick-dots {
+    & li {
+      button {
+        &::before {
+          color: ${theme.primaryColor};
+        }
+      }
+      &.slick-active {
+        button::before {
+          color: ${theme.primaryColor};
+        }
+      }
+    }
+  }
+`;
 
 const StyledIoChevronForwardOutline = styled(IoChevronForwardOutline)`
   color: ${theme.secondaryColorBeige};
@@ -122,98 +153,35 @@ const StyledIoChevronBackOutline = styled(IoChevronBackOutline)`
   }
 `;
 
-const StyledSlideContainer = styled.div`
-  background-color: ${theme.darkBackgroundColor};
-
-  padding: 3rem 2rem 3rem 2rem;
-`;
-
-const StyledSlider = styled(Slider)`
-  padding: 3rem 0 0 0;
-  .slick-slide {
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    box-sizing: border-box;
-  }
-  .slick-dots {
-    & li {
-      button {
-        &::before {
-          color: ${theme.primaryColor}; // Color for inactive dots
-        }
-      }
-      &.slick-active {
-        button::before {
-          color: ${theme.primaryColor}; // Color for active dot
-        }
-      }
-    }
-  }
-`;
-
-const StyledTextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: ${theme.secondaryColorBeige};
-  h1 {
-    font-size: ${theme.fontSizes.small};
-    text-transform: uppercase;
-    margin: 0 0 1rem 0;
-    font-weight: 400;
-  }
-  p {
-    font-size: ${theme.fontSizes.xl};
-    max-width: 600px;
-    font-weight: 300;
-  }
-`;
-
 const StyledBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: space-evenly;
   text-align: center;
   color: ${theme.secondaryColorBeige};
-  padding: 0 2rem 0 2rem;
-  width: 200px;
+  padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
+  width: 250px;
 
   h1 {
-    font-size: ${theme.fontSizes.small};
-    width: 200px;
+    font-size: ${theme.fontSizes.m};
+    width: 250px;
     text-transform: uppercase;
+    font-weight: 500;
   }
 
   p {
     font-size: ${theme.fontSizes.xs};
-    margin-top: 1.5rem;
-    width: 200px;
-    line-height: 1.2rem;
+    margin-top: ${theme.spacing.m};
+    width: 250px;
+    line-height: ${theme.lineHeight.s};
+    font-weight: 100;
   }
 `;
 
-const StyledIoBulbOutline = styled(IoBulbOutline)`
+const StyledIconWrapper = styled.div`
   font-size: 3rem;
-  width: 200px;
-  margin: 0 0 1.5rem 0;
-  color: ${theme.highlightColor};
-  display: block;
-`;
-
-const StyledIoCameraReverseOutline = styled(IoCameraReverseOutline)`
-  font-size: 3rem;
-  width: 200px;
-  margin: 0 0 1.5rem 0;
-  color: ${theme.highlightColor};
-  display: block;
-`;
-
-const StyledIoFingerPrintOutline = styled(IoFingerPrintOutline)`
-  font-size: 3rem;
-  width: 200px;
-  margin: 0 0 1.5rem 0;
+  width: 250px;
+  margin: 0 0 ${theme.spacing.xs} 0;
   color: ${theme.highlightColor};
   display: block;
 `;
