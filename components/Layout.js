@@ -1,12 +1,9 @@
 import React from "react";
-import Navigation from "./Navigation";
 import Footer from "./Footer";
 import styled from "styled-components";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import DakieksteLogoWhite from "@/Icons/DakieksteLogoWhite";
-import DakieksteLogoBlack from "@/Icons/DakieksteLogoBlack";
 import NavBar from "./NavBar";
 import Header from "./Header";
 
@@ -15,7 +12,6 @@ const Layout = ({ children }) => {
   const [isHomepage, setIsHomepage] = useState(false);
 
   useEffect(() => {
-    // Check if the user is on the homepage
     setIsHomepage(router.pathname === "/");
   }, [router.pathname]);
 

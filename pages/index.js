@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import { theme } from "@/styles";
 import HeadTextBox from "@/components/HeadTextBox";
-import LeistungBox from "@/components/LeistungBox";
 import EndBox from "@/components/EndBox";
 import projects from "@/data/projects.json";
 import Team from "@/components/Team";
@@ -33,10 +32,7 @@ export default function HomePage() {
 nahbar machen"
         text="Wir zeigen die menschliche Seite deines Unternehmens und stärken die Verbindung zu Kunden und Talenten. Ob vor Ort oder bei dir, wir finden die beste Lösung für dein Team und sorgen für einen einheitlichen Auftritt um dein Unternehmen als attraktiven Arbeitgeber zu präsentieren."
         imageURLs={["/images/Klubstudio_05.jpg", "/images/Klubstudio_06.jpg"]}
-        imageDescriptions={[
-          "Description of the first image",
-          "Description of the second image",
-        ]}
+        imageDescriptions={["Description of the first image", "Description of the second image"]}
       />
       <SplitTextBox
         headline="Social Media Boost 
