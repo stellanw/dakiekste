@@ -52,7 +52,7 @@ const StyledLeistungBox = styled.div`
   align-items: center;
   text-align: center;
   color: ${theme.secondaryColorBeige};
-  padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
+  padding: ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m};
   overflow: hidden;
   max-width: 300px;
 
