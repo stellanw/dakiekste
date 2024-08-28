@@ -1,12 +1,6 @@
 import styled from "styled-components";
 
-export default function SliderContent({
-  title1,
-  title2,
-  paragraph,
-  listItems,
-  svgColor,
-}) {
+export default function SliderContent({ title1, title2, paragraph, listItems, svgColor }) {
   return (
     <>
       <StyledTitleContainer>
