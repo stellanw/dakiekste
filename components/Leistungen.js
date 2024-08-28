@@ -1,63 +1,49 @@
 import { theme } from "@/styles";
 import styled from "styled-components";
-import {
-  IoPeopleOutline,
-  IoLogoInstagram,
-  IoCameraOutline,
-} from "react-icons/io5";
+import { IoPeopleOutline, IoLogoInstagram, IoCameraOutline } from "react-icons/io5";
 
 export default function Leistungen() {
+  const leistungenData = [
+    {
+      Icon: IoCameraOutline,
+      title: "CORPORATE FOTOGRAFIE",
+      text: "Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren.",
+    },
+    {
+      Icon: IoPeopleOutline,
+      title: "Mitarbeiter*innen & Buisness portraits",
+      text: "Zeige dein Team und baue ein starkes und einheitliches Markenimage auf.",
+    },
+    {
+      Icon: IoLogoInstagram,
+      title: "Social Media Content",
+      text: "Individuelle Fotos vermitteln mehr Persönlichkeit als typische Stockfotos.",
+    },
+  ];
+
   return (
     <StyledLeistungenContainer>
-      <StyledLeistungBox>
-        <StyledIoCameraOutline />
-        <h1>
-          CORPORATE <br />
-          FOTOGRAFIE
-        </h1>
-        <p>
-          {" "}
-          Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar
-          zu präsentieren.
-        </p>
-      </StyledLeistungBox>
-      <StyledLeistungBox>
-        <StyledIoPeopleOutline />
-        <h1>
-          Mitarbeiter*innen & <br /> Buisness portraits
-        </h1>
-        <p>
-          {" "}
-          Zeige dein Team und baue ein starkes und einheitliches Markenimage
-          auf. recruiting
-        </p>
-      </StyledLeistungBox>
-      <StyledLeistungBox>
-        <StyledIoLogoInstagram />
-        <h1>
-          Social Media <br />
-          Content
-        </h1>
-        <p>
-          {" "}
-          Individuelle Fotos vermitteln mehr Persönlichkeit als typische
-          Stockfotos.
-        </p>
-      </StyledLeistungBox>
+      {leistungenData.map(({ Icon, title, text }, index) => (
+        <StyledLeistungBox key={index}>
+          <StyledIconWrapper>
+            <Icon />
+          </StyledIconWrapper>
+          <h1>{title}</h1>
+          <p>{text}</p>
+        </StyledLeistungBox>
+      ))}
     </StyledLeistungenContainer>
   );
 }
 
 const StyledLeistungenContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
   background-color: ${theme.darkBackgroundColor};
-
-  padding-top: 4rem;
-  padding-bottom: 6rem;
+  padding: ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl} 0;
 `;
 
 const StyledLeistungBox = styled.div`
@@ -66,36 +52,29 @@ const StyledLeistungBox = styled.div`
   align-items: center;
   text-align: center;
   color: ${theme.secondaryColorBeige};
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
   overflow: hidden;
+  max-width: 300px;
+
   h1 {
-    font-size: ${theme.fontSizes.small};
-    width: auto;
+    font-size: ${theme.fontSizes.m};
     text-transform: uppercase;
+    font-weight: 500;
   }
 
   p {
     font-size: ${theme.fontSizes.xs};
-    margin-top: 1.5rem;
-    max-width: 300px;
+    line-height: ${theme.lineHeight.s};
+    margin-top: ${theme.spacing.m};
+    font-weight: 100;
   }
 `;
 
-const StyledIoCameraOutline = styled(IoCameraOutline)`
-  transform: scale(3);
+const StyledIconWrapper = styled.div`
+  font-size: ${theme.fontSizes.xxxl};
   height: 100px;
   color: ${theme.highlightColor};
-`;
-
-const StyledIoPeopleOutline = styled(IoPeopleOutline)`
-  transform: scale(3);
-  height: 100px;
-  color: ${theme.highlightColor};
-`;
-
-const StyledIoLogoInstagram = styled(IoLogoInstagram)`
-  transform: scale(3);
-  height: 100px;
-  color: ${theme.highlightColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
