@@ -8,9 +8,8 @@ export default function HeadTextBox() {
       <StyledTopTextWrapper>
         <StyledHeadline> fotografie echt sichtbar</StyledHeadline>
         <StyledTopText>
-          Wir machen deine Marke sichtbar und bringen deine Werte und
-          Persönlichkeit visuell auf den Punkt – mit modernen Ideen und frischen
-          Ansätzen.
+          Wir machen deine Marke sichtbar und bringen deine Werte und Persönlichkeit visuell auf den
+          Punkt – mit modernen Ideen und frischen Ansätzen.
         </StyledTopText>
       </StyledTopTextWrapper>
       <LogoCarousel />
@@ -19,7 +18,7 @@ export default function HeadTextBox() {
 }
 const StyledTextContainer = styled.div`
   width: 100%;
-  margin-top: 4rem;
+  margin-top: 2.5rem;
   padding: 6rem 2rem 6rem 2rem;
   background-color: ${theme.secondaryColorBeige};
   overflow: hidden;

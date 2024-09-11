@@ -81,6 +81,9 @@ header, main, Footer {
     flex-grow: 0;
 }
 
+h1{
+  font-size: ${theme.fontSizes.m};
+}
 li{
   list-style: none;
 }

@@ -3,12 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { theme } from "@/styles";
 
-export default function Header({
-  src,
-  headlineThin,
-  headlineBold1,
-  headlineBold2,
-}) {
+export default function Header({ src, headlineThin, headlineBold1, headlineBold2 }) {
   return (
     <>
       <StyledHeadContainer>
@@ -51,23 +46,24 @@ const StyledHeadImage = styled(Image)`
 `;
 
 const StyledHeadlineContainer = styled.div`
-  margin-left: 4rem;
+  margin: 0 2rem 0 2rem;
   display: flex;
   flex-direction: column;
   position: relative;
   justify-content: end;
+  align-items: end;
   margin-top: -8rem;
 `;
 
 const StyledH1Top = styled.span`
-  font-size: 2.2rem;
+  font-size: ${theme.fontSizes.xxxl};
   font-weight: 600;
   margin: 0;
   color: ${theme.secondaryColorBeige};
 `;
 
 const StyledH1 = styled.h1`
-  font-size: 2.2rem;
+  font-size: ${theme.fontSizes.xxxl};
   font-weight: 600;
   margin: 0;
   color: ${theme.secondaryColorBeige};

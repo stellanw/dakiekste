@@ -34,7 +34,7 @@ export default function KlubstudioBox() {
         />
       </StyledImageContainer>
       <StyledTextWrapper>
-        <h1>Unser Klub Studio</h1>
+        <h1>Kiek ma unser Studio</h1>
         <TagWrapper>
           {tags.map((tag, index) => (
             <StyledSpanBorder key={index}>{tag}</StyledSpanBorder>

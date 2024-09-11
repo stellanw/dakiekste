@@ -44,8 +44,15 @@ für mehr Impact "
       <Workflow />
       <Team />
       <CenterTextBox />
-      <KlubstudioBox />
       <FAQ />
+      <KlubstudioBox />
+      <SplitTextBoxReverse
+        headline="Zusammen die Zukunft
+gestalten"
+        text="Wir möchten gemeinsam mit dir etwas zurückgeben. Deshalb laden wir dich ein, mitzuentscheiden, wohin 50€ aus deiner Investition fließen sollen. Gemeinsam können wir die Welt ein Stück besser machen. Wähle aus einer sorgfältig ausgewählten Liste von Projekten aus."
+        imageURLs={["/images/Klubstudio_05.jpg", "/images/Klubstudio_06.jpg"]}
+        imageDescriptions={["Description of the first image", "Description of the second image"]}
+      />
       <EndBox />
     </Layout>
   );
