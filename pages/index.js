@@ -14,10 +14,19 @@ import SplitTextBox from "@/components/SplitTextBox";
 import Workflow from "@/components/Workflow";
 import SplitTextBoxReverse from "@/components/SplitTextBoxReverse";
 import KlubstudioBox from "@/components/KlubstudioBox";
+import ContactForm from "@/components/ContactForm";
+import Head from "next/head";
 
 export default function HomePage() {
   return (
     <Layout>
+      <Head>
+        {" "}
+        <title>Dakiekste | Brandingfotografie</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Beschreibe deine Seite hier" />
+        <meta name="author" content="Dein Name" />
+      </Head>
       <HeadTextBox />
       <Leistungen />
       <ProjectSlider projects={projects} />
@@ -44,16 +53,17 @@ für mehr Impact "
       <Workflow />
       <Team />
       <CenterTextBox />
-      <FAQ />
       <KlubstudioBox />
       <SplitTextBoxReverse
         headline="Zusammen die Zukunft
-gestalten"
+        gestalten"
         text="Wir möchten gemeinsam mit dir etwas zurückgeben. Deshalb laden wir dich ein, mitzuentscheiden, wohin 50€ aus deiner Investition fließen sollen. Gemeinsam können wir die Welt ein Stück besser machen. Wähle aus einer sorgfältig ausgewählten Liste von Projekten aus."
         imageURLs={["/images/Klubstudio_05.jpg", "/images/Klubstudio_06.jpg"]}
         imageDescriptions={["Description of the first image", "Description of the second image"]}
       />
       <EndBox />
+      <ContactForm />
+      <FAQ />
     </Layout>
   );
 }

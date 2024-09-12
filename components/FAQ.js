@@ -27,115 +27,84 @@ export default function FAQ() {
         <StyledHeadlineContainer>
           <h1>Häufige Fragen</h1>
         </StyledHeadlineContainer>
-        <StyledLi>
-          <StyledSpanBold>
-            Welche Vorbereitung ist für ein Shooting erforderlich?
-          </StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[0] ? "rotate" : ""}
-            onClick={() => toggleOverlay(0)}
-          />
-        </StyledLi>
+        <li>
+          <StyledSpanBold>Welche Vorbereitung ist für ein Shooting erforderlich?</StyledSpanBold>{" "}
+          <StyledPlusIcon className={isOpen[0] ? "rotate" : ""} onClick={() => toggleOverlay(0)} />
+        </li>
         {isOpen[0] && (
           <StyledOverlayParagraph>
-            Unsere Corporate Branding Fotografie visualisiert eure
-            Unternehmensidentität und Werte, stärkt eure Markenpräsenz und
-            fördert mir einprägsamen Bildern eine emotionale Bindung zu eurer
-            Zielgruppe.
+            Unsere Corporate Branding Fotografie visualisiert eure Unternehmensidentität und Werte,
+            stärkt eure Markenpräsenz und fördert mir einprägsamen Bildern eine emotionale Bindung
+            zu eurer Zielgruppe.
           </StyledOverlayParagraph>
         )}
-        <StyledLi>
-          <StyledSpanBold>
-            Was bietet ihr neben der Fotografie noch an?
-          </StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[1] ? "rotate" : ""}
-            onClick={() => toggleOverlay(1)}
-          />
-        </StyledLi>
+        <li>
+          <StyledSpanBold>Was bietet ihr neben der Fotografie noch an?</StyledSpanBold>{" "}
+          <StyledPlusIcon className={isOpen[1] ? "rotate" : ""} onClick={() => toggleOverlay(1)} />
+        </li>
         {isOpen[1] && (
           <StyledOverlayParagraph>
-            Mit individuellen Business-Portraits setzen wir euch und eure
-            Führungskräfte perfekt in Szene. Authentische Bilder vermitteln
-            Kompetenz und Vertrauen für Webseiten, Geschäftsberichte und
-            PR-Materialien.
+            Mit individuellen Business-Portraits setzen wir euch und eure Führungskräfte perfekt in
+            Szene. Authentische Bilder vermitteln Kompetenz und Vertrauen für Webseiten,
+            Geschäftsberichte und PR-Materialien.
           </StyledOverlayParagraph>
         )}
-        <StyledLi>
+        <li>
           {" "}
           <StyledSpanBold>
             Wie lange dauert es, bis wir die fertigen Bilder erhalten?
           </StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[2] ? "rotate" : ""}
-            onClick={() => toggleOverlay(2)}
-          />
-        </StyledLi>
+          <StyledPlusIcon className={isOpen[2] ? "rotate" : ""} onClick={() => toggleOverlay(2)} />
+        </li>
         {isOpen[2] && (
           <StyledOverlayParagraph>
-            Zeigt die Menschen hinter eurer Marke mit hochwertigen Fotos eurer
-            Mitarbeiter*innen. Wir präsentieren euer Team von seiner besten
-            Seite.
+            Zeigt die Menschen hinter eurer Marke mit hochwertigen Fotos eurer Mitarbeiter*innen.
+            Wir präsentieren euer Team von seiner besten Seite.
           </StyledOverlayParagraph>
         )}
-        <StyledLi>
+        <li>
           <StyledSpanBold>Wie gestalten sich Eure Preise?</StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[3] ? "rotate" : ""}
-            onClick={() => toggleOverlay(3)}
-          />
-        </StyledLi>
+          <StyledPlusIcon className={isOpen[3] ? "rotate" : ""} onClick={() => toggleOverlay(3)} />
+        </li>
         {isOpen[3] && (
           <StyledOverlayParagraph>
-            Unsere Event-Fotografie hält die besonderen Momente eurer
-            Firmenveranstaltungen fest. Ob Konferenzen, Feiern oder
-            Produktpräsentationen – wir fangen die besten Momente ein.
+            Unsere Event-Fotografie hält die besonderen Momente eurer Firmenveranstaltungen fest. Ob
+            Konferenzen, Feiern oder Produktpräsentationen – wir fangen die besten Momente ein.
           </StyledOverlayParagraph>
         )}
-        <StyledLi>
+        <li>
           <StyledSpanBold>Arbeitet ihr auch am Wochenende?</StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[4] ? "rotate" : ""}
-            onClick={() => toggleOverlay(4)}
-          />
-        </StyledLi>
+          <StyledPlusIcon className={isOpen[4] ? "rotate" : ""} onClick={() => toggleOverlay(4)} />
+        </li>
         {isOpen[4] && (
           <StyledOverlayParagraph>
-            Unser Team produziert speziell auf eure Marke zugeschnittenen
-            Content für Social Media Kanäle. Mit fesselnden und ansprechenden
-            Inhalten helfen wir euch, eure Online-Präsenz zu steigern.
+            Unser Team produziert speziell auf eure Marke zugeschnittenen Content für Social Media
+            Kanäle. Mit fesselnden und ansprechenden Inhalten helfen wir euch, eure Online-Präsenz
+            zu steigern.
           </StyledOverlayParagraph>
         )}
-        <StyledLi>
-          <StyledSpanBold>
-            Wie weit im Voraus kann ich einen Termin buchen?
-          </StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[5] ? "rotate" : ""}
-            onClick={() => toggleOverlay(5)}
-          />
-        </StyledLi>
+        <li>
+          <StyledSpanBold>Wie weit im Voraus kann ich einen Termin buchen?</StyledSpanBold>{" "}
+          <StyledPlusIcon className={isOpen[5] ? "rotate" : ""} onClick={() => toggleOverlay(5)} />
+        </li>
         {isOpen[5] && (
           <StyledOverlayParagraph>
-            Unser Team produziert speziell auf eure Marke zugeschnittenen
-            Content für Social Media Kanäle. Mit fesselnden und ansprechenden
-            Inhalten helfen wir euch, eure Online-Präsenz zu steigern.
+            Unser Team produziert speziell auf eure Marke zugeschnittenen Content für Social Media
+            Kanäle. Mit fesselnden und ansprechenden Inhalten helfen wir euch, eure Online-Präsenz
+            zu steigern.
           </StyledOverlayParagraph>
         )}
-        <StyledLi>
+        <li>
           <StyledSpanBold>
-            Ich komme nicht aus Hamburg, kann ich euch dennoch buchen
+            Ich komme nicht aus Hamburg, kann ich euch dennoch buchen?
           </StyledSpanBold>{" "}
-          <StyledPlusIcon
-            className={isOpen[6] ? "rotate" : ""}
-            onClick={() => toggleOverlay(6)}
-          />
-        </StyledLi>
+          <StyledPlusIcon className={isOpen[6] ? "rotate" : ""} onClick={() => toggleOverlay(6)} />
+        </li>
         {isOpen[6] && (
           <StyledOverlayParagraph>
-            Unser Team produziert speziell auf eure Marke zugeschnittenen
-            Content für Social Media Kanäle. Mit fesselnden und ansprechenden
-            Inhalten helfen wir euch, eure Online-Präsenz zu steigern.
+            Unser Team produziert speziell auf eure Marke zugeschnittenen Content für Social Media
+            Kanäle. Mit fesselnden und ansprechenden Inhalten helfen wir euch, eure Online-Präsenz
+            zu steigern.
           </StyledOverlayParagraph>
         )}
       </StyledUl>
@@ -193,7 +162,7 @@ const StyledHeadlineContainer = styled.div`
   width: 100%;
 
   h1 {
-    font-size: ${theme.fontSizes.xl};
+    font-size: ${theme.fontSizes.l};
     text-transform: uppercase;
   }
 `;
@@ -217,18 +186,20 @@ const StyledUl = styled.ul`
   padding-left: 2rem;
   padding-right: 2rem;
   margin: 5rem 2rem 4rem 2rem;
-`;
 
-const StyledLi = styled.li`
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  padding: 2rem;
-  padding-left: 0;
-  padding-right: 0;
+  li {
+    font-size: ${theme.fontSizes.s};
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    padding: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+  }
 `;
 
 const StyledOverlayParagraph = styled.p`
+  font-size: ${theme.fontSizes.s};
   font-weight: 200;
   margin: -1rem 0rem 0 0rem;
   height: fit-content;
