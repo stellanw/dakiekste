@@ -1,11 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import {
-  IoLogoInstagram,
-  IoMailOutline,
-  IoCallOutline,
-  IoLocationOutline,
-} from "react-icons/io5";
+import { IoLogoInstagram, IoMailOutline, IoCallOutline, IoLocationOutline } from "react-icons/io5";
 
 import { theme } from "@/styles";
 import AugenIcon from "@/Icons/AugenIcon";
@@ -15,20 +10,22 @@ export default function Footer() {
     <StyledFooter>
       <StyledLeftWrapper>
         <StyledIconWrapper>
-          <AugenIcon color={theme.textColor} />
-          <AugenIcon color={theme.textColor} />
+          <AugenIcon color={theme.secondaryColorBeige} />
+          <AugenIcon color={theme.secondaryColorBeige} />
         </StyledIconWrapper>
         <div>
-          <StyledLink href="mailto:info@dakiekste.com">
-            info@dakiekste.com
-          </StyledLink>
+          <p>info@dakiekste.com</p>
           <StyledLink href="/impressum">
             <StyledImpressum>impressum</StyledImpressum>
           </StyledLink>
         </div>
       </StyledLeftWrapper>
       <StyledRightWrapper>
-        <StyledLink href="https://www.google.com/maps/place/Lienaustra%C3%9Fe+32,+22159+Hamburg/@53.629392,10.1259215,17.04z/data=!4m6!3m5!1s0x47b18a414be2f41d:0x39bdeb585c50610!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11c4jnq7nl?entry=ttu">
+        <StyledLink
+          href="https://www.google.com/maps/place/Lienaustra%C3%9Fe+32,+22159+Hamburg/@53.629392,10.1259215,17.04z/data=!4m6!3m5!1s0x47b18a414be2f41d:0x39bdeb585c50610!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11c4jnq7nl?entry=ttu"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <IoLocationOutline />
         </StyledLink>
         <StyledLink href="mailto:info@dakiekste.com">
@@ -37,7 +34,11 @@ export default function Footer() {
         {/* <StyledLink href="tel:+4917682472921">
           <IoCallOutline />
         </StyledLink> */}
-        <StyledLink href="https://www.instagram.com/dakiekste_/">
+        <StyledLink
+          href="https://www.instagram.com/dakiekste_/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <IoLogoInstagram />
         </StyledLink>
       </StyledRightWrapper>
