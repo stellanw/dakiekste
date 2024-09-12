@@ -10,10 +10,12 @@ export default function EndBox() {
         <AugenGrossIcon color={theme.highlightColor} />
       </StyledSVG>
       <StyledHeadline>Zeigt wer ihr seid</StyledHeadline>
-      <StyledHeadline>mit dakiekste</StyledHeadline>
-      <StyledText>
+      <StyledHeadline>
+        mit <span>dakiekste</span>
+      </StyledHeadline>
+      {/* <StyledText>
         fotografie <span>.</span> natürlich <span>.</span> Sichtbar
-      </StyledText>
+      </StyledText> */}
     </StyledContainer>
   );
 }
@@ -22,7 +24,7 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem 2rem 4rem 2rem;
+  padding: ${theme.spacing.l} ${theme.spacing.l};
   width: 100%;
   background-color: ${theme.darkBackgroundColor};
   color: ${theme.secondaryColorBeige};
@@ -32,7 +34,8 @@ const StyledSVG = styled.div`
   display: flex;
   width: fit-content;
   width: 80px;
-  height: 120px;
+  height: 100px;
+  margin-top: -2.4rem;
 `;
 
 const StyledHeadline = styled.h1`
@@ -41,6 +44,9 @@ const StyledHeadline = styled.h1`
   text-align: center;
   font-weight: 200;
   text-transform: uppercase;
+  span {
+    font-weight: 600;
+  }
 `;
 
 const StyledText = styled.p`
