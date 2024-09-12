@@ -70,6 +70,7 @@ export default createGlobalStyle`
     font-size: 18px;
     /* overflow-x: hidden; 
     overflow-y: auto; */
+    background-color: ${theme.secondaryColorBeige};
   }
 a {
 color: ${theme.textColor};
@@ -82,8 +83,17 @@ header, main, Footer {
 }
 
 h1{
+  font-size: ${theme.fontSizes.xl};
+}
+
+h2{
+  font-size: ${theme.fontSizes.l};
+}
+
+h3{
   font-size: ${theme.fontSizes.m};
 }
+
 li{
   list-style: none;
 }
