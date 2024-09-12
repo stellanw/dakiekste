@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "react-slick";
 import Image from "next/image";
 import styled from "styled-components";
@@ -57,12 +56,7 @@ export default function LogoCarousel() {
         {logos.map((logo, index) => (
           <Slide key={index}>
             <LogoContainer>
-              <LogoImage
-                src={logo.src}
-                alt={logo.alt}
-                width={logo.width}
-                height={logo.height}
-              />
+              <LogoImage src={logo.src} alt={logo.alt} width={logo.width} height={logo.height} />
             </LogoContainer>
           </Slide>
         ))}
