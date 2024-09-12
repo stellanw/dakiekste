@@ -16,7 +16,6 @@ export default function KlubstudioBox() {
     "Wohlfühl Ambiente",
     "Kreativer Raum für Innovation",
     "Flexible Set-Up Optionen",
-    // "Exklusive Requisiten und Hintergründe",
     "Schnelle Umsetzung",
     "Zugeschnitten auf Ihre Bedürfnisse",
     "Hochwertige technische Ausrüstung",
@@ -27,14 +26,14 @@ export default function KlubstudioBox() {
     <StyledSplitTextBox>
       <StyledImageContainer>
         <StyledImage
-          src="/images/Klubstudio_07.jpg" // Update with your image path
+          src="/images/Klubstudio_03.jpg"
           alt="Description of image"
-          width={500} // Adjust width as needed
-          height={500} // Adjust height as needed
+          width={500}
+          height={500}
         />
       </StyledImageContainer>
       <StyledTextWrapper>
-        <h1>Kiek ma unser Studio</h1>
+        <h1>Kiekt ma unser Studio</h1>
         <TagWrapper>
           {tags.map((tag, index) => (
             <StyledSpanBorder key={index}>{tag}</StyledSpanBorder>
@@ -49,7 +48,6 @@ const StyledSplitTextBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  /* justify-content: start; */
   width: 100%;
   background-color: ${theme.brightBackgroundColor};
 `;
@@ -83,7 +81,6 @@ const TagWrapper = styled.div`
 const StyledSpanBorder = styled.span`
   font-weight: 800;
   font-size: ${theme.fontSizes.xs};
-  /* text-transform: lowercase; */
   display: inline-block;
   padding-left: 0.35rem;
   padding-right: 0.35rem;

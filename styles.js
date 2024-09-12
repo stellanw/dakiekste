@@ -12,7 +12,7 @@ export const theme = {
   darkBackgroundColor: "#252422",
   brightBackgroundColor: "#D1F2D8",
 
-  borderRadius: "15px",
+  borderRadius: "5px",
 
   fontSizes: {
     xs: "0.75rem", // 12px
@@ -90,6 +90,10 @@ li{
 
 a:hover {
 
+  }
+
+  textarea, input{
+    font-family: "Bricolage Grotesque", sans-serif;
   }
 
 
