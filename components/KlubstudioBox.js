@@ -87,7 +87,7 @@ const StyledSpanBorder = styled.span`
   margin-left: 0.15rem;
   margin-right: 0.15rem;
   margin-top: 0.5rem;
-  border-radius: 15px;
+  border-radius: 3px;
   border: solid 1px ${theme.primaryColor};
   line-height: 1.5;
 `;
