@@ -6,7 +6,7 @@ export default function HeadTextBox() {
   return (
     <StyledTextContainer>
       <StyledTopTextWrapper>
-        <StyledHeadline> fotografie echt sichtbar</StyledHeadline>
+        <StyledHeadline>Personal Branding fotografie</StyledHeadline>
         <StyledTopText>
           Wir machen deine Marke sichtbar und bringen deine Werte und Persönlichkeit visuell auf den
           Punkt – mit modernen Ideen und frischen Ansätzen.
@@ -18,28 +18,43 @@ export default function HeadTextBox() {
 }
 const StyledTextContainer = styled.div`
   width: 100%;
-  margin-top: 2.5rem;
-  padding: 6rem 2rem 6rem 2rem;
+  margin-top: 1.8rem; // Warum margin nötig??? Warum nicht abschließend mit header?
+  padding: ${theme.spacing.xxxxl} ${theme.spacing.ml} ${theme.spacing.xxxxl} ${theme.spacing.ml};
   background-color: ${theme.secondaryColorBeige};
   overflow: hidden;
 `;
 
-const StyledHeadline = styled.h2`
-  font-size: ${theme.fontSizes.xs};
+const StyledHeadline = styled.h1`
+  letter-spacing: 0.09rem;
+  font-size: ${theme.fontSizes.xxxs};
+  font-weight: 100;
   text-transform: uppercase;
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.xss};
+  }
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.xs};
+  }
 `;
 
 const StyledTopTextWrapper = styled.div`
   min-width: auto;
-  max-width: 600px;
-  padding: 0 0 8rem 0;
+  max-width: 800px;
+  padding: 0 0 ${theme.spacing.xxxl} 0;
   margin: auto;
   text-align: center;
   overflow: hidden;
 `;
 
 const StyledTopText = styled.p`
-  font-size: ${theme.fontSizes.medium};
-  padding: 0.5rem 0 0 0;
+  font-size: ${theme.fontSizes.s};
   font-weight: 300;
+  line-height: ${theme.lineHeight.xxl};
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.m};
+  }
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.l};
+  }
 `;

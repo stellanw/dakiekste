@@ -59,26 +59,14 @@ export default function EyeAnimation({ color }) {
     return angle;
   };
 
-  const rotation = calculateRotation(
-    eyesRef.current,
-    cursorPosition.x,
-    cursorPosition.y
-  );
+  const rotation = calculateRotation(eyesRef.current, cursorPosition.x, cursorPosition.y);
 
   return (
     <StyledIconsWrapper>
-      <StyledIconWrapper
-        ref={eyesRef}
-        animationActive={animationActive}
-        rotation={rotation}
-      >
+      <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
         <AugenIcon color={color} />
       </StyledIconWrapper>
-      <StyledIconWrapper
-        ref={eyesRef}
-        animationActive={animationActive}
-        rotation={rotation}
-      >
+      <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
         <AugenIcon color={color} />
       </StyledIconWrapper>
     </StyledIconsWrapper>
@@ -97,9 +85,7 @@ const StyledIconsWrapper = styled.div`
   display: flex;
   padding-left: 0.5rem;
   padding-right: ${theme.spacing.l};
-  &:hover {
-    transform: scale(1.1); /* Scale up the SVG icon slightly on hover */
-  }
+  transform: scale(0.8);
 `;
 
 const StyledIconWrapper = styled.div`
