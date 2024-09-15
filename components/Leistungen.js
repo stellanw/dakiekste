@@ -1,23 +1,24 @@
 import { theme } from "@/styles";
 import styled from "styled-components";
 import { IoPeopleOutline, IoLogoInstagram, IoCameraOutline } from "react-icons/io5";
+import { PiUsersLight, PiCameraLight, PiInstagramLogoLight } from "react-icons/pi";
 
 export default function Leistungen() {
   const leistungenData = [
     {
-      Icon: IoCameraOutline,
+      Icon: PiCameraLight,
       title: "CORPORATE FOTOGRAFIE",
-      text: "Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren.",
+      text: "Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren. Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren.",
     },
     {
-      Icon: IoPeopleOutline,
+      Icon: PiUsersLight,
       title: "Mitarbeiter*innen & Buisness portraits",
-      text: "Zeige dein Team und baue ein starkes und einheitliches Markenimage auf.",
+      text: "Zeige dein Team und baue ein starkes und einheitliches Markenimage auf. Zeige dein Team und baue ein starkes und einheitliches Markenimage auf.",
     },
     {
-      Icon: IoLogoInstagram,
+      Icon: PiInstagramLogoLight,
       title: "Social Media Content",
-      text: "Individuelle Fotos vermitteln mehr Persönlichkeit als typische Stockfotos.",
+      text: "Individuelle Fotos vermitteln mehr Persönlichkeit als typische Stockfotos. Individuelle Fotos vermitteln mehr Persönlichkeit als typische Stockfotos.",
     },
   ];
 
@@ -42,8 +43,12 @@ const StyledLeistungenContainer = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
-  background-color: ${theme.darkBackgroundColor};
-  padding: ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl} 0;
+  background-color: ${theme.secondaryColorDust};
+  padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
+  @media (min-width: 750px) {
+  }
+  @media (min-width: 1100px) {
+  }
 `;
 
 const StyledLeistungBox = styled.div`
@@ -60,21 +65,29 @@ const StyledLeistungBox = styled.div`
     font-size: ${theme.fontSizes.m};
     text-transform: uppercase;
     font-weight: 500;
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
   }
 
   p {
-    font-size: ${theme.fontSizes.xs};
-    line-height: ${theme.lineHeight.s};
-    margin-top: ${theme.spacing.m};
+    font-size: ${theme.fontSizes.s};
     font-weight: 100;
+    line-height: ${theme.lineHeight.l};
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
   }
 `;
 
 const StyledIconWrapper = styled.div`
   font-size: ${theme.fontSizes.xxxl};
-  height: 100px;
   color: ${theme.highlightColor};
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 0 ${theme.spacing.sm} 0;
 `;
