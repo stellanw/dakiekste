@@ -1,17 +1,22 @@
 [
   {
-    "title": "IMAGE KAMPAGNE",
+    "title": "IMAGE KAMPAGNEN",
     "description": "Description of Project 1",
     "image": "/images/Projekt_01_Averdung.jpg"
   },
   {
-    "title": "BUSINESS PORTRAIT",
+    "title": "BUSINESS PORTRAITS",
     "description": "Description of Project 2",
     "image": "/images/Business_Portrait.jpg"
   },
   {
-    "title": "FOTO REPORTAGE",
+    "title": "FOTO REPORTAGEN",
     "description": "Description of Project 3",
     "image": "/images/Projekt_03.jpg"
+  },
+  {
+    "title": "EVENTS",
+    "description": "Description of Project 3",
+    "image": "/images/event.jpg"
   }
 ]

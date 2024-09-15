@@ -21,9 +21,7 @@ export default function ProjectSlider({ projects }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.intersectionRatio >= 0.7) {
-          setCurrentSlide(
-            sliderRef.current?.innerSlider?.state.currentSlide || 0
-          );
+          setCurrentSlide(sliderRef.current?.innerSlider?.state.currentSlide || 0);
         }
       },
       { threshold: 0.7 }
@@ -64,12 +62,7 @@ export default function ProjectSlider({ projects }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage
-              src={project.image}
-              alt={project.title}
-              width={1400}
-              height={1400}
-            />
+            <StyledImage src={project.image} alt={project.title} width={1400} height={1400} />
             <ProjectDetails>
               <TitleAndIndex>
                 <span>
@@ -173,6 +166,7 @@ const TitleAndIndex = styled.div`
 
   h1 {
     font-size: ${theme.fontSizes.small};
+    margin: 0;
   }
 `;
 
