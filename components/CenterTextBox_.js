@@ -7,17 +7,14 @@ export default function CenterTextBox() {
       <StyledTopTextWrapper>
         <h1> Wir bringen frischen Wind in deine Positionierung</h1>
         <p>
-          Wir sind ein kreatives Trio, das seit über <span>14 Jahren</span> als
-          eingespieltes <span>Team</span> arbeitet.{" "}
-          <span>Respekt und Empathie</span> bilden die Grundlage unserer Arbeit.
-          Unser Studio in Berne befindet sich in einer ehemaligen Schule, wo wir
-          unsere Projekte realisieren. In engem Austausch mit unseren Kund*innen
-          schaffen wir Bildwelten, die <span>Menschen</span> und ihre
-          Geschichten in den
-          <pan>Mittelpunkt</pan> stellen. Mit unserer Expertise in Fotografie,
-          Videografie, Design und Webentwicklung bieten wir alles aus einer Hand
-          und nutzen unser <span>interdisziplinäres Netzwerk</span>, um eure
-          Bedürfnisse optimal zu erfüllen.
+          Wir sind ein kreatives Trio, das seit über <span>14 Jahren</span> als eingespieltes{" "}
+          <span>Team</span> arbeitet. <span>Respekt und Empathie</span> bilden die Grundlage unserer
+          Arbeit. Unser Studio in Berne befindet sich in einer ehemaligen Schule, wo wir unsere
+          Projekte realisieren. In engem Austausch mit unseren Kund*innen schaffen wir Bildwelten,
+          die <span>Menschen</span> und ihre Geschichten in den
+          <pan>Mittelpunkt</pan> stellen. Mit unserer Expertise in Fotografie, Videografie, Design
+          und Webentwicklung bieten wir alles aus einer Hand und nutzen unser{" "}
+          <span>interdisziplinäres Netzwerk</span>, um eure Bedürfnisse optimal zu erfüllen.
         </p>
       </StyledTopTextWrapper>
     </StyledTextContainer>
@@ -26,7 +23,7 @@ export default function CenterTextBox() {
 const StyledTextContainer = styled.div`
   width: 100%;
   margin: auto;
-  padding: 6rem 8rem 6rem 4rem;
+  padding: 2rem 2rem 2rem 2rem;
   background-color: ${theme.brightBackgroundColor};
 `;
 

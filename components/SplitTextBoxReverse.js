@@ -2,35 +2,24 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import styled from "styled-components";
 
-export default function SplitTextBoxReverse({
-  headline,
-  text,
-  imageURLs = [],
-  imageDescriptions = [],
-}) {
+export default function SplitTextBoxReverse({ topline, headline, text, url, imageDescription }) {
   return (
-    <StyledSplitTextBox>
+    <StyledSplitTextBoxReverse>
       <StyledImageContainer>
-        {imageURLs.map((url, index) => (
-          <ImageWrapper key={index} position={index}>
-            <StyledImage
-              src={url}
-              alt={imageDescriptions[index] || "Image"}
-              width={500}
-              height={500}
-            />
-          </ImageWrapper>
-        ))}
+        <ImageWrapper>
+          <StyledImage src={url} alt={imageDescription} width={500} height={500} />
+        </ImageWrapper>
       </StyledImageContainer>
       <StyledTextWrapper>
+        <h2>{topline}</h2>
         <h1>{headline}</h1>
         <p>{text}</p>
       </StyledTextWrapper>
-    </StyledSplitTextBox>
+    </StyledSplitTextBoxReverse>
   );
 }
 
-const StyledSplitTextBox = styled.div`
+const StyledSplitTextBoxReverse = styled.div`
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -39,43 +28,54 @@ const StyledSplitTextBox = styled.div`
 `;
 
 const StyledTextWrapper = styled.div`
-  flex: 1;
-  min-width: 370px;
-  max-width: 700px;
+  flex: 0 0 50%;
   padding: 4rem 4rem 4rem 4rem;
   margin: auto;
 
-  height: auto;
+  h2 {
+    text-transform: uppercase;
+    margin: 0 0 ${theme.spacing.xs} 0;
+    font-weight: 100;
+    letter-spacing: 0.09rem;
+    font-size: ${theme.fontSizes.xs};
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
+  }
 
   h1 {
-    font-size: ${theme.fontSizes.large};
+    font-size: ${theme.fontSizes.xl};
     text-transform: uppercase;
-    padding-bottom: 1rem;
+    font-weight: 800;
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
   }
 
   p {
-    font-size: ${theme.fontSizes.small};
+    font-size: ${theme.fontSizes.s};
+    line-height: 1.3rem;
   }
 `;
 
 const StyledImageContainer = styled.div`
   position: relative;
-  flex: 1 1 30%;
-  min-width: 370px;
-  min-height: 500px;
-  max-width: 32%;
+  flex: 0 0 50%;
+  min-height: 600px;
+
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
 `;
 
 const ImageWrapper = styled.div`
-  position: absolute;
-  ${({ position }) =>
-    position === 0 ? `top: 0; right: 0rem;` : `bottom: 0; left: 0rem;`}
-  width: 250px;
-  height: 48%;
-
+  /* width: 100%; */
+  object-fit: cover;
+  overflow: hidden;
   &::after {
     position: absolute;
     content: "";
@@ -93,7 +93,11 @@ const ImageWrapper = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  overflow: hidden;
 `;

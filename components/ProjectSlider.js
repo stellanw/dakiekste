@@ -2,12 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { theme } from "@/styles";
-import {
-  IoChevronBackOutline,
-  IoChevronForwardOutline,
-  IoArrowForwardOutline,
-  IoArrowBackOutline,
-} from "react-icons/io5";
+import { PiArrowLeftLight, PiArrowRightLight } from "react-icons/pi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Link from "next/link";
@@ -63,26 +58,23 @@ export default function ProjectSlider({ projects }) {
         {projects.map((project, index) => (
           <Slide key={index}>
             <StyledImage src={project.image} alt={project.title} width={1400} height={1400} />
-            <ProjectDetails>
-              <TitleAndIndex>
-                <span>
-                  {currentSlide + 1}/{projects.length}
-                </span>
-                <h1>{project.title}</h1>
-              </TitleAndIndex>
-              {/* <StyledLink href="/portfolio">Zum Projekt</StyledLink> */}
-            </ProjectDetails>
+            <ProjectDetails></ProjectDetails>
           </Slide>
         ))}
       </StyledSlider>
+      <TitleAndIndex>
+        <span>
+          0{currentSlide + 1}
+          {/* /{projects.length} */}
+        </span>
+        <h1>{projects[currentSlide]?.title}</h1>
+      </TitleAndIndex>
       <ArrowContainer>
         <Arrow onClick={handlePrevClick}>
-          {/* <IoChevronBackOutline /> */}
-          <IoArrowBackOutline />
+          <PiArrowLeftLight />
         </Arrow>
         <Arrow onClick={handleNextClick}>
-          {/* <IoChevronForwardOutline /> */}
-          <IoArrowForwardOutline />
+          <PiArrowRightLight />
         </Arrow>
       </ArrowContainer>
     </SliderWrapper>
@@ -155,35 +147,19 @@ const TitleAndIndex = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  position: absolute;
-  top: 3rem;
-  left: 4rem;
+  position: absolute; /* Absolute Positionierung */
+  top: 3rem; /* Positionierung von oben */
+  left: 4rem; /* Positionierung von links */
   font-weight: 600;
+  z-index: 10; /* Höherer z-index, um sicherzustellen, dass es über dem Slider bleibt */
 
   span {
     letter-spacing: 0.2rem;
   }
 
   h1 {
-    font-size: ${theme.fontSizes.small};
+    font-size: ${theme.fontSizes.m};
     margin: 0;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  position: absolute;
-
-  bottom: 4rem;
-  left: 4rem;
-  background-color: ${theme.textColor};
-  color: white;
-  font-size: ${theme.fontSizes.xs};
-  border-radius: 20px;
-  padding: 0.3rem 0.9rem;
-
-  &:hover {
-    padding: 0.35rem 0.55rem 0.35rem;
-    font-weight: 500;
   }
 `;
 
@@ -192,10 +168,16 @@ const ArrowContainer = styled.div`
   position: absolute;
   justify-content: space-between;
   top: 3.15rem;
-  right: 2rem;
-  width: 40px;
+  right: ${theme.spacing.xxl};
+  width: 110px;
 `;
+
 const Arrow = styled.div`
   position: relative;
   cursor: pointer;
+  font-size: ${theme.fontSizes.xl};
+  &:hover,
+  :active {
+    color: ${theme.highlightColor};
+  }
 `;

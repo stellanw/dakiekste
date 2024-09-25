@@ -83,15 +83,14 @@ const rotateAnimation = keyframes`
 
 const StyledIconsWrapper = styled.div`
   display: flex;
-  padding-left: 0.5rem;
-  padding-right: ${theme.spacing.l};
+  margin-right: ${theme.spacing.xxl};
   transform: scale(0.8);
 `;
 
 const StyledIconWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.1rem;
+  padding: 0.05rem;
   transition: transform 0.5s ease;
   transform: scaleX(-1);
   ${({ animationActive, rotation }) =>

@@ -3,11 +3,13 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import Link from "next/link";
 import { IoLogoInstagram, IoMailOutline, IoEarthOutline } from "react-icons/io5";
+import { PiEnvelopeSimpleLight } from "react-icons/pi";
 
 export default function Team() {
   const teamMembers = [
     {
       name: "Stellan",
+      text: "Fotografie • Video • Web Development",
       image: "Stellan_Portrait.jpg",
       tags: ["Fotografie", "Videografie", "Portrait", "Event", "Web-Development"],
       links: {
@@ -18,6 +20,7 @@ export default function Team() {
     },
     {
       name: "Clara",
+      text: "Portraitfotografie • Social Media • Content Production",
       image: "Clara_Portrait_2.jpg",
       tags: ["Fotografie", "Portraitfotografie", "Konzeption", "Content Creation"],
       links: {
@@ -28,6 +31,7 @@ export default function Team() {
     },
     {
       name: "Maischa",
+      text: "Fotografie • Video • Design »Branding«",
       image: "Maischa_Portrait.jpg",
       tags: ["Fotografie", "Kommunikationsdesign", "Branding", "Corporate Design", "Webdesign"],
       links: {
@@ -39,95 +43,69 @@ export default function Team() {
   ];
 
   const linkItems = [
-    {
-      href: "website",
-      icon: <IoEarthOutline />,
-      target: "_blank",
-      rel: "noopener noreferrer",
-    },
+    // {
+    //   href: "website",
+    //   icon: <IoEarthOutline />,
+    //   target: "_blank",
+    //   rel: "noopener noreferrer",
+    // },
     {
       href: "email",
-      icon: <IoMailOutline />,
+      icon: <PiEnvelopeSimpleLight />,
     },
-    {
-      href: "instagram",
-      icon: <IoLogoInstagram />,
-      target: "_blank",
-      rel: "noopener noreferrer",
-    },
+    // {
+    //   href: "instagram",
+    //   icon: <IoLogoInstagram />,
+    //   target: "_blank",
+    //   rel: "noopener noreferrer",
+    // },
   ];
 
   return (
-    <>
-      <StyledTextWrapper>
-        <h1>Wir sind dakiekste</h1>
-        <p>Wir verhelfen dir zu mehr Sichtbarkeit.</p>
-      </StyledTextWrapper>
-
-      <StyledTeamMembersContainer>
-        {teamMembers.map((member, index) => (
-          <StyledTeamMemberContainer key={index}>
-            <StyledMemberImageContainer>
-              <StyledMemberImage
-                src={`/images/${member.image}?v=${Date.now()}`}
-                alt={`Portrait of ${member.name}`}
-                width={1200}
-                height={500}
-              />
-            </StyledMemberImageContainer>
-            <p>
-              Moin ich bin <span>{member.name}</span>!
-            </p>
-            <TagWrapper>
-              {member.tags.map((tag, i) => (
-                <span key={i}>{tag}</span>
-              ))}
-            </TagWrapper>
-            <StyledLinkWrapper>
-              {linkItems.map((linkItem, i) => (
-                <StyledLink
-                  key={i}
-                  href={member.links[linkItem.href]}
-                  target={linkItem.target}
-                  rel={linkItem.rel}
-                >
-                  {linkItem.icon}
-                </StyledLink>
-              ))}
-            </StyledLinkWrapper>
-          </StyledTeamMemberContainer>
-        ))}
-      </StyledTeamMembersContainer>
-    </>
+    <StyledTeamMembersContainer>
+      {teamMembers.map((member, index) => (
+        <StyledTeamMemberContainer key={index}>
+          <StyledMemberImageContainer>
+            <StyledMemberImage
+              src={`/images/${member.image}?v=${Date.now()}`}
+              alt={`Portrait of ${member.name}`}
+              width={1200}
+              height={500}
+            />
+          </StyledMemberImageContainer>
+          <p>
+            <span>{member.name}</span>
+            <br />
+            {member.text}
+          </p>
+          {/* <TagWrapper>
+            {member.tags.map((tag, i) => (
+              <span key={i}>{tag}</span>
+            ))}
+          </TagWrapper> */}
+          <StyledLinkWrapper>
+            {linkItems.map((linkItem, i) => (
+              <StyledLink
+                key={i}
+                href={member.links[linkItem.href]}
+                target={linkItem.target}
+                rel={linkItem.rel}
+              >
+                {linkItem.icon}
+              </StyledLink>
+            ))}
+          </StyledLinkWrapper>
+        </StyledTeamMemberContainer>
+      ))}
+    </StyledTeamMembersContainer>
   );
 }
 
-const StyledTextWrapper = styled.div`
-  padding: ${theme.spacing.xxxl} ${theme.spacing.l} 0 ${theme.spacing.l};
-  margin: auto;
-  text-align: center;
-  background-color: ${theme.secondaryColorBeige};
-
-  h1 {
-    font-size: ${theme.fontSizes.s};
-    text-transform: uppercase;
-    padding-bottom: ${theme.spacing.s};
-    font-weight: 600;
-  }
-
-  p {
-    font-size: ${theme.fontSizes.xl};
-    font-weight: 400;
-    max-width: 700px;
-    margin: auto;
-  }
-`;
-
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
-  padding: ${theme.spacing.xl} ${theme.spacing.l} ${theme.spacing.xl} ${theme.spacing.l};
+  padding: 0 ${theme.spacing.xxl} ${theme.spacing.xxxl} ${theme.spacing.xxl};
   background-color: ${theme.secondaryColorBeige};
   width: 100%;
   gap: ${theme.spacing.l};
@@ -142,7 +120,7 @@ const StyledTeamMembersContainer = styled.div`
   }
 
   p {
-    line-height: 1.5;
+    line-height: 1.3;
   }
 
   span {
@@ -172,24 +150,24 @@ const StyledMemberImage = styled(Image)`
   object-position: 50% 50%;
 `;
 
-const TagWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-left: -${theme.spacing.s};
+// const TagWrapper = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   margin-left: -${theme.spacing.s};
 
-  span {
-    font-weight: 800;
-    font-size: ${theme.fontSizes.xs};
-    text-transform: lowercase;
-    display: inline-block;
-    padding: 0 ${theme.spacing.s} 0 ${theme.spacing.s};
-    margin: ${theme.spacing.s} ${theme.spacing.xs} 0 ${theme.spacing.xs};
-    border-radius: 15px;
-    border: solid 1px ${theme.primaryColor};
-    line-height: 1.5;
-  }
-`;
+//   span {
+//     font-weight: 800;
+//     font-size: ${theme.fontSizes.xs};
+//     text-transform: lowercase;
+//     display: inline-block;
+//     padding: 0 ${theme.spacing.s} 0 ${theme.spacing.s};
+//     margin: ${theme.spacing.s} ${theme.spacing.xs} 0 ${theme.spacing.xs};
+//     border-radius: 5px;
+//     border: solid 1px ${theme.primaryColor};
+//     line-height: 1.5;
+//   }
+// `;
 
 const StyledLinkWrapper = styled.div`
   display: flex;
@@ -197,6 +175,7 @@ const StyledLinkWrapper = styled.div`
   align-items: end;
   gap: ${theme.spacing.s};
   height: 2rem;
+  font-size: ${theme.fontSizes.m};
 `;
 
 const StyledLink = styled(Link)`
