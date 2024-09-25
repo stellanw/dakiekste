@@ -47,7 +47,7 @@ const StyledHeadImage = styled(Image)`
 `;
 
 const StyledHeadlineContainer = styled.div`
-  margin: -9rem 0 4rem 3.5rem;
+  margin: -9rem 0 4rem 3.6rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -56,10 +56,10 @@ const StyledHeadlineContainer = styled.div`
   padding: 0;
 
   @media (min-width: 750px) {
-    margin: -12rem 0 4rem 3.5rem;
+    margin: -12rem 0 4rem 3.6rem;
   }
   @media (min-width: 1100px) {
-    margin: -14rem 0 4rem 3.5rem;
+    margin: -14rem 0 4rem 3.6rem;
   }
 `;
 

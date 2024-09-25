@@ -40,7 +40,7 @@ export default function Workflow() {
     infinite: true,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     pauseOnHover: true,
     swipe: true,
@@ -69,8 +69,8 @@ export default function Workflow() {
   return (
     <StyledSlideContainer>
       <StyledTextBox>
-        <h1>Sorgloser Ablauf</h1>
-        <p>Konzentriere dich auf das Wesentliche während wir uns um den Rest kümmern.</p>
+        <h2>Sorgloser Ablauf</h2>
+        <h1>Konzentriere dich auf das Wesentliche während wir uns um den Rest kümmern.</h1>
       </StyledTextBox>
       <StyledSlider {...settings}>
         {boxData.map(({ Icon, title, text }, index) => (
@@ -87,30 +87,9 @@ export default function Workflow() {
   );
 }
 
-const StyledTextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: ${theme.secondaryColorBeige};
-  margin: 0 0 ${theme.spacing.l} 0;
-  h1 {
-    font-size: ${theme.fontSizes.xs};
-    text-transform: uppercase;
-    margin: 0 0 ${theme.spacing.m} 0;
-    font-weight: 200;
-    letter-spacing: 0.1rem;
-  }
-  p {
-    font-size: ${theme.fontSizes.l};
-    max-width: 600px;
-    font-weight: 300;
-  }
-`;
-
 const StyledSlideContainer = styled.div`
   background-color: ${theme.darkBackgroundColor};
-  padding: ${theme.spacing.xxxl} ${theme.spacing.l} ${theme.spacing.xxxl} ${theme.spacing.l};
+  padding: ${theme.spacing.xxxxl} 5rem ${theme.spacing.xxxxl} 5rem;
 `;
 
 const StyledSlider = styled(Slider)`
@@ -150,6 +129,36 @@ const StyledIoChevronBackOutline = styled(IoChevronBackOutline)`
 
   &:hover {
     color: ${theme.highlightColor};
+  }
+`;
+
+const StyledTextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: ${theme.secondaryColorBeige};
+
+  h2 {
+    text-transform: uppercase;
+    margin: 0 0 ${theme.spacing.xs} 0;
+    font-weight: 100;
+    letter-spacing: 0.09rem;
+    font-size: ${theme.fontSizes.xs};
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
+  }
+  h1 {
+    font-size: ${theme.fontSizes.xl};
+    font-weight: 400;
+    max-width: 700px;
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
   }
 `;
 
