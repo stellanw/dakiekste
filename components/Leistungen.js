@@ -1,38 +1,25 @@
 import { theme } from "@/styles";
 import styled from "styled-components";
-import { IoPeopleOutline, IoLogoInstagram, IoCameraOutline } from "react-icons/io5";
 import { PiUsersLight, PiCameraLight, PiInstagramLogoLight } from "react-icons/pi";
+import leistungen from "../data/leistungen.json";
 
 export default function Leistungen() {
-  const leistungenData = [
-    {
-      Icon: PiCameraLight,
-      title: "CORPORATE FOTOGRAFIE",
-      text: "Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren. Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren.",
-    },
-    {
-      Icon: PiUsersLight,
-      title: "Mitarbeiter*innen & Buisness portraits",
-      text: "Zeige dein Team und baue ein starkes und einheitliches Markenimage auf. Zeige dein Team und baue ein starkes und einheitliches Markenimage auf.",
-    },
-    {
-      Icon: PiInstagramLogoLight,
-      title: "Social Media Content",
-      text: "Individuelle Fotos vermitteln mehr Persönlichkeit als typische Stockfotos. Individuelle Fotos vermitteln mehr Persönlichkeit als typische Stockfotos.",
-    },
-  ];
+  const icons = [PiCameraLight, PiUsersLight, PiInstagramLogoLight];
 
   return (
     <StyledLeistungenContainer>
-      {leistungenData.map(({ Icon, title, text }, index) => (
-        <StyledLeistungBox key={index}>
-          <StyledIconWrapper>
-            <Icon />
-          </StyledIconWrapper>
-          <h1>{title}</h1>
-          <p>{text}</p>
-        </StyledLeistungBox>
-      ))}
+      {leistungen.map(({ title, text }, index) => {
+        const Icon = icons[index];
+        return (
+          <StyledLeistungBox key={index}>
+            <StyledIconWrapper>
+              <Icon />
+            </StyledIconWrapper>
+            <h1>{title}</h1>
+            <p>{text}</p>
+          </StyledLeistungBox>
+        );
+      })}
     </StyledLeistungenContainer>
   );
 }
@@ -57,7 +44,7 @@ const StyledLeistungBox = styled.div`
   align-items: center;
   text-align: center;
   color: ${theme.secondaryColorBeige};
-  padding: ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m} ${theme.spacing.m};
+  padding: ${theme.spacing.l} ${theme.spacing.m} ${theme.spacing.l} ${theme.spacing.m};
   overflow: hidden;
   max-width: 300px;
 
@@ -65,6 +52,7 @@ const StyledLeistungBox = styled.div`
     font-size: ${theme.fontSizes.m};
     text-transform: uppercase;
     font-weight: 500;
+
     @media (min-width: 750px) {
     }
     @media (min-width: 1100px) {

@@ -32,9 +32,7 @@ export default function NavBar() {
           {scrollY > 100 ? <DakieksteLogoBlack /> : <DakieksteLogoWhite />}
         </StyledLogoWrapper>
       </Link>
-      <EyeAnimation
-        color={scrollY > 100 ? theme.textColor : theme.secondaryColorBeige}
-      />
+      <EyeAnimation color={scrollY > 100 ? theme.textColor : theme.secondaryColorBeige} />
     </StyledNavBar>
   );
 }
@@ -55,7 +53,7 @@ const StyledNavBar = styled.div`
 `;
 
 const StyledLogoWrapper = styled.div`
-  margin-left: 2.6rem;
+  margin-left: 2.6rem; //eigentlich 4rem aber wegen space um svg -1.4rem weniger
 `;
 
 const StyledDakieksteLogoWhite = styled(DakieksteLogoWhite)`

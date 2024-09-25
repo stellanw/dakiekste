@@ -2,44 +2,68 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import styled from "styled-components";
 
-export default function SplitTextBox({ headline, text, imageURL, imageDescription }) {
+export default function DoubleTextBox({ topline1, headline1, text1, topline2, headline2, text2 }) {
   return (
-    <StyledSplitTextBox>
+    <StyledDoubleTextBox>
       <StyledTextWrapper>
-        <h1>{headline}</h1>
-        <p>{text}</p>
+        <h2>{topline1}</h2>
+        <h1>{headline1}</h1>
+        <p>{text1}</p>
       </StyledTextWrapper>
-      <StyledImageContainer>
-        <StyledImage src={imageURL} alt={imageDescription} width={500} height={500} />
-      </StyledImageContainer>
-    </StyledSplitTextBox>
+      <StyledTextWrapper>
+        <h2>{topline2}</h2>
+        <h1>{headline2}</h1>
+        <p>{text2}</p>
+      </StyledTextWrapper>
+    </StyledDoubleTextBox>
   );
 }
 
-const StyledSplitTextBox = styled.div`
+const StyledDoubleTextBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  justify-content: space-evenly;
   width: 100%;
   background-color: ${theme.brightBackgroundColor};
+  padding: ${theme.spacing.xxxl} 0;
 `;
 
 const StyledTextWrapper = styled.div`
   flex: 1;
   min-width: 370px;
   max-width: 800px;
+  min-height: 400px;
   padding: 4rem;
-  margin: auto;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  h2 {
+    text-transform: uppercase;
+    margin: 0 0 ${theme.spacing.xs} 0;
+    font-weight: 100;
+    letter-spacing: 0.09rem;
+    font-size: ${theme.fontSizes.xs};
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
+  }
 
   h1 {
-    font-size: ${theme.fontSizes.large};
+    font-size: ${theme.fontSizes.xl};
     text-transform: uppercase;
-    padding-bottom: 1rem;
+    font-weight: 800;
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
   }
 
   p {
-    font-size: ${theme.fontSizes.small};
+    font-size: ${theme.fontSizes.s};
+    line-height: 1.3rem;
   }
 `;
 
@@ -48,6 +72,7 @@ const StyledImage = styled(Image)`
   top: 0;
   left: 0;
   width: 100%;
+
   height: 100%;
   object-fit: cover;
   overflow: hidden;

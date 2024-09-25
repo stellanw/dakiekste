@@ -108,12 +108,17 @@ h1,h2,h3{
   margin-bottom: ${theme.spacing.sm}
 }
 
+p {
+  font-weight: 300;
+  line-height: 1.3rem;
+}
+
 a:hover {
 
   }
 
   textarea, input{
-    font-family: "Bricolage Grotesque", sans-serif;
+    font-family: "Figtree", sans-serif;
   }
 
 

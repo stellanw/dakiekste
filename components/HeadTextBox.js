@@ -25,10 +25,10 @@ const StyledTextContainer = styled.div`
 `;
 
 const StyledHeadline = styled.h1`
-  letter-spacing: 0.09rem;
-  font-size: ${theme.fontSizes.xxxs};
   font-weight: 100;
   text-transform: uppercase;
+  letter-spacing: 0.09rem;
+  font-size: ${theme.fontSizes.xxxs};
 
   @media (min-width: 750px) {
     font-size: ${theme.fontSizes.xss};
