@@ -20,6 +20,7 @@ import Head from "next/head";
 import DoubleTextBox from "@/components/DoubleTextBox";
 import DoubleTextTeam from "@/components/DoubleTextTeam";
 import StudioSlider from "@/components/StudioSlider";
+import StudioBox from "@/components/StudioBox";
 
 export default function HomePage() {
   return (
@@ -60,8 +61,18 @@ für mehr Impact"
         text2="In engem Austausch mit unseren Kund*innen schaffen wir Bildwelten, die Menschen und ihre Geschichten in den Mittelpunkt stellen. Mit unserer Expertise in Fotografie, Videografie, Design und Webentwicklung bieten wir alles aus einer Hand und nutzen unser interdisziplinäres Netzwerk, um eure Bedürfnisse optimal zu erfüllen."
       />
       <Team />
-
       <StudioSlider studio={studio} />
+      <StudioBox
+        topline="KLUB STUDIO"
+        headline="WILLKOMMEN IN 
+UNSEREM KLUB STUDIO"
+        text="Unser Fotostudio bietet eine große Auswahl an Hintergründen, Stühlen, Requisiten und hochwertigem Equipment. Mit unserem Tageslichtstudio und direkten Location-Sets in der Nähe sowie kostenfreien Parkplätzen könnt ihr eure Visionen perfekt umsetzen. Die Studio-Nutzung ist im Preis inbegriffen."
+        benefit1="Kostenfreie Parkplätze"
+        benefit2="Kaffee, Tee & Softgetränke"
+        benefit3="Daylight-Studio"
+      />
+      <ContactForm />
+      <FAQ />
       <SplitTextBoxReverseDoubleImage
         headline="Zusammen die Zukunft
         gestalten"
@@ -69,9 +80,6 @@ für mehr Impact"
         imageURLs={["/images/Klubstudio_05.jpg", "/images/Klubstudio_06.jpg"]}
         imageDescriptions={["Description of the first image", "Description of the second image"]}
       />
-      <EndBox />
-      <ContactForm />
-      <FAQ />
     </Layout>
   );
 }

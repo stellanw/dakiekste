@@ -56,45 +56,56 @@ export default function ContactForm() {
 
   return (
     <StyledFormWrapper>
+      <StyledTextContainer>
+        <h2>Let&apos;s Talk</h2>
+        <h1>
+          Ob über das nächste Projekt sprechen oder uns einfach nur kennenlernen – melde dich bei
+          uns.
+        </h1>
+      </StyledTextContainer>
       <StyledForm onSubmit={handleSubmit}>
-        <StyledHeadline>Schreibt uns</StyledHeadline>
-        <StyledInput
+        <label htmlFor="name">Name</label>
+        <input
           type="text"
           name="name"
-          placeholder="Name"
+          // placeholder="Name"
           value={formData.name}
           onChange={handleChange}
           autoComplete="name"
+          autoFocus
           required
         />
-        <StyledInput
+        <label htmlFor="email">Email</label>
+        <input
           type="email"
           name="email"
-          placeholder="Email"
+          // placeholder="Email"
           value={formData.email}
           onChange={handleChange}
           autoComplete="email"
           required
         />
-        <StyledInput
+        <label htmlFor="subject">Betreff</label>
+        <input
           type="text"
           name="subject"
-          placeholder="Betreff"
+          // placeholder="Betreff"
           value={formData.subject}
           onChange={handleChange}
           autoComplete="off"
           required
         />
-        <StyledTextArea
+        <label htmlFor="message">Nachricht</label>
+        <textarea
           name="message"
-          placeholder="Deine Nachricht"
+          // placeholder="Deine Nachricht"
           value={formData.message}
           onChange={handleChange}
           autoComplete="off"
           required
         />
         <StyledButton type="submit" disabled={loading}>
-          {loading ? "Senden..." : "Senden"}
+          {loading ? "Senden..." : "Absenden"}
         </StyledButton>
         {responseMessage && <p>{responseMessage}</p>}
       </StyledForm>
@@ -103,82 +114,122 @@ export default function ContactForm() {
 }
 
 const StyledFormWrapper = styled.div`
-  background-color: ${theme.darkBackgroundColor};
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: ${theme.secondaryColorDust};
+  width: 100%;
+
+  @media (max-width: 750px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
+const StyledTextContainer = styled.div`
+  flex-basis: 50%;
+  flex-grow: 1;
+  min-width: 370px;
+  max-width: 800px;
+  min-height: 400px;
+  padding: ${theme.spacing.xl} ${theme.spacing.xxl};
+  color: ${theme.highlightColor};
+
+  @media (max-width: 750px) {
+    width: 100%;
+    margin-bottom: ${theme.spacing.l};
+  }
+
+  h2 {
+    text-transform: uppercase;
+    margin: 0 0 ${theme.spacing.xs} 0;
+    font-weight: 100;
+    letter-spacing: 0.09rem;
+    font-size: ${theme.fontSizes.xs};
+  }
+
+  h1 {
+    font-size: ${theme.fontSizes.xl};
+    font-weight: 500;
+  }
 `;
 
 const StyledForm = styled.form`
   display: flex;
+  flex-basis: 50%;
+  flex-grow: 1;
   flex-direction: column;
-  align-items: center;
-  padding: ${theme.spacing.xl} ${theme.spacing.l};
+  align-items: start;
+  justify-content: center;
+  padding: ${theme.spacing.xl} ${theme.spacing.xxl};
+  color: ${theme.secondaryColorBeige};
   width: 100%;
   max-width: 500px;
-  background-color: ${theme.darkBackgroundColor};
-  color: ${theme.secondaryColorBeige};
-
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+  @media (max-width: 750px) {
+    flex-basis: auto;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
   p {
     margin: ${theme.spacing.l} 0 0 0;
   }
-`;
 
-const StyledHeadline = styled.h2`
-  font-size: ${theme.fontSizes.l};
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: ${theme.highlightColor};
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
-  padding: ${theme.spacing.s};
-  margin-bottom: ${theme.spacing.m};
-  border: 1px solid ${theme.primaryColor};
-  border-radius: ${theme.borderRadius};
-  font-size: ${theme.fontSizes.s};
-  background-color: ${theme.secondaryColorBeige};
-  color: ${theme.textColor};
-
-  &:focus {
-    border-color: ${theme.highlightColor};
-    outline: none;
-    box-shadow: 0 0 0 2px ${theme.highlightColor};
+  label {
+    text-transform: uppercase;
+    font-weight: 200;
+    color: ${theme.highlightColor};
+    padding: 0 0 ${theme.spacing.s} 0;
   }
-`;
 
-const StyledTextArea = styled.textarea`
-  width: 100%;
-  padding: ${theme.spacing.s};
-  margin-bottom: ${theme.spacing.m};
-  border: 1px solid ${theme.primaryColor};
-  border-radius: ${theme.borderRadius};
-  font-size: ${theme.fontSizes.s};
-  background-color: ${theme.secondaryColorBeige};
-  color: ${theme.textColor};
-  height: 200px;
-  resize: none;
-  &:focus {
-    border-color: ${theme.highlightColor};
-    outline: none;
-    box-shadow: 0 0 0 2px ${theme.highlightColor};
+  input {
+    width: 100%;
+    padding: ${theme.spacing.s};
+    margin-bottom: ${theme.spacing.m};
+    border: 1px solid ${theme.highlightColor};
+    border-radius: ${theme.borderRadius};
+    font-size: ${theme.fontSizes.s};
+    background-color: ${theme.secondaryColorBeige};
+    &:focus {
+      border-color: ${theme.highlightColor};
+      outline: none;
+      box-shadow: 0 0 0 2px ${theme.highlightColor};
+    }
+  }
+
+  textarea {
+    width: 100%;
+    padding: ${theme.spacing.s};
+    margin-bottom: ${theme.spacing.m};
+    border: 1px solid ${theme.highlightColor};
+    border-radius: ${theme.borderRadius};
+    font-size: ${theme.fontSizes.s};
+    background-color: ${theme.secondaryColorBeige};
+    color: ${theme.textColor};
+    height: 200px;
+    resize: none;
+    &:focus {
+      border-color: ${theme.highlightColor};
+      outline: none;
+      box-shadow: 0 0 0 2px ${theme.highlightColor};
+    }
   }
 `;
 
 const StyledButton = styled.button`
   padding: ${theme.spacing.s} ${theme.spacing.m};
-  background-color: ${theme.highlightColor};
-  color: ${theme.darkBackgroundColor};
+  color: ${theme.highlightColor};
+  background-color: ${theme.secondaryColorDust};
   font-size: ${theme.fontSizes.m};
-  border: none;
   border-radius: ${theme.borderRadius};
   cursor: pointer;
   transition: background-color 0.3s ease;
+  border: 1px solid ${theme.highlightColor};
 
   &:hover {
-    background-color: ${theme.brightBackgroundColor};
+    color: ${theme.secondaryColorDust};
+    background-color: ${theme.highlightColor};
   }
 `;
