@@ -9,12 +9,8 @@ export default function Footer() {
   return (
     <StyledFooter>
       <StyledLeftWrapper>
-        <StyledIconWrapper>
-          <AugenIcon color={theme.secondaryColorBeige} />
-          <AugenIcon color={theme.secondaryColorBeige} />
-        </StyledIconWrapper>
         <div>
-          <p>info@dakiekste.com</p>
+          <h2>info@dakiekste.com</h2>
           <StyledLink href="/impressum">
             <StyledImpressum>impressum</StyledImpressum>
           </StyledLink>
@@ -61,29 +57,30 @@ const StyledFooter = styled.footer`
   color: ${theme.textColor};
 `;
 
-const StyledIconWrapper = styled.div`
-  display: flex;
-  gap: 0.2rem;
-  height: auto;
-  width: 2rem;
-`;
-
 const StyledRightWrapper = styled.div`
   display: flex;
   justify-content: end;
-  align-items: end;
+  align-items: start;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-top: ${theme.spacing.xxl};
 `;
 
 const StyledLeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
+  align-items: start;
+  margin-top: ${theme.spacing.xxl};
+
+  h2 {
+    font-weight: 400;
+    margin: 0 0 10rem 0;
+  }
 `;
 
 const StyledLink = styled(Link)`
   margin-bottom: -0.2rem;
+  font-size: ${theme.fontSizes.l};
 `;
 
 const StyledImpressum = styled.p`

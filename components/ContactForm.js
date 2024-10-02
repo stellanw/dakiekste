@@ -119,6 +119,7 @@ const StyledFormWrapper = styled.div`
   justify-content: space-between;
   background-color: ${theme.secondaryColorDust};
   width: 100%;
+  padding: ${theme.spacing.l} 0;
 
   @media (max-width: 750px) {
     flex-direction: column;
