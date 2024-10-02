@@ -7,6 +7,7 @@ export default function SplitTextBoxReverseDoubleImage({
   text,
   imageURLs = [],
   imageDescriptions = [],
+  topline,
 }) {
   return (
     <StyledSplitTextBox>
@@ -23,6 +24,7 @@ export default function SplitTextBoxReverseDoubleImage({
         ))}
       </StyledImageContainer>
       <StyledTextWrapper>
+        <h2>{topline}</h2>
         <h1>{headline}</h1>
         <p>{text}</p>
       </StyledTextWrapper>
@@ -51,6 +53,19 @@ const StyledTextWrapper = styled.div`
     font-size: ${theme.fontSizes.large};
     text-transform: uppercase;
     padding-bottom: 1rem;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    margin: 0 0 ${theme.spacing.xs} 0;
+    font-weight: 100;
+    letter-spacing: 0.09rem;
+    font-size: ${theme.fontSizes.xs};
+
+    @media (min-width: 750px) {
+    }
+    @media (min-width: 1100px) {
+    }
   }
 
   p {
