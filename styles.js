@@ -49,6 +49,14 @@ export const theme = {
     xxl: "2rem",
   },
 
+  fontWeight: {
+    light: 200,
+    regular: 300,
+    bold: 400,
+    extraBold: 600,
+    fatBold: 800,
+  },
+
   breakpoints: {
     s: "480px",
     m: "768px",
