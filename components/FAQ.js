@@ -1,23 +1,55 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { theme } from "@/styles";
-import Image from "next/image";
-import { IoAddOutline } from "react-icons/io5";
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa6";
+import { PiArrowUpRight } from "react-icons/pi";
 
 export default function FAQ() {
-  const [isOpen, setIsOpen] = useState([false, false, false, false]);
+  const [isOpen, setIsOpen] = useState([false, false, false, false, false, false, false]);
+
+  const faqData = [
+    {
+      caption: "Vorgespräch",
+      question: "Welche Vorbereitung ist für ein Shooting erforderlich?",
+      answer: "Unsere Corporate Branding Fotografie ...",
+    },
+    {
+      caption: "Dienstleistungen",
+      question: "Was bietet ihr neben der Fotografie noch an?",
+      answer: "Mit individuellen Business-Porträts ...",
+    },
+    {
+      caption: "Lieferung",
+      question: "Wie lange dauert es, bis wir die fertigen Bilder erhalten?",
+      answer: "Zeigt die Menschen hinter eurer Marke ...",
+    },
+    {
+      caption: "Preise",
+      question: "Wie gestalten sich Eure Preise?",
+      answer: "Unsere Event-Fotografie ...",
+    },
+    {
+      caption: "Zeiten",
+      question: "Arbeitet ihr auch am Wochenende?",
+      answer: "Unser Team produziert ...",
+    },
+    {
+      caption: "Termin",
+      question: "Wie weit im Voraus kann ich einen Termin buchen?",
+      answer: "Unser Team produziert ...",
+    },
+    {
+      caption: "Buchung",
+      question: "Ich komme nicht aus Hamburg, kann ich euch dennoch buchen?",
+      answer: "Unser Team produziert ...",
+    },
+  ];
 
   const toggleOverlay = (index) => {
     setIsOpen((prev) => {
       const newState = [...prev];
       newState[index] = !newState[index];
-      for (let i = 0; i < newState.length; i++) {
-        if (i !== index) {
-          newState[i] = false;
-        }
-      }
-      return newState;
+      // Close other items
+      return newState.map((item, i) => (i === index ? item : false));
     });
   };
 
@@ -25,94 +57,29 @@ export default function FAQ() {
     <StyledFAQContainer>
       <StyledUl>
         <StyledHeadlineContainer>
-          <h1>Häufige Fragen</h1>
+          <h1>Die Häufigsten Fragen</h1>
         </StyledHeadlineContainer>
-        <li>
-          <StyledSpanBold>Welche Vorbereitung ist für ein Shooting erforderlich?</StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[0] ? "rotate" : ""} onClick={() => toggleOverlay(0)} />
-        </li>
-        {isOpen[0] && (
-          <StyledOverlayParagraph>
-            Unsere Corporate Branding Fotografie visualisiert eure Unternehmensidentität und Werte,
-            stärkt eure Markenpräsenz und fördert mir einprägsamen Bildern eine emotionale Bindung
-            zu eurer Zielgruppe.
-          </StyledOverlayParagraph>
-        )}
-        <li>
-          <StyledSpanBold>Was bietet ihr neben der Fotografie noch an?</StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[1] ? "rotate" : ""} onClick={() => toggleOverlay(1)} />
-        </li>
-        {isOpen[1] && (
-          <StyledOverlayParagraph>
-            Mit individuellen Business-Portraits setzen wir euch und eure Führungskräfte perfekt in
-            Szene. Authentische Bilder vermitteln Kompetenz und Vertrauen für Webseiten,
-            Geschäftsberichte und PR-Materialien.
-          </StyledOverlayParagraph>
-        )}
-        <li>
-          {" "}
-          <StyledSpanBold>
-            Wie lange dauert es, bis wir die fertigen Bilder erhalten?
-          </StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[2] ? "rotate" : ""} onClick={() => toggleOverlay(2)} />
-        </li>
-        {isOpen[2] && (
-          <StyledOverlayParagraph>
-            Zeigt die Menschen hinter eurer Marke mit hochwertigen Fotos eurer Mitarbeiter*innen.
-            Wir präsentieren euer Team von seiner besten Seite.
-          </StyledOverlayParagraph>
-        )}
-        <li>
-          <StyledSpanBold>Wie gestalten sich Eure Preise?</StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[3] ? "rotate" : ""} onClick={() => toggleOverlay(3)} />
-        </li>
-        {isOpen[3] && (
-          <StyledOverlayParagraph>
-            Unsere Event-Fotografie hält die besonderen Momente eurer Firmenveranstaltungen fest. Ob
-            Konferenzen, Feiern oder Produktpräsentationen – wir fangen die besten Momente ein.
-          </StyledOverlayParagraph>
-        )}
-        <li>
-          <StyledSpanBold>Arbeitet ihr auch am Wochenende?</StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[4] ? "rotate" : ""} onClick={() => toggleOverlay(4)} />
-        </li>
-        {isOpen[4] && (
-          <StyledOverlayParagraph>
-            Unser Team produziert speziell auf eure Marke zugeschnittenen Content für Social Media
-            Kanäle. Mit fesselnden und ansprechenden Inhalten helfen wir euch, eure Online-Präsenz
-            zu steigern.
-          </StyledOverlayParagraph>
-        )}
-        <li>
-          <StyledSpanBold>Wie weit im Voraus kann ich einen Termin buchen?</StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[5] ? "rotate" : ""} onClick={() => toggleOverlay(5)} />
-        </li>
-        {isOpen[5] && (
-          <StyledOverlayParagraph>
-            Unser Team produziert speziell auf eure Marke zugeschnittenen Content für Social Media
-            Kanäle. Mit fesselnden und ansprechenden Inhalten helfen wir euch, eure Online-Präsenz
-            zu steigern.
-          </StyledOverlayParagraph>
-        )}
-        <li>
-          <StyledSpanBold>
-            Ich komme nicht aus Hamburg, kann ich euch dennoch buchen?
-          </StyledSpanBold>{" "}
-          <StyledPlusIcon className={isOpen[6] ? "rotate" : ""} onClick={() => toggleOverlay(6)} />
-        </li>
-        {isOpen[6] && (
-          <StyledOverlayParagraph>
-            Unser Team produziert speziell auf eure Marke zugeschnittenen Content für Social Media
-            Kanäle. Mit fesselnden und ansprechenden Inhalten helfen wir euch, eure Online-Präsenz
-            zu steigern.
-          </StyledOverlayParagraph>
-        )}
+        {faqData.map((faq, index) => (
+          <StyledLiGroup key={index} className={isOpen[index] ? "open" : ""}>
+            <StyledGroup>
+              <StyledGroupChild1>
+                <StyledCaption>{faq.caption}</StyledCaption>
+                <StyledSpanBold>{faq.question}</StyledSpanBold>
+              </StyledGroupChild1>
+              <StyledPlusIcon
+                className={isOpen[index] ? "rotate" : ""}
+                onClick={() => toggleOverlay(index)}
+              />
+            </StyledGroup>
+            {isOpen[index] && <StyledOverlayParagraph>{faq.answer}</StyledOverlayParagraph>}
+          </StyledLiGroup>
+        ))}
       </StyledUl>
     </StyledFAQContainer>
   );
 }
 
-const StyledPlusIcon = styled(FaPlus)`
+const StyledPlusIcon = styled(PiArrowUpRight)`
   margin-left: 1rem;
   transform: scale(1.2);
   width: 15px;
@@ -123,12 +90,10 @@ const StyledPlusIcon = styled(FaPlus)`
 
   &:hover {
     transform: scale(1.2);
-    stroke-width: 10;
   }
 
   &.rotate {
-    transform: rotate(45deg);
-    stroke-width: 10;
+    transform: rotate(180deg);
   }
 `;
 
@@ -136,20 +101,13 @@ const StyledFAQContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
   width: 100%;
-
   margin: 0;
-  padding: 0;
+  padding: ${theme.spacing.l} 0;
 
-  background-color: ${theme.secondaryColorBeige};
-  color: ${theme.textColor};
-
+  background-color: ${theme.darkBackgroundColor};
+  color: ${theme.highlightColor};
   margin-bottom: -0.5rem;
-  /* @media (max-width: 750px) {
-    flex-direction: column;
-    max-height: 2000px;
-  } */
 `;
 
 const StyledHeadlineContainer = styled.div`
@@ -158,61 +116,79 @@ const StyledHeadlineContainer = styled.div`
   align-items: start;
   position: relative;
   margin: 0rem 2rem 2rem 0rem;
-
   width: 100%;
 
   h1 {
     font-size: ${theme.fontSizes.l};
     text-transform: uppercase;
+    font-weight: ${theme.fontWeight.bold};
   }
+`;
+
+const StyledCaption = styled.h4`
+  text-transform: uppercase;
+  font-weight: ${theme.fontWeight.light};
+  width: 200px;
+  margin: 0;
 `;
 
 const StyledSpanBold = styled.span`
   font-weight: 600;
   text-transform: uppercase;
+  margin-left: 1rem;
 `;
 
 const StyledUl = styled.ul`
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-width: 250px;
-  max-width: 800px;
+  width: 100%;
+  padding: ${theme.spacing.xxl};
+`;
 
-  padding: 0;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  margin: 5rem 2rem 4rem 2rem;
-
-  li {
-    font-size: ${theme.fontSizes.s};
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    padding: 2rem;
-    padding-left: 0;
-    padding-right: 0;
+const StyledLiGroup = styled.li`
+  display: flex;
+  flex-direction: column;
+  padding: ${theme.spacing.xl};
+  background-color: ${theme.defaultBackgroundColor};
+  color: ${theme.defaultTextColor};
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-top: 1px solid ${theme.highlightColor};
+  border-bottom: 1px solid ${theme.highlightColor};
+  &.open {
+    background-color: ${theme.highlightColor};
+    color: ${theme.textColor};
   }
+`;
+
+const StyledGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const StyledGroupChild1 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space;
+  gap: ${theme.spacing.xl};
 `;
 
 const StyledOverlayParagraph = styled.p`
   font-size: ${theme.fontSizes.s};
   font-weight: 200;
-  margin: -1rem 0rem 0 0rem;
-  height: fit-content;
+  margin: 1rem 0 0 0;
+  padding-left: 15.1rem;
+  background-color: ${theme.overlayBackgroundColor};
+  color: ${theme.overlayTextColor};
   animation-name: slide-animation;
   animation-duration: 0.5s;
-  max-width: 600px;
-  /* @media (max-width: 400px) {
-    margin: -1rem 0rem 0 0rem;
-  } */
+  transition: opacity 0.3s ease;
+
   @keyframes slide-animation {
     0% {
       height: 0;
-      opacity: -2;
+      opacity: 0;
     }
     100% {
       height: fit-content;
