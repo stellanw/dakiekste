@@ -2,65 +2,15 @@ import styled from "styled-components";
 import { theme } from "@/styles";
 import Image from "next/image";
 import Link from "next/link";
-import { IoLogoInstagram, IoMailOutline, IoEarthOutline } from "react-icons/io5";
 import { PiEnvelopeSimpleLight } from "react-icons/pi";
 
-export default function Team() {
-  const teamMembers = [
-    {
-      name: "Stellan",
-      text: "Fotografie • Video • Web Development",
-      image: "Stellan_Portrait.jpg",
-      tags: ["Fotografie", "Videografie", "Portrait", "Event", "Web-Development"],
-      links: {
-        website: "https://stellanwetzig.de/",
-        email: "mailto:stellan@dakiekste.com",
-        instagram: "https://www.instagram.com/stellanwetzig.photography/",
-      },
-    },
-    {
-      name: "Clara",
-      text: "Portraitfotografie • Social Media • Content Production",
-      image: "Clara_Portrait_2.jpg",
-      tags: ["Fotografie", "Portraitfotografie", "Konzeption", "Content Creation"],
-      links: {
-        website: "https://www.claraide.com/home",
-        email: "mailto:clara@dakiekste.com",
-        instagram: "https://www.instagram.com/claraidephoto/",
-      },
-    },
-    {
-      name: "Maischa",
-      text: "Fotografie • Video • Design »Branding«",
-      image: "Maischa_Portrait.jpg",
-      tags: ["Fotografie", "Kommunikationsdesign", "Branding", "Corporate Design", "Webdesign"],
-      links: {
-        website: "https://www.maischasouaga.com/",
-        email: "mailto:maischa@dakiekste.com",
-        instagram: "https://www.instagram.com/maischa_s/",
-      },
-    },
-  ];
-
+export default function Team({ teamMembers = [] }) {
   const linkItems = [
-    // {
-    //   href: "website",
-    //   icon: <IoEarthOutline />,
-    //   target: "_blank",
-    //   rel: "noopener noreferrer",
-    // },
     {
       href: "email",
       icon: <PiEnvelopeSimpleLight />,
     },
-    // {
-    //   href: "instagram",
-    //   icon: <IoLogoInstagram />,
-    //   target: "_blank",
-    //   rel: "noopener noreferrer",
-    // },
   ];
-
   return (
     <StyledTeamMembersContainer>
       {teamMembers.map((member, index) => (
@@ -85,14 +35,9 @@ export default function Team() {
           </TagWrapper> */}
           <StyledLinkWrapper>
             {linkItems.map((linkItem, i) => (
-              <StyledLink
-                key={i}
-                href={member.links[linkItem.href]}
-                target={linkItem.target}
-                rel={linkItem.rel}
-              >
+              <Link key={i} href={member.email} target="_blank" rel="noopener noreferrer">
                 {linkItem.icon}
-              </StyledLink>
+              </Link>
             ))}
           </StyledLinkWrapper>
         </StyledTeamMemberContainer>
