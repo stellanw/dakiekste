@@ -4,15 +4,9 @@ import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { theme } from "@/styles";
-import {
-  IoChevronBackOutline,
-  IoChevronForwardOutline,
-  IoBulbOutline,
-  IoCameraReverseOutline,
-  IoFingerPrintOutline,
-} from "react-icons/io5";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
-export default function Workflow() {
+export default function Workflow({ boxData = [] }) {
   const [slidesToShow, setSlidesToShow] = useState(3);
 
   useEffect(() => {
@@ -40,31 +34,13 @@ export default function Workflow() {
     infinite: true,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
     swipe: true,
     nextArrow: <StyledIoChevronForwardOutline />,
     prevArrow: <StyledIoChevronBackOutline />,
   };
-
-  const boxData = [
-    {
-      Icon: IoBulbOutline,
-      title: "ERSTGESPRÄCH & KONZEPTION",
-      text: "Mit einer detaillierten Analyse deiner Werte und Ziele entwickeln wir eine Strategie die deine Positionierung klar stärkt.",
-    },
-    {
-      Icon: IoCameraReverseOutline,
-      title: "SHOOTING, ABLAUF & ORGANISATION",
-      text: "Wir erstellen Briefings & Timetables, organisieren alles fürs Shooting und kümmern uns um Styling, Setdesign und ums Hair & Make-up.",
-    },
-    {
-      Icon: IoFingerPrintOutline,
-      title: "HOCHWERTIGES VISUELLES FOOTAGE",
-      text: "Die fertigen, professionell bearbeiteten Fotos stehen dir zeitnah zur Verfügung und sind sofort für alle Kanäle einsatzbereit.",
-    },
-  ];
 
   return (
     <StyledSlideContainer>
