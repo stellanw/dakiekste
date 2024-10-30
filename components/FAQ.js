@@ -3,52 +3,13 @@ import { theme } from "@/styles";
 import { useState } from "react";
 import { PiArrowUpRight } from "react-icons/pi";
 
-export default function FAQ() {
-  const [isOpen, setIsOpen] = useState([false, false, false, false, false, false, false]);
-
-  const faqData = [
-    {
-      caption: "Vorgespräch",
-      question: "Welche Vorbereitung ist für ein Shooting erforderlich?",
-      answer: "Unsere Corporate Branding Fotografie ...",
-    },
-    {
-      caption: "Dienstleistungen",
-      question: "Was bietet ihr neben der Fotografie noch an?",
-      answer: "Mit individuellen Business-Porträts ...",
-    },
-    {
-      caption: "Lieferung",
-      question: "Wie lange dauert es, bis wir die fertigen Bilder erhalten?",
-      answer: "Zeigt die Menschen hinter eurer Marke ...",
-    },
-    {
-      caption: "Preise",
-      question: "Wie gestalten sich Eure Preise?",
-      answer: "Unsere Event-Fotografie ...",
-    },
-    {
-      caption: "Zeiten",
-      question: "Arbeitet ihr auch am Wochenende?",
-      answer: "Unser Team produziert ...",
-    },
-    {
-      caption: "Termin",
-      question: "Wie weit im Voraus kann ich einen Termin buchen?",
-      answer: "Unser Team produziert ...",
-    },
-    {
-      caption: "Buchung",
-      question: "Ich komme nicht aus Hamburg, kann ich euch dennoch buchen?",
-      answer: "Unser Team produziert ...",
-    },
-  ];
+export default function FAQ({ faqData }) {
+  const [isOpen, setIsOpen] = useState(Array(faqData.length).fill(false));
 
   const toggleOverlay = (index) => {
     setIsOpen((prev) => {
       const newState = [...prev];
       newState[index] = !newState[index];
-      // Close other items
       return newState.map((item, i) => (i === index ? item : false));
     });
   };

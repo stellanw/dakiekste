@@ -1,9 +1,34 @@
+// import { theme } from "@/styles";
+// import styled from "styled-components";
+// import { PiUsersLight, PiCameraLight, PiInstagramLogoLight } from "react-icons/pi";
+// import leistungen from "../data/leistungen.json";
+
+// export default function Leistungen() {
+//   const icons = [PiCameraLight, PiUsersLight, PiInstagramLogoLight];
+
+//   return (
+//     <StyledLeistungenContainer>
+//       {leistungen.map(({ title, text }, index) => {
+//         const Icon = icons[index];
+//         return (
+//           <StyledLeistungBox key={index}>
+//             <StyledIconWrapper>
+//               <Icon />
+//             </StyledIconWrapper>
+//             <h1>{title}</h1>
+//             <p>{text}</p>
+//           </StyledLeistungBox>
+//         );
+//       })}
+//     </StyledLeistungenContainer>
+//   );
+// }
+
 import { theme } from "@/styles";
 import styled from "styled-components";
 import { PiUsersLight, PiCameraLight, PiInstagramLogoLight } from "react-icons/pi";
-import leistungen from "../data/leistungen.json";
 
-export default function Leistungen() {
+export default function Leistungen({ leistungen }) {
   const icons = [PiCameraLight, PiUsersLight, PiInstagramLogoLight];
 
   return (

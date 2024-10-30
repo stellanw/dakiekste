@@ -147,12 +147,11 @@ const TitleAndIndex = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 1rem;
-  position: absolute; /* Absolute Positionierung */
-  top: 3rem; /* Positionierung von oben */
-  left: 4rem; /* Positionierung von links */
+  position: absolute;
+  top: 3rem;
+  left: 4rem;
   font-weight: 600;
-  z-index: 10; /* Höherer z-index, um sicherzustellen, dass es über dem Slider bleibt */
-
+  z-index: 10;
   span {
     letter-spacing: 0.2rem;
   }
