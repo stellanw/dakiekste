@@ -107,6 +107,6 @@ const Arrow = styled.div`
   font-size: ${theme.fontSizes.xl};
   &:hover,
   :active {
-    color: ${theme.highlightColor};
+    color: ${theme.color.green};
   }
 `;

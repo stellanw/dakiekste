@@ -66,8 +66,8 @@ const StyledFAQContainer = styled.section`
   margin: 0;
   padding: ${theme.spacing.l} 0;
 
-  background-color: ${theme.darkBackgroundColor};
-  color: ${theme.highlightColor};
+  background-color: ${theme.color.dark};
+  color: ${theme.color.green};
   margin-bottom: -0.5rem;
 `;
 
@@ -110,14 +110,12 @@ const StyledLiGroup = styled.li`
   display: flex;
   flex-direction: column;
   padding: ${theme.spacing.xl};
-  background-color: ${theme.defaultBackgroundColor};
-  color: ${theme.defaultTextColor};
   transition: background-color 0.3s ease, color 0.3s ease;
-  border-top: 1px solid ${theme.highlightColor};
-  border-bottom: 1px solid ${theme.highlightColor};
+  border-top: 1px solid ${theme.color.green};
+  border-bottom: 1px solid ${theme.color.green};
   &.open {
-    background-color: ${theme.highlightColor};
-    color: ${theme.textColor};
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
   }
 `;
 
@@ -140,8 +138,6 @@ const StyledOverlayParagraph = styled.p`
   font-weight: 200;
   margin: 1rem 0 0 0;
   padding-left: 15.1rem;
-  background-color: ${theme.overlayBackgroundColor};
-  color: ${theme.overlayTextColor};
   animation-name: slide-animation;
   animation-duration: 0.5s;
   transition: opacity 0.3s ease;

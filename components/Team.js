@@ -51,7 +51,7 @@ const StyledTeamMembersContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 0 ${theme.spacing.xxl} ${theme.spacing.xxxl} ${theme.spacing.xxl};
-  background-color: ${theme.secondaryColorBeige};
+  background-color: ${theme.color.beige};
   width: 100%;
   gap: ${theme.spacing.l};
 
@@ -109,7 +109,7 @@ const StyledMemberImage = styled(Image)`
 //     padding: 0 ${theme.spacing.s} 0 ${theme.spacing.s};
 //     margin: ${theme.spacing.s} ${theme.spacing.xs} 0 ${theme.spacing.xs};
 //     border-radius: 5px;
-//     border: solid 1px ${theme.primaryColor};
+//     border: solid 1px ${theme.color.dark};
 //     line-height: 1.5;
 //   }
 // `;
@@ -124,6 +124,6 @@ const StyledLinkWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  color: ${theme.textColor};
+  color: ${theme.color.dark};
   margin-bottom: -${theme.spacing.xs};
 `;

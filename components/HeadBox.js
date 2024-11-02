@@ -17,7 +17,7 @@ const StyledHeadBoxContainer = styled.div`
   width: 100%;
   margin-top: 1.8rem; // Warum margin nötig??? Warum nicht abschließend mit header?
   padding: ${theme.spacing.xxxxl} ${theme.spacing.ml} ${theme.spacing.xxxxl} ${theme.spacing.ml};
-  background-color: ${theme.secondaryColorBeige};
+  background-color: ${theme.color.beige};
   overflow: hidden;
 
   h1 {

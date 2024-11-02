@@ -53,8 +53,7 @@ const StyledFooter = styled.footer`
   font-size: 1.2rem;
   margin: 0;
   height: 18rem;
-  background-color: ${theme.secondaryColorBeige};
-  color: ${theme.textColor};
+  background-color: ${theme.color.beige};
 `;
 
 const StyledRightWrapper = styled.div`
