@@ -117,7 +117,7 @@ const StyledFormWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  background-color: ${theme.secondaryColorDust};
+  background-color: ${theme.color.dust};
   width: 100%;
   padding: ${theme.spacing.l} 0;
 
@@ -135,7 +135,7 @@ const StyledTextContainer = styled.div`
   max-width: 800px;
   min-height: 400px;
   padding: ${theme.spacing.xl} ${theme.spacing.xxl};
-  color: ${theme.highlightColor};
+  color: ${theme.color.green};
 
   @media (max-width: 750px) {
     width: 100%;
@@ -164,7 +164,7 @@ const StyledForm = styled.form`
   align-items: start;
   justify-content: center;
   padding: ${theme.spacing.xl} ${theme.spacing.xxl};
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
   width: 100%;
   max-width: 500px;
   @media (max-width: 750px) {
@@ -181,7 +181,7 @@ const StyledForm = styled.form`
   label {
     text-transform: uppercase;
     font-weight: 200;
-    color: ${theme.highlightColor};
+    color: ${theme.color.green};
     padding: 0 0 ${theme.spacing.s} 0;
   }
 
@@ -189,14 +189,14 @@ const StyledForm = styled.form`
     width: 100%;
     padding: ${theme.spacing.s};
     margin-bottom: ${theme.spacing.m};
-    border: 1px solid ${theme.highlightColor};
+    border: 1px solid ${theme.color.green};
     border-radius: ${theme.borderRadius};
     font-size: ${theme.fontSizes.s};
-    background-color: ${theme.secondaryColorBeige};
+    background-color: ${theme.color.beige};
     &:focus {
-      border-color: ${theme.highlightColor};
+      border-color: ${theme.color.green};
       outline: none;
-      box-shadow: 0 0 0 2px ${theme.highlightColor};
+      box-shadow: 0 0 0 2px ${theme.color.green};
     }
   }
 
@@ -204,33 +204,33 @@ const StyledForm = styled.form`
     width: 100%;
     padding: ${theme.spacing.s};
     margin-bottom: ${theme.spacing.m};
-    border: 1px solid ${theme.highlightColor};
+    border: 1px solid ${theme.color.green};
     border-radius: ${theme.borderRadius};
     font-size: ${theme.fontSizes.s};
-    background-color: ${theme.secondaryColorBeige};
-    color: ${theme.textColor};
+    background-color: ${theme.color.beige};
+    color: ${theme.color.dark};
     height: 200px;
     resize: none;
     &:focus {
-      border-color: ${theme.highlightColor};
+      border-color: ${theme.color.green};
       outline: none;
-      box-shadow: 0 0 0 2px ${theme.highlightColor};
+      box-shadow: 0 0 0 2px ${theme.color.green};
     }
   }
 `;
 
 const StyledButton = styled.button`
   padding: ${theme.spacing.s} ${theme.spacing.m};
-  color: ${theme.highlightColor};
-  background-color: ${theme.secondaryColorDust};
+  color: ${theme.color.green};
+  background-color: ${theme.color.dust};
   font-size: ${theme.fontSizes.m};
   border-radius: ${theme.borderRadius};
   cursor: pointer;
   transition: background-color 0.3s ease;
-  border: 1px solid ${theme.highlightColor};
+  border: 1px solid ${theme.color.green};
 
   &:hover {
-    color: ${theme.secondaryColorDust};
-    background-color: ${theme.highlightColor};
+    color: ${theme.color.dust};
+    background-color: ${theme.color.green};
   }
 `;

@@ -4,8 +4,8 @@ import { theme } from "@/styles";
 import styled from "styled-components";
 
 export default function Stylesheet() {
-  // Extract color keys from the theme for rendering
-  const colorKeys = Object.keys(theme).filter((key) => typeof theme[key] === "string");
+  // Extrahiere Farb-Keys aus dem Theme für die Anzeige
+  const colorKeys = Object.keys(theme.color);
   const spacingKeys = Object.keys(theme.spacing);
   const fontWeightKeys = Object.keys(theme.fontWeight);
   const lineHeightKeys = Object.keys(theme.lineHeight);
@@ -15,10 +15,8 @@ export default function Stylesheet() {
       <Layout>
         <StyledStylesheet>
           <h1>STYLESHEET</h1>
-          {/* Typography Section */}
-          <div>
-            -----------------------------------------------------------------------------------------------------------------------
-          </div>
+          {/* Typografie Abschnitt */}
+
           <section>
             <h3>#HEADLINES DEFAULT</h3>
             <div>
@@ -30,9 +28,7 @@ export default function Stylesheet() {
             <h4>Headline h4</h4>
             <h5>Headline h5</h5>
           </section>
-          <div>
-            -----------------------------------------------------------------------------------------------------------------------
-          </div>
+
           <section>
             <h3>#LINE HEIGHTS</h3>
             <div>
@@ -40,9 +36,21 @@ export default function Stylesheet() {
             </div>
             {lineHeightKeys.map((key) => (
               <p key={key} style={{ lineHeight: theme.lineHeight[key] }}>
-                This is a paragraph demonstrating lineHeight: {key}. Lorem ipsum dolor sit amet,
+                <span style={{ fontWeight: 700, fontSize: theme.fontSizes.m }}>{key}:</span> This is
+                a paragraph demonstrating lineHeights. Lorem ipsum dolor sit amet, consetetur
+                sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+                aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
+                rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
                 consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-                dolore magna aliquyam erat, sed diam voluptua.
+                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+                ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate
+                velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero
+                eros et accumsan et iusto
               </p>
             ))}
           </section>
@@ -73,6 +81,43 @@ export default function Stylesheet() {
           <div>
             -----------------------------------------------------------------------------------------------------------------------
           </div>
+
+          {/* Farben Abschnitt */}
+          <section>
+            <h2>Colors</h2>
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {colorKeys.map((key) => (
+                <div key={key} style={{ margin: "1rem" }}>
+                  <ColorBox style={{ backgroundColor: theme.color[key] }} />
+                  <p>
+                    {key}: {theme.color[key]}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Spacing Abschnitt */}
+          <section>
+            <h2>#SPACING</h2>
+            <div>
+              {spacingKeys.map((key) => (
+                <SpacingBox key={key} margin={theme.spacing[key]}>
+                  Margin: {key} {theme.spacing[key]}
+                </SpacingBox>
+              ))}
+            </div>
+          </section>
+
+          {/* Border Radius Abschnitt */}
+          <section>
+            <h2>#BORDER RADIUS</h2>
+            <BorderRadiusBox>Border Radius: {theme.borderRadius}</BorderRadiusBox>
+            <button>SAMPLE BUTTON</button>
+          </section>
+          <div>
+            -----------------------------------------------------------------------------------------------------------------------
+          </div>
           <h3>#FORM</h3>
           <div>
             -----------------------------------------------------------------------------------------------------------------------
@@ -89,39 +134,6 @@ export default function Stylesheet() {
           <div>
             -----------------------------------------------------------------------------------------------------------------------
           </div>
-          {/* Colors Section */}
-          <section>
-            <h2>Colors</h2>
-            <div style={{ display: "flex", flexWrap: "wrap" }}>
-              {colorKeys.map((key) => (
-                <div key={key} style={{ margin: "1rem" }}>
-                  <ColorBox style={{ backgroundColor: theme[key] }} />
-                  <p>
-                    {key}: {theme[key]}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Spacing Section */}
-          <section>
-            <h2>#SPACING</h2>
-            <div>
-              {spacingKeys.map((key) => (
-                <SpacingBox key={key} margin={theme.spacing[key]}>
-                  Margin: {key} {theme.spacing[key]}
-                </SpacingBox>
-              ))}
-            </div>
-          </section>
-
-          {/* Border Radius Section */}
-          <section>
-            <h2>#BORDER RADIUS</h2>
-            <BorderRadiusBox>Border Radius: {theme.borderRadius}</BorderRadiusBox>
-            <button>SAMPLE BUTTON</button>
-          </section>
         </StyledStylesheet>
       </Layout>
     </>
@@ -129,6 +141,7 @@ export default function Stylesheet() {
 }
 
 const StyledStylesheet = styled.div`
+  background-color: white;
   margin: 4rem 0;
   p {
     margin: 2rem 0;
@@ -147,8 +160,8 @@ const ColorBox = styled.div`
 const SpacingBox = styled.div`
   margin: ${(props) => `0 ${props.margin} ${props.margin} ${props.margin}` || "0"};
   padding: ${(props) => props.padding || "0"};
-  background-color: ${theme.secondaryColorDust};
-  border: 1px dashed ${theme.textColor};
+  background-color: ${theme.color.lightGreen};
+  border: 1px dashed ${theme.color.dark};
 `;
 
 const BorderRadiusBox = styled.div`

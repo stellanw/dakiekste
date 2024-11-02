@@ -24,7 +24,7 @@ const StyledDoubleTextBox = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.brightBackgroundColor};
+  background-color: ${theme.color.beige};
   padding: ${theme.spacing.xxxl} 0;
 `;
 

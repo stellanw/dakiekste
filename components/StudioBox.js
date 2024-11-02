@@ -47,7 +47,7 @@ const StyledDoubleTextBox = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.secondaryColorBeige};
+  background-color: ${theme.color.beige};
 `;
 
 const StyledTextWrapper = styled.div`
@@ -117,5 +117,5 @@ const IconBox = styled.div`
 
 const Icon = styled.div`
   font-size: ${theme.fontSizes.xxxl};
-  color: ${theme.highlightColor};
+  color: ${theme.color.green};
 `;

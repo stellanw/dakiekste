@@ -1,29 +1,3 @@
-// import { theme } from "@/styles";
-// import styled from "styled-components";
-// import { PiUsersLight, PiCameraLight, PiInstagramLogoLight } from "react-icons/pi";
-// import leistungen from "../data/leistungen.json";
-
-// export default function Leistungen() {
-//   const icons = [PiCameraLight, PiUsersLight, PiInstagramLogoLight];
-
-//   return (
-//     <StyledLeistungenContainer>
-//       {leistungen.map(({ title, text }, index) => {
-//         const Icon = icons[index];
-//         return (
-//           <StyledLeistungBox key={index}>
-//             <StyledIconWrapper>
-//               <Icon />
-//             </StyledIconWrapper>
-//             <h1>{title}</h1>
-//             <p>{text}</p>
-//           </StyledLeistungBox>
-//         );
-//       })}
-//     </StyledLeistungenContainer>
-//   );
-// }
-
 import { theme } from "@/styles";
 import styled from "styled-components";
 import { PiUsersLight, PiCameraLight, PiInstagramLogoLight } from "react-icons/pi";
@@ -55,7 +29,7 @@ const StyledLeistungenContainer = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
-  background-color: ${theme.secondaryColorDust};
+  background-color: ${theme.color.dust};
   padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
   @media (min-width: 750px) {
   }
@@ -68,7 +42,7 @@ const StyledLeistungBox = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
   padding: ${theme.spacing.l} ${theme.spacing.m} ${theme.spacing.l} ${theme.spacing.m};
   overflow: hidden;
   max-width: 300px;
@@ -98,7 +72,7 @@ const StyledLeistungBox = styled.div`
 
 const StyledIconWrapper = styled.div`
   font-size: ${theme.fontSizes.xxxl};
-  color: ${theme.highlightColor};
+  color: ${theme.color.green};
   display: flex;
   align-items: center;
   justify-content: center;

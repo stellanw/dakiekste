@@ -33,12 +33,6 @@ const Layout = ({ children }) => {
   );
 };
 
-const StyledLogoWrapper = styled.div`
-  margin-left: 2.6rem;
-
-  margin-top: 0.4rem;
-`;
-
 const StyledMain = styled.main`
   margin-top: -1.8rem;
 `;

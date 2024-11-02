@@ -64,7 +64,7 @@ export default function Workflow({ boxData = [] }) {
 }
 
 const StyledSlideContainer = styled.div`
-  background-color: ${theme.darkBackgroundColor};
+  background-color: ${theme.color.dark};
   padding: ${theme.spacing.xxxxl} 5rem ${theme.spacing.xxxxl} 5rem;
 `;
 
@@ -80,12 +80,12 @@ const StyledSlider = styled(Slider)`
     & li {
       button {
         &::before {
-          color: ${theme.primaryColor};
+          color: ${theme.color.lightGreen};
         }
       }
       &.slick-active {
         button::before {
-          color: ${theme.primaryColor};
+          color: ${theme.color.green};
         }
       }
     }
@@ -93,18 +93,18 @@ const StyledSlider = styled(Slider)`
 `;
 
 const StyledIoChevronForwardOutline = styled(IoChevronForwardOutline)`
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
 
   &:hover {
-    color: ${theme.highlightColor};
+    color: ${theme.color.green};
   }
 `;
 
 const StyledIoChevronBackOutline = styled(IoChevronBackOutline)`
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
 
   &:hover {
-    color: ${theme.highlightColor};
+    color: ${theme.color.green};
   }
 `;
 
@@ -113,7 +113,7 @@ const StyledTextBox = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
 
   h2 {
     text-transform: uppercase;
@@ -143,7 +143,7 @@ const StyledBox = styled.div`
   flex-direction: column;
   align-items: space-evenly;
   text-align: center;
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
   padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
   width: 250px;
 
@@ -167,6 +167,6 @@ const StyledIconWrapper = styled.div`
   font-size: 3rem;
   width: 250px;
   margin: 0 0 ${theme.spacing.xs} 0;
-  color: ${theme.highlightColor};
+  color: ${theme.color.green};
   display: block;
 `;
