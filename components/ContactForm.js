@@ -68,6 +68,7 @@ export default function ContactForm() {
         <input
           type="text"
           name="name"
+          id="name"
           // placeholder="Name"
           value={formData.name}
           onChange={handleChange}
@@ -79,6 +80,7 @@ export default function ContactForm() {
         <input
           type="email"
           name="email"
+          id="email"
           // placeholder="Email"
           value={formData.email}
           onChange={handleChange}
@@ -89,6 +91,7 @@ export default function ContactForm() {
         <input
           type="text"
           name="subject"
+          id="subject"
           // placeholder="Betreff"
           value={formData.subject}
           onChange={handleChange}
@@ -98,6 +101,7 @@ export default function ContactForm() {
         <label htmlFor="message">Nachricht</label>
         <textarea
           name="message"
+          id="message"
           // placeholder="Deine Nachricht"
           value={formData.message}
           onChange={handleChange}

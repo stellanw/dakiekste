@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import { theme } from "@/styles";
 import styled from "styled-components";
 
-export default function Stylesheet() {
+export default function StyleSheet() {
   // Extrahiere Farb-Keys aus dem Theme für die Anzeige
   const colorKeys = Object.keys(theme.color);
   const spacingKeys = Object.keys(theme.spacing);
