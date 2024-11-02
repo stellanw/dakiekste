@@ -22,7 +22,7 @@ const StyledDoubleTextBox = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.secondaryColorBeige};
+  background-color: ${theme.color.beige};
 `;
 
 const StyledTextWrapper = styled.div`

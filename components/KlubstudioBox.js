@@ -49,7 +49,7 @@ const StyledSplitTextBox = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.brightBackgroundColor};
+  background-color: ${theme.color.beige};
 `;
 
 const StyledTextWrapper = styled.div`
@@ -88,7 +88,7 @@ const StyledSpanBorder = styled.span`
   margin-right: 0.15rem;
   margin-top: 0.5rem;
   border-radius: 3px;
-  border: solid 1px ${theme.primaryColor};
+  border: solid 1px ${theme.color.dark};
   line-height: 1.5;
 `;
 

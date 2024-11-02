@@ -1,15 +1,13 @@
 import { createGlobalStyle } from "styled-components";
 
 export const theme = {
-  textColor: "#1D1D1B",
-  textColorBright: "#F9F8F3",
-  secondaryColorBeige: "#F9F8F3",
-  secondaryColorDust: "#A5A294",
-  highlightColor: "#A3FFB7",
-  darkBackgroundColor: "#252422",
-  brightBackgroundColor: "#D1F2D8",
-  alertColor: "red",
-  confirmColor: "green",
+  color: {
+    dark: "#252422",
+    beige: "#F9F8F3",
+    green: "#A3FFB7",
+    lightGreen: "#D1F2D8",
+    dust: "#8C8A7F",
+  },
 
   borderRadius: "5px",
 
@@ -82,12 +80,13 @@ export default createGlobalStyle`
     width: 100%;
     font-family: "Figtree", sans-serif;
     font-size: 18px;
+    background-color: ${theme.color.beige};
+    color: ${theme.color.dark};
     /* overflow-x: hidden; 
     overflow-y: auto; */
-    background-color: ${theme.secondaryColorBeige};
   }
 a {
-color: ${theme.textColor};
+color: ${theme.color.dark};
 text-decoration: none;
 };
 

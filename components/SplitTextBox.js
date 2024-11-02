@@ -22,7 +22,7 @@ const StyledSplitTextBox = styled.div`
   position: relative;
   justify-content: space-evenly;
   width: 100%;
-  background-color: ${theme.brightBackgroundColor};
+  background-color: ${theme.color.beige};
 `;
 
 const StyledTextWrapper = styled.div`

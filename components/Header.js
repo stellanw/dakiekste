@@ -66,7 +66,7 @@ const StyledHeadlineContainer = styled.div`
 const StyledH1 = styled.h1`
   font-weight: 700;
   margin: 0;
-  color: ${theme.secondaryColorBeige};
+  color: ${theme.color.beige};
   font-size: ${theme.fontSizes.xxxl};
 
   @media (min-width: 750px) {

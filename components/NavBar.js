@@ -32,7 +32,7 @@ export default function NavBar() {
           {scrollY > 100 ? <DakieksteLogoBlack /> : <DakieksteLogoWhite />}
         </StyledLogoWrapper>
       </Link>
-      <EyeAnimation color={scrollY > 100 ? theme.textColor : theme.secondaryColorBeige} />
+      <EyeAnimation color={scrollY > 100 ? theme.color.dark : theme.color.beige} />
     </StyledNavBar>
   );
 }
@@ -46,8 +46,7 @@ const StyledNavBar = styled.div`
   width: 100%;
   z-index: 100;
 
-  background-color: ${({ $scrollY }) =>
-    $scrollY > 100 ? theme.secondaryColorBeige : "transparent"};
+  background-color: ${({ $scrollY }) => ($scrollY > 100 ? theme.color.beige : "transparent")};
 
   transition: background-color 0.1s ease;
 `;

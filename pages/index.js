@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Image from "next/image";
 import { theme } from "@/styles";
 import HeadBox from "@/components/HeadBox";
-import EndBox from "@/components/EndBox";
 // import projects from "@/data/projects.json";
 import studio from "@/data/studio.json";
 import Team from "@/components/Team";
