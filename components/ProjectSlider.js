@@ -84,7 +84,7 @@ export default function ProjectSlider({ projects }) {
 const SliderWrapper = styled.div`
   position: relative;
   margin-bottom: -0.5rem;
-  color: ${theme.textColor};
+  color: ${theme.color.dark};
   overflow: hidden;
 
   &::after {
@@ -177,6 +177,6 @@ const Arrow = styled.div`
   font-size: ${theme.fontSizes.xl};
   &:hover,
   :active {
-    color: ${theme.highlightColor};
+    color: ${theme.color.green};
   }
 `;
