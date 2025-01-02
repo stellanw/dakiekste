@@ -84,6 +84,8 @@ export default createGlobalStyle`
     color: ${theme.color.dark};
     /* overflow-x: hidden; 
     overflow-y: auto; */
+    /* cursor: none; */
+
   }
 a {
 color: ${theme.color.dark};
