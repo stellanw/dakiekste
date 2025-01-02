@@ -175,37 +175,44 @@ UNSEREM KLUB STUDIO"
           {
             caption: "Vorgespräch",
             question: "Welche Vorbereitung ist für ein Shooting erforderlich?",
-            answer: "Unsere Corporate Branding Fotografie ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
           {
-            caption: "Dienstleistungen",
+            caption: "Leistungen",
             question: "Was bietet ihr neben der Fotografie noch an?",
-            answer: "Mit individuellen Business-Porträts ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
           {
             caption: "Lieferung",
             question: "Wie lange dauert es, bis wir die fertigen Bilder erhalten?",
-            answer: "Zeigt die Menschen hinter eurer Marke ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
           {
             caption: "Preise",
             question: "Wie gestalten sich Eure Preise?",
-            answer: "Unsere Event-Fotografie ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
           {
             caption: "Zeiten",
             question: "Arbeitet ihr auch am Wochenende?",
-            answer: "Unser Team produziert ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
           {
             caption: "Termin",
             question: "Wie weit im Voraus kann ich einen Termin buchen?",
-            answer: "Unser Team produziert ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
           {
             caption: "Buchung",
             question: "Ich komme nicht aus Hamburg, kann ich euch dennoch buchen?",
-            answer: "Unser Team produziert ...",
+            answer:
+              "Ja, wir arbeiten auch am Wochenende! Wir sind flexibel und passen uns deinen Bedürfnissen an. Gemeinsam finden wir den passenden Zeitpunkt, der für dich am besten funktioniert.",
           },
         ]}
       />
