@@ -29,7 +29,7 @@ const StyledLeistungenContainer = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   width: 100%;
-  background-color: ${theme.color.dust};
+  background-color: ${theme.color.dark};
   padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
   @media (min-width: 750px) {
   }
