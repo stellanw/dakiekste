@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import NavBar from "./NavBar";
 import Header from "./Header";
+import BackToTopButton from "./BackToTopButton";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const Layout = ({ children }) => {
       </header>
       <StyledMain>{children}</StyledMain>
       <Footer />
+      <BackToTopButton />
     </div>
   );
 };
