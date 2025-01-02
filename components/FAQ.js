@@ -18,6 +18,7 @@ export default function FAQ({ faqData }) {
     <StyledFAQContainer>
       <StyledUl>
         <StyledHeadlineContainer>
+          <h5>FAQ</h5>
           <h1>Die Häufigsten Fragen</h1>
         </StyledHeadlineContainer>
         {faqData.map((faq, index) => (
@@ -25,7 +26,7 @@ export default function FAQ({ faqData }) {
             <StyledGroup>
               <StyledGroupChild1>
                 <StyledCaption>{faq.caption}</StyledCaption>
-                <StyledSpanBold>{faq.question}</StyledSpanBold>
+                <StyledQuestion>{faq.question}</StyledQuestion>
               </StyledGroupChild1>
               <StyledPlusIcon
                 className={isOpen[index] ? "rotate" : ""}
@@ -67,7 +68,7 @@ const StyledFAQContainer = styled.section`
   padding: ${theme.spacing.l} 0;
 
   background-color: ${theme.color.dark};
-  color: ${theme.color.green};
+  color: ${theme.color.beige};
   margin-bottom: -0.5rem;
 `;
 
@@ -79,6 +80,11 @@ const StyledHeadlineContainer = styled.div`
   margin: 0rem 2rem 2rem 0rem;
   width: 100%;
 
+  h5 {
+    font-weight: ${theme.fontWeight.light};
+    padding: 0 0 ${theme.spacing.s} 0;
+  }
+
   h1 {
     font-size: ${theme.fontSizes.l};
     text-transform: uppercase;
@@ -89,12 +95,12 @@ const StyledHeadlineContainer = styled.div`
 const StyledCaption = styled.h4`
   text-transform: uppercase;
   font-weight: ${theme.fontWeight.light};
-  width: 200px;
+  min-width: 180px;
   margin: 0;
 `;
 
-const StyledSpanBold = styled.span`
-  font-weight: 600;
+const StyledQuestion = styled.span`
+  font-weight: ${theme.fontWeight.bold};
   text-transform: uppercase;
   margin-left: 1rem;
 `;
@@ -111,8 +117,8 @@ const StyledLiGroup = styled.li`
   flex-direction: column;
   padding: ${theme.spacing.xl};
   transition: background-color 0.3s ease, color 0.3s ease;
-  border-top: 1px solid ${theme.color.green};
-  border-bottom: 1px solid ${theme.color.green};
+  border-top: 1px solid ${theme.color.beige};
+  border-bottom: 1px solid ${theme.color.beige};
   &.open {
     background-color: ${theme.color.green};
     color: ${theme.color.dark};
@@ -136,8 +142,7 @@ const StyledGroupChild1 = styled.div`
 const StyledOverlayParagraph = styled.p`
   font-size: ${theme.fontSizes.s};
   font-weight: 200;
-  margin: 1rem 0 0 0;
-  padding-left: 15.1rem;
+  padding: ${theme.spacing.l} 0 0 0;
   animation-name: slide-animation;
   animation-duration: 0.5s;
   transition: opacity 0.3s ease;
