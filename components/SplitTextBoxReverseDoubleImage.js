@@ -50,9 +50,6 @@ const StyledTextWrapper = styled.div`
   height: auto;
 
   h1 {
-    font-size: ${theme.fontSizes.large};
-    text-transform: uppercase;
-    padding-bottom: 1rem;
   }
 
   h2 {
