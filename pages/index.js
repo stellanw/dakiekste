@@ -21,6 +21,7 @@ import DoubleTextTeam from "@/components/DoubleTextTeam";
 import StudioSlider from "@/components/StudioSlider";
 import StudioBox from "@/components/StudioBox";
 import { IoBulbOutline, IoCameraReverseOutline, IoFingerPrintOutline } from "react-icons/io5";
+import Pricing from "@/components/Pricing";
 
 export default function HomePage() {
   return (
@@ -217,6 +218,145 @@ UNSEREM KLUB STUDIO"
         ]}
       />
       <ContactForm />
+      <Pricing
+        pricingData={[
+          {
+            category: "Wer bist du?",
+            options: ["Soloselbstständig", "Unternehmen"],
+          },
+          {
+            category: "Was brauchst du?",
+            options: ["Fotografie", "Video", "Weiteres"],
+          },
+          {
+            category: "Pakete",
+            options: ["Basic", "Premium"],
+          },
+        ]}
+        servicesData={[
+          {
+            title: "Mitarbeiter*innen & CEO Portraits",
+            category: "Fotografie",
+            descriptions: {
+              Basic: "Ein professionelles Basis-Paket für CEO- und Team-Portraits.",
+              Premium: "Inklusive Location-Scouting, Retusche und erweiterter Optionen.",
+            },
+            price: {
+              Basic: 120,
+              Premium: 250,
+            },
+          },
+          {
+            title: "Personal Branding",
+            category: "Fotografie",
+            descriptions: {
+              Basic: "Ein kompaktes Branding-Paket für Selbstständige und kleine Unternehmen.",
+              Premium: "Umfassendes Branding inkl. Video-Content und strategischer Beratung.",
+            },
+            price: {
+              Basic: 3000,
+              Premium: 5000,
+            },
+          },
+          {
+            title: "Event & Happenings",
+            category: "Fotografie",
+            descriptions: {
+              Basic: "Basis-Eventdokumentation ohne Nachbearbeitung.",
+              Premium: "Professionelle Eventdokumentation inkl. Nachbearbeitung.",
+            },
+            price: {
+              Basic: 850,
+              Premium: 1500,
+            },
+          },
+          {
+            title: "Social Media Content",
+            category: "Fotografie",
+            descriptions: {
+              Basic: "Erstelle modernen Content für Instagram und Co.",
+              Premium: "Erweiterte Content-Produktion inkl. Analyse und Strategie-Entwicklung.",
+            },
+            price: {
+              Basic: 500,
+              Premium: 1200,
+            },
+          },
+          {
+            title: "Konzeption",
+            category: "Fotografie",
+            descriptions: {
+              Basic: "Basis-Konzeptentwicklung mit Fokus auf dein Branding.",
+              Premium: "Erweiterte Konzeption inkl. Workshops und Zielgruppenanalyse.",
+            },
+            price: {
+              Basic: 900,
+              Premium: 2000,
+            },
+          },
+          {
+            title: "Video-Content für Social Media",
+            category: "Video",
+            descriptions: {
+              Basic: "Erstellung von Video-Content für Social-Media-Plattformen.",
+              Premium: "Inklusive Storyboard-Erstellung und Nachbearbeitung.",
+            },
+            price: {
+              Basic: 800,
+              Premium: 1500,
+            },
+          },
+          {
+            title: "Event-Videodokumentation",
+            category: "Video",
+            descriptions: {
+              Basic: "Dokumentation von Events ohne Nachbearbeitung.",
+              Premium: "Professionelle Event-Videodokumentation inkl. Nachbearbeitung.",
+            },
+            price: {
+              Basic: 1000,
+              Premium: 2500,
+            },
+          },
+          {
+            title: "Imagefilm",
+            category: "Video",
+            descriptions: {
+              Basic: "Kurzer Imagefilm für dein Unternehmen.",
+              Premium: "Erweiterter Imagefilm mit Interviews und detaillierter Nachbearbeitung.",
+            },
+            price: {
+              Basic: 3000,
+              Premium: 6000,
+            },
+          },
+          {
+            title: "Web-Design",
+            category: "Weiteres",
+            descriptions: {
+              Basic: "Design einer einfachen, aber modernen Website.",
+              Premium: "Komplexes Web-Design inkl. UI/UX Beratung und Implementierung.",
+            },
+            price: {
+              Basic: 1500,
+              Premium: 5000,
+            },
+          },
+          {
+            title: "Marketingberatung",
+            category: "Weiteres",
+            descriptions: {
+              Basic: "Beratung zur Steigerung deiner Sichtbarkeit auf Social Media.",
+              Premium: "Detaillierte Beratung inkl. Content-Strategie und Kampagnenplanung.",
+            },
+            price: {
+              Basic: 800,
+              Premium: 2000,
+            },
+          },
+        ]}
+      />
+
       <SplitTextBoxReverseDoubleImage
         headline="Zusammen die Zukunft
         gestalten"

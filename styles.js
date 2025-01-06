@@ -99,23 +99,44 @@ header, main, Footer {
 
 h1{
   font-size: ${theme.fontSizes.xl};
+  font-weight: ${theme.fontWeight.extraBold};
+text-transform: uppercase;
+padding-bottom: ${theme.spacing.m};
 }
 
 h2{
   font-size: ${theme.fontSizes.l};
+  text-transform: uppercase;
 }
 
 h3{
   font-size: ${theme.fontSizes.m};
+  text-transform: uppercase;
 }
+
+h4{
+  font-size: ${theme.fontSizes.ml};
+  text-transform: uppercase;
+}
+
+h5{    
+  font-weight: ${theme.fontWeight.light};
+text-transform: uppercase;
+padding-bottom:${theme.spacing.s};}
+
+h6{
+    font-weight: ${theme.fontWeight.extraBold};
+    font-size: ${theme.fontSizes.xs};
+    text-transform: uppercase;
+    padding-bottom:${theme.spacing.s};
+  }
 
 li{
   list-style: none;
 }
 
-h1,h2,h3{
-  margin-bottom: ${theme.spacing.sm}
-}
+
+
 
 p {
   font-weight: 300;
@@ -130,6 +151,8 @@ a:hover {
     font-family: "Figtree", sans-serif;
   }
 
-
-
+  ::selection {
+  background-color:${theme.color.green}; 
+  color: ${theme.color.dark}; 
+  }
 `;

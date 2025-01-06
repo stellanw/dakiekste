@@ -30,7 +30,7 @@ export default function FAQ({ faqData }) {
               <StyledGroupChild2 key={index} className={isOpen[index] ? "open" : ""}>
                 <StyledQuestionIconGroup>
                   <StyledQuestion>{faq.question}</StyledQuestion>
-                  <StyledPlusIcon
+                  <StyledArrowIcon
                     className={isOpen[index] ? "rotate" : ""}
                     onClick={() => toggleOverlay(index)}
                   />
@@ -40,12 +40,13 @@ export default function FAQ({ faqData }) {
             </StyledGroup>
           </StyledLiGroup>
         ))}
+        <li></li>
       </StyledUl>
     </StyledFAQContainer>
   );
 }
 
-const StyledPlusIcon = styled(PiArrowUpRight)`
+const StyledArrowIcon = styled(PiArrowUpRight)`
   margin-left: 1rem;
   transform: scale(1.2);
   width: 15px;
@@ -84,14 +85,9 @@ const StyledHeadlineContainer = styled.div`
   width: 100%;
 
   h5 {
-    font-weight: ${theme.fontWeight.light};
-    padding: 0 0 ${theme.spacing.s} 0;
   }
 
   h1 {
-    font-size: ${theme.fontSizes.l};
-    text-transform: uppercase;
-    font-weight: ${theme.fontWeight.bold};
   }
 `;
 
@@ -100,6 +96,7 @@ const StyledCaption = styled.h5`
   font-weight: ${theme.fontWeight.light};
   min-width: 180px;
   margin: 0;
+  padding: 0;
 `;
 
 const StyledQuestion = styled.span`
@@ -110,20 +107,23 @@ const StyledQuestion = styled.span`
 const StyledUl = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   padding: ${theme.spacing.xxl};
+
+  li {
+    border-top: 1px solid ${theme.color.beige};
+  }
 `;
 
 const StyledLiGroup = styled.li`
   display: flex;
   flex-direction: column;
-  border-top: 1px solid ${theme.color.beige};
-  border-bottom: 1px solid ${theme.color.beige};
 `;
 
 const StyledGroup = styled.div`
   display: flex;
   width: 100%;
+  align-items: center;
 `;
 
 const StyledGroupChild1 = styled.div`
