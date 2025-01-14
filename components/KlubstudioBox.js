@@ -33,7 +33,7 @@ export default function KlubstudioBox() {
         />
       </StyledImageContainer>
       <StyledTextWrapper>
-        <h1>Kiekt ma unser Studio</h1>
+        <h3>Kiekt ma unser Studio</h3>
         <TagWrapper>
           {tags.map((tag, index) => (
             <StyledSpanBorder key={index}>{tag}</StyledSpanBorder>
@@ -59,16 +59,6 @@ const StyledTextWrapper = styled.div`
   padding: 4rem;
   margin: auto;
   height: auto;
-
-  h1 {
-    font-size: ${theme.fontSizes.large};
-    text-transform: uppercase;
-    padding-bottom: 1rem;
-  }
-
-  p {
-    font-size: ${theme.fontSizes.xs};
-  }
 `;
 
 const TagWrapper = styled.div`

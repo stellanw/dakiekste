@@ -25,7 +25,7 @@ export default function SplitTextBoxReverseDoubleImage({
       </StyledImageContainer>
       <StyledTextWrapper>
         <h2>{topline}</h2>
-        <h1>{headline}</h1>
+        <h3>{headline}</h3>
         <p>{text}</p>
       </StyledTextWrapper>
     </StyledSplitTextBox>

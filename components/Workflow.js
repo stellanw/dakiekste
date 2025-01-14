@@ -46,7 +46,7 @@ export default function Workflow({ boxData = [] }) {
     <StyledSlideContainer>
       <StyledTextBox>
         <h2>Sorgloser Ablauf</h2>
-        <h1>Konzentriere dich auf das Wesentliche während wir uns um den Rest kümmern.</h1>
+        <h3>Konzentriere dich auf das Wesentliche während wir uns um den Rest kümmern.</h3>
       </StyledTextBox>
       <StyledSlider {...settings}>
         {boxData.map(({ Icon, title, text }, index) => (
@@ -54,7 +54,7 @@ export default function Workflow({ boxData = [] }) {
             <StyledIconWrapper>
               <Icon />
             </StyledIconWrapper>
-            <h1>{title}</h1>
+            <h4>{title}</h4>
             <p>{text}</p>
           </StyledBox>
         ))}
@@ -114,28 +114,6 @@ const StyledTextBox = styled.div`
   align-items: center;
   text-align: center;
   color: ${theme.color.beige};
-
-  h2 {
-    text-transform: uppercase;
-    margin: 0 0 ${theme.spacing.xs} 0;
-    font-weight: 100;
-    letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xs};
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-  h1 {
-    font-size: ${theme.fontSizes.xl};
-    font-weight: 400;
-    max-width: 700px;
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
 `;
 
 const StyledBox = styled.div`
@@ -146,26 +124,10 @@ const StyledBox = styled.div`
   color: ${theme.color.beige};
   padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
   width: 250px;
-
-  h1 {
-    font-size: ${theme.fontSizes.m};
-    width: 250px;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-
-  p {
-    font-size: ${theme.fontSizes.xs};
-    margin-top: ${theme.spacing.m};
-    width: 250px;
-    line-height: ${theme.lineHeight.s};
-    font-weight: 100;
-  }
 `;
 
 const StyledIconWrapper = styled.div`
-  font-size: 3rem;
-  width: 250px;
+  font-size: ${theme.fontSizes.xxxl};
   margin: 0 0 ${theme.spacing.xs} 0;
   color: ${theme.color.green};
   display: block;

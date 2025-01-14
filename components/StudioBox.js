@@ -7,7 +7,7 @@ export default function StudioBox({ topline, headline, text, benefit1, benefit2,
     <StyledDoubleTextBox>
       <StyledTextWrapper>
         <h2>{topline}</h2>
-        <h1>{headline}</h1>
+        <h3>{headline}</h3>
         <p>{text}</p>
       </StyledTextWrapper>
       <StyledTextWrapper>
@@ -17,7 +17,7 @@ export default function StudioBox({ topline, headline, text, benefit1, benefit2,
               <Icon>
                 <PiCarLight />
               </Icon>
-              <h3>{benefit1}</h3>
+              <h4>{benefit1}</h4>
             </IconBox>
           </StyledBenefit>
           <StyledBenefit>
@@ -25,7 +25,7 @@ export default function StudioBox({ topline, headline, text, benefit1, benefit2,
               <Icon>
                 <PiCoffeeLight />
               </Icon>
-              <h3>{benefit2}</h3>
+              <h4>{benefit2}</h4>
             </IconBox>
           </StyledBenefit>
           <StyledBenefit>
@@ -33,7 +33,7 @@ export default function StudioBox({ topline, headline, text, benefit1, benefit2,
               <Icon>
                 <PiSunLight />
               </Icon>
-              <h3>{benefit3}</h3>
+              <h4>{benefit3}</h4>
             </IconBox>
           </StyledBenefit>
         </StyledIconContainer>
@@ -58,39 +58,11 @@ const StyledTextWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
-  h2 {
-    text-transform: uppercase;
-    margin: 0 0 ${theme.spacing.xs} 0;
-    font-weight: 100;
-    letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xs};
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-
-  h1 {
-    font-size: ${theme.fontSizes.xl};
-
-    font-weight: 600;
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-
-  p {
-    font-size: ${theme.fontSizes.s};
-    line-height: 1.3rem;
-    padding: 0 0 ${theme.spacing.m} 0;
-  }
 `;
 
 const StyledIconContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   height: 100%;
@@ -100,12 +72,10 @@ const StyledBenefit = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: ${theme.spacing.m};
-
-  h3 {
-    font-size: ${theme.fontSizes.s};
+  padding: 0 ${theme.spacing.s} 0 ${theme.spacing.s};
+  width: 100%;
+  h4 {
     text-align: center;
-    margin: 0;
-    text-transform: uppercase;
   }
 `;
 
@@ -113,6 +83,10 @@ const IconBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  h4 {
+    width: 60%;
+  }
 `;
 
 const Icon = styled.div`

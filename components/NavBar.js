@@ -2,37 +2,43 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import styled from "styled-components";
 import { theme } from "@/styles";
-import DakieksteLogoWhite from "@/Icons/DakieksteLogoWhite";
+import DakieksteLogo from "@/Icons/DakieksteLogo";
 import EyeAnimation from "./EyeAnimation";
-import DakieksteLogoBlack from "@/Icons/DakieksteLogoBlack";
 
 export default function NavBar() {
   const [scrollY, setScrollY] = useState(0);
 
-  const handleScroll = () => {
-    const scrollPosition = window.scrollY;
-
-    setScrollY(scrollPosition);
-  };
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    const handleWheel = (e) => {
+      setScrollY((prevScrollY) => Math.max(0, prevScrollY + e.deltaY)); // Scroll-Position auf Basis des deltaY-Werts aktualisieren
+    };
+
+    window.addEventListener("wheel", handleWheel);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("wheel", handleWheel);
     };
   }, []);
 
-  useEffect(() => {}, [scrollY]);
+  // For Debugging
+  // useEffect(() => {
+  //   console.log(scrollY);
+  // }, [scrollY]);
 
   return (
     <StyledNavBar $scrollY={scrollY}>
       <Link href="/">
-        <StyledLogoWrapper>
-          {scrollY > 100 ? <DakieksteLogoBlack /> : <DakieksteLogoWhite />}
+        <StyledLogoWrapper color={scrollY > 200 ? theme.color.beige : theme.color.dark}>
+          <DakieksteLogo
+            color={scrollY > 200 ? theme.color.dark : theme.color.beige}
+            transition="color 0.5s ease"
+          />
         </StyledLogoWrapper>
       </Link>
-      <EyeAnimation color={scrollY > 100 ? theme.color.dark : theme.color.beige} />
+      <EyeAnimation
+        color={scrollY > 200 ? theme.color.dark : theme.color.beige}
+        transition="background-color 0.5s ease"
+      />
     </StyledNavBar>
   );
 }
@@ -46,21 +52,11 @@ const StyledNavBar = styled.div`
   width: 100%;
   z-index: 100;
 
-  background-color: ${({ $scrollY }) => ($scrollY > 100 ? theme.color.beige : "transparent")};
+  background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")};
 
-  transition: background-color 0.1s ease;
+  transition: background-color 0.5s ease;
 `;
 
 const StyledLogoWrapper = styled.div`
   margin-left: 2.6rem; //eigentlich 4rem aber wegen space um svg -1.4rem weniger
-`;
-
-const StyledDakieksteLogoWhite = styled(DakieksteLogoWhite)`
-  /* .cls-1,
-  .cls-2 {
-    stroke: ${({ color }) => color};
-  }
-  .cls-3 {
-    fill: ${({ color }) => color};
-  } */
 `;
