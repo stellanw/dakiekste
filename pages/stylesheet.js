@@ -77,6 +77,16 @@ export default function StyleSheet() {
                 Headline h3 fontWeight: {key}
               </h3>
             ))}
+            {fontWeightKeys.map((key) => (
+              <h4 key={key} style={{ fontWeight: theme.fontWeight[key] }}>
+                Headline h4 fontWeight: {key}
+              </h4>
+            ))}
+            {fontWeightKeys.map((key) => (
+              <h5 key={key} style={{ fontWeight: theme.fontWeight[key] }}>
+                Headline h5 fontWeight: {key}
+              </h5>
+            ))}
           </section>
           <div>
             -----------------------------------------------------------------------------------------------------------------------

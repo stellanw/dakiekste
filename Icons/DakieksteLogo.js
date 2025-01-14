@@ -1,6 +1,7 @@
 import { theme } from "@/styles";
+import styled from "styled-components";
 
-export default function DakieksteLogoBlack() {
+export default function DakieksteLogo({ color }) {
   return (
     <>
       <svg
@@ -20,16 +21,17 @@ export default function DakieksteLogoBlack() {
   
               .cls-1, .cls-2 {
                 fill: none;
-                stroke: ${theme.textColor};
+                stroke: ${color || theme.color.beige};;
                 stroke-miterlimit: 10;
               }
   
               .cls-2 {
                 stroke-width: 2.5px;
+           
               }
   
               .cls-3 {
-                fill: ${theme.textColor};
+                fill: ${color || theme.color.beige};;
                 stroke-width: 0px;
               }`}
           </style>

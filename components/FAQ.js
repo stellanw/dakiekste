@@ -18,8 +18,8 @@ export default function FAQ({ faqData }) {
     <StyledFAQContainer>
       <StyledUl>
         <StyledHeadlineContainer>
-          <h5>FAQ</h5>
-          <h1>Die Häufigsten Fragen</h1>
+          <h2>FAQ</h2>
+          <h3>Die Häufigsten Fragen</h3>
         </StyledHeadlineContainer>
         {faqData.map((faq, index) => (
           <StyledLiGroup key={index} className={isOpen[index] ? "open" : ""}>
@@ -69,11 +69,11 @@ const StyledFAQContainer = styled.section`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 0;
-  padding: ${theme.spacing.l} 0;
   background-color: ${theme.color.dark};
   color: ${theme.color.beige};
+  margin: 0;
   margin-bottom: -0.5rem;
+  padding: ${theme.spacing.xs} 0;
 `;
 
 const StyledHeadlineContainer = styled.div`
@@ -83,17 +83,9 @@ const StyledHeadlineContainer = styled.div`
   position: relative;
   margin: 0 0 ${theme.spacing.xl} 0;
   width: 100%;
-
-  h5 {
-  }
-
-  h1 {
-  }
 `;
 
 const StyledCaption = styled.h5`
-  text-transform: uppercase;
-  font-weight: ${theme.fontWeight.light};
   min-width: 180px;
   margin: 0;
   padding: 0;
@@ -102,16 +94,31 @@ const StyledCaption = styled.h5`
 const StyledQuestion = styled.span`
   font-weight: ${theme.fontWeight.bold};
   text-transform: uppercase;
+  font-size: ${theme.fontSizes.xs};
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.xs};
+  }
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.s};
+  }
 `;
 
 const StyledUl = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
   padding: ${theme.spacing.xxl};
 
   li {
     border-top: 1px solid ${theme.color.beige};
+  }
+
+  @media (min-width: 750px) {
+    width: 80%;
+  }
+  @media (min-width: 1100px) {
+    width: 60%;
   }
 `;
 
@@ -128,17 +135,25 @@ const StyledGroup = styled.div`
 
 const StyledGroupChild1 = styled.div`
   padding: ${theme.spacing.l} 0 ${theme.spacing.l} ${theme.spacing.l};
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const StyledGroupChild2 = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: ${theme.spacing.l} ${theme.spacing.l} ${theme.spacing.l} ${theme.spacing.l};
+  padding: ${theme.spacing.l} ${theme.spacing.l} ${theme.spacing.l} 0;
   transition: background-color 0.3s ease, color 0.3s ease;
   &.open {
     background-color: ${theme.color.green};
     color: ${theme.color.dark};
+  }
+
+  @media (max-width: 750px) {
+    padding: ${theme.spacing.m};
   }
 `;
 
@@ -150,8 +165,6 @@ const StyledQuestionIconGroup = styled.div`
 `;
 
 const StyledOverlayParagraph = styled.p`
-  font-size: ${theme.fontSizes.s};
-  font-weight: ${theme.fontWeight.light};
   padding: ${theme.spacing.m} 0 0 0;
   animation-name: slide-animation;
   animation-duration: 0.5s;

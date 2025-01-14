@@ -67,7 +67,7 @@ export default function ProjectSlider({ projects }) {
           0{currentSlide + 1}
           {/* /{projects.length} */}
         </span>
-        <h1>{projects[currentSlide]?.title}</h1>
+        <h4>{projects[currentSlide]?.title}</h4>
       </TitleAndIndex>
       <ArrowContainer>
         <Arrow onClick={handlePrevClick}>
@@ -136,29 +136,27 @@ const StyledImage = styled(Image)`
 const ProjectDetails = styled.div`
   position: absolute;
   bottom: 0;
-
   height: 100%;
   width: 100%;
-  padding: 2rem;
+  padding: ${theme.spacing.ml};
 `;
 
 const TitleAndIndex = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: ${theme.spacing.m};
   position: absolute;
-  top: 3rem;
-  left: 4rem;
+  top: ${theme.spacing.xl};
+  left: ${theme.spacing.xxl};
   font-weight: 600;
   z-index: 10;
+
+  h4 {
+    padding: 0;
+  }
   span {
     letter-spacing: 0.2rem;
-  }
-
-  h1 {
-    font-size: ${theme.fontSizes.m};
-    margin: 0;
   }
 `;
 
@@ -166,7 +164,7 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: 3.15rem;
+  top: ${theme.spacing.xl};
   right: ${theme.spacing.xxl};
   width: 110px;
 `;
@@ -174,9 +172,16 @@ const ArrowContainer = styled.div`
 const Arrow = styled.div`
   position: relative;
   cursor: pointer;
-  font-size: ${theme.fontSizes.xl};
+  font-size: ${theme.fontSizes.m};
   &:hover,
   :active {
     color: ${theme.color.green};
+  }
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.l};
+  }
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.xl};
   }
 `;
