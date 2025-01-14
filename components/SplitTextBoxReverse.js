@@ -12,7 +12,7 @@ export default function SplitTextBoxReverse({ topline, headline, text, url, imag
       </StyledImageContainer>
       <StyledTextWrapper>
         <h2>{topline}</h2>
-        <h1>{headline}</h1>
+        <h3>{headline}</h3>
         <p>{text}</p>
       </StyledTextWrapper>
     </StyledSplitTextBoxReverse>
@@ -31,35 +31,6 @@ const StyledTextWrapper = styled.div`
   flex: 0 0 50%;
   padding: 4rem 4rem 4rem 4rem;
   margin: auto;
-
-  h2 {
-    text-transform: uppercase;
-    margin: 0 0 ${theme.spacing.xs} 0;
-    font-weight: 100;
-    letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xs};
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-
-  h1 {
-    font-size: ${theme.fontSizes.xl};
-    text-transform: uppercase;
-    font-weight: 800;
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-
-  p {
-    font-size: ${theme.fontSizes.s};
-    line-height: 1.3rem;
-  }
 `;
 
 const StyledImageContainer = styled.div`

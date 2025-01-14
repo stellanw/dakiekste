@@ -58,10 +58,10 @@ export default function ContactForm() {
     <StyledFormWrapper>
       <StyledTextContainer>
         <h2>Let&apos;s Talk</h2>
-        <h1>
+        <h3>
           Ob über das nächste Projekt sprechen oder uns einfach nur kennenlernen – melde dich bei
           uns.
-        </h1>
+        </h3>
       </StyledTextContainer>
       <StyledForm onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
@@ -145,19 +145,6 @@ const StyledTextContainer = styled.div`
     width: 100%;
     margin-bottom: ${theme.spacing.l};
   }
-
-  h2 {
-    text-transform: uppercase;
-    margin: 0 0 ${theme.spacing.xs} 0;
-    font-weight: 100;
-    letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xs};
-  }
-
-  h1 {
-    font-size: ${theme.fontSizes.xl};
-    font-weight: 500;
-  }
 `;
 
 const StyledForm = styled.form`
@@ -180,46 +167,6 @@ const StyledForm = styled.form`
 
   p {
     margin: ${theme.spacing.l} 0 0 0;
-  }
-
-  label {
-    text-transform: uppercase;
-    font-weight: 200;
-    color: ${theme.color.green};
-    padding: 0 0 ${theme.spacing.s} 0;
-  }
-
-  input {
-    width: 100%;
-    padding: ${theme.spacing.s};
-    margin-bottom: ${theme.spacing.m};
-    border: 1px solid ${theme.color.green};
-    border-radius: ${theme.borderRadius};
-    font-size: ${theme.fontSizes.s};
-    background-color: ${theme.color.beige};
-    &:focus {
-      border-color: ${theme.color.green};
-      outline: none;
-      box-shadow: 0 0 0 2px ${theme.color.green};
-    }
-  }
-
-  textarea {
-    width: 100%;
-    padding: ${theme.spacing.s};
-    margin-bottom: ${theme.spacing.m};
-    border: 1px solid ${theme.color.green};
-    border-radius: ${theme.borderRadius};
-    font-size: ${theme.fontSizes.s};
-    background-color: ${theme.color.beige};
-    color: ${theme.color.dark};
-    height: 200px;
-    resize: none;
-    &:focus {
-      border-color: ${theme.color.green};
-      outline: none;
-      box-shadow: 0 0 0 2px ${theme.color.green};
-    }
   }
 `;
 

@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect } from "react";
 import { PiArrowUpRight } from "react-icons/pi";
-import { FaBagShopping } from "react-icons/fa6";
+import { PiPushPinLight } from "react-icons/pi";
+import { RxCross1 } from "react-icons/rx";
 
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
@@ -77,11 +78,11 @@ export default function Pricing({ pricingData, servicesData }) {
   return (
     <PricingContainer>
       <HeadlineContainer>
-        <h5>PREISKALKULATION</h5>
-        <h1>
+        <h2>PREISKALKULATION</h2>
+        <h3>
           Dein Invest für einen visuellen Erfolg, <br />
           der nachhaltig wirkt.
-        </h1>
+        </h3>
       </HeadlineContainer>
       <CalculatorContainer>
         <CategoriesContainer>
@@ -91,10 +92,12 @@ export default function Pricing({ pricingData, servicesData }) {
               <OptionContainer>
                 {category.options.map((option, optionIndex) => (
                   <Option key={optionIndex}>
-                    <Checkbox
+                    <input
+                      type="checkbox"
                       checked={selectedCategory[category.category] === option}
                       onChange={() => handleCategorySelection(category.category, option)}
                     />
+
                     <OptionName>{option}</OptionName>
                   </Option>
                 ))}
@@ -103,22 +106,26 @@ export default function Pricing({ pricingData, servicesData }) {
           ))}
         </CategoriesContainer>
         <ServiceContainer>
-          <Outcome>
-            <h6>Leistungswarenkorb</h6>
-            <ul>
-              {selectedServices.map((service, index) => (
-                <li key={index}>
-                  <SelectedItem>
-                    <FaBagShopping />
-                    {service.title}
-                    <RemoveButton onClick={() => removeService(service)}>x</RemoveButton>
-                  </SelectedItem>
-                </li>
-              ))}
-            </ul>
-            <h4>Preis ab {totalPrice} EURO*</h4>
-            <p>*zzgl. MwSt.</p>
-          </Outcome>
+          <OutcomeContainer>
+            <OutcomeContent>
+              <h6>Leistungswarenkorb</h6>
+              <ul>
+                {selectedServices.map((service, index) => (
+                  <li key={index}>
+                    <SelectedItem>
+                      <PiPushPinLight />
+                      {service.title}
+                      <RemoveButton onClick={() => removeService(service)}>
+                        <StyledRemoveIcon />
+                      </RemoveButton>
+                    </SelectedItem>
+                  </li>
+                ))}
+              </ul>
+              <h4>Preis ab {totalPrice} EURO*</h4>
+              <p>*zzgl. MwSt.</p>
+            </OutcomeContent>
+          </OutcomeContainer>
           <Services>
             {filteredServices.length > 0 ? (
               filteredServices.map((service, index) => (
@@ -126,7 +133,8 @@ export default function Pricing({ pricingData, servicesData }) {
                   <Service>
                     <ServiceTitleGroup>
                       <TitleCheckboxContainer>
-                        <CheckboxService
+                        <input
+                          type="checkbox"
                           checked={selectedServices.includes(service)}
                           onChange={() => handleServiceSelection(service)}
                         />
@@ -172,6 +180,12 @@ const PricingContainer = styled.div`
   width: 100%;
   padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
   background-color: ${theme.color.beige};
+  margin: 0;
+
+  @media (min-width: 750px) {
+  }
+  @media (min-width: 1100px) {
+  }
 `;
 
 const HeadlineContainer = styled.div`
@@ -181,16 +195,13 @@ const HeadlineContainer = styled.div`
   justify-content: center;
   position: relative;
   margin: 0 0 ${theme.spacing.xl} 0;
+  width: 100%;
 
-  h5 {
-  }
-
-  h1 {
+  h3 {
     text-align: center;
   }
 `;
 
-// Hauptcontainer für den gesamten Rechner
 const CalculatorContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -198,78 +209,113 @@ const CalculatorContainer = styled.div`
   padding: ${theme.spacing.xl};
 `;
 
-// Container für die Kategorien
 const CategoriesContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: solid 1px;
-  padding-bottom: ${theme.spacing.s};
+  grid-template-columns: 1fr;
+  gap: ${theme.spacing.ml};
+  padding: ${theme.spacing.m} 0;
+  border-bottom: 1px solid ${theme.color.dark};
+  @media (min-width: 750px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${theme.spacing.s};
+    padding: 0;
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  h6 {
+    padding: 0 0 0 ${theme.spacing.xxs};
+  }
 `;
 
-// Einzelner Kategoriecontainer
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 `;
 
-// Container für Optionen innerhalb einer Kategorie
 const OptionContainer = styled.div`
   display: flex;
-  gap: ${theme.spacing.m};
+  flex-direction: column;
+  gap: 0;
+  @media (min-width: 750px) {
+    flex-direction: row;
+  }
+
+  @media (min-width: 1100px) {
+    flex-direction: row;
+    gap: ${theme.spacing.m};
+  }
 `;
 
-// Einzelne Option
 const Option = styled.div`
   display: flex;
   align-items: center;
-  padding: ${theme.spacing.s} ${theme.spacing.s} ${theme.spacing.s} 0;
+  justify-content: flex-start;
+  padding: 0;
   cursor: pointer;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
 
   &:hover {
   }
 
   &.selected {
   }
-`;
 
-// Checkbox innerhalb der Option
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
-  appearance: none;
-  width: 1rem;
-  height: 1rem;
-  accent-color: ${theme.color.lightGreen};
-  border-radius: 50%;
-  border: solid 2px ${theme.color.dark};
-  cursor: pointer;
+  @media (min-width: 750px) {
+  }
 
-  &:checked {
-    background-color: ${theme.color.green};
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.s} 0;
   }
 `;
 
-// Name der Option
 const OptionName = styled.span`
   text-transform: uppercase;
-  font-size: ${theme.fontSizes.xs};
-  padding: 0 0 0 ${theme.spacing.s};
+  font-size: ${theme.fontSizes.xxs};
+  padding: 0 0 0 ${theme.spacing.xs};
+
+  @media (min-width: 750px) {
+    padding: 0 0 0 ${theme.spacing.xxs};
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0;
+  }
 `;
 
-// ServiceContainer mit 1/3 und 2/3 Aufteilung
 const ServiceContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr; /* 1/3 und 2/3 Aufteilung */
-  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  box-sizing: border-box;
+  @media (min-width: 750px) {
+    flex-direction: row;
+  }
+
+  @media (min-width: 1100px) {
+    flex-direction: row;
+  }
 `;
 
-// Outcome-Bereich (1/3 der Breite)
-const Outcome = styled.div`
+const OutcomeContainer = styled.div`
+  display: flex;
+  flex: 1;
+  box-sizing: border-box;
+`;
+
+const OutcomeContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
   padding: ${theme.spacing.ml};
+  box-sizing: border-box;
+  @media (min-width: 750px) {
+  }
 
-  h6 {
+  @media (min-width: 1100px) {
   }
 
   ul {
@@ -279,33 +325,52 @@ const Outcome = styled.div`
     }
   }
 
-  h4 {
-  }
   p {
+    font-size: ${theme.fontSizes.xs};
   }
 `;
 
 const SelectedItem = styled.div`
   display: flex;
   gap: ${theme.spacing.s};
+  align-items: center;
 `;
 
 const RemoveButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   cursor: pointer;
   font-size: ${theme.fontSizes.xxs};
   text-transform: uppercase;
   margin-left: ${theme.spacing.xs};
+  transform: scale(0.9);
 
   &:hover {
     font-weight: ${theme.fontWeight.fatBold};
   }
 `;
 
-// Services-Bereich (2/3 der Breite)
+const StyledRemoveIcon = styled(RxCross1)`
+  &:hover {
+    transform: scale(1.1); /* Leichte Vergrößerung */
+    stroke-width: 1.1; /* Macht das Icon "dicker", wenn unterstützt */
+  }
+`;
+
 const Services = styled.div`
-  display: grid;
+  flex: 2;
+  box-sizing: border-box;
+  padding: ${theme.spacing.s} 0;
+
+  @media (min-width: 750px) {
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0;
+  }
 `;
 
 const StyledArrowIcon = styled(PiArrowUpRight)`
@@ -334,9 +399,16 @@ const ServiceUL = styled.ul`
 const Service = styled.li`
   display: flex;
   flex-direction: column;
-  padding: ${theme.spacing.ml} 0 ${theme.spacing.ml} 0;
-  width: 100%;
+  padding: ${theme.spacing.m} 0 ${theme.spacing.m} 0;
   border-bottom: 1px solid ${theme.color.dark};
+
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.ml} 0 ${theme.spacing.ml} 0;
+  }
+
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.m} 0 ${theme.spacing.m} 0;
+  }
 `;
 
 const ServiceTitleGroup = styled.div`
@@ -352,22 +424,8 @@ const TitleCheckboxContainer = styled.div`
   gap: ${theme.spacing.s};
 `;
 
-const CheckboxService = styled.input.attrs({ type: "checkbox" })`
-  appearance: none;
-  width: 1rem;
-  height: 1rem;
-  accent-color: ${theme.color.lightGreen};
-  border-radius: 50%;
-  border: solid 2px ${theme.color.dark};
-  cursor: pointer;
-
-  &:checked {
-    background-color: ${theme.color.green};
-  }
-`;
-
-const ServiceTitle = styled.h2`
-  font-size: ${theme.fontSizes.s};
+const ServiceTitle = styled.h5`
+  padding: 0;
   font-weight: ${theme.fontWeight.extraBold};
 `;
 
@@ -377,8 +435,6 @@ const OverlayDescription = styled.div`
 `;
 
 const Description = styled.p`
-  font-size: ${theme.fontSizes.s};
-  font-weight: ${theme.fontWeight.light};
   padding: ${theme.spacing.m} 0 0 0;
   animation-name: slide-animation;
   animation-duration: 0.5s;

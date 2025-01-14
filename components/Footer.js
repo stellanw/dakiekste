@@ -1,16 +1,14 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { IoLogoInstagram, IoMailOutline, IoCallOutline, IoLocationOutline } from "react-icons/io5";
-
 import { theme } from "@/styles";
-import AugenIcon from "@/Icons/AugenIcon";
 
 export default function Footer() {
   return (
     <StyledFooter>
       <StyledLeftWrapper>
         <div>
-          <h2>info@dakiekste.com</h2>
+          <h4>info@dakiekste.com</h4>
           <StyledLink href="/impressum">
             <StyledImpressum>impressum</StyledImpressum>
           </StyledLink>
@@ -27,7 +25,7 @@ export default function Footer() {
         <StyledLink href="mailto:info@dakiekste.com">
           <IoMailOutline />
         </StyledLink>
-        {/* <StyledLink href="tel:+4917682472921">
+        {/* <StyledLink href="tel:+49176">
           <IoCallOutline />
         </StyledLink> */}
         <StyledLink
@@ -71,9 +69,10 @@ const StyledLeftWrapper = styled.div`
   align-items: start;
   margin-top: ${theme.spacing.xxl};
 
-  h2 {
+  h4 {
     font-weight: 400;
     margin: 0 0 10rem 0;
+    text-transform: lowercase;
   }
 `;
 
