@@ -14,7 +14,7 @@ export default function Leistungen({ leistungen }) {
             <StyledIconWrapper>
               <Icon />
             </StyledIconWrapper>
-            <h1>{title}</h1>
+            <h4>{title}</h4>
             <p>{text}</p>
           </StyledLeistungBox>
         );
@@ -46,28 +46,6 @@ const StyledLeistungBox = styled.div`
   padding: ${theme.spacing.l} ${theme.spacing.m} ${theme.spacing.l} ${theme.spacing.m};
   overflow: hidden;
   max-width: 300px;
-
-  h1 {
-    font-size: ${theme.fontSizes.m};
-    text-transform: uppercase;
-    font-weight: 500;
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-
-  p {
-    font-size: ${theme.fontSizes.s};
-    font-weight: 100;
-    line-height: ${theme.lineHeight.l};
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
 `;
 
 const StyledIconWrapper = styled.div`

@@ -217,7 +217,7 @@ UNSEREM KLUB STUDIO"
           },
         ]}
       />
-      <ContactForm />
+
       <Pricing
         pricingData={[
           {
@@ -356,7 +356,7 @@ UNSEREM KLUB STUDIO"
           },
         ]}
       />
-
+      <ContactForm />
       <SplitTextBoxReverseDoubleImage
         headline="Zusammen die Zukunft
         gestalten"

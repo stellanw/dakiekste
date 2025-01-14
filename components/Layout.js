@@ -26,7 +26,6 @@ const Layout = ({ children }) => {
           headlineThin="KLAR"
           headlineBold2="IM BLICK"
         />
-        {/* <Navigation /> */}
       </header>
       <StyledMain>{children}</StyledMain>
       <Footer />

@@ -1,25 +1,15 @@
-import Link from "next/link";
 import styled from "styled-components";
-import Image from "next/image";
 import { theme } from "@/styles";
 
 export default function Header({ src, headlineThin, headlineBold1, headlineBold2 }) {
   return (
     <>
-      <StyledHeadContainer>
-        <StyledHeadImage
-          src={src}
-          alt="dakiekste header image"
-          priority={true}
-          width={1400}
-          height={500}
-        />
+      <StyledHeadContainer src={src}>
         <StyledHeadlineContainer>
-          <StyledH1>{headlineBold1}</StyledH1>
-          <StyledH1>
-            <StyledThinSpan>{headlineThin}</StyledThinSpan>
+          <h1>
+            {headlineBold1} <br /> <span>{headlineThin}</span>
             {headlineBold2}
-          </StyledH1>
+          </h1>
         </StyledHeadlineContainer>
       </StyledHeadContainer>
     </>
@@ -27,10 +17,20 @@ export default function Header({ src, headlineThin, headlineBold1, headlineBold2
 }
 
 const StyledHeadContainer = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: end;
   z-index: -5;
   width: 100%;
   height: 400px;
-  overflow: hidden;
+  /* overflow: hidden; */
+  margin: 0;
+
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   @media (min-width: 750px) {
     height: 600px;
   }
@@ -39,45 +39,26 @@ const StyledHeadContainer = styled.div`
   }
 `;
 
-const StyledHeadImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-`;
-
 const StyledHeadlineContainer = styled.div`
-  margin: -9rem 0 4rem 3.6rem;
   display: flex;
-  flex-direction: column;
   position: relative;
-  justify-content: end;
-  align-items: start;
-  padding: 0;
+  left: ${theme.spacing.xxl};
+  bottom: ${theme.spacing.xxl};
 
   @media (min-width: 750px) {
-    margin: -12rem 0 4rem 3.6rem;
+    margin: 0;
   }
   @media (min-width: 1100px) {
-    margin: -14rem 0 4rem 3.6rem;
+    margin: 0;
   }
-`;
 
-const StyledH1 = styled.h1`
-  font-weight: 700;
-  margin: 0;
-  color: ${theme.color.beige};
-  font-size: ${theme.fontSizes.xxxl};
-
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xxxxl};
+  h1 {
+    margin: 0;
+    color: ${theme.color.beige};
+    padding: 0;
   }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.xxxxxl};
+  span {
+    font-weight: 200;
+    padding-right: 0.3rem;
   }
-`;
-
-const StyledThinSpan = styled.span`
-  font-weight: 200;
-  padding-right: 0.3rem;
 `;
