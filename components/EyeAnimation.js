@@ -83,7 +83,6 @@ const rotateAnimation = keyframes`
 
 const StyledIconsWrapper = styled.div`
   display: flex;
-  margin-right: ${theme.spacing.xxl};
   transform: scale(0.8);
 `;
 

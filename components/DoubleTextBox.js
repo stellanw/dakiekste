@@ -24,16 +24,22 @@ const StyledDoubleTextBox = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.color.beige};
-  padding: ${theme.spacing.xxxl} 0;
+  background-color: ${theme.color.lightGreen};
+  padding: 0;
+  gap: ${theme.spacing.xl};
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+    gap: ${theme.spacing.xxl};
+  }
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+    gap: ${theme.spacing.xxl};
+  }
 `;
 
 const StyledTextWrapper = styled.div`
   flex: 1;
-  min-width: 370px;
-  max-width: 800px;
-  min-height: 400px;
-  padding: ${theme.spacing.xxl};
   flex-direction: column;
   justify-content: flex-start;
 `;

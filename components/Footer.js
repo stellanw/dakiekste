@@ -44,7 +44,6 @@ const StyledFooter = styled.footer`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
-  padding: 1rem;
   bottom: 0;
   flex-shrink: 0;
   width: 100%;
@@ -52,14 +51,30 @@ const StyledFooter = styled.footer`
   margin: 0;
   height: 18rem;
   background-color: ${theme.color.beige};
+  padding: 0 ${theme.spacing.xl};
+
+  @media (min-width: 750px) {
+    padding: 0 ${theme.spacing.xxl};
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0 ${theme.spacing.xxl};
+  }
 `;
 
 const StyledRightWrapper = styled.div`
   display: flex;
   justify-content: end;
   align-items: start;
-  gap: 1rem;
+  gap: ${theme.spacing.xs};
   margin-top: ${theme.spacing.xxl};
+
+  @media (min-width: 750px) {
+  }
+
+  @media (min-width: 1100px) {
+    gap: ${theme.spacing.m};
+  }
 `;
 
 const StyledLeftWrapper = styled.div`
@@ -73,12 +88,28 @@ const StyledLeftWrapper = styled.div`
     font-weight: 400;
     margin: 0 0 10rem 0;
     text-transform: lowercase;
+
+    @media (min-width: 750px) {
+      font-size: ${theme.fontSizes.l};
+    }
+
+    @media (min-width: 1100px) {
+      font-size: ${theme.fontSizes.l};
+    }
   }
 `;
 
 const StyledLink = styled(Link)`
   margin-bottom: -0.2rem;
-  font-size: ${theme.fontSizes.l};
+  font-size: ${theme.fontSizes.s};
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.l};
+  }
+
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.l};
+  }
 `;
 
 const StyledImpressum = styled.p`

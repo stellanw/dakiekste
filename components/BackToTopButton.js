@@ -45,6 +45,7 @@ const BackToTopContainer = styled.div`
   position: fixed;
   bottom: ${theme.spacing.l};
   right: ${theme.spacing.l};
+  z-index: 100;
   p {
     font-size: ${theme.fontSizes.xs};
   }
