@@ -123,7 +123,6 @@ const StyledFormWrapper = styled.div`
   justify-content: space-between;
   background-color: ${theme.color.dust};
   width: 100%;
-  padding: ${theme.spacing.l} 0;
 
   @media (max-width: 750px) {
     flex-direction: column;
@@ -135,15 +134,20 @@ const StyledFormWrapper = styled.div`
 const StyledTextContainer = styled.div`
   flex-basis: 50%;
   flex-grow: 1;
-  min-width: 370px;
-  max-width: 800px;
-  min-height: 400px;
-  padding: ${theme.spacing.xl} ${theme.spacing.xxl};
   color: ${theme.color.green};
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl} 0 ${theme.spacing.xl};
 
-  @media (max-width: 750px) {
-    width: 100%;
-    margin-bottom: ${theme.spacing.l};
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
+
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
+
+  h3 {
+    text-transform: capitalize;
+    font-weight: ${theme.fontWeight.bold};
   }
 `;
 
@@ -154,15 +158,17 @@ const StyledForm = styled.form`
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  padding: ${theme.spacing.xl} ${theme.spacing.xxl};
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
   color: ${theme.color.beige};
   width: 100%;
   max-width: 500px;
-  @media (max-width: 750px) {
-    flex-basis: auto;
-    max-width: 500px;
-    width: 100%;
-    margin: 0 auto;
+
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
+
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
   }
 
   p {

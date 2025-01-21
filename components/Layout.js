@@ -27,15 +27,11 @@ const Layout = ({ children }) => {
           headlineBold2="IM BLICK"
         />
       </header>
-      <StyledMain>{children}</StyledMain>
+      <main>{children}</main>
       <Footer />
       <BackToTopButton />
     </div>
   );
 };
-
-const StyledMain = styled.main`
-  margin-top: -1.8rem;
-`;
 
 export default Layout;

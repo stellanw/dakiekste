@@ -30,10 +30,12 @@ const StyledLeistungenContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
   background-color: ${theme.color.dark};
-  padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl} ${theme.spacing.xxxl} ${theme.spacing.xl};
   @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
   }
   @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl} ${theme.spacing.xxxxl} ${theme.spacing.xxl};
   }
 `;
 

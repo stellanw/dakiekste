@@ -26,6 +26,7 @@ export const theme = {
   },
 
   spacing: {
+    xxxs: "0.2rem",
     xxs: "0.4rem",
     xs: "0.6rem", // 3.2px
     s: "0.75rem", // 6.4px
@@ -36,14 +37,14 @@ export const theme = {
     xl: "3rem", // 48px
     xxl: "4rem", // 64px
     xxxl: "6rem", //96px
-    xxxxl: "9rem",
+    xxxxl: "10rem",
   },
 
   lineHeight: {
     xs: "0.8rem",
     s: "1rem",
-    m: "1.2rem",
-    l: "1.6rem",
+    m: "1.33rem",
+    l: "1.4rem",
     xl: "2rem",
     xxl: "2.3rem",
     xxxl: "3rem",
@@ -61,8 +62,8 @@ export const theme = {
 
   breakpoints: {
     s: "480px",
-    m: "768px",
-    l: "1024px",
+    m: "750px",
+    l: "1100px",
     xl: "1200px",
   },
 };
@@ -86,8 +87,6 @@ export default createGlobalStyle`
     font-size: 18px;
     background-color: ${theme.color.beige};
     color: ${theme.color.dark};
- overflow-x: hidden;
-    overflow-y: auto; 
 /* cursor: none;  */
 
   }
@@ -105,6 +104,7 @@ h1{
   font-weight: 700;
   font-size: ${theme.fontSizes.xxl};
   line-height: ${theme.lineHeight.xxl};
+
   @media (min-width: 750px) {
     font-size: ${theme.fontSizes.xxxxl};
     line-height: ${theme.lineHeight.xxxxl};
@@ -120,31 +120,31 @@ h2{
     text-transform: uppercase;
     letter-spacing: 0.09rem;
     font-size: ${theme.fontSizes.xxs};
-    padding-bottom: ${theme.spacing.xxs};
+    padding-bottom: ${theme.spacing.xxxs};
 
     @media (min-width: 750px) {
       font-size: ${theme.fontSizes.xs};
-      padding-bottom: ${theme.spacing.xs};
+      padding-bottom: ${theme.spacing.xxs};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.s};
-      padding-bottom: ${theme.spacing.s};
+      font-size: ${theme.fontSizes.xs};
+      padding-bottom: ${theme.spacing.xxs};
     }
 }
 
 h3{
   font-weight: ${theme.fontWeight.fatBold};
   text-transform: uppercase;
-  font-size: ${theme.fontSizes.s};
+  font-size: ${theme.fontSizes.l};
   padding-bottom: ${theme.spacing.xs};
   letter-spacing: 0.05rem;
 
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.m};
-    padding-bottom: ${theme.spacing.s};
+    font-size: ${theme.fontSizes.xl};
+    padding-bottom: ${theme.spacing.m};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.l};
+      font-size: ${theme.fontSizes.xl};
       padding-bottom: ${theme.spacing.m};
     }
 }
@@ -185,11 +185,11 @@ h6{
 
 p {
   font-weight: 100;
-  font-size: ${theme.fontSizes.xxs};
-  line-height: ${theme.lineHeight.s};
-
+  font-size: ${theme.fontSizes.s};
+  line-height: ${theme.lineHeight.l};
+font-weight: ${theme.fontWeight.regular};
   @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.xs};
+      font-size: ${theme.fontSizes.s};
       line-height: ${theme.lineHeight.m};
     }
     @media (min-width: 1100px) {
@@ -214,9 +214,9 @@ label {
     font-size: ${theme.fontSizes.s};
     background-color: ${theme.color.beige};
     &:focus {
-      border-color: ${theme.color.green};
+
       outline: none;
-      box-shadow: 0 0 0 2px ${theme.color.green};
+background-color: ${theme.color.green};
     }
   }
 
@@ -232,9 +232,8 @@ label {
     height: 200px;
     resize: none;
     &:focus {
-      border-color: ${theme.color.green};
       outline: none;
-      box-shadow: 0 0 0 2px ${theme.color.green};
+      background-color: ${theme.color.green};
     }
   }
 

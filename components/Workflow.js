@@ -65,11 +65,19 @@ export default function Workflow({ boxData = [] }) {
 
 const StyledSlideContainer = styled.div`
   background-color: ${theme.color.dark};
-  padding: ${theme.spacing.xxxxl} 5rem ${theme.spacing.xxxxl} 5rem;
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
+
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
 `;
 
 const StyledSlider = styled(Slider)`
   padding: ${theme.spacing.l} 0 0 0;
+  margin: 0 ${theme.spacing.sm};
   .slick-slide {
     display: flex;
     justify-content: center;
@@ -114,6 +122,8 @@ const StyledTextBox = styled.div`
   align-items: center;
   text-align: center;
   color: ${theme.color.beige};
+  max-width: 850px;
+  margin: auto;
 `;
 
 const StyledBox = styled.div`
@@ -123,7 +133,7 @@ const StyledBox = styled.div`
   text-align: center;
   color: ${theme.color.beige};
   padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
-  width: 250px;
+  max-width: 300px;
 `;
 
 const StyledIconWrapper = styled.div`
