@@ -7,33 +7,42 @@ import EyeAnimation from "./EyeAnimation";
 
 export default function NavBar() {
   const [scrollY, setScrollY] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  ); // Zustand für die Fensterbreite
 
   useEffect(() => {
-    const handleWheel = (e) => {
-      setScrollY((prevScrollY) => Math.max(0, prevScrollY + e.deltaY)); // Scroll-Position auf Basis des deltaY-Werts aktualisieren
+    const handleScroll = () => {
+      if (typeof window !== "undefined") {
+        setScrollY(window.scrollY);
+      }
     };
 
-    window.addEventListener("wheel", handleWheel);
+    const handleResize = () => {
+      if (typeof window !== "undefined") {
+        setWindowWidth(window.innerWidth); // Aktualisiert die Fensterbreite beim Resize
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize); // Resize-Event hinzufügen
 
     return () => {
-      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize); // Clean-up
     };
   }, []);
 
-  // For Debugging
-  // useEffect(() => {
-  //   console.log(scrollY);
-  // }, [scrollY]);
+  const logoWidth = windowWidth > 1100 ? 220 : windowWidth > 750 ? 180 : 150; // Dynamische Breite basierend auf der Fenstergröße
 
   return (
     <StyledNavBar $scrollY={scrollY}>
       <Link href="/">
-        <StyledLogoWrapper color={scrollY > 200 ? theme.color.beige : theme.color.dark}>
-          <DakieksteLogo
-            color={scrollY > 200 ? theme.color.dark : theme.color.beige}
-            transition="color 0.5s ease"
-          />
-        </StyledLogoWrapper>
+        <DakieksteLogo
+          color={scrollY > 200 ? theme.color.dark : theme.color.beige}
+          transition="color 0.5s ease"
+          width={logoWidth}
+        />
       </Link>
       <EyeAnimation
         color={scrollY > 200 ? theme.color.dark : theme.color.beige}
@@ -48,15 +57,18 @@ const StyledNavBar = styled.div`
   position: fixed;
   justify-content: space-between;
   align-items: center;
-  height: 4rem;
+  height: ${theme.spacing.xxl};
   width: 100%;
   z-index: 100;
 
   background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")};
 
   transition: background-color 0.5s ease;
-`;
-
-const StyledLogoWrapper = styled.div`
-  margin-left: 2.6rem; //eigentlich 4rem aber wegen space um svg -1.4rem weniger
+  padding: 0 ${theme.spacing.xl} 0 ${theme.spacing.xl};
+  @media (min-width: 750px) {
+    padding: 0 ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+  }
+  @media (min-width: 1100px) {
+    padding: 0 ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+  }
 `;

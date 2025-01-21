@@ -12,16 +12,16 @@ export default function StudioSlider({ studio }) {
   const sliderRef = useRef(null);
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
+    speed: 1200,
     autoplay: true,
-    autoplaySpeed: 3000,
-    pauseOnHover: true,
-    swipe: true,
-    speed: 500,
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoPlay: true,
     arrows: false,
+    swipe: true,
     afterChange: (index) => setCurrentSlide(index),
   };
 
@@ -66,8 +66,43 @@ const SliderWrapper = styled.div`
 `;
 
 const StyledSlider = styled(Slider)`
+  z-index: 0;
   .slick-list {
-    overflow: hidden !important;
+    overflow: visible !important;
+  }
+
+  .slick-dots {
+    display: flex !important;
+    position: absolute;
+    bottom: ${theme.spacing.m};
+    justify-content: center;
+    align-items: end;
+    gap: ${theme.spacing.s};
+    padding: 10px 0;
+    z-index: 100;
+  }
+
+  .slick-dots li {
+  }
+
+  .slick-dots li button {
+    background-color: ${theme.color.dark};
+    height: 8px;
+    width: 8px;
+    border: none;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .slick-dots li.slick-active button {
+    opacity: 1;
+    background-color: ${theme.color.green};
+  }
+
+  .slick-dots li button::before {
+    content: "";
+    display: none;
   }
 `;
 
@@ -96,17 +131,28 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: 3.15rem;
+  top: ${theme.spacing.xl};
   right: ${theme.spacing.xxl};
   width: 110px;
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const Arrow = styled.div`
   position: relative;
   cursor: pointer;
-  font-size: ${theme.fontSizes.xl};
+  font-size: ${theme.fontSizes.m};
   &:hover,
   :active {
     color: ${theme.color.green};
+  }
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.l};
+  }
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.xl};
   }
 `;

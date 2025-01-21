@@ -14,6 +14,7 @@ export default function Pricing({ pricingData, servicesData }) {
 
   const [selectedServices, setSelectedServices] = useState([]);
   const [isOpen, setIsOpen] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (servicesData && servicesData.length > 0) {
@@ -75,14 +76,31 @@ export default function Pricing({ pricingData, servicesData }) {
     setSelectedServices((prev) => prev.filter((service) => service !== serviceToRemove));
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 750); // Mobile: bis 768px
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <PricingContainer>
       <HeadlineContainer>
         <h2>PREISKALKULATION</h2>
-        <h3>
-          Dein Invest für einen visuellen Erfolg, <br />
-          der nachhaltig wirkt.
-        </h3>
+        {isMobile ? (
+          <h3>Dein Erfolg einfach kalkuliert.</h3> // Mobiler Text
+        ) : (
+          <h3>
+            Dein Invest für einen visuellen Erfolg, <br />
+            der nachhaltig wirkt.
+          </h3>
+        )}
       </HeadlineContainer>
       <CalculatorContainer>
         <CategoriesContainer>
@@ -178,13 +196,14 @@ const PricingContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
+  padding: ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl} 0;
   background-color: ${theme.color.beige};
   margin: 0;
 
   @media (min-width: 750px) {
   }
   @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
   }
 `;
 
@@ -196,9 +215,24 @@ const HeadlineContainer = styled.div`
   position: relative;
   margin: 0 0 ${theme.spacing.xl} 0;
   width: 100%;
+  padding: 0 ${theme.spacing.xl} 0 ${theme.spacing.xl};
+  @media (min-width: 750px) {
+    padding: 0 ${theme.spacing.xxl};
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0 ${theme.spacing.xxl};
+  }
 
   h3 {
     text-align: center;
+    font-size: ${theme.fontSizes.m};
+    @media (min-width: 750px) {
+      font-size: ${theme.fontSizes.l};
+    }
+
+    @media (min-width: 1100px) {
+    }
   }
 `;
 
@@ -206,7 +240,15 @@ const CalculatorContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: ${theme.spacing.xl};
+  padding: 0 ${theme.spacing.xl};
+
+  @media (min-width: 750px) {
+    padding: 0 ${theme.spacing.xxl};
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0 ${theme.spacing.xxl};
+  }
 `;
 
 const CategoriesContainer = styled.div`
@@ -310,14 +352,16 @@ const OutcomeContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
-  padding: ${theme.spacing.ml};
+  padding: ${theme.spacing.ml} 0;
   box-sizing: border-box;
+
   @media (min-width: 750px) {
+    padding: ${theme.spacing.s} 0;
   }
 
   @media (min-width: 1100px) {
+    padding: ${theme.spacing.s} 0;
   }
-
   ul {
     margin-bottom: ${theme.spacing.ml};
     li {
@@ -354,9 +398,13 @@ const RemoveButton = styled.button`
 `;
 
 const StyledRemoveIcon = styled(RxCross1)`
+  fill: none;
+  stroke: currentColor;
+  color: inherit;
+
   &:hover {
-    transform: scale(1.1); /* Leichte Vergrößerung */
-    stroke-width: 1.1; /* Macht das Icon "dicker", wenn unterstützt */
+    transform: scale(1.1);
+    stroke-width: 1.1;
   }
 `;
 

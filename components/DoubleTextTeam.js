@@ -26,12 +26,16 @@ const StyledDoubleTextBox = styled.div`
 
 const StyledTextWrapper = styled.div`
   flex: 1;
-  min-width: 370px;
-  max-width: 800px;
-  min-height: 400px;
   flex-direction: column;
   justify-content: flex-start;
-  padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl} ${theme.spacing.xl} ${theme.spacing.xl};
+
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
+  @media (min-width: 1100px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  }
 
   p {
     padding: 0 0 ${theme.spacing.m} 0;

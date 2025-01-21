@@ -7,7 +7,7 @@ export default function Header({ src, headlineThin, headlineBold1, headlineBold2
       <StyledHeadContainer src={src}>
         <StyledHeadlineContainer>
           <h1>
-            {headlineBold1} <br /> <span>{headlineThin}</span>
+            {headlineBold1} <br /> <span>{headlineThin}&nbsp;</span>
             {headlineBold2}
           </h1>
         </StyledHeadlineContainer>
@@ -18,14 +18,12 @@ export default function Header({ src, headlineThin, headlineBold1, headlineBold2
 
 const StyledHeadContainer = styled.div`
   display: flex;
+  position: relative;
   justify-content: start;
   align-items: end;
-  z-index: -5;
+  z-index: 0;
   width: 100%;
   height: 400px;
-  /* overflow: hidden; */
-  margin: 0;
-
   background-image: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
@@ -42,23 +40,26 @@ const StyledHeadContainer = styled.div`
 const StyledHeadlineContainer = styled.div`
   display: flex;
   position: relative;
-  left: ${theme.spacing.xxl};
-  bottom: ${theme.spacing.xxl};
+  left: ${theme.spacing.xl};
+  bottom: ${theme.spacing.xl};
 
   @media (min-width: 750px) {
     margin: 0;
+    left: ${theme.spacing.xxl};
+    bottom: ${theme.spacing.xxl};
   }
   @media (min-width: 1100px) {
     margin: 0;
+    left: ${theme.spacing.xxl};
+    bottom: ${theme.spacing.xxl};
   }
 
   h1 {
-    margin: 0;
+    margin: 0 0 -10px -6px;
     color: ${theme.color.beige};
-    padding: 0;
   }
   span {
     font-weight: 200;
-    padding-right: 0.3rem;
+    margin: 0 -4px 0 0;
   }
 `;

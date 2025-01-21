@@ -37,36 +37,19 @@ const StyledSplitTextBox = styled.div`
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.color.beige};
+  background-color: ${theme.color.green};
 `;
 
 const StyledTextWrapper = styled.div`
   flex: 1;
   min-width: 370px;
   max-width: 700px;
-  padding: 4rem 4rem 4rem 4rem;
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
   margin: auto;
-
   height: auto;
 
-  h1 {
-  }
-
-  h2 {
-    text-transform: uppercase;
-    margin: 0 0 ${theme.spacing.xs} 0;
-    font-weight: 100;
-    letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xs};
-
-    @media (min-width: 750px) {
-    }
-    @media (min-width: 1100px) {
-    }
-  }
-
-  p {
-    font-size: ${theme.fontSizes.small};
+  @media (min-width: 750px) {
+    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
   }
 `;
 
@@ -74,7 +57,7 @@ const StyledImageContainer = styled.div`
   position: relative;
   flex: 1 1 30%;
   min-width: 370px;
-  min-height: 500px;
+  min-height: 600px;
   max-width: 32%;
   display: flex;
   justify-content: flex-start;
@@ -97,7 +80,7 @@ const ImageWrapper = styled.div`
     background: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.5) 100%
+      rgba(249, 248, 242, 0.5) 100%
     );
     pointer-events: none;
   }
