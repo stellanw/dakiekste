@@ -48,20 +48,20 @@ export default function Team({ teamMembers = [] }) {
 
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0 ${theme.spacing.xxl} ${theme.spacing.xxxl} ${theme.spacing.xxl};
+  padding: 0 ${theme.spacing.xl} ${theme.spacing.xxxl} ${theme.spacing.xl};
   background-color: ${theme.color.beige};
   width: 100%;
-  gap: ${theme.spacing.l};
+  gap: ${theme.spacing.m};
 
-  @media (max-width: ${theme.breakpoints.l}) {
+  @media (min-width: 750px) {
     justify-content: center;
+    padding: 0 ${theme.spacing.xxl} ${theme.spacing.xxxxl} ${theme.spacing.xxl};
   }
 
-  @media (max-width: ${theme.breakpoints.m}) {
-    padding: ${theme.spacing.xl} ${theme.spacing.m} ${theme.spacing.xl} ${theme.spacing.m};
-    gap: ${theme.spacing.m};
+  @media (min-width: 1100px) {
+    padding: 0 ${theme.spacing.xxl} ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+    justify-content: space-between;
   }
 
   p {

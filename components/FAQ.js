@@ -66,14 +66,19 @@ const StyledArrowIcon = styled(PiArrowUpRight)`
 
 const StyledFAQContainer = styled.section`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   width: 100%;
   background-color: ${theme.color.dark};
   color: ${theme.color.beige};
   margin: 0;
-  margin-bottom: -0.5rem;
-  padding: ${theme.spacing.xs} 0;
+
+  @media (min-width: 750px) {
+  }
+
+  @media (min-width: 1100px) {
+  }
 `;
 
 const StyledHeadlineContainer = styled.div`
@@ -86,7 +91,7 @@ const StyledHeadlineContainer = styled.div`
 `;
 
 const StyledCaption = styled.h5`
-  min-width: 180px;
+  min-width: 170px;
   margin: 0;
   padding: 0;
 `;
@@ -108,17 +113,18 @@ const StyledUl = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: ${theme.spacing.xxl};
+  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
 
   li {
     border-top: 1px solid ${theme.color.beige};
   }
 
   @media (min-width: 750px) {
-    width: 80%;
+    padding: ${theme.spacing.xxxl} ${theme.spacing.xxl};
   }
   @media (min-width: 1100px) {
-    width: 60%;
+    padding: ${theme.spacing.xxxl} ${theme.spacing.xxxxl};
+    max-width: 80%;
   }
 `;
 
@@ -145,7 +151,7 @@ const StyledGroupChild2 = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: ${theme.spacing.l} ${theme.spacing.l} ${theme.spacing.l} 0;
+  padding: ${theme.spacing.l};
   transition: background-color 0.3s ease, color 0.3s ease;
   &.open {
     background-color: ${theme.color.green};

@@ -1,19 +1,13 @@
 import Layout from "@/components/Layout";
-import styled from "styled-components";
-import Image from "next/image";
-import { theme } from "@/styles";
 import HeadBox from "@/components/HeadBox";
 // import projects from "@/data/projects.json";
-import studio from "@/data/studio.json";
 import Team from "@/components/Team";
 import ProjectSlider from "../components/ProjectSlider";
 import FAQ from "@/components/FAQ";
 import Leistungen from "@/components/Leistungen";
-import SplitTextBox from "@/components/SplitTextBox";
 import Workflow from "@/components/Workflow";
 import SplitTextBoxReverse from "@/components/SplitTextBoxReverse";
 import SplitTextBoxReverseDoubleImage from "@/components/SplitTextBoxReverseDoubleImage";
-import KlubstudioBox from "@/components/KlubstudioBox";
 import ContactForm from "@/components/ContactForm";
 import Head from "next/head";
 import DoubleTextBox from "@/components/DoubleTextBox";
@@ -30,7 +24,7 @@ export default function HomePage() {
         {" "}
         <title>Dakiekste | Brandingfotografie</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Beschreibe deine Seite hier" />
+        <meta name="description" content="Branding und Corporate Fotografie für dein Business" />
         <meta name="author" content="Dein Name" />
       </Head>
       <HeadBox
@@ -96,6 +90,7 @@ für mehr Impact"
         url="/images/Klubstudio_05.jpg"
         imageDescriptions="Description of image"
       />
+
       <Workflow
         boxData={[
           {
@@ -326,7 +321,7 @@ UNSEREM KLUB STUDIO"
               Premium: "Erweiterter Imagefilm mit Interviews und detaillierter Nachbearbeitung.",
             },
             price: {
-              Basic: 3000,
+              Basic: 4000,
               Premium: 6000,
             },
           },
@@ -360,8 +355,8 @@ UNSEREM KLUB STUDIO"
       <SplitTextBoxReverseDoubleImage
         headline="Zusammen die Zukunft
         gestalten"
-        text="Wir möchten gemeinsam mit dir etwas zurückgeben. Deshalb laden wir dich ein, mitzuentscheiden, wohin 50€ aus deiner Investition fließen sollen. Gemeinsam können wir die Welt ein Stück besser machen. Wähle aus einer sorgfältig ausgewählten Liste von Projekten aus."
-        imageURLs={["/images/Klubstudio_05.jpg", "/images/Klubstudio_06.jpg"]}
+        text="Wir möchten etwas zurückgeben. Deshalb unterstützen wir einmal im Jahr ein gemeinnütziges Projekt. Wir wollen mit unserer Arbeit einen wichtigen Beitrag leisten. Ein ausgewähltes Projekt bekommt von uns eine Fotokampagne."
+        imageURLs={["/images/Dakiekste_BTS_01.jpg", "/images/Dakiekste_BTS_02.jpg"]}
         imageDescriptions={["Description of the first image", "Description of the second image"]}
         topline="Gemeinsam für mehr"
       />

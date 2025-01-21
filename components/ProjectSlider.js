@@ -5,7 +5,6 @@ import { theme } from "@/styles";
 import { PiArrowLeftLight, PiArrowRightLight } from "react-icons/pi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from "next/link";
 import Image from "next/image";
 
 export default function ProjectSlider({ projects }) {
@@ -31,12 +30,16 @@ export default function ProjectSlider({ projects }) {
   }, []);
 
   const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
+    dots: true,
+    infinite: true,
+    speed: 1200,
+    autoplay: true,
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoPlay: true,
     arrows: false,
+    swipe: true,
     afterChange: (index) => setCurrentSlide(index),
   };
 
@@ -64,10 +67,11 @@ export default function ProjectSlider({ projects }) {
       </StyledSlider>
       <TitleAndIndex>
         <span>
+          {" "}
           0{currentSlide + 1}
-          {/* /{projects.length} */}
+          {/* /{projects.length}  */}
         </span>
-        <h4>{projects[currentSlide]?.title}</h4>
+        <h4>|&nbsp; &nbsp;{projects[currentSlide]?.title}</h4>
       </TitleAndIndex>
       <ArrowContainer>
         <Arrow onClick={handlePrevClick}>
@@ -109,6 +113,40 @@ const StyledSlider = styled(Slider)`
   .slick-list {
     overflow: visible !important;
   }
+
+  .slick-dots {
+    display: flex !important;
+    position: absolute;
+    bottom: ${theme.spacing.m};
+    justify-content: center;
+    align-items: end;
+    gap: ${theme.spacing.s};
+    padding: 10px 0;
+    z-index: 100;
+  }
+
+  .slick-dots li {
+  }
+
+  .slick-dots li button {
+    background-color: ${theme.color.dark};
+    height: 8px;
+    width: 8px;
+    border: none;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .slick-dots li.slick-active button {
+    opacity: 1;
+    background-color: ${theme.color.green};
+  }
+
+  .slick-dots li button::before {
+    content: "";
+    display: none;
+  }
 `;
 
 const Slide = styled.div`
@@ -138,17 +176,16 @@ const ProjectDetails = styled.div`
   bottom: 0;
   height: 100%;
   width: 100%;
-  padding: ${theme.spacing.ml};
 `;
 
 const TitleAndIndex = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${theme.spacing.m};
+  gap: ${theme.spacing.xxxs};
   position: absolute;
-  top: ${theme.spacing.xl};
-  left: ${theme.spacing.xxl};
+  top: ${theme.spacing.l};
+  left: ${theme.spacing.xl};
   font-weight: 600;
   z-index: 10;
 
@@ -157,6 +194,22 @@ const TitleAndIndex = styled.div`
   }
   span {
     letter-spacing: 0.2rem;
+    font-size: ${theme.fontSizes.xs};
+    @media (min-width: 1100px) {
+      font-size: ${theme.fontSizes.m};
+    }
+  }
+
+  @media (min-width: 750px) {
+    top: ${theme.spacing.xl};
+    left: ${theme.spacing.xxl};
+    gap: ${theme.spacing.s};
+  }
+
+  @media (min-width: 1100px) {
+    top: ${theme.spacing.xl};
+    left: ${theme.spacing.xxl};
+    gap: ${theme.spacing.s};
   }
 `;
 
@@ -167,6 +220,10 @@ const ArrowContainer = styled.div`
   top: ${theme.spacing.xl};
   right: ${theme.spacing.xxl};
   width: 110px;
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const Arrow = styled.div`
