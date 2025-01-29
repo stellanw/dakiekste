@@ -26,15 +26,15 @@ const StyledDoubleTextBox = styled.div`
   width: 100%;
   background-color: ${theme.color.lightGreen};
   padding: 0;
-  gap: ${theme.spacing.xl};
+  gap: ${theme.spacing.xxxl};
   padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
   @media (min-width: 750px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
-    gap: ${theme.spacing.xxl};
+    padding: ${theme.spacing.xxxl} ${theme.spacing.xxl};
+    gap: ${theme.spacing.xxxl};
   }
   @media (min-width: 1100px) {
     padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
-    gap: ${theme.spacing.xxl};
+    gap: ${theme.spacing.xxxl};
   }
 `;
 

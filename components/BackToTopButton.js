@@ -32,7 +32,7 @@ export default function BackToTopButton() {
   return (
     <BackToTopContainer>
       <StyledButton onClick={scrollToTop} className="hover-cursor">
-        <PiArrowUpLight />
+        <StyledPiArrowUpLight />
       </StyledButton>
     </BackToTopContainer>
   );
@@ -80,4 +80,8 @@ const StyledButton = styled.button`
     right: 20px;
     padding: 8px 12px;
   }
+`;
+
+const StyledPiArrowUpLight = styled(PiArrowUpLight)`
+  transform: scale(0.9);
 `;
