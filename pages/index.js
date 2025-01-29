@@ -87,7 +87,7 @@ export default function HomePage() {
         topline="Digital sichtbar bleiben"
         headline="Visueller Content der deine Zielgruppe erreicht"
         text="Ob Social Media, Webseiten oder E-Commerce: Wir liefern dir visuelle Inhalte, die deine Botschaft klar und einprägsam transportieren. Kreativer, zielgerichteter Content steigert die Interaktion, fördert die Markenbindung und hilft dir, deine Zielgruppe langfristig zu erreichen."
-        url="/images/Klubstudio_05.jpg"
+        url="/images/Klubstudio_5.jpg"
         imageDescriptions="Description of image"
       />
 
