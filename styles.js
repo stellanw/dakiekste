@@ -12,7 +12,7 @@ export const theme = {
   borderRadius: "5px",
 
   fontSizes: {
-    // xxxs: "0.4rem",
+    xxxs: "0.65rem",
     xxs: "0.75rem",
     xs: "0.9rem", // 12px
     s: "1rem", // 16px (Standardgröße in den meisten Browsern)
@@ -34,19 +34,19 @@ export const theme = {
     sm: "1.2rem",
     ml: "2rem", // 32px
     l: "2.5rem",
-    xl: "3rem", // 48px
+    xl: "2.6rem", // 48px
     xxl: "4rem", // 64px
     xxxl: "6rem", //96px
-    xxxxl: "10rem",
+    xxxxl: "14rem",
   },
 
   lineHeight: {
     xs: "0.8rem",
     s: "1rem",
     m: "1.33rem",
-    l: "1.4rem",
-    xl: "2rem",
-    xxl: "2.3rem",
+    l: "1.5rem",
+    xl: "1.8rem",
+    xxl: "2.1rem",
     xxxl: "3rem",
     xxxxl: "4rem",
     xxxxxl: "5rem",
@@ -119,16 +119,16 @@ h2{
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xxs};
-    padding-bottom: ${theme.spacing.xxxs};
+    font-size: ${theme.fontSizes.xxxs};
+    padding-bottom: ${theme.spacing.xxs};
 
     @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.xs};
-      padding-bottom: ${theme.spacing.xxs};
+      font-size: ${theme.fontSizes.xxs};
+      padding-bottom: ${theme.spacing.xs};
     }
     @media (min-width: 1100px) {
       font-size: ${theme.fontSizes.xs};
-      padding-bottom: ${theme.spacing.xxs};
+      padding-bottom: ${theme.spacing.xs};
     }
 }
 
@@ -136,16 +136,20 @@ h3{
   font-weight: ${theme.fontWeight.fatBold};
   text-transform: uppercase;
   font-size: ${theme.fontSizes.l};
-  padding-bottom: ${theme.spacing.xs};
-  letter-spacing: 0.05rem;
-
+  padding-bottom: ${theme.spacing.m};
+  letter-spacing: 0.03rem;
+line-height: ${theme.lineHeight.xl};
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xl};
+    font-size: ${theme.fontSizes.l};
     padding-bottom: ${theme.spacing.m};
+    letter-spacing: 0.05rem;
+    line-height: ${theme.lineHeight.xl};
     }
     @media (min-width: 1100px) {
       font-size: ${theme.fontSizes.xl};
       padding-bottom: ${theme.spacing.m};
+      letter-spacing: 0.05rem;
+      line-height: ${theme.lineHeight.xxl};
     }
 }
 
@@ -154,7 +158,8 @@ h4{
   font-weight: ${theme.fontWeight.extraBold};
   text-transform: uppercase;
   padding-bottom: ${theme.spacing.xs};
-
+line-height: ${theme.lineHeight.l};
+letter-spacing: 0.04rem;
   @media (min-width: 750px) {
     font-size: ${theme.fontSizes.s};
     padding-bottom: ${theme.spacing.s};

@@ -66,19 +66,19 @@ export default function ProjectSlider({ projects }) {
         ))}
       </StyledSlider>
       <TitleAndIndex>
-        <span>
+        {/* <span>
           {" "}
           0{currentSlide + 1}
-          {/* /{projects.length}  */}
-        </span>
-        <h4>|&nbsp; &nbsp;{projects[currentSlide]?.title}</h4>
+          /{projects.length} 
+        </span> */}
+        <h4>{projects[currentSlide]?.title}</h4>
       </TitleAndIndex>
       <ArrowContainer>
         <Arrow onClick={handlePrevClick}>
-          <PiArrowLeftLight />
+          <StyledPiArrowLeftLight />
         </Arrow>
         <Arrow onClick={handleNextClick}>
-          <PiArrowRightLight />
+          <StyledPiArrowRightLight />
         </Arrow>
       </ArrowContainer>
     </SliderWrapper>
@@ -120,27 +120,37 @@ const StyledSlider = styled(Slider)`
     bottom: ${theme.spacing.m};
     justify-content: center;
     align-items: end;
-    gap: ${theme.spacing.s};
-    padding: 10px 0;
+    gap: 0;
+    padding: 12px;
     z-index: 100;
   }
 
   .slick-dots li {
+    opacity: 0; /* Nur die zweiten bis vierten Punkte sichtbar machen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slick-dots li:nth-child(n + 2):nth-child(-n + 4) {
+    opacity: 1; /* Nur die zweiten bis vierten Punkte sichtbar machen */
   }
 
   .slick-dots li button {
-    background-color: ${theme.color.dark};
-    height: 8px;
-    width: 8px;
+    background-color: ${theme.color.green};
+    height: 10px;
+    width: 10px;
     border: none;
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: 1;
     transition: opacity 0.3s ease;
+    transform: scale(0.8);
   }
 
   .slick-dots li.slick-active button {
     opacity: 1;
     background-color: ${theme.color.green};
+    transform: scale(1.2);
   }
 
   .slick-dots li button::before {
@@ -157,7 +167,7 @@ const Slide = styled.div`
 
 const StyledImage = styled(Image)`
   width: 100%;
-  height: 800px;
+  height: 860px;
   object-fit: cover;
   object-position: center;
   overflow: hidden;
@@ -241,4 +251,12 @@ const Arrow = styled.div`
   @media (min-width: 1100px) {
     font-size: ${theme.fontSizes.xl};
   }
+`;
+
+const StyledPiArrowLeftLight = styled(PiArrowLeftLight)`
+  transform: scale(0.8);
+`;
+
+const StyledPiArrowRightLight = styled(PiArrowRightLight)`
+  transform: scale(0.8);
 `;
