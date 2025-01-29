@@ -5,7 +5,7 @@ import Team from "@/components/Team";
 import ProjectSlider from "../components/ProjectSlider";
 import FAQ from "@/components/FAQ";
 import Leistungen from "@/components/Leistungen";
-import Workflow from "@/components/Workflow";
+import Workflow from "@/components/SlideBox";
 import SplitTextBoxReverse from "@/components/SplitTextBoxReverse";
 import SplitTextBoxReverseDoubleImage from "@/components/SplitTextBoxReverseDoubleImage";
 import ContactForm from "@/components/ContactForm";
@@ -16,6 +16,8 @@ import StudioSlider from "@/components/StudioSlider";
 import StudioBox from "@/components/StudioBox";
 import { IoBulbOutline, IoCameraReverseOutline, IoFingerPrintOutline } from "react-icons/io5";
 import Pricing from "@/components/Pricing";
+import SlideBox from "@/components/SlideBox";
+// import Video from "@/components/Video";
 
 export default function HomePage() {
   return (
@@ -32,6 +34,7 @@ export default function HomePage() {
         text="Wir machen deine Marke sichtbar und bringen deine Werte und Persönlichkeit visuell auf den
           Punkt – mit modernen Ideen und frischen Ansätzen."
       />
+      {/* <Video src="/videos/Klubstudio_video.mp4" /> */}
       <Leistungen
         leistungen={[
           {
@@ -75,38 +78,54 @@ export default function HomePage() {
       <DoubleTextBox
         topline1="all-in-one-look"
         headline1="Einheitlicher Auftritt auf allen Kanälen"
-        topline2="Mitarbeiter*innen-portrait"
-        text1="Wir bringen die Persönlichkeit deines Unternehmens in Fotos und Videos zum Ausdruck. Mit einem durchdachten Konzept stärken wir das Vertrauen deiner Wunschkund*innen und machen deine Marke klar erkennbar. Unser Ziel ist es, einen passenden Look und einen umfassenden Bild- und Videopool zu schaffen, den du selbstständig für deine Kommunikations-kanäle nutzen kannst."
-        headline2="Das Teamgefühl
-nahbar machen
-"
-        text2="Wir zeigen die menschliche Seite deines Unternehmens und stärken die Verbindung zu Kunden und Talenten. Ob vor Ort oder bei dir, wir finden die beste Lösung für dein Team und sorgen für einen einheitlichen Auftritt um dein Unternehmen als attraktiven Arbeitgeber zu präsentieren."
+        text1="Wir bringen die Persönlichkeit deines Unternehmens in Fotos und Videos zum Ausdruck und sorgen für einen konsistenten Look. Mit einem durchdachten Konzept schaffen wir einen maßgeschneiderten Bild- und Videopool, der deine Marke klar erkennbar macht und dich von austauschbaren Stockfotos abhebt. Damit hast du alle Freiheiten, die Inhalte nahtlos und effektiv für deine Kommunikationskanäle einzusetzen."
+        topline2="Nahbares Marketing"
+        headline2="Dein Team als Markenbotschafter"
+        text2="Mit individuell gestalteten Mitarbeiterfotos und Businessportraits bringen wir deine Employer-Branding-Kampagne auf das nächste Level. Wir machen die Werte und die Persönlichkeit deines Unternehmens greifbar, stärken deine Position im Recruiting und zeigen dein Unternehmen als vertrauenswürdigen, attraktiven Arbeitgeber, der Talente überzeugt."
       />
       <SplitTextBoxReverse
-        topline="digitale Plattformen"
-        headline="Social Media Boost 
-für mehr Impact"
-        text="Ob Fotos oder Videos für Reels – sie schaffen eine tiefere Verbindung zu deiner Zielgruppe und stärken die Markenbindung. Setze auf originelle, individuelle Inhalte statt auf Standard-Stockfotos und -Videos. Wir versorgen dich mit einem durchdachten Content-Bilderpool für eine bestimmte Zeit, sodass du dich entspannt auf andere wichtige Aufgaben konzentrieren kannst."
+        topline="Digital sichtbar bleiben"
+        headline="Visueller Content der deine Zielgruppe erreicht"
+        text="Ob Social Media, Webseiten oder E-Commerce: Wir liefern dir visuelle Inhalte, die deine Botschaft klar und einprägsam transportieren. Kreativer, zielgerichteter Content steigert die Interaktion, fördert die Markenbindung und hilft dir, deine Zielgruppe langfristig zu erreichen."
         url="/images/Klubstudio_05.jpg"
         imageDescriptions="Description of image"
       />
 
-      <Workflow
+      <SlideBox
+        headline1="Sorgloser Ablauf"
+        headline2="Konzentriere dich auf das Wesentliche während wir uns um den Rest kümmern."
         boxData={[
           {
-            Icon: IoBulbOutline,
             title: "ERSTGESPRÄCH & KONZEPTION",
             text: "Mit einer detaillierten Analyse deiner Werte und Ziele entwickeln wir eine Strategie die deine Positionierung klar stärkt.",
           },
           {
-            Icon: IoCameraReverseOutline,
             title: "SHOOTING, ABLAUF & ORGANISATION",
             text: "Wir erstellen Briefings & Timetables, organisieren alles fürs Shooting und kümmern uns um Styling, Setdesign und ums Hair & Make-up.",
           },
           {
-            Icon: IoFingerPrintOutline,
             title: "HOCHWERTIGES VISUELLES FOOTAGE",
             text: "Die fertigen, professionell bearbeiteten Fotos stehen dir zeitnah zur Verfügung und sind sofort für alle Kanäle einsatzbereit.",
+          },
+          {
+            title: "KREATIVE POST-PRODUKTION",
+            text: "In der Nachbearbeitung sorgen wir für den perfekten Feinschliff, um deine Fotos noch ansprechender und hochwertiger zu gestalten.",
+          },
+          {
+            title: "MARKETING-STRATEGIEN",
+            text: "Wir unterstützen dich bei der optimalen Nutzung der Inhalte für deine Marketingkanäle – von Social Media bis zur Webseite.",
+          },
+          {
+            title: "MESSBARE ERGEBNISSE",
+            text: "Unsere Arbeit zielt darauf ab, sichtbare und messbare Erfolge für deine Marke zu erzielen.",
+          },
+          {
+            title: "LANGFRISTIGE UNTERSTÜTZUNG",
+            text: "Auch nach Projektabschluss stehen wir für zukünftige Anpassungen und Erweiterungen zur Verfügung.",
+          },
+          {
+            title: "KUNDENFEEDBACK & OPTIMIERUNG",
+            text: "Wir nehmen uns Zeit für dein Feedback, um unsere Leistungen weiter zu optimieren und auf deine Bedürfnisse abzustimmen.",
           },
         ]}
       />
@@ -139,22 +158,58 @@ für mehr Impact"
         ]}
       />
       <StudioSlider
+        const
         studio={[
           {
-            image: "/images/Klubstudio_01.jpg",
+            image: "/images/KLUBSTUDIO_3.jpg",
+            alt: "Großzügiger Arbeitsbereich mit kreativer Atmosphäre",
           },
           {
-            image: "/images/Klubstudio_02.jpg",
+            image: "/images/KLUBSTUDIO_4.jpg",
+            alt: "Fotostudio-Setup mit professioneller Beleuchtung",
           },
           {
-            image: "/images/Klubstudio_03.jpg",
+            image: "/images/KLUBSTUDIO_5.jpg",
+            alt: "Sitzbereich mit stilvollen Möbeln und Dekoration",
           },
           {
-            image: "/images/Klubstudio_04.jpg",
+            image: "/images/KLUBSTUDIO_6.jpg",
+            alt: "Detailaufnahme der hochwertigen Studiobeleuchtung",
           },
           {
-            image: "/images/Klubstudio_05.jpg",
+            image: "/images/KLUBSTUDIO_7.jpg",
+            alt: "Equipment und Kamera-Setup für professionelle Shootings",
           },
+          {
+            image: "/images/KLUBSTUDIO_8.jpg",
+            alt: "Hintergründe und Requisiten für kreative Fotoshootings",
+          },
+          {
+            image: "/images/KLUBSTUDIO_9.jpg",
+            alt: "Meeting- und Besprechungsbereich im Klub Studio",
+          },
+          {
+            image: "/images/KLUBSTUDIO_10.jpg",
+            alt: "Studiofläche mit verschiedenen Aufnahmesets",
+          },
+          { image: "/images/KLUBSTUDIO_11.jpg", alt: "Arbeitsplatz mit iMac und kreativem Setup" },
+          {
+            image: "/images/KLUBSTUDIO_12.jpg",
+            alt: "Gemütlicher Lounge-Bereich für entspannte Pausen",
+          },
+          {
+            image: "/images/KLUBSTUDIO_13.jpg",
+            alt: "Modernes Design und Architektur im Klub Studio",
+          },
+          {
+            image: "/images/KLUBSTUDIO_14.jpg",
+            alt: "Aufnahmeset für Produktfotografie mit Lichtsetup",
+          },
+          {
+            image: "/images/KLUBSTUDIO_17.jpg",
+            alt: "Besprechungsraum mit Whiteboard für Planungssessions",
+          },
+          { image: "/images/KLUBSTUDIO_19.jpg", alt: "Nachtaufnahme des Studios mit Beleuchtung" },
         ]}
       />
       <StudioBox
