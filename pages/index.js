@@ -17,6 +17,7 @@ import StudioBox from "@/components/StudioBox";
 import { IoBulbOutline, IoCameraReverseOutline, IoFingerPrintOutline } from "react-icons/io5";
 import Pricing from "@/components/Pricing";
 import SlideBox from "@/components/SlideBox";
+import ProjectSliderLightDebug from "@/components/ProjectSliderLightDebug";
 // import Video from "@/components/Video";
 
 export default function HomePage() {
@@ -35,6 +36,7 @@ export default function HomePage() {
           Punkt – mit modernen Ideen und frischen Ansätzen."
       />
       {/* <Video src="/videos/Klubstudio_video.mp4" /> */}
+
       <Leistungen
         leistungen={[
           {
@@ -52,6 +54,31 @@ export default function HomePage() {
         ]}
       />
       <ProjectSlider
+        projects={[
+          {
+            title: "IMAGE KAMPAGNEN",
+            description: "Description of Project 1",
+            image: "/images/Projekt_01_Averdung.jpg",
+          },
+          {
+            title: "BUSINESS PORTRAITS",
+            description: "Description of Project 2",
+            image: "/images/Business_Portrait.jpg",
+          },
+          {
+            title: "FOTO REPORTAGEN",
+            description: "Description of Project 3",
+            image: "/images/Projekt_03.jpg",
+          },
+          {
+            title: "EVENTS",
+            description: "Description of Project 3",
+            image: "/images/event.jpg",
+          },
+        ]}
+      />
+
+      <ProjectSliderLightDebug
         projects={[
           {
             title: "IMAGE KAMPAGNEN",
