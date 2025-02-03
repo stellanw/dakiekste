@@ -9,7 +9,7 @@ export const theme = {
     dust: "#8C8A7F",
   },
 
-  borderRadius: "5px",
+  borderRadius: "15px",
 
   fontSizes: {
     xxxs: "0.65rem",
@@ -38,6 +38,39 @@ export const theme = {
     xxl: "4rem", // 64px
     xxxl: "6rem", //96px
     xxxxl: "14rem",
+
+    desktop: {
+      height: {
+        s: "2.5rem", // 40px
+        m: "3.75rem", // 60px
+        l: "5.62rem", // 90px
+        xl: "8.75rem", // 140px
+        xxl: "11.25rem", // 180px
+      },
+      side: "4rem",
+    },
+
+    tablet: {
+      height: {
+        s: "2.2rem", // 35.2px (Reduziert von 2.5rem)
+        m: "3.25rem", // 52px (Reduziert von 3.75rem)
+        l: "4.5rem", // 72px (Bleibt gleich)
+        xl: "6.5rem", // 104px (Bleibt gleich)
+        xxl: "9rem", // 144px (Erhöht von 8rem)
+      },
+      side: "4rem", // 52.8px (Zwischen Desktop und Mobile)
+    },
+
+    mobile: {
+      height: {
+        s: "2rem", // 32px (Reduziert von 2.5rem auf 2rem)
+        m: "3rem", // 48px (Reduziert von 3.75rem auf 3rem)
+        l: "4.5rem", // 72px (Reduziert von 5.62rem auf 4.5rem)
+        xl: "6.5rem", // 104px (Reduziert von 8.75rem auf 6.5rem)
+        xxl: "8rem", // 128px (Reduziert von 11.25rem auf 8rem)
+      },
+      side: "2.6rem",
+    },
   },
 
   lineHeight: {
