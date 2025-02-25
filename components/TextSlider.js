@@ -48,7 +48,7 @@ export default function TextSlider({ reviews, autoplay }) {
     <TextSliderContainer background={reviews[currentSlide]?.screenshot?.src}>
       <SlideContainer {...settings}>
         {reviews.map((review, index) => (
-          <Slide>
+          <Slide key={index}>
             <h2>{review.client}</h2>
             <p>{review.text}</p>
 
