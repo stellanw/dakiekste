@@ -47,12 +47,12 @@ const StyledHeadContainer = styled.div`
   width: 100%;
   height: 400px;
   overflow: hidden;
-
+  height: ${theme.height.mobile};
   @media (min-width: 750px) {
-    height: 600px;
+    height: ${theme.height.tablet};
   }
   @media (min-width: 1100px) {
-    height: 800px;
+    height: ${theme.height.desktop};
   }
 
   &::before {

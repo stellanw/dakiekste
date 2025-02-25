@@ -1,5 +1,7 @@
 import { theme } from "@/styles";
 import styled from "styled-components";
+import { PiPhone } from "react-icons/pi";
+import { PiEnvelopeSimple } from "react-icons/pi";
 
 export default function TeamText({ topline, headline, text }) {
   return (
@@ -8,6 +10,16 @@ export default function TeamText({ topline, headline, text }) {
         <h2>{topline}</h2>
         <h3>{headline}</h3>
         <p>{text}</p>
+        {/* <ButtonContainer>
+          <Button>
+            <PiEnvelopeSimple />
+            Schreib uns
+          </Button>
+          <Button>
+            <PiPhone />
+            Ruf uns an
+          </Button>
+        </ButtonContainer> */}
       </StyledTextWrapper>
     </StyledDoubleTextBox>
   );
@@ -34,5 +46,47 @@ const StyledTextWrapper = styled.div`
   @media (min-width: 1100px) {
     padding: ${theme.spacing.desktop.height.xxl} ${theme.spacing.desktop.side};
     max-width: 50%;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${theme.spacing.m};
+  padding-top: ${theme.spacing.mobile.height.m};
+
+  @media (min-width: 750px) {
+    padding-top: ${theme.spacing.tablet.height.m};
+    gap: ${theme.spacing.l};
+  }
+
+  @media (min-width: 1100px) {
+    padding-top: ${theme.spacing.desktop.height.m};
+    gap: ${theme.spacing.l};
+  }
+`;
+
+const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: ${theme.spacing.xs};
+
+  border-radius: ${theme.borderRadius};
+  border: solid 1.5px ${theme.color.dark};
+  padding: ${theme.spacing.xs} ${theme.spacing.m};
+  font-size: ${theme.fontSizes.s};
+  font-weight: ${theme.fontWeight.light};
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.m};
+  }
+
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.m};
+  }
+
+  &:hover {
+    background-color: ${theme.color.green};
   }
 `;

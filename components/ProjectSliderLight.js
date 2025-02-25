@@ -59,11 +59,6 @@ export default function ProjectSliderLight({ projects }) {
   return (
     <SliderWrapper>
       <TitleandArrowContainer>
-        {/* <span>
-          {" "}
-          0{currentSlide + 1}
-          /{projects.length} 
-        </span> */}
         <TitleAndIndex>
           <h4>{projects[currentSlide]?.title}</h4>
         </TitleAndIndex>
@@ -76,17 +71,11 @@ export default function ProjectSliderLight({ projects }) {
           </Arrow>
         </ArrowContainer>
       </TitleandArrowContainer>
+
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage
-              src={project.image}
-              alt={project.title}
-              layout="intrinsic" // Passt sich an den Container an
-              objectFit="cover"
-              width={1400}
-              height={1400}
-            />
+            <StyledImage src={project.image} alt={project.title} layout="fill" />
           </Slide>
         ))}
       </StyledSlider>
@@ -98,17 +87,18 @@ const SliderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
   color: ${theme.color.dark};
   height: 100%;
   background-color: ${theme.color.beige};
-  padding: ${theme.spacing.mobile.height.l} 0 ${theme.spacing.mobile.height.m} 0;
   z-index: 3;
+  padding: ${theme.spacing.mobile.height.l} 0 ${theme.spacing.mobile.height.xl} 0;
   @media (min-width: 750px) {
-    padding: ${theme.spacing.tablet.height.l} 0 ${theme.spacing.tablet.height.m} 0;
+    padding: ${theme.spacing.tablet.height.l} 0 ${theme.spacing.tablet.height.xl} 0;
   }
 
   @media (min-width: 1100px) {
-    padding: ${theme.spacing.desktop.height.l} 0 ${theme.spacing.desktop.height.m} 0;
+    padding: ${theme.spacing.desktop.height.l} 0 ${theme.spacing.desktop.height.xl} 0;
   }
 `;
 
@@ -199,8 +189,6 @@ const StyledPiArrowRightLight = styled(PiArrowRightLight)`
 `;
 
 const StyledSlider = styled(Slider)`
-  z-index: 0;
-  width: 100%;
   padding: 0 ${theme.spacing.mobile.side};
 
   @media (min-width: 750px) {
@@ -210,22 +198,7 @@ const StyledSlider = styled(Slider)`
   @media (min-width: 1100px) {
     padding: 0 ${theme.spacing.desktop.side};
   }
-  .slick-list {
-    overflow-x: hidden !important;
-    height: 100% !important;
-    border-radius: ${theme.borderRadius};
-  }
-
-  .slick-track {
-    height: 100% !important;
-  }
-
-  .slick-slide {
-    height: 100% !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-  }
+  width: 100%;
 
   .slick-dots {
     display: flex;
@@ -275,15 +248,16 @@ const StyledSlider = styled(Slider)`
 `;
 
 const Slide = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
   overflow: hidden;
   border-radius: ${theme.borderRadius};
-  min-width: 100%;
-  height: ${theme.height.mobile};
+  width: 100%;
 
+  height: 100%;
+
+  @media (max-width: 750px) {
+    aspect-ratio: 2/3;
+  }
   @media (min-width: 750px) {
     height: ${theme.height.tablet};
   }
@@ -291,23 +265,9 @@ const Slide = styled.div`
   @media (min-width: 1100px) {
     height: ${theme.height.desktop};
   }
-
-  &::after {
-    position: absolute;
-
-    content: "";
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 20%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%);
-    pointer-events: none;
-  }
 `;
 
 const StyledImage = styled(Image)`
-  /* object-fit: contain; */
-  /* object-position: center; */
-  width: 100%;
-  height: auto;
+  object-fit: cover;
+  object-position: center;
 `;

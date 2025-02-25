@@ -7,22 +7,19 @@ import EyeAnimation from "./EyeAnimation";
 
 export default function NavBar() {
   const [scrollY, setScrollY] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  ); // Zustand für die Fensterbreite
+  const [windowWidth, setWindowWidth] = useState(0); // Zustand für die Fensterbreite
 
   useEffect(() => {
     const handleScroll = () => {
-      if (typeof window !== "undefined") {
-        setScrollY(window.scrollY);
-      }
+      setScrollY(window.scrollY);
     };
 
     const handleResize = () => {
-      if (typeof window !== "undefined") {
-        setWindowWidth(window.innerWidth); // Aktualisiert die Fensterbreite beim Resize
-      }
+      setWindowWidth(window.innerWidth); // Aktualisiert die Fensterbreite beim Resize
     };
+
+    // Initiales Setzen der Fensterbreite nach dem Laden
+    setWindowWidth(window.innerWidth);
 
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize); // Resize-Event hinzufügen
@@ -31,23 +28,16 @@ export default function NavBar() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize); // Clean-up
     };
-  }, []);
+  }, []); // Nur beim ersten Rendern und bei Resize
 
-  const logoWidth = windowWidth > 1100 ? 220 : windowWidth > 750 ? 180 : 150; // Dynamische Breite basierend auf der Fenstergröße
+  const logoWidth = windowWidth > 1100 ? 240 : windowWidth > 750 ? 240 : 125; // Dynamische Breite basierend auf der Fenstergröße
 
   return (
     <StyledNavBar $scrollY={scrollY}>
       <Link href="/">
-        <DakieksteLogo
-          color={scrollY > 200 ? theme.color.dark : theme.color.beige}
-          transition="color 0.5s ease"
-          width={logoWidth}
-        />
+        <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
       </Link>
-      <EyeAnimation
-        color={scrollY > 200 ? theme.color.dark : theme.color.beige}
-        transition="background-color 0.5s ease"
-      />
+      <EyeAnimation color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="background-color 0.5s ease" />
     </StyledNavBar>
   );
 }
@@ -60,15 +50,16 @@ const StyledNavBar = styled.div`
   height: ${theme.spacing.xxl};
   width: 100%;
   z-index: 100;
-
   background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")};
 
   transition: background-color 0.5s ease;
-  padding: 0 ${theme.spacing.xl} 0 ${theme.spacing.xl};
+  padding: 0 ${theme.spacing.mobile.side};
+
   @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+    padding: 0 ${theme.spacing.tablet.side};
   }
+
   @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.xxl} 0 ${theme.spacing.xxl};
+    padding: 0 ${theme.spacing.desktop.side};
   }
 `;
