@@ -109,11 +109,9 @@ const EyeAnimationContainer = styled.div`
   align-items: center;
   justify-content: end;
   transform: scale(0.6);
-  margin-right: -40px;
 
   @media (max-width: 750px) {
     transform: scale(0.4);
-    margin-right: -55px;
   }
 
   h4 {
