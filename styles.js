@@ -50,6 +50,17 @@ export const theme = {
       side: "4rem",
     },
 
+    // desktop: {
+    //   height: {
+    //     s: "40px", // 40px
+    //     m: "60px", // 60px
+    //     l: "90px", // 90px
+    //     xl: "140px", // 140px
+    //     xxl: "180px", // 180px
+    //   },
+    //   side: "4rem",
+    // },
+
     tablet: {
       height: {
         s: "2.2rem", // 35.2px (Reduziert von 2.5rem)
@@ -73,6 +84,12 @@ export const theme = {
     },
   },
 
+  height: {
+    mobile: "550px",
+    tablet: "900px",
+    desktop: "1000px",
+  },
+
   lineHeight: {
     xs: "0.8rem",
     s: "1rem",
@@ -80,7 +97,7 @@ export const theme = {
     l: "1.5rem",
     xl: "1.8rem",
     xxl: "2.1rem",
-    xxxl: "3rem",
+    xxxl: "2.8rem",
     xxxxl: "4rem",
     xxxxxl: "5rem",
   },
@@ -88,6 +105,7 @@ export const theme = {
   fontWeight: {
     light: 200,
     regular: 300,
+    lightBold: 450,
     bold: 600,
     extraBold: 700,
     fatBold: 800,
@@ -120,6 +138,7 @@ export default createGlobalStyle`
     font-size: 18px;
     background-color: ${theme.color.beige};
     color: ${theme.color.dark};
+    scroll-behavior: smooth;
 /* cursor: none;  */
 
   }
@@ -131,6 +150,13 @@ text-decoration: none;
 header, main, Footer {
     flex-shrink: 0;
     flex-grow: 0;
+}
+
+h1,h2,h3,h4,h5,h6{
+  white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 h1{
@@ -152,15 +178,15 @@ h2{
     font-weight: 100;
     text-transform: uppercase;
     letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xxxs};
+    font-size: ${theme.fontSizes.xxs};
     padding-bottom: ${theme.spacing.xxs};
 
     @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.xxs};
+      font-size: ${theme.fontSizes.s};
       padding-bottom: ${theme.spacing.xs};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.xs};
+      font-size: ${theme.fontSizes.s};
       padding-bottom: ${theme.spacing.xs};
     }
 }
@@ -179,26 +205,27 @@ line-height: ${theme.lineHeight.xl};
     line-height: ${theme.lineHeight.xl};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.xl};
+      font-size: ${theme.fontSizes.xxl};
       padding-bottom: ${theme.spacing.m};
       letter-spacing: 0.05rem;
-      line-height: ${theme.lineHeight.xxl};
+      line-height: ${theme.lineHeight.xxxl};
     }
 }
 
 h4{
-  font-size: ${theme.fontSizes.xs};
+  font-size: ${theme.fontSizes.m};
   font-weight: ${theme.fontWeight.extraBold};
   text-transform: uppercase;
-  padding-bottom: ${theme.spacing.xs};
-line-height: ${theme.lineHeight.l};
+  padding-bottom: ${theme.spacing.s};
+line-height: ${theme.lineHeight.xl};
 letter-spacing: 0.04rem;
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.s};
-    padding-bottom: ${theme.spacing.s};
+    font-size: ${theme.fontSizes.l};
+    padding-bottom: ${theme.spacing.m};
+    font-weight: ${theme.fontWeight.bold};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.m};
+      font-size: ${theme.fontSizes.l};
       padding-bottom: ${theme.spacing.m};
     }
 }
@@ -227,12 +254,12 @@ p {
   line-height: ${theme.lineHeight.l};
 font-weight: ${theme.fontWeight.regular};
   @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.s};
-      line-height: ${theme.lineHeight.m};
+      font-size: ${theme.fontSizes.m};
+      line-height: ${theme.lineHeight.l};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.s};
-      line-height: ${theme.lineHeight.l};
+      font-size: ${theme.fontSizes.m};
+      line-height: ${theme.lineHeight.xl};
     }
 }
 
@@ -319,4 +346,7 @@ input[type="checkbox"]:hover {
 input[type="checkbox"]:active {
 
 }
+
+
+
 `;

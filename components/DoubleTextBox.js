@@ -1,5 +1,5 @@
 import { theme } from "@/styles";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import styled from "styled-components";
 
 export default function DoubleTextBox({ topline1, headline1, text1, topline2, headline2, text2 }) {
@@ -21,25 +21,42 @@ export default function DoubleTextBox({ topline1, headline1, text1, topline2, he
 
 const StyledDoubleTextBox = styled.div`
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   position: relative;
   width: 100%;
-  background-color: ${theme.color.lightGreen};
-  padding: 0;
-  gap: ${theme.spacing.xxxl};
-  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
+  max-width: 100%;
+  height: 100%;
+  background-color: ${theme.color.beige};
+  overflow-x: hidden;
+  padding: ${theme.spacing.mobile.height.xxl} 0;
+  gap: ${theme.spacing.mobile.height.xl};
   @media (min-width: 750px) {
-    padding: ${theme.spacing.xxxl} ${theme.spacing.xxl};
-    gap: ${theme.spacing.xxxl};
+    padding: ${theme.spacing.tablet.height.xxl} 0;
+    flex-direction: row;
+    gap: 0;
   }
   @media (min-width: 1100px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
-    gap: ${theme.spacing.xxxl};
+    padding: ${theme.spacing.desktop.height.xxl} 0;
+    flex-direction: row;
+    gap: 0;
   }
 `;
 
 const StyledTextWrapper = styled.div`
-  flex: 1;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  width: 100%;
+  padding: 0 ${theme.spacing.mobile.side};
+
+  @media (min-width: 750px) {
+    padding: 0 ${theme.spacing.tablet.side};
+    width: 50%;
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0 ${theme.spacing.desktop.side};
+    width: 50%;
+  }
 `;
