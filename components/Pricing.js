@@ -90,11 +90,11 @@ export default function Pricing({ pricingData, servicesData }) {
   }, []);
 
   return (
-    <PricingContainer>
+    (<PricingContainer>
       <HeadlineContainer>
         <h2>PREISKALKULATION</h2>
         {isMobile ? (
-          <h3>Dein Erfolg einfach kalkuliert.</h3> // Mobiler Text
+          (<h3>Dein Erfolg einfach kalkuliert.</h3>) // Mobiler Text
         ) : (
           <h3>
             Dein Invest für einen visuellen Erfolg, <br />
@@ -187,7 +187,7 @@ export default function Pricing({ pricingData, servicesData }) {
           </Services>
         </ServiceContainer>
       </CalculatorContainer>
-    </PricingContainer>
+    </PricingContainer>)
   );
 }
 

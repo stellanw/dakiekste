@@ -5,16 +5,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { theme } from "@/styles";
 
-export default function SlideBox({ boxData = [], headline1, headline2 }) {
+export default function SlideBox({ boxData = [], headline1, headline2, autoplay }) {
   const [slidesToShow, setSlidesToShow] = useState(4);
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        setSlidesToShow(2);
-      } else if (window.innerWidth <= 1024) {
+      if (window.innerWidth <= 750) {
+        setSlidesToShow(1);
+      } else if (window.innerWidth <= 1100) {
         setSlidesToShow(3);
       } else {
         setSlidesToShow(4);
@@ -36,10 +36,11 @@ export default function SlideBox({ boxData = [], headline1, headline2 }) {
     focusOnSelect: true,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay,
     autoplaySpeed: 3000,
     pauseOnHover: true,
     swipe: true,
+    swipeToSlide: true,
     arrows: false,
     beforeChange: (current, next) => setCurrentSlide(next),
     ref: sliderRef,
@@ -57,9 +58,9 @@ export default function SlideBox({ boxData = [], headline1, headline2 }) {
         <h3>{headline2}</h3>
       </StyledTextBox>
       <StyledSlider {...settings} ref={sliderRef}>
-        {boxData.map(({ title, text }, index) => (
+        {boxData.map(({ label, title, text }, index) => (
           <StyledBox key={index}>
-            <p>{`0${index + 1}`}</p>
+            <span>{label || `0${index + 1}`}</span>
             <h4>{title}</h4>
             <p>{text}</p>
           </StyledBox>
@@ -67,11 +68,7 @@ export default function SlideBox({ boxData = [], headline1, headline2 }) {
       </StyledSlider>
       <InteractiveProgressBar>
         {boxData.map((_, index) => (
-          <ProgressSegment
-            key={index}
-            isActive={index === currentSlide}
-            onClick={() => goToSlide(index)}
-          />
+          <ProgressSegment key={index} isActive={index === currentSlide} onClick={() => goToSlide(index)} />
         ))}
       </InteractiveProgressBar>
     </StyledSlideBoxContainer>
@@ -82,6 +79,7 @@ const StyledSlideBoxContainer = styled.div`
   background-color: ${theme.color.dark};
   padding: ${theme.spacing.xxxl} 0;
   overflow: hidden;
+
   @media (min-width: 750px) {
     padding: ${theme.spacing.xxxxl} 0;
   }
@@ -91,20 +89,23 @@ const StyledSlideBoxContainer = styled.div`
 `;
 
 const StyledSlider = styled(Slider)`
+  position: relative;
   padding: ${theme.spacing.xxl} 0;
+
+  /* transform: translateX(${theme.spacing.mobile.side}); */
   @media (min-width: 750px) {
     padding: ${theme.spacing.xxl} 0;
+    transform: translateX(+8rem);
   }
   @media (min-width: 1100px) {
     padding: ${theme.spacing.xxl} 0;
+    transform: translateX(+10rem);
   }
-  position: relative;
-  transform: translateX(+10rem);
 
   .slick-slide {
     display: flex;
     justify-content: center;
-    padding: ${theme.spacing.s};
+
     box-sizing: border-box;
   }
 
@@ -119,15 +120,16 @@ const StyledTextBox = styled.div`
   align-items: center;
   text-align: center;
   color: ${theme.color.beige};
-  max-width: 700px;
   margin: auto;
-  padding: 0 ${theme.spacing.sm};
+
   h3 {
-    padding: ${theme.spacing.xs} 0;
+    text-transform: capitalize;
+    line-height: ${theme.lineHeight.xxxl};
+    padding: ${theme.spacing.xs} ${theme.spacing.mobile.side};
     margin: 0 0 ${theme.spacing.m} 0;
     font-weight: ${theme.fontWeight.bold};
     @media (min-width: 750px) {
-      font-weight: ${theme.fontWeight.bold};
+      padding: ${theme.spacing.xs} 0;
     }
 
     @media (min-width: 1100px) {
@@ -141,8 +143,24 @@ const StyledBox = styled.div`
   flex-direction: column;
   align-items: space-evenly;
   color: ${theme.color.beige};
-  padding: 0 ${theme.spacing.m} 0 ${theme.spacing.m};
-  max-width: 320px;
+  padding: 0 ${theme.spacing.mobile.side};
+
+  span {
+    text-transform: uppercase;
+    font-size: ${theme.fontSizes.xs};
+    line-height: ${theme.lineHeight.m};
+    font-weight: ${theme.fontWeight.regular};
+    @media (min-width: 750px) {
+      line-height: ${theme.lineHeight.l};
+      font-size: ${theme.fontSizes.m};
+      font-size: ${theme.fontSizes.xs};
+    }
+
+    @media (min-width: 1100px) {
+      line-height: ${theme.lineHeight.xxl};
+      font-size: ${theme.fontSizes.s};
+    }
+  }
 `;
 
 const InteractiveProgressBar = styled.div`
@@ -150,13 +168,17 @@ const InteractiveProgressBar = styled.div`
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 320px;
+  max-width: 30%;
   height: 1px;
   background-color: ${theme.color.beige};
   display: flex;
   align-items: center;
   position: relative;
   cursor: pointer;
+
+  @media (max-width: 750px) {
+    max-width: 50%;
+  }
 `;
 
 const ProgressSegment = styled.div`

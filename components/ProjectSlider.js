@@ -5,9 +5,9 @@ import { theme } from "@/styles";
 import { PiArrowLeftLight, PiArrowRightLight } from "react-icons/pi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
-export default function ProjectSlider({ projects }) {
+export default function ProjectSlider({ projects, dots }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
@@ -41,6 +41,14 @@ export default function ProjectSlider({ projects }) {
     arrows: false,
     swipe: true,
     afterChange: (index) => setCurrentSlide(index),
+    responsive: [
+      {
+        breakpoint: 750,
+        settings: {
+          dots: false,
+        },
+      },
+    ],
   };
 
   const handlePrevClick = () => {
@@ -60,7 +68,7 @@ export default function ProjectSlider({ projects }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage src={project.image} alt={project.title} width={1400} height={1400} />
+            <StyledImage src={project.image} alt={project.title} layout="fill" />
             <ProjectDetails></ProjectDetails>
           </Slide>
         ))}
@@ -87,29 +95,15 @@ export default function ProjectSlider({ projects }) {
 
 const SliderWrapper = styled.div`
   position: relative;
-  margin-bottom: -0.5rem;
-  color: ${theme.color.dark};
   overflow: hidden;
-
-  &::after {
-    position: absolute;
-
-    content: "";
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 20%;
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.5) 100%
-    );
-    pointer-events: none;
-  }
 `;
 
 const StyledSlider = styled(Slider)`
   z-index: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: -5px;
   .slick-list {
     overflow: visible !important;
   }
@@ -117,23 +111,23 @@ const StyledSlider = styled(Slider)`
   .slick-dots {
     display: flex !important;
     position: absolute;
-    bottom: ${theme.spacing.m};
+    bottom: ${theme.spacing.l};
     justify-content: center;
     align-items: end;
     gap: 0;
-    padding: 12px;
+    margin: 0;
     z-index: 100;
   }
 
   .slick-dots li {
-    opacity: 0; /* Nur die zweiten bis vierten Punkte sichtbar machen */
+    //opacity: 0; /* Nur die zweiten bis vierten Punkte sichtbar machen */
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .slick-dots li:nth-child(n + 2):nth-child(-n + 4) {
-    opacity: 1; /* Nur die zweiten bis vierten Punkte sichtbar machen */
+    //opacity: 1; /* Nur die zweiten bis vierten Punkte sichtbar machen */
   }
 
   .slick-dots li button {
@@ -161,24 +155,39 @@ const StyledSlider = styled(Slider)`
 
 const Slide = styled.div`
   display: flex;
-  align-items: center;
   position: relative;
+  overflow: hidden;
+  min-width: 100%;
+
+  height: 100%;
+
+  @media (max-width: 750px) {
+    aspect-ratio: 1/1;
+  }
+  @media (min-width: 750px) {
+    height: ${theme.height.tablet};
+  }
+
+  @media (min-width: 1100px) {
+    height: ${theme.height.desktop};
+  }
+
+  &::after {
+    position: absolute;
+    overflow: hidden;
+    content: "";
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 100%);
+    pointer-events: none;
+  }
 `;
 
 const StyledImage = styled(Image)`
-  width: 100%;
-  height: 860px;
   object-fit: cover;
   object-position: center;
-  overflow: hidden;
-
-  @media (max-width: 1000px) {
-    height: 700px;
-  }
-
-  @media (max-width: 800px) {
-    height: 600px;
-  }
 `;
 
 const ProjectDetails = styled.div`
@@ -221,6 +230,10 @@ const TitleAndIndex = styled.div`
     left: ${theme.spacing.xxl};
     gap: ${theme.spacing.s};
   }
+
+  @media (max-width: 750px) {
+    display: none;
+  }
 `;
 
 const ArrowContainer = styled.div`
@@ -232,7 +245,9 @@ const ArrowContainer = styled.div`
   width: 110px;
 
   @media (max-width: 750px) {
-    display: none;
+    width: 60px;
+    top: ${theme.spacing.m};
+    right: ${theme.spacing.xl};
   }
 `;
 

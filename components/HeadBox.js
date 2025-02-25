@@ -15,42 +15,47 @@ export default function HeadBox({ headline, text }) {
 }
 const StyledHeadBoxContainer = styled.div`
   width: 100%;
-  padding: ${theme.spacing.xxxl} ${theme.spacing.xl} ${theme.spacing.xxxl} ${theme.spacing.xl};
   background-color: ${theme.color.beige};
   overflow: hidden;
-
+  padding: ${theme.spacing.mobile.height.xxl} ${theme.spacing.mobile.side};
   @media (min-width: 750px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl} ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+    padding: ${theme.spacing.tablet.height.xxl} ${theme.spacing.tablet.side};
   }
   @media (min-width: 1100px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl} ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+    padding: ${theme.spacing.desktop.height.xxl} ${theme.spacing.desktop.side};
   }
 
   p {
     font-size: ${theme.fontSizes.m};
-    line-height: ${theme.lineHeight.l};
-    font-weight: 300;
+    line-height: ${theme.lineHeight.xl};
+    font-weight: ${theme.fontWeight.lightBold};
     @media (min-width: 750px) {
       font-size: ${theme.fontSizes.l};
-      line-height: ${theme.lineHeight.xl};
+      line-height: ${theme.lineHeight.xxl};
     }
     @media (min-width: 1100px) {
       font-size: ${theme.fontSizes.xl};
-      line-height: ${theme.lineHeight.xxl};
+      line-height: ${theme.lineHeight.xxxl};
+    }
+
+    @media (max-width: 750px) {
+      br {
+        display: none;
+      }
     }
   }
 `;
 
 const StyledTopTextWrapper = styled.div`
-  padding: 0 0 ${theme.spacing.xxxl} 0;
   margin: auto;
   text-align: center;
   overflow: hidden;
-  width: 100%;
+
+  padding: 0 0 ${theme.spacing.mobile.height.xl} 0;
   @media (min-width: 750px) {
-    width: 100%;
+    padding: 0 0 ${theme.spacing.tablet.height.xl} 0;
   }
   @media (min-width: 1100px) {
-    width: 70%;
+    padding: 0 0 ${theme.spacing.desktop.height.xl} 0;
   }
 `;
