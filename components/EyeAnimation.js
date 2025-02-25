@@ -61,15 +61,34 @@ export default function EyeAnimation({ color }) {
 
   const rotation = calculateRotation(eyesRef.current, cursorPosition.x, cursorPosition.y);
 
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
-    <StyledIconsWrapper>
-      <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
-        <AugenIcon color={color} />
-      </StyledIconWrapper>
-      <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
-        <AugenIcon color={color} />
-      </StyledIconWrapper>
-    </StyledIconsWrapper>
+    <EyeAnimationContainer onClick={toggleMenu} color={color}>
+      {/* <h4>menu »</h4> */}
+      <Eyes>
+        <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
+          <AugenIcon color={color} />
+        </StyledIconWrapper>
+        <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
+          <AugenIcon color={color} />
+        </StyledIconWrapper>
+      </Eyes>
+      {menuOpen && (
+        <StyledMenu>
+          <LinkList>
+            <Link href="/">Home</Link>
+            <Link href="#pricing">Preise</Link>
+            <Link href="#services">Leistungen</Link>
+            <Link href="#team">Team</Link>
+            <Link href="#faq">faq</Link>
+            <Link href="#contact">Kontakt</Link>
+          </LinkList>
+        </StyledMenu>
+      )}
+    </EyeAnimationContainer>
   );
 }
 const rotateAnimation = keyframes`
@@ -81,15 +100,34 @@ const rotateAnimation = keyframes`
   }
 `;
 
-const StyledIconsWrapper = styled.div`
+const Eyes = styled.div`
   display: flex;
-  transform: scale(0.8);
+`;
+
+const EyeAnimationContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  transform: scale(0.6);
+  margin-right: -40px;
+
+  @media (max-width: 750px) {
+    transform: scale(0.4);
+    margin-right: -55px;
+  }
+
+  h4 {
+    padding: 0 2rem 0 0;
+    color: ${({ color }) => color};
+    transition: color 0.5s ease;
+  }
 `;
 
 const StyledIconWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0.05rem;
+  z-index: 15;
+  margin: 0 -1.85rem;
   transition: transform 0.5s ease;
   transform: scaleX(-1);
   ${({ animationActive, rotation }) =>
@@ -98,4 +136,34 @@ const StyledIconWrapper = styled.div`
       animation: ${rotateAnimation} 0.8s linear forwards;
     `}
   transform: rotate(${({ rotation }) => rotation}deg);
+`;
+
+const StyledMenu = styled.div`
+  position: absolute;
+  z-index: 0;
+  top: -2.2rem;
+  right: -2.4rem;
+  background-color: ${theme.color.green};
+  padding: ${theme.spacing.xxl};
+  border-radius: 0 0 ${theme.borderRadius} ${theme.borderRadius};
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  font-size: ${theme.fontSizes.xxl};
+  a {
+    display: block;
+    padding: ${theme.spacing.m} 0;
+
+    text-decoration: none;
+
+    &:hover {
+      color: ${theme.color.beige};
+    }
+  }
+`;
+
+const LinkList = styled.div`
+  padding-top: ${theme.spacing.xxxl};
+  a {
+    text-transform: uppercase;
+    font-size: ${theme.fontSizes.xl};
+  }
 `;

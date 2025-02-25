@@ -1,5 +1,5 @@
 import Slider from "react-slick";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -23,7 +23,7 @@ export default function LogoCarousel() {
     dots: false,
     infinite: true,
     speed: 700,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -68,7 +68,7 @@ export default function LogoCarousel() {
 const CarouselWrapper = styled.div`
   margin: 0 auto;
   padding: 0;
-  /* width: 70%; */
+  width: 70%;
 `;
 
 const Slide = styled.div`

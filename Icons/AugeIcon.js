@@ -1,13 +1,7 @@
 export default function AugeIcon() {
   return (
     <>
-      <svg
-        width="15"
-        height="15"
-        viewBox="0 0 26 26"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width="15" height="15" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           className="logo-path"
           d="M1 13C1 19.6274 6.37258 25 13 25C19.6274 25 25 19.6274 25 13C25 6.37258 19.6274 1 13 0.999999C6.37258 0.999999 1 6.37258 1 13Z"
