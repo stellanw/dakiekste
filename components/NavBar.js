@@ -8,6 +8,16 @@ import EyeAnimation from "./EyeAnimation";
 export default function NavBar() {
   const [scrollY, setScrollY] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0); // Zustand für die Fensterbreite
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Verzögerung, bevor das Icon angezeigt wird
+    const timeout = setTimeout(() => {
+      setIsVisible(true);
+    }, 500); // 200ms Verzögerung
+
+    return () => clearTimeout(timeout); // Aufräumen des Timers
+  }, [windowWidth]); // Abhängig von der Fensterbreite
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,15 +40,19 @@ export default function NavBar() {
     };
   }, []); // Nur beim ersten Rendern und bei Resize
 
-  const logoWidth = windowWidth > 1100 ? 240 : windowWidth > 750 ? 240 : 125; // Dynamische Breite basierend auf der Fenstergröße
-
+  const logoWidth = windowWidth > 1100 ? 200 : windowWidth > 750 ? 200 : 125; // Dynamische Breite basierend auf der Fenstergröße
+  const iconWidth = windowWidth < 750 ? 45 : windowWidth < 1100 ? 45 : 45;
   return (
-    <StyledNavBar $scrollY={scrollY}>
-      <Link href="/">
-        <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
-      </Link>
-      <EyeAnimation color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="background-color 0.5s ease" />
-    </StyledNavBar>
+    <>
+      {isVisible && (
+        <StyledNavBar $scrollY={scrollY}>
+          <Link href="/">
+            <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
+          </Link>
+          <EyeAnimation color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="background-color 0.5s ease" iconWidth={iconWidth} />
+        </StyledNavBar>
+      )}
+    </>
   );
 }
 
@@ -52,7 +66,8 @@ const StyledNavBar = styled.div`
   z-index: 100;
   background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")};
 
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, opacity 10s ease;
+  opacity: ${({ isVisible }) => (isVisible ? 0 : 1)};
   padding: 0 ${theme.spacing.mobile.side};
 
   @media (min-width: 750px) {

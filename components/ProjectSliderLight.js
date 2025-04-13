@@ -59,9 +59,6 @@ export default function ProjectSliderLight({ projects }) {
   return (
     <SliderWrapper>
       <TitleandArrowContainer>
-        <TitleAndIndex>
-          <h4>{projects[currentSlide]?.title}</h4>
-        </TitleAndIndex>
         <ArrowContainer>
           <Arrow onClick={handlePrevClick}>
             <StyledPiArrowLeftLight />
@@ -106,38 +103,15 @@ const TitleandArrowContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 ${theme.spacing.mobile.side} ${theme.spacing.mobile.height.s} ${theme.spacing.mobile.side};
+  justify-content: end;
+  padding: 0 ${theme.spacing.mobile.side} ${theme.spacing.s} ${theme.spacing.mobile.side};
 
   @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side} ${theme.spacing.tablet.height.s} ${theme.spacing.tablet.side};
+    padding: 0 ${theme.spacing.tablet.side} ${theme.spacing.m} ${theme.spacing.tablet.side};
   }
 
   @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side} ${theme.spacing.desktop.height.s} ${theme.spacing.desktop.side};
-  }
-`;
-
-const TitleAndIndex = styled.div`
-  gap: ${theme.spacing.xxxs};
-
-  @media (min-width: 750px) {
-    gap: ${theme.spacing.s};
-  }
-
-  @media (min-width: 1100px) {
-    gap: ${theme.spacing.s};
-  }
-
-  h4 {
-    padding: 0;
-  }
-  span {
-    letter-spacing: 0.2rem;
-    font-size: ${theme.fontSizes.xs};
-    @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.m};
-    }
+    padding: 0 ${theme.spacing.desktop.side} ${theme.spacing.m} ${theme.spacing.desktop.side};
   }
 `;
 
@@ -145,7 +119,7 @@ const ArrowContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 110px;
-  top: ${theme.spacing.mobile.height.l};
+  /* top: ${theme.spacing.mobile.height.l};
   right: ${theme.spacing.mobile.side};
 
   @media (min-width: 750px) {
@@ -156,7 +130,7 @@ const ArrowContainer = styled.div`
   @media (min-width: 1100px) {
     top: ${theme.spacing.desktop.height.l};
     right: ${theme.spacing.desktop.side};
-  }
+  } */
 
   @media (max-width: 750px) {
     display: none;
@@ -164,28 +138,28 @@ const ArrowContainer = styled.div`
 `;
 
 const Arrow = styled.div`
+  font-size: ${theme.fontSizes.s};
+
+  @media (min-width: 750px) {
+    font-size: ${theme.fontSizes.m};
+  }
+  @media (min-width: 1100px) {
+    font-size: ${theme.fontSizes.l};
+  }
   position: relative;
   cursor: pointer;
-  font-size: ${theme.fontSizes.m};
   &:hover,
   :active {
     color: ${theme.color.green};
   }
-
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.l};
-  }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.xl};
-  }
 `;
 
 const StyledPiArrowLeftLight = styled(PiArrowLeftLight)`
-  transform: scale(0.8);
+  /* transform: scale(0.8); */
 `;
 
 const StyledPiArrowRightLight = styled(PiArrowRightLight)`
-  transform: scale(0.8);
+  /* transform: scale(0.8); */
 `;
 
 const StyledSlider = styled(Slider)`
@@ -207,17 +181,18 @@ const StyledSlider = styled(Slider)`
     gap: 0;
     z-index: 100;
 
-    bottom: -${theme.spacing.mobile.height.s};
+    bottom: -${theme.spacing.s};
     @media (min-width: 750px) {
-      bottom: -${theme.spacing.tablet.height.s};
+      bottom: -${theme.spacing.m};
     }
 
     @media (min-width: 1100px) {
-      bottom: -${theme.spacing.desktop.height.s};
+      bottom: -${theme.spacing.m};
     }
   }
 
   .slick-dots li {
+    margin: 0 -1px;
   }
 
   .slick-dots li:nth-child(n + 2):nth-child(-n + 4) {
@@ -225,20 +200,20 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-dots li button {
-    background-color: ${theme.color.green};
+    background-color: ${theme.color.dark};
     height: 10px;
     width: 10px;
     border: none;
     border-radius: 50%;
     opacity: 1;
     transition: opacity 0.3s ease;
-    transform: scale(0.8);
+    transform: scale(0.5);
   }
 
   .slick-dots li.slick-active button {
     opacity: 1;
-    background-color: ${theme.color.green};
-    transform: scale(1.2);
+    background-color: ${theme.color.dark};
+    transform: scale(0.8);
   }
 
   .slick-dots li button::before {
@@ -256,14 +231,14 @@ const Slide = styled.div`
   height: 100%;
 
   @media (max-width: 750px) {
-    aspect-ratio: 2/3;
+    aspect-ratio: 1/1;
   }
   @media (min-width: 750px) {
     height: ${theme.height.tablet};
   }
 
   @media (min-width: 1100px) {
-    height: ${theme.height.desktop};
+    height: ${theme.height.tablet};
   }
 `;
 

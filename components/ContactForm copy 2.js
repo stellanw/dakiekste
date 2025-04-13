@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { theme } from "@/styles";
-import Link from "next/link";
 
 export default function ContactForm() {
-  const initialFormData = {
+  const [formData, setFormData] = useState({
     name: "",
     company: "",
-    email: "",
     roles: [],
     otherRole: "",
     areas: [],
@@ -17,8 +15,8 @@ export default function ContactForm() {
     message: "",
     dates: "",
     acceptedTerms: false,
-  };
-  const [formData, setFormData] = useState(initialFormData);
+  });
+
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
@@ -38,7 +36,6 @@ export default function ContactForm() {
       setFormData({ ...formData, [name]: value });
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -59,8 +56,7 @@ export default function ContactForm() {
       }
 
       setResponseMessage("Danke für deine Nachricht! Wir melden uns schnellstmöglich.");
-
-      setFormData(initialFormData);
+      // Reset-Logik...
     } catch (err) {
       console.error("Fehler:", err);
       setResponseMessage("Ups! Da ist was schiefgelaufen.");
@@ -68,30 +64,27 @@ export default function ContactForm() {
       setLoading(false);
     }
   };
-
   return (
     <StyledFormWrapper>
       <StyledTextContainer>
-        <h2>Bereit, was zu starten?</h2>
-        <h3>Lass uns dein Projekt sichtbar machen – strategisch und visuell.</h3>
+        <h2>Let&apos;s Talk</h2>
+        <h3>Ob über das nächste Projekt sprechen oder uns einfach nur kennenlernen – melde dich bei uns.</h3>
       </StyledTextContainer>
       <StyledForm onSubmit={handleSubmit}>
         <SideBySideWrapper>
           <Wrapper>
-            <label htmlFor="name">Vor und Nachname</label>
+            {/* Name */}
+            <label htmlFor="name">Name</label>
             <StyledInput name="name" value={formData.name} onChange={handleChange} required />
           </Wrapper>
           <Wrapper>
+            {/* Firma */}
             <label htmlFor="company">Firma</label>
             <StyledInput name="company" value={formData.company} onChange={handleChange} />
           </Wrapper>
         </SideBySideWrapper>
-        <Wrapper>
-          <label htmlFor="email">Email</label>
-          <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
-        </Wrapper>
-
-        <MainLabel htmlFor="roles">Deine Rolle im Projekt</MainLabel>
+        {/* Rolle */}
+        <MainLabel htmlFor="roles">Rolle im Projekt</MainLabel>
         <StyledCheckboxGroup>
           {["Gründer*in", "Marketing", "HR / People & Culture", "Projektleitung"].map((role) => (
             <StyledLabel key={role}>
@@ -106,8 +99,8 @@ export default function ContactForm() {
           </StyledLabel>
           {formData.roles.includes("Sonstiges") && <StyledInput name="otherRole" value={formData.otherRole} placeholder="Was genau?" onChange={handleChange} />}
         </StyledCheckboxGroup>
-
-        <label htmlFor="areas">Was brauchst du?</label>
+        {/* WAS */}
+        <label htmlFor="areas">Was möchtest du?</label>
         <StyledCheckboxGroup>
           {["Branding", "Fotografie", "Video", "Webdesign", "Entwicklung"].map((area) => (
             <StyledLabel key={area}>
@@ -129,7 +122,7 @@ export default function ContactForm() {
           </StyledLabel>
         </StyledCheckboxGroup>
 
-        <label htmlFor="budget">Dein Budget</label>
+        <label htmlFor="budget">Budget</label>
         <StyledCheckboxGroup>
           {["< 1.000 €", "1.000 – 3.000 €", "3.000 – 6.000 €", "> 6.000 €"].map((range) => (
             <StyledLabel key={range}>
@@ -139,14 +132,21 @@ export default function ContactForm() {
           ))}
         </StyledCheckboxGroup>
 
-        <label htmlFor="message">Deine Nachricht</label>
+        <MainLabel htmlFor="message">Deine Nachricht</MainLabel>
         <StyledTextArea
           name="message"
           placeholder="Erzähl uns kurz, worum es geht oder was du dir vorstellst."
           value={formData.message}
           onChange={handleChange}
-          required
         />
+
+        {/* <Wrapper>
+          <MainLabel htmlFor="files">Dateien hochladen</MainLabel>
+          <p>Du hast schon ein Moodboard, ein Briefing oder Beispielbilder? Einfach hier hochladen:</p>
+          <FileInput id="fileUpload" name="files" type="file" multiple onChange={handleChange} />
+          <UploadLabel htmlFor="fileUpload">Dateien auswählen</UploadLabel>
+        </Wrapper> */}
+
         <MainLabel htmlFor="dates">Wann passt es dir für ein kurzes Vorgespräch?</MainLabel>
         <StyledInput
           name="dates"
@@ -155,10 +155,10 @@ export default function ContactForm() {
           onChange={handleChange}
         />
         <StyledCheckboxGroup>
-          <MainLabel>
-            <StyledLabel htmlFor="acceptedTerms">
+          <MainLabel htmlFor="acceptedTerms">
+            <StyledLabel>
               <input type="checkbox" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
-              Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
+              Ich akzeptiere die AGB & Datenschutzerklärung
             </StyledLabel>
           </MainLabel>
         </StyledCheckboxGroup>
@@ -200,7 +200,7 @@ const StyledTextContainer = styled.div`
   }
 
   h3 {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-weight: ${theme.fontWeight.bold};
   }
 `;
@@ -239,15 +239,10 @@ const StyledForm = styled.form`
   input {
     background-color: ${theme.color.dust};
     color: ${theme.color.beige};
-
-    &:active {
-      background-color: ${theme.color.green};
-    }
   }
 
   input::placeholder,
   textarea::placeholder {
-    font-style: italic;
     color: ${theme.color.green};
     letter-spacing: 0.007rem;
   }
@@ -262,12 +257,10 @@ const StyledForm = styled.form`
 `;
 
 const StyledButton = styled.button`
-  padding: ${theme.spacing.s} ${theme.spacing.m} ${theme.spacing.xs} ${theme.spacing.m};
-
+  padding: ${theme.spacing.s} ${theme.spacing.m};
   color: ${theme.color.green};
   background-color: ${theme.color.dust};
   font-size: ${theme.fontSizes.m};
-  font-weight: ${theme.fontWeight.bold};
   border-radius: ${theme.borderRadius};
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -306,7 +299,7 @@ const StyledCheckboxGroup = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   column-gap: ${theme.spacing.l};
-  row-gap: 0;
+  row-gap: ${theme.spacing.s};
   padding-bottom: ${theme.spacing.l};
 
   label {
@@ -325,14 +318,28 @@ const SideBySideWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: ${theme.spacing.l};
+  padding-bottom: ${theme.spacing.l};
 `;
 
-const StyledLink = styled(Link)`
-  font-weight: ${theme.fontWeight.bold};
+const FileInput = styled.input`
+  display: none;
+`;
+
+const UploadLabel = styled.label`
+  max-width: fit-content;
+  padding: ${theme.spacing.s} ${theme.spacing.m};
   color: ${theme.color.green};
-  padding: 0 0.4rem;
+  background-color: ${theme.color.dust};
+  font-size: ${theme.fontSizes.s};
+  border-radius: ${theme.borderRadius};
+  border: 1px solid ${theme.color.green};
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: ${theme.spacing.s};
+  transition: all 0.3s ease;
 
   &:hover {
-    color: ${theme.color.beige};
+    background-color: ${theme.color.green};
+    color: ${theme.color.dust};
   }
 `;

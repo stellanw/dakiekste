@@ -1,7 +1,26 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { theme } from "@/styles";
+import { PiArrowDownLight } from "react-icons/pi";
 
-export default function Header({ videoSrc, src, headlineThin, headlineBold1, headlineBold2 }) {
+const bounce = keyframes`
+0% {
+  transform: translateY(0);
+}
+30% {
+  transform: translateY(-10px);
+}
+50% {
+  transform: translateY(0);
+}
+70% {
+  transform: translateY(-5px);
+}
+100% {
+  transform: translateY(0);
+}
+`;
+
+export default function Header({ videoSrc, src, headlineThin, headlineBold1, headlineBold2, headline2 }) {
   return (
     <>
       {/* <StyledHeadContainer src={src}> */}
@@ -12,10 +31,13 @@ export default function Header({ videoSrc, src, headlineThin, headlineBold1, hea
         </VideoBackground>
         <StyledHeadlineContainer>
           <h1>
-            {headlineBold1} <br /> <span>{headlineThin}&nbsp;</span>
-            {headlineBold2}
+            {headlineBold1} {headlineThin} {headlineBold2}
+          </h1>
+          <h1>
+            <span>{headline2}</span>
           </h1>
         </StyledHeadlineContainer>
+        <StyledPiArrowDownLight />
       </StyledHeadContainer>
     </>
   );
@@ -43,7 +65,10 @@ export default function Header({ videoSrc, src, headlineThin, headlineBold1, hea
 // `;
 
 const StyledHeadContainer = styled.div`
+  display: flex;
   position: relative;
+  justify-content: center;
+  align-items: end;
   width: 100%;
   height: 400px;
   overflow: hidden;
@@ -80,28 +105,48 @@ const VideoBackground = styled.video`
 
 const StyledHeadlineContainer = styled.div`
   display: flex;
+  flex-direction: column;
   position: absolute;
-  left: ${theme.spacing.xl};
-  bottom: ${theme.spacing.xl};
+  text-align: center;
+  /* left: ${theme.spacing.mobile.side};
+  bottom: ${theme.spacing.xl}; */
+  /* top: 50%; */
+  /* left: 50%; */
   z-index: 2;
+  bottom: 10rem;
 
-  @media (min-width: 750px) {
+  /* @media (min-width: 750px) {
     margin: 0;
-    left: ${theme.spacing.xxl};
+    left: ${theme.spacing.tablet.side};
     bottom: ${theme.spacing.xxl};
   }
   @media (min-width: 1100px) {
     margin: 0;
-    left: ${theme.spacing.xxl};
+    left: ${theme.spacing.desktop.side};
     bottom: ${theme.spacing.xxl};
-  }
+  } */
 
   h1 {
     margin: 0 0 -10px -6px;
     color: ${theme.color.beige};
+    text-transform: uppercase;
   }
   span {
     font-weight: 200;
-    margin: 0 -4px 0 0;
+    width: 100%;
+  }
+`;
+
+const StyledPiArrowDownLight = styled(PiArrowDownLight)`
+  position: absolute;
+  left: 50%;
+  bottom: 4rem;
+  font-size: ${theme.fontSizes.xl};
+  color: ${theme.color.beige};
+
+  animation: ${bounce} 3s ease infinite;
+
+  @media (max-width: 750px) {
+    display: none;
   }
 `;
