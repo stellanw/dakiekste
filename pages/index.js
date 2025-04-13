@@ -95,59 +95,6 @@ export default function HomePage() {
         ]}
       />
       <section id="services">
-        <SlideBox
-          autoplay={false}
-          headline1="Leistungen"
-          headline2={
-            <>
-              Alles, was du für deinen Erfolg brauchst –<br />
-              aus einer Hand.
-            </>
-          }
-          boxData={[
-            {
-              label: "Foto",
-              title: "Branding FOTOGRAFIE",
-              text: "Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren.",
-            },
-            {
-              label: "Foto",
-              title: "Mitarbeiter*innen & Buisness portraits",
-              text: "Zeige dich und dein Team – auch entscheidend, um die richtigen Talente anzuziehen.",
-            },
-            {
-              label: "Foto & Video",
-              title: "Social Media Content",
-              text: "Individueller Foto-Content vermittelt mehr Persönlichkeit als anonyme Stockfotos.",
-            },
-            {
-              label: "Foto",
-              title: "Eventfotografie",
-              text: "Halte wichtige Momente fest – von Konferenzen bis Firmenevents.",
-            },
-            {
-              label: "Foto & Video",
-              title: "Employer Branding",
-              text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
-            },
-            {
-              label: "Web Development",
-              title: "Website",
-              text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
-            },
-            {
-              label: "Design",
-              title: "Logo Design",
-              text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
-            },
-            {
-              label: "Design",
-              title: "Visual Corporate Identity",
-              text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
-            },
-          ]}
-        />
-        <h3 style={{ padding: 0, textAlign: "center" }}>---------------- Alternative Scroll ----------------</h3>
         <ScrollBox
           autoplay={false}
           headline1="Leistungen"
@@ -159,41 +106,49 @@ export default function HomePage() {
           }
           boxData={[
             {
+              image: studioImage1,
               label: "Foto",
               title: "Branding FOTOGRAFIE",
               text: "Setze auf nahbare Fotos, um Vertrauen aufzubauen und deine Marke klar zu präsentieren.",
             },
             {
+              image: studioImage2,
               label: "Foto",
               title: "Mitarbeiter*innen & Buisness portraits",
               text: "Zeige dich und dein Team – auch entscheidend, um die richtigen Talente anzuziehen.",
             },
             {
+              image: studioImage3,
               label: "Foto & Video",
               title: "Social Media Content",
               text: "Individueller Foto-Content vermittelt mehr Persönlichkeit als anonyme Stockfotos.",
             },
             {
+              image: studioImage4,
               label: "Foto",
               title: "Eventfotografie",
               text: "Halte wichtige Momente fest – von Konferenzen bis Firmenevents.",
             },
             {
+              image: studioImage5,
               label: "Foto & Video",
               title: "Employer Branding",
               text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
             },
             {
+              image: studioImage6,
               label: "Web Development",
               title: "Website",
               text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
             },
             {
+              image: studioImage7,
               label: "Design",
               title: "Logo Design",
               text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
             },
             {
+              image: studioImage8,
               label: "Design",
               title: "Visual Corporate Identity",
               text: "Stärke deine Arbeitgebermarke mit Bildern, die zeigen, was dich ausmacht.",
@@ -248,59 +203,68 @@ export default function HomePage() {
         alt="Description of image"
       />
 
-      <SlideBox
-        autoplay={false}
-        headline1="Sorgloser Ablauf"
-        headline2={
-          <>
-            Konzentriere dich auf das Wesentliche <br />
-            während wir uns um den Rest kümmern.
-          </>
-        }
-        boxData={[
-          {
-            label: "",
-            title: "ERSTGESPRÄCH & KONZEPTION",
-            text: "Mit einer detaillierten Analyse deiner Werte und Ziele entwickeln wir eine Strategie die deine Positionierung klar stärkt.",
-          },
-          {
-            label: "",
-            title: "SHOOTING, ABLAUF & ORGANISATION",
-            text: "Wir erstellen Briefings & Timetables, organisieren alles fürs Shooting und kümmern uns um Styling, Setdesign und ums Hair & Make-up.",
-          },
-          {
-            label: "",
-            title: "HOCHWERTIGES VISUELLES FOOTAGE",
-            text: "Die fertigen, professionell bearbeiteten Fotos stehen dir zeitnah zur Verfügung und sind sofort für alle Kanäle einsatzbereit.",
-          },
-          {
-            label: "",
-            title: "KREATIVE POST-PRODUKTION",
-            text: "In der Nachbearbeitung sorgen wir für den perfekten Feinschliff, um deine Fotos noch ansprechender und hochwertiger zu gestalten.",
-          },
-          {
-            label: "",
-            title: "MARKETING-STRATEGIEN",
-            text: "Wir unterstützen dich bei der optimalen Nutzung der Inhalte für deine Marketingkanäle – von Social Media bis zur Webseite.",
-          },
-          {
-            label: "",
-            title: "MESSBARE ERGEBNISSE",
-            text: "Unsere Arbeit zielt darauf ab, sichtbare und messbare Erfolge für deine Marke zu erzielen.",
-          },
-          {
-            label: "",
-            title: "LANGFRISTIGE UNTERSTÜTZUNG",
-            text: "Auch nach Projektabschluss stehen wir für zukünftige Anpassungen und Erweiterungen zur Verfügung.",
-          },
-          {
-            label: "",
-            title: "KUNDENFEEDBACK & OPTIMIERUNG",
-            text: "Wir nehmen uns Zeit für dein Feedback, um unsere Leistungen weiter zu optimieren und auf deine Bedürfnisse abzustimmen.",
-          },
-        ]}
-      />
-
+      <section id="workflow">
+        <ScrollBox
+          autoplay={false}
+          headline1="Sorgloser Ablauf"
+          headline2={
+            <>
+              Konzentriere dich auf das Wesentliche <br />
+              während wir uns um den Rest kümmern.
+            </>
+          }
+          boxData={[
+            {
+              image: studioImage1,
+              label: "",
+              title: "ERSTGESPRÄCH & KONZEPTION",
+              text: "Mit einer detaillierten Analyse deiner Werte und Ziele entwickeln wir eine Strategie die deine Positionierung klar stärkt.",
+            },
+            {
+              image: studioImage2,
+              label: "",
+              title: "SHOOTING, ABLAUF & ORGANISATION",
+              text: "Wir erstellen Briefings & Timetables, organisieren alles fürs Shooting und kümmern uns um Styling, Setdesign und ums Hair & Make-up.",
+            },
+            {
+              image: studioImage3,
+              label: "",
+              title: "HOCHWERTIGES VISUELLES FOOTAGE",
+              text: "Die fertigen, professionell bearbeiteten Fotos stehen dir zeitnah zur Verfügung und sind sofort für alle Kanäle einsatzbereit.",
+            },
+            {
+              image: studioImage4,
+              label: "",
+              title: "KREATIVE POST-PRODUKTION",
+              text: "In der Nachbearbeitung sorgen wir für den perfekten Feinschliff, um deine Fotos noch ansprechender und hochwertiger zu gestalten.",
+            },
+            {
+              image: studioImage5,
+              label: "",
+              title: "MARKETING-STRATEGIEN",
+              text: "Wir unterstützen dich bei der optimalen Nutzung der Inhalte für deine Marketingkanäle – von Social Media bis zur Webseite.",
+            },
+            {
+              image: studioImage6,
+              label: "",
+              title: "MESSBARE ERGEBNISSE",
+              text: "Unsere Arbeit zielt darauf ab, sichtbare und messbare Erfolge für deine Marke zu erzielen.",
+            },
+            {
+              image: studioImage7,
+              label: "",
+              title: "LANGFRISTIGE UNTERSTÜTZUNG",
+              text: "Auch nach Projektabschluss stehen wir für zukünftige Anpassungen und Erweiterungen zur Verfügung.",
+            },
+            {
+              image: studioImage8,
+              label: "",
+              title: "KUNDENFEEDBACK & OPTIMIERUNG",
+              text: "Wir nehmen uns Zeit für dein Feedback, um unsere Leistungen weiter zu optimieren und auf deine Bedürfnisse abzustimmen.",
+            },
+          ]}
+        />
+      </section>
       <TextSlider
         autoplay={true}
         reviews={[
@@ -406,30 +370,32 @@ export default function HomePage() {
           },
         ]}
       />
-      <StudioBox
-        topline="KLUB STUDIO"
-        headline="WILLKOMMEN IN 
+      <section id="studio">
+        <StudioBox
+          topline="KLUB STUDIO"
+          headline="WILLKOMMEN IN 
 UNSEREM KLUB STUDIO"
-        text1="Unser Fotostudio bietet eine große Auswahl an Hintergründen, Stühlen, Requisiten und hochwertigem Equipment. Mit unserem Tageslichtstudio und direkten Location-Sets in der Nähe sowie kostenfreien Parkplätzen könnt ihr eure Visionen perfekt umsetzen. Die Studio-Nutzung ist im Preis inbegriffen."
-        text2="Es könnte hier auch noch etwas mehr noch zum Studio stehen, das hier ist ein Beispiel wie es aussehen würde wenn hier noch etwas mehr Text stehen würde."
-        slides={[
-          {
-            image: studioImage1,
-            title: "Hair & Makeup Bereich",
-            description: "Unser Beatybereich bietet einen Spiegel, einen Stylingtisch, eine Kleiderstange ich bin eine Beschreibung ",
-          },
-          {
-            image: studioImage3,
-            title: "Fotostudio-Fläche",
-            description: "mit 80m2 Studiofläche beschreibe ich hier was das bringt",
-          },
-          {
-            image: studioImage4,
-            title: "Sitzbereich",
-            description: "Auf einem Holzpodest gemütlichkeit work am Arbeitsplatz beschreibung",
-          },
-        ]}
-      />
+          text1="Unser Fotostudio bietet eine große Auswahl an Hintergründen, Stühlen, Requisiten und hochwertigem Equipment. Mit unserem Tageslichtstudio und direkten Location-Sets in der Nähe sowie kostenfreien Parkplätzen könnt ihr eure Visionen perfekt umsetzen. Die Studio-Nutzung ist im Preis inbegriffen."
+          text2="Es könnte hier auch noch etwas mehr noch zum Studio stehen, das hier ist ein Beispiel wie es aussehen würde wenn hier noch etwas mehr Text stehen würde."
+          slides={[
+            {
+              image: studioImage1,
+              title: "Hair & Makeup Bereich",
+              description: "Unser Beatybereich bietet einen Spiegel, einen Stylingtisch, eine Kleiderstange ich bin eine Beschreibung ",
+            },
+            {
+              image: studioImage3,
+              title: "Fotostudio-Fläche",
+              description: "mit 80m2 Studiofläche beschreibe ich hier was das bringt",
+            },
+            {
+              image: studioImage4,
+              title: "Sitzbereich",
+              description: "Auf einem Holzpodest gemütlichkeit work am Arbeitsplatz beschreibung",
+            },
+          ]}
+        />
+      </section>
       <ImageElement image={studioImage4} alt="Bildbeschreibung" />
       <section id="pricing">
         <Pricing

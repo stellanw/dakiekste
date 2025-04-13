@@ -4,7 +4,7 @@ import styled, { keyframes, css } from "styled-components";
 import { theme } from "@/styles";
 import AugenIcon from "@/Icons/AugenIcon";
 
-export default function EyeAnimation({ color }) {
+export default function EyeAnimation({ color, iconWidth }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [animationActive, setAnimationActive] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
@@ -37,7 +37,7 @@ export default function EyeAnimation({ color }) {
     const dy = cursorY - elementY;
 
     let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-    angle -= 20; // Apply your additional adjustment here
+    angle -= 45; // Apply your additional adjustment here
 
     // Normalize the angle to stay within -180 to 180 range
     angle = ((angle + 180) % 360) - 180;
@@ -68,23 +68,43 @@ export default function EyeAnimation({ color }) {
   return (
     <EyeAnimationContainer onClick={toggleMenu} color={color}>
       {/* <h4>menu »</h4> */}
+
       <Eyes>
         <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
-          <AugenIcon color={color} />
+          <AugenIcon color={color} width={iconWidth} height={iconWidth} style={{ transition: "width 5s ease, height 5s ease" }} />
         </StyledIconWrapper>
         <StyledIconWrapper ref={eyesRef} animationActive={animationActive} rotation={rotation}>
-          <AugenIcon color={color} />
+          <AugenIcon color={color} width={iconWidth} height={iconWidth} style={{ transition: "width 5s ease, height 5s ease" }} />
         </StyledIconWrapper>
       </Eyes>
+
       {menuOpen && (
         <StyledMenu>
           <LinkList>
-            <Link href="/">Home</Link>
-            <Link href="#pricing">Preise</Link>
-            <Link href="#services">Leistungen</Link>
-            <Link href="#team">Team</Link>
-            <Link href="#faq">faq</Link>
-            <Link href="#contact">Kontakt</Link>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="#pricing">Preise</Link>
+            </li>
+            <li>
+              <Link href="#services">Leistungen</Link>
+            </li>
+            <li>
+              <Link href="#workflow">Workflow</Link>
+            </li>
+            <li>
+              <Link href="#team">Team</Link>
+            </li>
+            <li>
+              <Link href="#studio">Studio</Link>
+            </li>
+            <li>
+              <Link href="#faq">faq</Link>
+            </li>
+            <li>
+              <Link href="#contact">Kontakt</Link>
+            </li>
           </LinkList>
         </StyledMenu>
       )}
@@ -108,11 +128,6 @@ const EyeAnimationContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
-  transform: scale(0.6);
-
-  @media (max-width: 750px) {
-    transform: scale(0.4);
-  }
 
   h4 {
     padding: 0 2rem 0 0;
@@ -125,43 +140,56 @@ const StyledIconWrapper = styled.div`
   display: flex;
   align-items: center;
   z-index: 15;
-  margin: 0 -1.85rem;
+  margin: 0 -1.7rem;
+  @media (max-width: 750px) {
+    margin: 0 -1.7rem;
+  }
+  transform: rotate(${({ rotation }) => rotation}deg);
   transition: transform 0.5s ease;
   transform: scaleX(-1);
   ${({ animationActive, rotation }) =>
-    animationActive &&
-    css`
-      animation: ${rotateAnimation} 0.8s linear forwards;
-    `}
-  transform: rotate(${({ rotation }) => rotation}deg);
+    animationActive
+      ? css`
+          animation: ${rotateAnimation} 0.8s linear forwards;
+        `
+      : css`
+          transform: rotate(${rotation}deg);
+        `}
 `;
 
 const StyledMenu = styled.div`
   position: absolute;
   z-index: 0;
-  top: -2.2rem;
-  right: -2.4rem;
   background-color: ${theme.color.green};
   padding: ${theme.spacing.xxl};
   border-radius: 0 0 ${theme.borderRadius} ${theme.borderRadius};
-  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
-  font-size: ${theme.fontSizes.xxl};
+  top: -2.2rem;
+  right: calc(${theme.spacing.desktop.side} - 1.5rem);
+  @media (max-width: 750px) {
+    right: calc(${theme.spacing.mobile.side} - 1.5rem);
+    padding: ${theme.spacing.m} ${theme.spacing.l};
+  }
   a {
     display: block;
     padding: ${theme.spacing.m} 0;
-
+    font-size: ${theme.fontSizes.m};
     text-decoration: none;
+    text-transform: uppercase;
 
     &:hover {
       color: ${theme.color.beige};
     }
+
+    @media (max-width: 750px) {
+      font-size: ${theme.fontSizes.xs};
+      padding: ${theme.spacing.s} 0;
+    }
   }
 `;
 
-const LinkList = styled.div`
+const LinkList = styled.ul`
   padding-top: ${theme.spacing.xxxl};
-  a {
-    text-transform: uppercase;
-    font-size: ${theme.fontSizes.xl};
+  @media (max-width: 750px) {
+    padding-top: ${theme.spacing.xxl};
   }
 `;

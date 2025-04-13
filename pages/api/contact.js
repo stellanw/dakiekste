@@ -2,17 +2,23 @@ import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    const { name, email, subject, message } = req.body;
+    const { email, name, company, roles, otherRole, areas, otherArea, unsure, budget, message, dates, acceptedTerms } = req.body;
 
     const formattedMessage = message.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>");
 
     const htmlContent = `
-  <p><strong>Name:</strong> ${name}</p>
-  <p><strong>Emailadresse Kunde:</strong> ${email}</p>
-  <p><strong>Betreff:</strong> ${subject}</p>
-  <p><strong>Nachricht:</strong></p>
-  <p>${formattedMessage}</p>
-`;
+      <p><strong>Name:</strong> ${name}</p>
+      ${company ? `<p><strong>Firma:</strong> ${company}</p>` : ""}
+          <p><strong>Emailadresse:</strong> ${email}</p>
+      <p><strong>Rolle im Projekt:</strong> ${roles.join(", ")}${roles.includes("Sonstiges") && otherRole ? ` (${otherRole})` : ""}</p>
+      <p><strong>Bereich(e):</strong> ${areas.join(", ")}${areas.includes("Sonstiges") && otherArea ? ` (${otherArea})` : ""}</p>
+      ${unsure ? "<p><strong>Hinweis:</strong> Die Person ist sich noch unsicher und möchte sprechen.</p>" : ""}
+      <p><strong>Budget:</strong> ${budget.join(", ")}</p>
+      <p><strong>Nachricht:</strong></p>
+      <p>${formattedMessage}</p>
+      <p><strong>Terminoptionen:</strong> ${dates}</p>
+      <p><strong>AGB & Datenschutz akzeptiert:</strong> ${acceptedTerms ? "Ja" : "Nein"}</p>
+    `;
 
     const transporter = nodemailer.createTransport({
       host: "smtp.strato.de",
@@ -28,8 +34,8 @@ export default async function handler(req, res) {
       await transporter.sendMail({
         from: `"Kontaktformular" <${process.env.EMAIL_FROM}>`,
         to: process.env.EMAIL_TO,
-        subject: subject,
-        text: `Message from ${name} (${email}):\n\n${formattedMessage}`,
+        subject: "Neue Anfrage über das Kontaktformular",
+        text: `Neue Anfrage von ${name}:\n\n${message}`,
         html: htmlContent,
       });
 
