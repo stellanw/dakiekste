@@ -232,7 +232,7 @@ export default function StudioBox({ topline, headline, text1, text2, slides }) {
           {slides.map((slide, index) => (
             <Slide key={index}>
               <ImageWrapper>
-                <StyledImage src={slide.image} alt={slide.title} fill />
+                <StyledImage src={slide.image} alt={slide.title} layout="fill" />
               </ImageWrapper>
 
               <h4>{slide.title}</h4>
