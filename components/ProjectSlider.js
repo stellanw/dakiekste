@@ -45,7 +45,7 @@ export default function ProjectSlider({ projects, dots }) {
       {
         breakpoint: 750,
         settings: {
-          dots: false,
+          dots: true,
         },
       },
     ],
@@ -79,7 +79,7 @@ export default function ProjectSlider({ projects, dots }) {
           0{currentSlide + 1}
           /{projects.length} 
         </span> */}
-        <h4>{projects[currentSlide]?.title}</h4>
+        {/* <h4>{projects[currentSlide]?.title}</h4> */}
       </TitleAndIndex>
       <ArrowContainer>
         <Arrow onClick={handlePrevClick}>
@@ -117,6 +117,10 @@ const StyledSlider = styled(Slider)`
     gap: 0;
     margin: 0;
     z-index: 100;
+
+    @media (max-width: 750px) {
+      bottom: ${theme.spacing.ml};
+    }
   }
 
   .slick-dots li {
@@ -124,6 +128,7 @@ const StyledSlider = styled(Slider)`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 -1px;
   }
 
   .slick-dots li:nth-child(n + 2):nth-child(-n + 4) {
@@ -131,20 +136,20 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-dots li button {
-    background-color: ${theme.color.green};
+    background-color: ${theme.color.dark};
     height: 10px;
     width: 10px;
     border: none;
     border-radius: 50%;
     opacity: 1;
     transition: opacity 0.3s ease;
-    transform: scale(0.8);
+    transform: scale(0.5);
   }
 
   .slick-dots li.slick-active button {
     opacity: 1;
-    background-color: ${theme.color.green};
-    transform: scale(1.2);
+
+    transform: scale(0.8);
   }
 
   .slick-dots li button::before {
@@ -245,9 +250,7 @@ const ArrowContainer = styled.div`
   width: 110px;
 
   @media (max-width: 750px) {
-    width: 60px;
-    top: ${theme.spacing.m};
-    right: ${theme.spacing.xl};
+    display: none;
   }
 `;
 

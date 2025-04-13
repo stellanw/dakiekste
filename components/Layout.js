@@ -26,6 +26,7 @@ const Layout = ({ children }) => {
           headlineBold1="DEIN IMAGE"
           headlineThin="KLAR"
           headlineBold2="IM BLICK"
+          headline2="mit Bildwelten die wirken"
         />
       </header>
       <main>{children}</main>

@@ -22,7 +22,7 @@ export const theme = {
     xxl: "2.5rem", // 40px
     xxxl: "3rem", // 48px
     xxxxl: "4rem",
-    xxxxxl: "5rem", // 65px
+    xxxxxl: "4.5rem", // 65px
   },
 
   spacing: {
@@ -80,13 +80,13 @@ export const theme = {
         xl: "6.5rem", // 104px (Reduziert von 8.75rem auf 6.5rem)
         xxl: "8rem", // 128px (Reduziert von 11.25rem auf 8rem)
       },
-      side: "2.6rem",
+      side: "1.7rem",
     },
   },
 
   height: {
     mobile: "550px",
-    tablet: "900px",
+    tablet: "800px",
     desktop: "1000px",
   },
 
@@ -169,8 +169,8 @@ h1{
     line-height: ${theme.lineHeight.xxxxl};
   }
   @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.xxxxxl};
-    line-height: ${theme.lineHeight.xxxxxl};
+    font-size: ${theme.fontSizes.xxxl};
+    line-height: ${theme.lineHeight.xxxxl};
   }
 }
 
