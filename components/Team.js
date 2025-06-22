@@ -3,16 +3,66 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import Link from "next/link";
 import { PiEnvelopeSimpleLight } from "react-icons/pi";
+import { useRef, useEffect } from "react";
 
-export default function Team({ className, teamMembers = [], justify }) {
+export default function Team({ teamMembers = [] }) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      container.classList.add("dragging");
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      container.classList.remove("dragging");
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      container.classList.remove("dragging");
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5; // Geschwindigkeit
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    container.addEventListener("mousedown", handleMouseDown);
+    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("mouseup", handleMouseUp);
+    container.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      container.removeEventListener("mousedown", handleMouseDown);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("mouseup", handleMouseUp);
+      container.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   const linkItems = [
     {
       href: "email",
       icon: <PiEnvelopeSimpleLight />,
     },
   ];
+
   return (
-    <StyledTeamMembersContainer justify={justify} className={className}>
+    <StyledTeamMembersContainer ref={containerRef}>
       {teamMembers.map((member, index) => (
         <StyledTeamMemberContainer key={index}>
           <StyledMemberImageContainer>
@@ -25,7 +75,12 @@ export default function Team({ className, teamMembers = [], justify }) {
           </p>
           {/* <StyledLinkWrapper>
             {linkItems.map((linkItem, i) => (
-              <Link key={i} href={member.email} target="_blank" rel="noopener noreferrer">
+              <Link
+                key={i}
+                href={member.email}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {linkItem.icon}
               </Link>
             ))}
@@ -38,34 +93,54 @@ export default function Team({ className, teamMembers = [], justify }) {
 
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  background-color: ${theme.color.beige};
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: ${theme.spacing.mobile.side};
+  background-color: transparent;
   width: 100%;
-  gap: ${theme.spacing.l};
-  justify-content: ${({ justify }) => justify};
-  padding: 0 ${theme.spacing.mobile.side} ${theme.spacing.mobile.height.l} ${theme.spacing.mobile.side};
+  user-select: none;
+  padding: 0 0 ${theme.spacing.mobile.height.l} 0;
 
   @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side} ${theme.spacing.tablet.height.l} ${theme.spacing.tablet.side};
-    gap: ${theme.spacing.m};
-    flex-wrap: nowrap;
+    padding: 0 0 ${theme.spacing.tablet.height.l} 0;
   }
 
   @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side} ${theme.spacing.desktop.height.l} ${theme.spacing.desktop.side};
-    gap: ${theme.spacing.xxl};
+    padding: 0 0 ${theme.spacing.desktop.height.l} 0;
   }
 
-  &.extra-padding {
-    padding-bottom: ${theme.spacing.mobile.height.l};
+  min-width: 250px;
 
-    @media (min-width: 750px) {
-      padding-bottom: ${theme.spacing.tablet.height.l};
-    }
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 1px;
+  }
 
-    @media (min-width: 1100px) {
-      padding-bottom: ${theme.spacing.desktop.height.l};
-    }
+  &::-webkit-scrollbar-track {
+    background: ${theme.color.dark}; /* Hintergrund der Track */
+    border-radius: 0; /* Kein Border-Radius für den Track */
+    margin: ${theme.spacing.desktop.side};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${theme.color.dark};
+    border-radius: 0;
+    outline: 2px solid ${theme.color.dark};
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: ${theme.color.green};
+  }
+  /* & {
+    scrollbar-width: thin; /// Optionen: auto, thin, none
+    scrollbar-color: ${theme.color.green} ${theme.color.beige}; /// thumb color, track color
+  } */
+
+  cursor: grab;
+
+  &.dragging {
+    cursor: grabbing;
   }
 
   p {
@@ -77,17 +152,47 @@ const StyledTeamMembersContainer = styled.div`
   }
 `;
 
+const ScrollStartSpacer = styled.div`
+  flex-shrink: 0;
+  width: ${theme.spacing.mobile.side};
+
+  @media (min-width: 750px) {
+    width: ${theme.spacing.desktop.side};
+  }
+`;
+
 const StyledTeamMemberContainer = styled.div`
+  scroll-snap-align: start;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  width: 300px;
-  padding: 0 0 ${theme.spacing.m} 0;
+  width: 350px;
+  padding: 0 0 0 ${theme.spacing.mobile.side};
+
+  @media (min-width: 750px) {
+    padding: 0 0 0 ${theme.spacing.tablet.side};
+  }
+
+  @media (min-width: 1100px) {
+    padding: 0 0 0 ${theme.spacing.desktop.side};
+  }
+
+  &:last-child {
+    margin: 0 ${theme.spacing.mobile.side} 0 0;
+
+    @media (min-width: 750px) {
+      margin: 0 ${theme.spacing.tablet.side} 0 0;
+    }
+
+    @media (min-width: 1100px) {
+      margin: 0 ${theme.spacing.desktop.side} 0 0;
+    }
+  }
 `;
 
 const StyledMemberImageContainer = styled.div`
   height: 450px;
-  padding: 0;
   padding-bottom: ${theme.spacing.m};
   overflow: hidden;
 `;

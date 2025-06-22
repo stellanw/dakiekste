@@ -52,11 +52,7 @@ export default function Pricing({ pricingData, servicesData }) {
   // Absicherung: servicesData überprüfen, bevor es gefiltert wird
   const filteredServices =
     servicesData && servicesData.length > 0
-      ? servicesData.filter(
-          (service) =>
-            service.category === selectedCategory["Was brauchst du?"] ||
-            service.category === "Weiteres"
-        )
+      ? servicesData.filter((service) => service.category === selectedCategory["Was brauchst du?"] || service.category === "Weiteres")
       : [];
 
   const applyDiscount = (price) => {
@@ -90,17 +86,18 @@ export default function Pricing({ pricingData, servicesData }) {
   }, []);
 
   return (
-    (<PricingContainer>
+    <PricingContainer>
       <HeadlineContainer>
-        <h2>PREISKALKULATION</h2>
+        <h2>PREISKALKULATOR</h2>
         {isMobile ? (
-          (<h3>Dein Erfolg einfach kalkuliert.</h3>) // Mobiler Text
+          <h3>Dein Erfolg einfach kalkuliert.</h3> // Mobiler Text
         ) : (
-          <h3>
-            Dein Invest für einen visuellen Erfolg, <br />
-            der nachhaltig wirkt.
-          </h3>
+          <h3>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h3>
         )}
+        <p>
+          Unser Preiskalkulator gibt dir eine erste Orientierung: transparent, unverbindlich und ohne Angebotsanfrage. <br />
+          Du siehst auf einen Blick, ab welchem Budget es bei uns losgeht – als grobe Orientierung für deinen Invest.
+        </p>
       </HeadlineContainer>
       <CalculatorContainer>
         <CategoriesContainer>
@@ -151,29 +148,18 @@ export default function Pricing({ pricingData, servicesData }) {
                   <Service>
                     <ServiceTitleGroup>
                       <TitleCheckboxContainer>
-                        <input
-                          type="checkbox"
-                          checked={selectedServices.includes(service)}
-                          onChange={() => handleServiceSelection(service)}
-                        />
+                        <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceSelection(service)} />
                         <ServiceTitle>{service.title}</ServiceTitle>
                       </TitleCheckboxContainer>
 
-                      <StyledArrowIcon
-                        className={isOpen[index] ? "rotate" : ""}
-                        onClick={() => toggleOverlay(index)}
-                      />
+                      <StyledArrowIcon className={isOpen[index] ? "rotate" : ""} onClick={() => toggleOverlay(index)} />
                     </ServiceTitleGroup>
                     {isOpen[index] && (
                       <OverlayDescription>
                         <Description>
                           {service.descriptions[selectedCategory["Pakete"]]}
                           <Price>
-                            Preis ab{" "}
-                            <span>
-                              {applyDiscount(service.price[selectedCategory["Pakete"]])} EURO
-                            </span>
-                            *
+                            Preis ab <span>{applyDiscount(service.price[selectedCategory["Pakete"]])} EURO</span>*
                           </Price>
                         </Description>
                       </OverlayDescription>
@@ -187,7 +173,7 @@ export default function Pricing({ pricingData, servicesData }) {
           </Services>
         </ServiceContainer>
       </CalculatorContainer>
-    </PricingContainer>)
+    </PricingContainer>
   );
 }
 
@@ -233,6 +219,9 @@ const HeadlineContainer = styled.div`
 
     @media (min-width: 1100px) {
     }
+  }
+
+  p {
   }
 `;
 

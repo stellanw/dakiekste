@@ -26,15 +26,15 @@ export default function Header({ videoSrc, src, headlineThin, headlineBold1, hea
       {/* <StyledHeadContainer src={src}> */}
       <StyledHeadContainer>
         <VideoBackground autoPlay loop muted playsInline>
-          <source src={videoSrc} type="video/mp4" />
+          <source src="/videos/Klubstudio_video.mp4" type="video/mp4" />
           Dein Browser unterstützt das Video-Tag nicht.
         </VideoBackground>
         <StyledHeadlineContainer>
+          <h2>VISUAL CONTENT DER SICHTBAR MACHT</h2>
           <h1>
-            {headlineBold1} {headlineThin} {headlineBold2}
-          </h1>
-          <h1>
-            <span>{headline2}</span>
+            WER GESEHEN WIRD
+            <br />
+            GESTALTET MIT
           </h1>
         </StyledHeadlineContainer>
         <StyledPiArrowDownLight />
@@ -67,7 +67,7 @@ export default function Header({ videoSrc, src, headlineThin, headlineBold1, hea
 const StyledHeadContainer = styled.div`
   display: flex;
   position: relative;
-  justify-content: center;
+  justify-content: start;
   align-items: end;
   width: 100%;
   height: 400px;
@@ -107,15 +107,15 @@ const StyledHeadlineContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
-  text-align: center;
+  text-align: start;
   /* left: ${theme.spacing.mobile.side};
   bottom: ${theme.spacing.xl}; */
   /* top: 50%; */
   /* left: 50%; */
   z-index: 2;
-  bottom: 10rem;
-
-  /* @media (min-width: 750px) {
+  bottom: ${theme.spacing.xxl};
+  left: ${theme.spacing.mobile.side};
+  @media (min-width: 750px) {
     margin: 0;
     left: ${theme.spacing.tablet.side};
     bottom: ${theme.spacing.xxl};
@@ -124,10 +124,15 @@ const StyledHeadlineContainer = styled.div`
     margin: 0;
     left: ${theme.spacing.desktop.side};
     bottom: ${theme.spacing.xxl};
-  } */
+  }
 
   h1 {
     margin: 0 0 -10px -6px;
+    color: ${theme.color.beige};
+    text-transform: uppercase;
+  }
+  h2 {
+    margin: 0 0 -5px -6px;
     color: ${theme.color.beige};
     text-transform: uppercase;
   }

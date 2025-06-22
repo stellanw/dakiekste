@@ -3,7 +3,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { theme } from "@/styles";
 import DakieksteLogo from "@/Icons/DakieksteLogo";
-import EyeAnimation from "./EyeAnimation";
+import Menu from "./Menu";
 
 export default function NavBar() {
   const [scrollY, setScrollY] = useState(0);
@@ -47,9 +47,9 @@ export default function NavBar() {
       {isVisible && (
         <StyledNavBar $scrollY={scrollY}>
           <Link href="/">
-            <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
+            <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.dark} transition="color 0.5s ease" width={logoWidth} />
           </Link>
-          <EyeAnimation color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="background-color 0.5s ease" iconWidth={iconWidth} />
+          <Menu color={scrollY > 200 ? theme.color.dark : theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
         </StyledNavBar>
       )}
     </>

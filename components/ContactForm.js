@@ -176,9 +176,9 @@ const StyledFormWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  background-color: ${theme.color.dust};
+  background-color: ${theme.color.dark};
   width: 100%;
-
+  overflow: hidden;
   @media (max-width: 750px) {
     flex-direction: column;
     justify-content: center;
@@ -231,13 +231,13 @@ const StyledForm = styled.form`
 
   input[type="checkbox"] {
     border: 2px solid ${theme.color.green};
-    background-color: ${theme.color.dust};
+    background-color: ${theme.color.dark};
     outline: none;
   }
 
   textarea,
   input {
-    background-color: ${theme.color.dust};
+    background-color: ${theme.color.dark};
     color: ${theme.color.beige};
 
     &:active {
@@ -265,7 +265,7 @@ const StyledButton = styled.button`
   padding: ${theme.spacing.s} ${theme.spacing.m} ${theme.spacing.xs} ${theme.spacing.m};
 
   color: ${theme.color.green};
-  background-color: ${theme.color.dust};
+  background-color: ${theme.color.dark};
   font-size: ${theme.fontSizes.m};
   font-weight: ${theme.fontWeight.bold};
   border-radius: ${theme.borderRadius};

@@ -14,6 +14,9 @@ export default function HeadBox({ headline, text }) {
   );
 }
 const StyledHeadBoxContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   width: 100%;
   background-color: ${theme.color.beige};
   overflow: hidden;
@@ -26,16 +29,17 @@ const StyledHeadBoxContainer = styled.div`
   }
 
   p {
-    font-size: ${theme.fontSizes.m};
-    line-height: ${theme.lineHeight.xl};
+    max-width: 1100px;
+    font-size: ${theme.fontSizes.s};
+    line-height: ${theme.lineHeight.l};
     font-weight: ${theme.fontWeight.lightBold};
     @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.l};
-      line-height: ${theme.lineHeight.xxl};
+      font-size: ${theme.fontSizes.m};
+      line-height: ${theme.lineHeight.xl};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.xl};
-      line-height: ${theme.lineHeight.xxxl};
+      font-size: ${theme.fontSizes.l};
+      line-height: ${theme.lineHeight.xxl};
     }
 
     @media (max-width: 750px) {

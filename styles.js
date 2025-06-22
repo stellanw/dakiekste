@@ -45,7 +45,7 @@ export const theme = {
         m: "3.75rem", // 60px
         l: "5.62rem", // 90px
         xl: "8.75rem", // 140px
-        xxl: "11.25rem", // 180px
+        xxl: "9rem", // 180px
       },
       side: "4rem",
     },
@@ -103,7 +103,7 @@ export const theme = {
   },
 
   fontWeight: {
-    light: 200,
+    light: 100,
     regular: 300,
     lightBold: 450,
     bold: 600,
@@ -161,16 +161,16 @@ h1,h2,h3,h4,h5,h6{
 
 h1{
   font-weight: 700;
-  font-size: ${theme.fontSizes.xxl};
-  line-height: ${theme.lineHeight.xxl};
-
+  font-size: ${theme.fontSizes.l};
+  line-height: ${theme.lineHeight.xl};
+padding-bottom: 0.5rem;
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xxxxl};
-    line-height: ${theme.lineHeight.xxxxl};
+    font-size: ${theme.fontSizes.xxxl};
+    line-height: ${theme.lineHeight.xxxl};
   }
   @media (min-width: 1100px) {
     font-size: ${theme.fontSizes.xxxl};
-    line-height: ${theme.lineHeight.xxxxl};
+    line-height: ${theme.lineHeight.xxxl};
   }
 }
 
@@ -192,45 +192,48 @@ h2{
 }
 
 h3{
+
   font-weight: ${theme.fontWeight.fatBold};
   text-transform: uppercase;
-  font-size: ${theme.fontSizes.l};
+  font-size: ${theme.fontSizes.m};
   padding-bottom: ${theme.spacing.m};
   letter-spacing: 0.03rem;
-line-height: ${theme.lineHeight.xl};
+  line-height: ${theme.lineHeight.m};
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.l};
+    font-size: ${theme.fontSizes.xl};
     padding-bottom: ${theme.spacing.m};
     letter-spacing: 0.05rem;
-    line-height: ${theme.lineHeight.xl};
+    line-height: ${theme.lineHeight.xxl};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.xxl};
+      font-size: ${theme.fontSizes.xl};
       padding-bottom: ${theme.spacing.m};
       letter-spacing: 0.05rem;
-      line-height: ${theme.lineHeight.xxxl};
+      line-height: ${theme.lineHeight.xxl};
     }
 }
 
 h4{
-  font-size: ${theme.fontSizes.m};
+
+  font-size: ${theme.fontSizes.s};
   font-weight: ${theme.fontWeight.extraBold};
   text-transform: uppercase;
   padding-bottom: ${theme.spacing.s};
 line-height: ${theme.lineHeight.xl};
 letter-spacing: 0.04rem;
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.l};
+    font-size: ${theme.fontSizes.m};
     padding-bottom: ${theme.spacing.m};
     font-weight: ${theme.fontWeight.bold};
     }
     @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.l};
+      font-size: ${theme.fontSizes.m};
       padding-bottom: ${theme.spacing.m};
     }
 }
 
 h5{
+
   text-transform: uppercase;
   font-weight: ${theme.fontWeight.light};
   font-size: ${theme.fontSizes.xs};
@@ -244,6 +247,7 @@ h5{
 }
 
 h6{    
+
   font-weight: ${theme.fontWeight.light};
   text-transform: uppercase;
   padding-bottom:${theme.spacing.s};}
@@ -347,6 +351,13 @@ input[type="checkbox"]:active {
 
 }
 
-
+img {
+  user-drag: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 
 `;
