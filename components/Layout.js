@@ -20,14 +20,7 @@ const Layout = ({ children }) => {
     <div>
       <header>
         <NavBar />
-        <Header
-          // src="/images/Head_Image.jpg"
-          videoSrc="/videos/Klubstudio_video.mp4"
-          headlineBold1="DEIN IMAGE"
-          headlineThin="KLAR"
-          headlineBold2="IM BLICK"
-          headline2="mit Bildwelten die wirken"
-        />
+        <Header />
       </header>
       <main>{children}</main>
       <Footer />

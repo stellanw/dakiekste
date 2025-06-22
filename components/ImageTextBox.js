@@ -2,9 +2,9 @@ import { theme } from "@/styles";
 import Image from "next/legacy/image";
 import styled from "styled-components";
 
-export default function ImageTextBox({ topline, headline, text1, text2, image, alt }) {
+export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow }) {
   return (
-    <StyledImageTextBox>
+    <StyledImageTextBox $flexflow={flexflow}>
       <StyledImageContainer>
         <StyledImage src={image} alt={alt} fill />
       </StyledImageContainer>
@@ -25,16 +25,16 @@ export default function ImageTextBox({ topline, headline, text1, text2, image, a
 
 const StyledImageTextBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-flow: column;
   flex-wrap: wrap;
   position: relative;
   width: 100%;
   background-color: ${theme.color.beige};
   @media (min-width: 750px) {
-    flex-direction: row;
+    flex-flow: ${({ $flexflow }) => $flexflow || "row"};
   }
   @media (min-width: 1100px) {
-    flex-direction: row;
+    flex-flow: ${({ $flexflow }) => $flexflow || "row"};
   }
 `;
 

@@ -45,7 +45,7 @@ export default function TextSlider({ reviews, autoplay }) {
   console.log(reviews[currentSlide]?.screenshot?.src);
 
   return (
-    <TextSliderContainer background={reviews[currentSlide]?.screenshot?.src}>
+    <TextSliderContainer>
       <SlideContainer {...settings}>
         {reviews.map((review, index) => (
           <Slide key={index}>
@@ -83,10 +83,7 @@ const TextSliderContainer = styled.div`
   flex-direction: column;
 
   justify-content: center;
-  background-image: ${({ background }) => (background ? `url(${background})` : "none")};
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat;
+  background-color: ${theme.color.green};
 
   @media (max-width: 750px) {
     padding: ${theme.spacing.mobile.height.l} 0;
@@ -98,20 +95,6 @@ const TextSliderContainer = styled.div`
 
   @media (min-width: 1100px) {
     height: ${theme.height.desktop};
-  }
-
-  transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: ${theme.color.green};
-    opacity: ${({ background }) => (background && background.trim() !== "" ? 0.9 : 1)};
-    z-index: 1;
   }
 `;
 

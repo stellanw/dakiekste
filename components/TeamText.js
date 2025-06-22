@@ -5,11 +5,12 @@ import { PiEnvelopeSimple } from "react-icons/pi";
 
 export default function TeamText({ topline, headline, text }) {
   return (
-    <StyledDoubleTextBox>
+    <StyledTextBox>
       <StyledTextWrapper>
         <h2>{topline}</h2>
         <h3>{headline}</h3>
         <p>{text}</p>
+
         {/* <ButtonContainer>
           <Button>
             <PiEnvelopeSimple />
@@ -21,11 +22,11 @@ export default function TeamText({ topline, headline, text }) {
           </Button>
         </ButtonContainer> */}
       </StyledTextWrapper>
-    </StyledDoubleTextBox>
+    </StyledTextBox>
   );
 }
 
-const StyledDoubleTextBox = styled.div`
+const StyledTextBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -34,7 +35,6 @@ const StyledDoubleTextBox = styled.div`
 `;
 
 const StyledTextWrapper = styled.div`
-  flex: 1;
   flex-direction: column;
   justify-content: flex-start;
   padding: ${theme.spacing.mobile.height.xxl} ${theme.spacing.mobile.side};
@@ -45,7 +45,7 @@ const StyledTextWrapper = styled.div`
   }
   @media (min-width: 1100px) {
     padding: ${theme.spacing.desktop.height.xxl} ${theme.spacing.desktop.side};
-    max-width: 50%;
+    max-width: 70%;
   }
 `;
 
