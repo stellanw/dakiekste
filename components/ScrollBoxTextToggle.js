@@ -2,33 +2,41 @@ import Image from "next/image";
 import { useState } from "react";
 import styled from "styled-components";
 import { theme } from "@/styles";
+import { SlArrowDown } from "react-icons/sl";
 
-export default function ScrollBox({ boxData = [], headline1, headline2, introText, text }) {
+export default function ScrollBoxTextToggle({ boxData = [], headline1, headline2, text }) {
+  const [expandedIndex, setExpandedIndex] = useState(null); // Nur ein einzelner Index für den offenen Text
+
+  const handleToggleText = (index) => {
+    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index)); // Toggle nur den geklickten Index
+  };
+
   return (
     <StyledSlideBoxContainer>
       <StyledTextBox>
         <h2>{headline1}</h2>
         <h3>{headline2}</h3>
-        <p>{introText}</p>
+        <p>{text}</p>
       </StyledTextBox>
       <StyledScrollBoxContainer>
-        {boxData.map(({ icon: Icon, label, title, text, image }, index) => (
+        {boxData.map(({ label, title, text, image }, index) => (
           <StyledScrollBox key={index}>
-            {Icon && (
-              <IconWrapper>
-                <Icon size={48} />
-              </IconWrapper>
-            )}
             <span>{label || `0${index + 1}`}</span>
             <h4>{title}</h4>
-
             {image && (
               <ImageWrapper>
                 <StyledImage src={image} alt={title} layout="fill" />
               </ImageWrapper>
             )}
-
-            <p>{text}</p>
+            <p>
+              {/* {text} */}
+              {text.length <= 260 ? text : expandedIndex === index ? text : `${text.slice(0, 240)}...`}
+            </p>
+            {text.length > 260 && (
+              <StyledIconContainer onClick={() => handleToggleText(index)}>
+                <StyledArrow expanded={expandedIndex === index} />
+              </StyledIconContainer>
+            )}
           </StyledScrollBox>
         ))}
       </StyledScrollBoxContainer>
@@ -66,31 +74,28 @@ const StyledScrollBoxContainer = styled.div`
     margin-left: ${theme.spacing.desktop.side};
     padding: ${theme.spacing.desktop.height.l} 0 0 0;
   }
-
-  /* Firefox */
-  & {
-    scrollbar-width: thin; /* auto | thin | none */
-    scrollbar-color: ${theme.color.beige} ${theme.color.dark}; /* thumb, track */
-  }
-
-  /* Webkit */
   &::-webkit-scrollbar {
-    width: 6px; /* Breite der Scrollbar */
-    height: 6px; /* Höhe der horizontalen Scrollbar */
+    height: 1px;
   }
 
   &::-webkit-scrollbar-track {
-    background: ${theme.color.dark}; /* Track */
+    background: ${theme.color.beige}; /* Hintergrund der Track */
+    border-radius: 0; /* Kein Border-Radius für den Track */
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${theme.color.beige}; /* Thumb */
-    border-radius: 4px;
+    background: ${theme.color.beige};
+    border-radius: 0;
+    outline: 2px solid ${theme.color.beige};
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: ${theme.color.green}; /* Hover-Effekt Thumb */
+    background: ${theme.color.green};
   }
+  /* & {
+    scrollbar-width: thin; /// Optionen: auto, thin, none
+    scrollbar-color: ${theme.color.green} ${theme.color.beige}; /// thumb color, track color
+  } */
 `;
 
 const StyledTextBox = styled.div`
@@ -129,17 +134,15 @@ const StyledTextBox = styled.div`
 
 const StyledScrollBox = styled.div`
   display: flex;
-  position: relative;
   flex-direction: column;
   align-items: start;
   color: ${theme.color.beige};
-  padding: 0 8rem ${theme.spacing.xxl} 0;
+  padding: 0 7rem 0 0; //Abstand zwischen Boxes
   min-width: 600px;
 
   @media (max-width: 750px) {
-    min-width: 350px;
-    padding: 0 2.5rem ${theme.spacing.xxl} 0;
-    margin-right: 2rem;
+    min-width: 300px;
+    padding: 0 ${theme.spacing.l} 0 0;
   }
   span {
     text-transform: uppercase;
@@ -159,36 +162,26 @@ const StyledScrollBox = styled.div`
   }
 `;
 
+const StyledIconContainer = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+`;
+
+const StyledArrow = styled(SlArrowDown)`
+  margin: 0.9rem 0;
+  transition: transform 0.3s ease;
+  transform: ${(props) => (props.expanded ? "scaleY(-1)" : "scaleY(1)")};
+`;
+
 const ImageWrapper = styled.div`
   position: relative;
   margin-bottom: ${theme.spacing.ml};
   /* aspect-ratio: 1 / 1; */
   aspect-ratio: 3 / 2;
   width: 100%;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: 40%;
-  right: -9rem;
-  width: 100%;
-
-  @media (min-width: 750px) {
-    right: -12.5rem;
-  }
-
-  @media (min-width: 1100px) {
-    right: -12.5rem;
-  }
-  svg {
-    width: 100%;
-    min-height: 50px;
-    @media (max-width: 750px) {
-      min-height: 20px;
-      max-height: 30px;
-    }
-  }
 `;
 
 const StyledImage = styled(Image)`
@@ -199,6 +192,6 @@ const StyledImage = styled(Image)`
   margin-bottom: ${theme.spacing.m};
 
   @media (max-width: 750px) {
-    /* border-radius: ${theme.borderRadius} 0 ${theme.borderRadius} ${theme.borderRadius}; */
+    border-radius: ${theme.borderRadius} 0 ${theme.borderRadius} ${theme.borderRadius};
   }
 `;

@@ -131,6 +131,13 @@ const rotateAnimation = keyframes`
 const Eyes = styled.div`
   display: flex;
   padding-left: ${theme.spacing.xs};
+
+  @media (max-width: 750px) {
+    justify-content: center; // neu: horizontal mittig
+    align-items: center; // neu: vertikal mittig
+    width: 100%; // optional, falls es full width sein soll
+    padding-left: 0; // padding links ggf. mobil entfernen
+  }
 `;
 
 const MenuContainer = styled.div`
@@ -138,18 +145,28 @@ const MenuContainer = styled.div`
   top: ${theme.spacing.xs};
   right: 0;
   display: flex;
+
   flex-direction: row;
+  padding: ${theme.spacing.xxs} ${theme.spacing.l};
   align-items: center;
   background-color: ${theme.color.beige};
   border-radius: ${theme.borderRadius} 0 0 ${theme.borderRadius};
-  padding: ${theme.spacing.xxs} ${theme.spacing.l};
+
   z-index: 100;
 
-  transition: transform 1s ease-in-out;
+  transition: transform 0.3s ease-in-out 0.7s, max-width 0.3s ease 0.6s;
   transform: ${({ $isOpen }) => ($isOpen ? "translateX(0)" : "translateX(calc(100% - 4rem))")};
 
   @media (max-width: 750px) {
-    transform: ${({ $isOpen }) => ($isOpen ? "translateX(0)" : "translateX(calc(100% - 1.7rem))")};
+    transform: ${({ $isOpen }) => ($isOpen ? "translateY(0)" : "translateY(calc(-100% + 3rem))")};
+    max-width: ${({ $isOpen }) => ($isOpen ? "none" : "70px")};
+    border-radius: 0 0 ${theme.borderRadius} ${theme.borderRadius};
+    top: 0;
+    right: ${theme.spacing.xs};
+    padding: ${theme.spacing.xxs} ${theme.spacing.m};
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
   }
 
   ${({ $isOpen }) =>
@@ -159,6 +176,14 @@ const MenuContainer = styled.div`
         background-color: ${theme.color.green};
       }
     `}
+  @media (min-width: 750px) {
+    flex-direction: row;
+    padding: ${theme.spacing.xxs} ${theme.spacing.l};
+  }
+  @media (min-width: 1100px) {
+    flex-direction: row;
+    padding: ${theme.spacing.xxs} ${theme.spacing.l};
+  }
 `;
 
 const StyledIconWrapper = styled.div`
@@ -184,15 +209,38 @@ const StyledIconWrapper = styled.div`
 
 const LinkList = styled.ul`
   display: flex;
-  gap: ${theme.spacing.l};
-  margin-left: ${theme.spacing.l};
+  flex-direction: column;
 
+  align-items: center;
+  gap: ${theme.spacing.s};
+  margin-left: 0;
+
+  @media (min-width: 750px) {
+    gap: ${theme.spacing.l};
+    flex-direction: row;
+    margin-left: ${theme.spacing.l};
+  }
+
+  @media (min-width: 1100px) {
+    gap: ${theme.spacing.l};
+    flex-direction: row;
+    margin-left: ${theme.spacing.l};
+  }
   li a {
     text-decoration: none;
     text-transform: uppercase;
-    font-size: ${theme.fontSizes.s};
-    color: ${theme.color.dark};
+    color: ${({ $isOpen }) => ($isOpen ? theme.color.dark : "transparent")}; // neu: superklein wenn zu
+    line-height: ${theme.lineHeight.xs};
+    font-size: ${theme.fontSizes.xxs};
+    @media (min-width: 750px) {
+      line-height: ${theme.lineHeight.s};
+      font-size: ${theme.fontSizes.s};
+    }
 
+    @media (min-width: 1100px) {
+      line-height: ${theme.lineHeight.s};
+      font-size: ${theme.fontSizes.s};
+    }
     &:hover {
       color: ${theme.color.green};
     }
