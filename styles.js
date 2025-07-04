@@ -209,7 +209,8 @@ h3{
       font-size: ${theme.fontSizes.xl};
       padding-bottom: ${theme.spacing.m};
       letter-spacing: 0.05rem;
-      line-height: ${theme.lineHeight.xxl};
+      line-height: ${theme.lineHeight.xxxl} !important;
+    
     }
 }
 

@@ -7,7 +7,8 @@ import ContactForm from "@/components/ContactForm";
 import Head from "next/head";
 import DoubleTextBox from "@/components/DoubleTextBox";
 import StudioBox from "@/components/StudioBox";
-import { IoBulbOutline, IoCameraReverseOutline, IoFingerPrintOutline } from "react-icons/io5";
+import { IoAccessibility, IoBulbOutline, IoCameraReverseOutline, IoFingerPrintOutline } from "react-icons/io5";
+import { PiNumberCircleOneFill, PiArrowRightLight } from "react-icons/pi";
 import Pricing from "@/components/Pricing";
 import SlideBox from "@/components/SlideBox";
 import ScrollBox from "@/components/ScrollBox";
@@ -98,71 +99,78 @@ export default function HomePage() {
         <ScrollBox
           autoplay={false}
           headline1="Leistungen ohne Schnickschnack"
+          // headline2={
+          //   <>Was dich weiterbringt: Branding mit Substanz, Bilder mit Haltung, Design mit System – und Websites, die nicht im Baukasten steckenbleiben.</>
+          // }
           headline2={
-            <>Was dich weiterbringt: Branding mit Substanz, Bilder mit Haltung, Design mit System – und Websites, die nicht im Baukasten steckenbleiben.</>
-          }
-          text={
             <>
-              Wir kombinieren Fotografie, Design, Web und Content zu einem visuellen Gesamtauftritt, der wirklich zu dir passt. Keine Stockbilder, keine
-              fertigen Templates – sondern individuelle Lösungen, die mitdenken, mitfühlen und mitwachsen. <br /> <br />
-              Ob du gerade gründest, deine Marke neu aufstellen willst oder einfach Klarheit in deine Kommunikation bringen möchtest – wir begleiten dich mit
-              einem offenen Ohr, kreativen Ideen und einem durchdachten Prozess.
+              Branding, Fotografie, Design, Web und Content – alles aus einer Hand, strategisch durchdacht und visuell auf den Punkt. Keine Templates, <br />
+              sondern Gesamtlösungen, die wirklich zu dir passen.
             </>
           }
+          introText=""
+          // text={
+          //   <>
+          //     Wir kombinieren Fotografie, Design, Web und Content zu einem visuellen Gesamtauftritt, der wirklich zu dir passt. Keine Stockbilder, keine
+          //     fertigen Templates – sondern individuelle Lösungen, die mitdenken, mitfühlen und mitwachsen. Ob du gerade gründest, deine Marke neu aufstellen
+          //     willst oder einfach Klarheit in deine Kommunikation bringen möchtest – wir begleiten dich mit einem offenen Ohr, kreativen Ideen und einem
+          //     durchdachten Prozess.
+          //   </>
+          // }
           boxData={[
             {
               image: studioImage1,
               label: "Foto",
               title: "Branding Fotografie",
-              text: "Bilder, die zeigen, wofür du stehst. Wir übersetzen deine Markenwerte in eine visuelle Bildsprache – für Website, Medien und Präsentationen.",
+              text: "Bilder, die deine Marke zeigen. Wir entwickeln Bildwelten, die Werte und Persönlichkeit transportieren – für Website, Medien und Social Media.",
             },
             {
               image: studioImage2,
               label: "Foto",
               title: "Business- & Teamfotografie",
-              text: "Menschen machen den Unterschied – mit Teamfotos, die Vertrauen schaffen und eure Werte nach außen tragen. So wird eure Kultur sichtbar – für Bewerber*innen, Kund*innen und alle, die ihr erreichen möchtet.",
+              text: "Teamfotos, die Vertrauen schaffen und Kultur sichtbar machen – für Bewerber*innen, Kund*innen und alle, die euch kennenlernen sollen.",
             },
             {
               image: studioImage3,
               label: "Foto & Video",
               title: "Social Media Content & Strategie",
-              text: "Relevanter Content statt Stockbilder: Wir erstellen individuelle Foto- und Videoinhalte, die zu deinem Stil und deiner Zielgruppe passen. Für Posts, Reels & Stories, die wirken.",
+              text: "Individueller Foto- und Videocontent statt Stockbilder – passend zu deinem Stil und deiner Zielgruppe. Für Posts, Reels und Stories.",
             },
             {
               image: studioImage4,
               label: "Video",
               title: "Imagefilm & Video-Content",
-              text: "Bewegte Bilder erzählen mehr als Worte. Wir entwickeln Formate, die deine Inhalte transportieren – für Web, Social Media und alles dazwischen.",
+              text: "Bewegte Bilder, die deine Botschaft tragen. Wir entwickeln Formate für Web, Social Media und alle Kanäle, die du bespielst.",
             },
             {
               image: studioImage5,
               label: "Web",
               title: "Website Design (UI/UX)",
-              text: "Webdesign, das mitdenkt. Wir gestalten Websites, die einfach funktionieren – visuell, strukturell und inhaltlich. Design, Nutzerführung und Inhalte greifen bei uns ineinander und werden zu einem Gesamtbild, das zu dir passt und deine Zielgruppe erreicht.",
+              text: "Webdesign, das wirkt. Struktur, Design und Inhalte greifen ineinander – für Seiten, die zu dir passen und User überzeugen.",
             },
             {
               image: studioImage6,
               label: "Web",
               title: "Website Entwicklung",
-              text: "Stabil. Flexibel. Ohne Technikstress. Wir kümmern uns um die technische Umsetzung deiner Website – so, dass sie läuft, wächst und dir den Rücken freihält. Ob zur Selbstverwaltung per CMS oder für komplexere Anforderungen: Wir finden gemeinsam die Lösung, die wirklich zu dir passt.",
+              text: "Technisch stark, flexibel und ohne Stress. Wir setzen deine Website so um, dass sie läuft, wächst und dir den Rücken freihält.",
             },
             {
               image: studioImage7,
               label: "Design",
               title: "Branding & Corporate Design",
-              text: "Dein visuelles Fundament ist der erste Eindruck deiner Marke. Wir entwickeln ein Designsystem aus Logo, Farben und Typografie, das zu dir passt – und dafür sorgt, dass du sichtbar, wiedererkennbar und präsent bleibst.",
+              text: "Logo, Farben, Typografie – wir entwickeln dein visuelles Fundament, das wiedererkennbar macht und deine Marke klar positioniert.",
             },
             {
               image: studioImage8,
               label: "Fotografie",
               title: "Eventfotografie",
-              text: "Präsenz zeigen, Momente festhalten. Ob Team-Event, Networking, Produktlaunch oder Business Meetup – wir halten Atmosphäre und Highlights in ausdrucksstarken Bildern fest. Dezent im Hintergrund, aber immer im richtigen Moment zur Stelle.",
+              text: "Wir halten Atmosphäre und Highlights deines Events in starken Bildern fest – dezent im Hintergrund, präsent im richtigen Moment.",
             },
             {
               image: studioImage8,
               label: "Strategie",
               title: "Workshops & Beratung",
-              text: "Wissen teilen. Klarheit schaffen. Gemeinsam wachsen. Ob Bildsprache, Contentstrategie, Markenauftritt oder Persönlichkeitsentwicklung – wir teilen unser Wissen, coachen auf Augenhöhe und entwickeln gemeinsam Ideen, die Substanz haben. In 1:1-Sessions oder Team-Workshops bringen wir Struktur in deine Kommunikation und und zeigen dir, wie du dein Potenzial sichtbar machst.",
+              text: "Ob Bildsprache, Content oder Branding – wir teilen Wissen, beraten und strukturieren deine Kommunikation für mehr Klarheit und Wirkung.",
             },
           ]}
         />
@@ -246,34 +254,39 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
           }
           boxData={[
             {
+              icon: PiArrowRightLight,
               label: "01 Erstgespräch & Analyse",
               title: "Dein Business verstehen",
-              text: "Im ersten Gespräch nehmen wir uns Zeit, dich und deine Vision gründlich kennenzulernen. Wir hören aufmerksam zu, stellen präzise Fragen und analysieren die Ausgangslage. Auf dieser Grundlage entwickeln wir im nächsten Schritt ein individuelles Konzept, das deine Marke und dein Branding stärkt und gleichzeitig deine geschäftlichen Ziele effektiv vorantreibt.",
+              text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
             {
+              icon: PiArrowRightLight,
               label: "02 Konzeption & Workshops",
               title: "Von der Idee zur Strategie",
-              text: "Nach dem ersten Gespräch entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Ob Foto, Video, Design oder Webentwicklung – wir machen deine Vision greifbar. Bei umfangreicheren Projekten kann ein Workshop sinnvoll sein, um tiefer einzusteigen und gemeinsam die beste Lösung zu entwickeln. Du bleibst im Prozess involviert: Wir zeigen dir regelmäßig Zwischenstände und passen das Konzept flexibel an.",
+              text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Bei größeren Projekten bieten wir Workshops an, um gemeinsam die beste Lösung zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände.",
             },
             {
+              icon: PiArrowRightLight,
               label: "03 Organisation",
               title: "Fundament für Erfolg",
-              text: "Wir übernehmen die komplette Organisation – vom Briefing bis zur finalen Umsetzung. Mit unserem Netzwerk aus erfahrenen Dienstleister*innen, Locationscouts, Stylist*innen und Make-up-Artist*innen stellen wir sicher, dass alles perfekt aufeinander abgestimmt ist. Dazu gehören auch detaillierte Zeitpläne, Produktionsguides und alles, was für einen reibungslosen Ablauf notwendig ist.",
+              text: "Wir organisieren alles – vom Briefing bis zur Umsetzung. Mit unserem Netzwerk aus Locationscouts, Stylist*innen und Make-up-Artist*innen stellen wir sicher, dass alles reibungslos läuft. Detaillierte Zeitpläne und Produktionsguides sorgen für klare Abläufe und ein starkes Ergebnis.",
             },
             {
+              icon: PiArrowRightLight,
               label: "04 Umsetzung",
               title: "Realisierung deiner Vision",
-              text: "Da wir Fotografie, Design, Webentwicklung und mehr im eigenen Team abdecken, greifen bei uns alle Schritte nahtlos ineinander. Das spart doppelte Abstimmungen und macht den Übergang von Konzept zu Umsetzung effizient und flüssig. Beim Shooting oder Dreh läuft alles strukturiert ab – in einem Rahmen, der dir Sicherheit gibt. Design entsteht in enger Abstimmung, abgestimmt auf Strategie, Medium und Zielgruppe. Und im Web entwickeln wir nicht nur Layouts, sondern Systeme – funktional, durchdacht und einsatzbereit. Du bist in jeder Phase dabei: Wir setzen um, testen, verfeinern – und machen es gemeinsam rund.",
+              text: "Fotografie, Design, Web – bei uns greift alles ineinander. Wir arbeiten effizient und ohne doppelte Abstimmungen. Shootings und Drehs laufen strukturiert ab. Design entsteht in Abstimmung mit Strategie und Zielgruppe. Web-Projekte entwickeln wir funktional, durchdacht und einsatzbereit.",
             },
             {
+              icon: PiArrowRightLight,
               label: "05 Nachbearbeitung",
               title: "Dein Content. Direkt einsetzbar.",
-              text: "Du bekommst von uns eine Vorauswahl und wählst daraus deine Favoriten. Anschließend bereiten wir dein Material sortiert und abgestimmt auf Marke, Look und Einsatzzweck auf. Du erhältst einen hochwertigen, vielseitig nutzbaren Bild- oder Medienpool – für Website, Social Media, Marketing und mehr. Die Dateien stellen wir dir über eine Online-Galerie oder einen privaten Cloud-Zugang zur Verfügung. Je nach Projekt bekommst du zusätzlich ein Handbuch oder Hinweise zur Verwendung – für eine flexible und eigenständige Weiterverwendung.",
+              text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool für Website, Social Media und mehr – über Online-Galerie oder Cloud, inkl. Anleitung zur flexiblen Verwendung.",
             },
             {
               label: "06 Langfristige Unterstützung",
               title: "Wachstum im Fokus",
-              text: "Auch nach Projektabschluss begleiten wir dich weiter. Ob schnelle Anpassung oder neue Idee – wir reagieren schnell, denken mit und entwickeln gemeinsam weiter. Weil wir dein Markenprofil kennen, können wir gezielt unterstützen und deine Marke Schritt für Schritt wachsen lassen.",
+              text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
             },
           ]}
         />
