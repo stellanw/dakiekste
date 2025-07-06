@@ -183,10 +183,11 @@ const IconWrapper = styled.div`
   }
   svg {
     width: 100%;
-    min-height: 50px;
+    min-height: 20px;
+    max-height: 30px;
     @media (max-width: 750px) {
-      min-height: 20px;
-      max-height: 30px;
+      min-height: 15px;
+      max-height: 20px;
     }
   }
 `;
