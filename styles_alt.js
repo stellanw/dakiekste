@@ -12,53 +12,112 @@ export const theme = {
   borderRadius: "15px",
 
   fontSizes: {
-    s: "0.875rem", // 14px
-    m: "1rem", // 16px
-    l: "1.25rem", // 20px
-    xl: "1.75rem", // 28px
-    xxl: "2.25rem", // 36px
-  },
-
-  lineHeight: {
-    s: "1.2",
-    m: "1.4",
-    l: "1.6",
-  },
-
-  fontWeight: {
-    light: 300,
-    regular: 400,
-    bold: 600,
-    extraBold: 800,
+    xxxs: "0.65rem",
+    xxs: "0.75rem",
+    xs: "0.9rem", // 12px
+    s: "1rem", // 16px (Standardgröße in den meisten Browsern)
+    m: "1.3rem", // 20.8px
+    l: "1.6rem", // 25.6px
+    xl: "2rem", // 32px
+    xxl: "2.5rem", // 40px
+    xxxl: "3rem", // 48px
+    xxxxl: "4rem",
+    xxxxxl: "4.5rem", // 65px
   },
 
   spacing: {
-    xs: "0.5rem", // 8px
-    s: "0.75rem", // 12px
+    xxxs: "0.2rem",
+    xxs: "0.4rem",
+    xs: "0.6rem", // 3.2px
+    s: "0.75rem", // 6.4px
     m: "1rem", // 16px
-    l: "1.5rem", // 24px
-    xl: "2rem", // 32px
-    xxl: "3rem", // 48px
+    sm: "1.2rem",
+    ml: "2rem", // 32px
+    l: "2.5rem",
+    xl: "2.6rem", // 48px
+    xxl: "4rem", // 64px
+    xxxl: "6rem", //96px
+    xxxxl: "14rem",
+
+    desktop: {
+      height: {
+        s: "2.5rem", // 40px
+        m: "3.75rem", // 60px
+        l: "5.62rem", // 90px
+        xl: "8.75rem", // 140px
+        xxl: "9rem", // 180px
+      },
+      side: "4rem",
+    },
+
+    // desktop: {
+    //   height: {
+    //     s: "40px", // 40px
+    //     m: "60px", // 60px
+    //     l: "90px", // 90px
+    //     xl: "140px", // 140px
+    //     xxl: "180px", // 180px
+    //   },
+    //   side: "4rem",
+    // },
+
+    tablet: {
+      height: {
+        s: "2.2rem", // 35.2px (Reduziert von 2.5rem)
+        m: "3.25rem", // 52px (Reduziert von 3.75rem)
+        l: "4.5rem", // 72px (Bleibt gleich)
+        xl: "6.5rem", // 104px (Bleibt gleich)
+        xxl: "9rem", // 144px (Erhöht von 8rem)
+      },
+      side: "4rem", // 52.8px (Zwischen Desktop und Mobile)
+    },
+
+    mobile: {
+      height: {
+        s: "2rem", // 32px (Reduziert von 2.5rem auf 2rem)
+        m: "3rem", // 48px (Reduziert von 3.75rem auf 3rem)
+        l: "4.5rem", // 72px (Reduziert von 5.62rem auf 4.5rem)
+        xl: "6.5rem", // 104px (Reduziert von 8.75rem auf 6.5rem)
+        xxl: "8rem", // 128px (Reduziert von 11.25rem auf 8rem)
+      },
+      side: "1.7rem",
+    },
+  },
+
+  height: {
+    mobile: "550px",
+    tablet: "800px",
+    desktop: "1000px",
+  },
+
+  lineHeight: {
+    xs: "0.8rem",
+    s: "1rem",
+    m: "1.33rem",
+    l: "1.5rem",
+    xl: "1.8rem",
+    xxl: "2.1rem",
+    xxxl: "2.8rem",
+    xxxxl: "4rem",
+    xxxxxl: "5rem",
+  },
+
+  fontWeight: {
+    light: 100,
+    regular: 300,
+    lightBold: 450,
+    bold: 600,
+    extraBold: 700,
+    fatBold: 800,
   },
 
   breakpoints: {
-    mobile: "480px",
-    tablet: "750px",
-    desktop: "1100px",
+    s: "480px",
+    m: "750px",
+    l: "1100px",
+    xl: "1200px",
   },
 };
-
-export const spacingValue = (size) => `
-  ${size};
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    calc(${size} * 1.2);
-  }
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    calc(${size} * 1.4);
-  }
-`;
 
 export default createGlobalStyle`
   *,

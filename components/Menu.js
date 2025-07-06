@@ -154,7 +154,7 @@ const MenuContainer = styled.div`
 
   z-index: 100;
 
-  transition: transform 0.3s ease-in-out 0.7s, max-width 0.3s ease 0.6s;
+  transition: transform 0.1s ease-in-out 0.3s, max-width 0.1s ease 0.3s;
   transform: ${({ $isOpen }) => ($isOpen ? "translateX(0)" : "translateX(calc(100% - 4rem))")};
 
   @media (max-width: 750px) {
@@ -163,7 +163,7 @@ const MenuContainer = styled.div`
     border-radius: 0 0 ${theme.borderRadius} ${theme.borderRadius};
     top: 0;
     right: ${theme.spacing.xs};
-    padding: ${theme.spacing.xxs} ${theme.spacing.m};
+    padding: 0 ${theme.spacing.m};
     flex-direction: column-reverse;
     align-items: center;
     justify-content: center;
@@ -213,7 +213,7 @@ const LinkList = styled.ul`
 
   align-items: center;
   gap: ${theme.spacing.s};
-  margin-left: 0;
+  margin: ${theme.spacing.m} 0;
 
   @media (min-width: 750px) {
     gap: ${theme.spacing.l};
