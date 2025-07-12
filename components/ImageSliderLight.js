@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 
-export default function ProjectSliderLight({ projects }) {
+export default function ImageSliderLight({ projects }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
@@ -58,21 +58,19 @@ export default function ProjectSliderLight({ projects }) {
 
   return (
     <SliderWrapper>
-      <TitleandArrowContainer>
-        <ArrowContainer>
-          <Arrow onClick={handlePrevClick}>
-            <StyledPiArrowLeftLight />
-          </Arrow>
-          <Arrow onClick={handleNextClick}>
-            <StyledPiArrowRightLight />
-          </Arrow>
-        </ArrowContainer>
-      </TitleandArrowContainer>
+      <ArrowContainer>
+        <Arrow onClick={handlePrevClick}>
+          <PiArrowLeftLight />
+        </Arrow>
+        <Arrow onClick={handleNextClick}>
+          <PiArrowRightLight />
+        </Arrow>
+      </ArrowContainer>
 
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage src={project.image} alt={project.title} layout="fill" />
+            <StyledImage src={project.image} alt={project.alt} layout="fill" />
           </Slide>
         ))}
       </StyledSlider>
@@ -89,89 +87,35 @@ const SliderWrapper = styled.div`
   height: 100%;
   background-color: ${theme.color.beige};
   z-index: 3;
-  padding: ${theme.spacing.mobile.height.l} 0 ${theme.spacing.mobile.height.xl} 0;
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.tablet.height.l} 0 ${theme.spacing.tablet.height.xl} 0;
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.desktop.height.l} 0 ${theme.spacing.desktop.height.xl} 0;
-  }
-`;
-
-const TitleandArrowContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: end;
-  padding: 0 ${theme.spacing.mobile.side} ${theme.spacing.s} ${theme.spacing.mobile.side};
-
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side} ${theme.spacing.m} ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side} ${theme.spacing.m} ${theme.spacing.desktop.side};
-  }
+  padding: var(--spacing-xxl) 0 var(--spacing-xxl) 0;
 `;
 
 const ArrowContainer = styled.div`
   display: flex;
+  position: absolute;
   justify-content: space-between;
-  width: 110px;
-  /* top: ${theme.spacing.mobile.height.l};
-  right: ${theme.spacing.mobile.side};
+  top: calc(var(--spacing-xl) * 1.3);
+  right: var(--side-padding);
+  width: 100px;
 
-  @media (min-width: 750px) {
-    top: ${theme.spacing.tablet.height.l};
-    right: ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    top: ${theme.spacing.desktop.height.l};
-    right: ${theme.spacing.desktop.side};
-  } */
-
-  @media (max-width: 750px) {
+  @media (max-width: ${theme.breakpoints.mobile}) {
     display: none;
   }
 `;
 
 const Arrow = styled.div`
-  font-size: ${theme.fontSizes.s};
-
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.m};
-  }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.l};
-  }
   position: relative;
   cursor: pointer;
+  font-size: var(--font-xl);
+
   &:hover,
   :active {
     color: ${theme.color.green};
   }
 `;
 
-const StyledPiArrowLeftLight = styled(PiArrowLeftLight)`
-  /* transform: scale(0.8); */
-`;
-
-const StyledPiArrowRightLight = styled(PiArrowRightLight)`
-  /* transform: scale(0.8); */
-`;
-
 const StyledSlider = styled(Slider)`
-  padding: 0 ${theme.spacing.mobile.side};
-
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side};
-  }
+  padding: 0 var(--side-padding);
   width: 100%;
 
   .slick-dots {
@@ -180,23 +124,11 @@ const StyledSlider = styled(Slider)`
     width: 100%;
     gap: 0;
     z-index: 100;
-
-    bottom: -${theme.spacing.s};
-    @media (min-width: 750px) {
-      bottom: -${theme.spacing.m};
-    }
-
-    @media (min-width: 1100px) {
-      bottom: -${theme.spacing.m};
-    }
+    bottom: calc(-1 * var(--spacing-xs));
   }
 
   .slick-dots li {
     margin: 0 -1px;
-  }
-
-  .slick-dots li:nth-child(n + 2):nth-child(-n + 4) {
-    // opacity: 1; /* Nur die zweiten bis vierten Punkte sichtbar machen */
   }
 
   .slick-dots li button {
@@ -228,17 +160,16 @@ const Slide = styled.div`
   border-radius: ${theme.borderRadius};
   width: 100%;
 
-  height: 100%;
-
-  @media (max-width: 750px) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     aspect-ratio: 1/1;
   }
-  @media (min-width: 750px) {
-    height: ${theme.height.tablet};
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    height: var(--height-hero);
   }
 
-  @media (min-width: 1100px) {
-    height: ${theme.height.tablet};
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    height: var(--height-hero);
   }
 `;
 

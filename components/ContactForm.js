@@ -10,24 +10,21 @@ export default function ContactForm() {
     email: "",
     roles: [],
     otherRole: "",
-    areas: [],
-    otherArea: "",
-    unsure: false,
     budget: [],
     message: "",
-    dates: "",
     acceptedTerms: false,
   };
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleCheckboxChange = (e, category) => {
     const { value, checked } = e.target;
-    setFormData((prev) => {
-      const updated = checked ? [...prev[category], value] : prev[category].filter((item) => item !== value);
-      return { ...prev, [category]: updated };
-    });
+    setFormData((prev) => ({
+      ...prev,
+      [category]: checked ? [value] : [],
+    }));
   };
 
   const handleChange = (e) => {
@@ -41,6 +38,30 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Reset states bei neuem Submit
+    setResponseMessage("");
+    setIsSuccess(false);
+
+    // Email Format Validierung
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+      setResponseMessage("Bitte gib eine gültige Emailadresse ein.");
+      return;
+    }
+
+    // Custom validation for roles
+    if (formData.roles.length === 0) {
+      setResponseMessage("Bitte wähle deine Rolle im Projekt aus.");
+      return;
+    }
+
+    // Custom validation for budget
+    if (formData.budget.length === 0) {
+      setResponseMessage("Bitte wähle dein Budget aus.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -58,8 +79,8 @@ export default function ContactForm() {
         throw new Error(data.error || "Fehler beim Senden");
       }
 
-      setResponseMessage("Danke für deine Nachricht! Wir melden uns schnellstmöglich.");
-
+      setIsSuccess(true);
+      setResponseMessage("Wir melden uns schnellstmöglich bei dir.");
       setFormData(initialFormData);
     } catch (err) {
       console.error("Fehler:", err);
@@ -73,101 +94,83 @@ export default function ContactForm() {
     <StyledFormWrapper>
       <StyledTextContainer>
         <h2>Bereit, was zu starten?</h2>
-        <h3>Lass uns dein Projekt sichtbar machen – strategisch und visuell.</h3>
+        <h4>Lass uns dein Projekt sichtbar machen – strategisch und visuell.</h4>
       </StyledTextContainer>
-      <StyledForm onSubmit={handleSubmit}>
-        <SideBySideWrapper>
+
+      {isSuccess ? (
+        <StyledSuccessMessage>
+          <h3>Danke für deine Nachricht!</h3>
+          <p>{responseMessage}</p>
+          <StyledButton
+            onClick={() => {
+              setResponseMessage("");
+              setIsSuccess(false);
+            }}
+          >
+            Neue Nachricht senden
+          </StyledButton>
+        </StyledSuccessMessage>
+      ) : (
+        <StyledForm onSubmit={handleSubmit}>
+          <SideBySideWrapper>
+            <Wrapper>
+              <label htmlFor="name">Vor und Nachname</label>
+              <StyledInput name="name" value={formData.name} onChange={handleChange} required />
+            </Wrapper>
+            <Wrapper>
+              <label htmlFor="company">Firma</label>
+              <StyledInput name="company" value={formData.company} onChange={handleChange} />
+            </Wrapper>
+          </SideBySideWrapper>
           <Wrapper>
-            <label htmlFor="name">Vor und Nachname</label>
-            <StyledInput name="name" value={formData.name} onChange={handleChange} required />
+            <label htmlFor="email">Email</label>
+            <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
           </Wrapper>
-          <Wrapper>
-            <label htmlFor="company">Firma</label>
-            <StyledInput name="company" value={formData.company} onChange={handleChange} />
-          </Wrapper>
-        </SideBySideWrapper>
-        <Wrapper>
-          <label htmlFor="email">Email</label>
-          <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
-        </Wrapper>
 
-        <MainLabel htmlFor="roles">Deine Rolle im Projekt</MainLabel>
-        <StyledCheckboxGroup>
-          {["Gründer*in", "Marketing", "HR / People & Culture", "Projektleitung"].map((role) => (
-            <StyledLabel key={role}>
-              <input type="checkbox" value={role} checked={formData.roles.includes(role)} onChange={(e) => handleCheckboxChange(e, "roles")} />
-              {role}
+          <label htmlFor="roles">Deine Rolle im Projekt</label>
+          <StyledCheckboxGroup>
+            {["Geschäftsführ*in", "Gründer*in", "Soloselbstständig", "Marketing", "Personalmanagement", "Projektleitung"].map((role) => (
+              <StyledLabel key={role}>
+                <input type="checkbox" value={role} checked={formData.roles.includes(role)} onChange={(e) => handleCheckboxChange(e, "roles")} />
+                {role}
+              </StyledLabel>
+            ))}
+
+            <StyledLabel>
+              <input type="checkbox" value="Sonstiges" checked={formData.roles.includes("Sonstiges")} onChange={(e) => handleCheckboxChange(e, "roles")} />
+              Sonstiges
             </StyledLabel>
-          ))}
+            {formData.roles.includes("Sonstiges") && <StyledInput name="otherRole" value={formData.otherRole} onChange={handleChange} />}
+          </StyledCheckboxGroup>
 
-          <StyledLabel>
-            <input type="checkbox" value="Sonstiges" checked={formData.roles.includes("Sonstiges")} onChange={(e) => handleCheckboxChange(e, "roles")} />
-            Sonstiges
-          </StyledLabel>
-          {formData.roles.includes("Sonstiges") && <StyledInput name="otherRole" value={formData.otherRole} placeholder="Was genau?" onChange={handleChange} />}
-        </StyledCheckboxGroup>
+          <label htmlFor="budget">Dein Budget</label>
+          <StyledCheckboxGroup>
+            {["< 1.000 €", "1.000 – 3.000 €", "3.000 – 6.000 €", "> 6.000 €"].map((range) => (
+              <StyledLabel key={range}>
+                <input type="checkbox" value={range} checked={formData.budget.includes(range)} onChange={(e) => handleCheckboxChange(e, "budget")} />
+                {range}
+              </StyledLabel>
+            ))}
+          </StyledCheckboxGroup>
 
-        <label htmlFor="areas">Was brauchst du?</label>
-        <StyledCheckboxGroup>
-          {["Branding", "Fotografie", "Video", "Webdesign", "Entwicklung"].map((area) => (
-            <StyledLabel key={area}>
-              <input type="checkbox" value={area} checked={formData.areas.includes(area)} onChange={(e) => handleCheckboxChange(e, "areas")} />
-              {area}
-            </StyledLabel>
-          ))}
+          <label htmlFor="message">Deine Nachricht</label>
+          <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
 
-          <StyledLabel>
-            <input type="checkbox" value="Sonstiges" checked={formData.areas.includes("Sonstiges")} onChange={(e) => handleCheckboxChange(e, "areas")} />
-            Sonstiges
-          </StyledLabel>
+          <StyledCheckboxGroup>
+            <label>
+              <StyledLabel htmlFor="acceptedTerms">
+                <input type="checkbox" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
+                Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
+              </StyledLabel>
+            </label>
+          </StyledCheckboxGroup>
 
-          {formData.areas.includes("Sonstiges") && <StyledInput name="otherArea" value={formData.otherArea} placeholder="Was genau?" onChange={handleChange} />}
-
-          <StyledLabel>
-            <input type="checkbox" name="unsure" checked={formData.unsure} onChange={handleChange} />
-            Ich bin mir noch unsicher – lasst uns sprechen.
-          </StyledLabel>
-        </StyledCheckboxGroup>
-
-        <label htmlFor="budget">Dein Budget</label>
-        <StyledCheckboxGroup>
-          {["< 1.000 €", "1.000 – 3.000 €", "3.000 – 6.000 €", "> 6.000 €"].map((range) => (
-            <StyledLabel key={range}>
-              <input type="checkbox" value={range} checked={formData.budget.includes(range)} onChange={(e) => handleCheckboxChange(e, "budget")} />
-              {range}
-            </StyledLabel>
-          ))}
-        </StyledCheckboxGroup>
-
-        <label htmlFor="message">Deine Nachricht</label>
-        <StyledTextArea
-          name="message"
-          placeholder="Erzähl uns kurz, worum es geht oder was du dir vorstellst."
-          value={formData.message}
-          onChange={handleChange}
-          required
-        />
-        <MainLabel htmlFor="dates">Wann passt es dir für ein kurzes Vorgespräch?</MainLabel>
-        <StyledInput
-          name="dates"
-          placeholder="Schlag uns 2–3 Termine vor, z. B. Di 14–16 Uhr oder Fr vormittags."
-          value={formData.dates}
-          onChange={handleChange}
-        />
-        <StyledCheckboxGroup>
-          <MainLabel>
-            <StyledLabel htmlFor="acceptedTerms">
-              <input type="checkbox" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
-              Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
-            </StyledLabel>
-          </MainLabel>
-        </StyledCheckboxGroup>
-
-        <StyledButton type="submit" disabled={loading}>
-          {loading ? "Senden..." : "Absenden"}
-        </StyledButton>
-        {responseMessage && <p>{responseMessage}</p>}
-      </StyledForm>
+          <StyledButton type="submit" disabled={loading}>
+            {loading ? "Senden..." : "Absenden"}
+          </StyledButton>
+          {responseMessage && <p>{responseMessage}</p>}
+        </StyledForm>
+      )}
     </StyledFormWrapper>
   );
 }
@@ -179,7 +182,8 @@ const StyledFormWrapper = styled.div`
   background-color: ${theme.color.dark};
   width: 100%;
   overflow: hidden;
-  @media (max-width: 750px) {
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -189,14 +193,10 @@ const StyledFormWrapper = styled.div`
 const StyledTextContainer = styled.div`
   flex-basis: 50%;
   color: ${theme.color.green};
-  padding: ${theme.spacing.xxxl} ${theme.spacing.xl} 0 ${theme.spacing.xl};
+  padding: var(--spacing-xxxl) var(--side-padding) 0 var(--side-padding);
 
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    padding: var(--spacing-xxxl) var(--side-padding);
   }
 
   h3 {
@@ -207,21 +207,15 @@ const StyledTextContainer = styled.div`
 
 const StyledForm = styled.form`
   display: flex;
-  flex-basis: 50%;
-
+  flex-basis: 100%;
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  padding: ${theme.spacing.xxxl} ${theme.spacing.xl};
+  padding: var(--spacing-xxxl) var(--side-padding);
   color: ${theme.color.beige};
-  /* width: 100%; */
 
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.xxxxl} ${theme.spacing.xxl};
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    flex-basis: 50%;
   }
 
   label {
@@ -231,83 +225,100 @@ const StyledForm = styled.form`
 
   input[type="checkbox"] {
     border: 2px solid ${theme.color.green};
-    background-color: ${theme.color.dark};
     outline: none;
   }
 
-  textarea,
-  input {
-    background-color: ${theme.color.dark};
-    color: ${theme.color.beige};
-
-    &:active {
-      background-color: ${theme.color.green};
-    }
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    font-style: italic;
-    color: ${theme.color.green};
-    letter-spacing: 0.007rem;
-  }
-
   p {
-    font-size: ${theme.fontSizes.s};
-
-    color: ${theme.color.green};
+    font-size: var(--font-m);
+    color: ${theme.color.beige};
     margin: 0;
-    padding: 0 0 ${theme.spacing.s} 0;
+    padding-top: var(--spacing-s);
   }
 `;
 
 const StyledButton = styled.button`
-  padding: ${theme.spacing.s} ${theme.spacing.m} ${theme.spacing.xs} ${theme.spacing.m};
-
+  padding: var(--spacing-xs) var(--spacing-m);
   color: ${theme.color.green};
   background-color: ${theme.color.dark};
-  font-size: ${theme.fontSizes.m};
+  font-size: var(--font-m);
   font-weight: ${theme.fontWeight.bold};
-  border-radius: ${theme.borderRadius};
   cursor: pointer;
   transition: background-color 0.3s ease;
   border: 1px solid ${theme.color.green};
   text-transform: uppercase;
+
   &:hover {
-    color: ${theme.color.dust};
+    color: ${theme.color.dark};
     background-color: ${theme.color.green};
   }
 `;
 
 const StyledInput = styled.input`
-  margin-bottom: ${theme.spacing.m};
-  padding: ${theme.spacing.s};
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-xs);
+  height: var(--spacing-m);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: calc(2.4 * var(--spacing-m));
+  }
+
+  &:active {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
+  }
+
+  &:focus {
+    outline: none;
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
+  }
+
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px ${theme.color.dark} inset;
+    -webkit-text-fill-color: ${theme.color.beige};
+  }
+
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px ${theme.color.green} inset;
+    -webkit-text-fill-color: ${theme.color.dark};
+  }
 `;
 
 const StyledTextArea = styled.textarea`
-  margin-bottom: ${theme.spacing.m};
-  padding: ${theme.spacing.s};
-  width: 100%;
-  height: 120px;
-`;
+  padding: var(--spacing-s);
+  margin-bottom: var(--spacing-m);
+  width: 100% !important;
+  min-height: 200px;
+  max-height: 200px;
+  resize: none;
 
-const MainLabel = styled.label`
-  margin-top: ${theme.spacing.l};
+  &:active {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
+  }
+
+  &:focus {
+    outline: none;
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
+  }
 `;
 
 const StyledLabel = styled.label`
   display: flex;
+  flex-wrap: wrap;
   justify-content: start;
   align-items: center;
+  font-size: var(--font-s);
 `;
 
 const StyledCheckboxGroup = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  column-gap: ${theme.spacing.l};
+  column-gap: var(--spacing-l);
   row-gap: 0;
-  padding-bottom: ${theme.spacing.l};
+  padding-bottom: var(--spacing-m);
 
   label {
     font-weight: ${theme.fontWeight.light};
@@ -324,7 +335,12 @@ const SideBySideWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: ${theme.spacing.l};
+  gap: var(--spacing-l);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    gap: 0;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -334,5 +350,20 @@ const StyledLink = styled(Link)`
 
   &:hover {
     color: ${theme.color.beige};
+  }
+`;
+
+const StyledSuccessMessage = styled.div`
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--spacing-xxxl) var(--side-padding);
+  color: ${theme.color.green};
+
+  p {
+    font-size: var(--font-m);
+    margin-bottom: var(--spacing-l);
   }
 `;

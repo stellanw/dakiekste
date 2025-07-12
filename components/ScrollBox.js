@@ -1,26 +1,63 @@
 import Image from "next/image";
-import { useState } from "react";
 import styled from "styled-components";
 import { theme } from "@/styles";
+import { useRef } from "react";
 
-export default function ScrollBox({ boxData = [], headline1, headline2, introText, text }) {
+export default function ScrollBox({ boxData = [], headline1, headline2, introText, mobileTitle, text }) {
+  const scrollRef = useRef(null);
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  const handleMouseDown = (e) => {
+    isDown = true;
+    scrollRef.current.classList.add("active");
+    startX = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeft = scrollRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    isDown = false;
+    scrollRef.current.classList.remove("active");
+  };
+
+  const handleMouseUp = () => {
+    isDown = false;
+    scrollRef.current.classList.remove("active");
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; // Geschwindigkeit
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
     <StyledSlideBoxContainer>
       <StyledTextBox>
         <h2>{headline1}</h2>
-        <h3>{headline2}</h3>
+        <h4>{headline2}</h4>
         <p>{introText}</p>
       </StyledTextBox>
-      <StyledScrollBoxContainer>
-        {boxData.map(({ icon: Icon, label, title, text, image }, index) => (
+      <StyledScrollBoxContainer
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+      >
+        {boxData.map(({ icon: Icon, label, title, mobileTitle, text, image }, index) => (
           <StyledScrollBox key={index}>
-            {Icon && (
+            {Icon && index !== boxData.length - 1 && (
               <IconWrapper>
                 <Icon size={48} />
               </IconWrapper>
             )}
-            <span>{label || `0${index + 1}`}</span>
-            <h4>{title}</h4>
+            <h2>{label || `0${index + 1}`}</h2>
+            <StyledDesktopTitle>{title}</StyledDesktopTitle>
+            <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
 
             {image && (
               <ImageWrapper>
@@ -38,58 +75,48 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
 
 const StyledSlideBoxContainer = styled.div`
   background-color: ${theme.color.dark};
-  padding: ${theme.spacing.mobile.height.m} 0;
+  padding: var(--spacing-xxxl) 0;
   overflow: hidden;
-
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.tablet.height.m} 0;
-  }
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.desktop.height.xxl} 0;
-  }
 `;
 
 const StyledScrollBoxContainer = styled.div`
   display: flex;
   position: relative;
-  overflow: scroll;
+  user-select: none;
+  overflow-x: scroll;
   background-color: ${theme.color.dark};
   min-width: 250px;
-  /* border: 1px solid red; */
-  margin-left: ${theme.spacing.mobile.side};
-  padding: ${theme.spacing.mobile.height.l} 0 0 0;
-  @media (min-width: 750px) {
-    margin-left: ${theme.spacing.tablet.side};
-    padding: ${theme.spacing.tablet.height.l} 0 0 0;
-  }
-  @media (min-width: 1100px) {
-    margin-left: ${theme.spacing.desktop.side};
-    padding: ${theme.spacing.desktop.height.l} 0 0 0;
-  }
+  margin-left: var(--side-padding);
+  padding: var(--spacing-xxl) 0 0 0;
+  cursor: grab;
 
   /* Firefox */
   & {
-    scrollbar-width: thin; /* auto | thin | none */
-    scrollbar-color: ${theme.color.beige} ${theme.color.dark}; /* thumb, track */
+    scrollbar-width: thin;
+    scrollbar-color: ${theme.color.beige} ${theme.color.dark};
   }
 
   /* Webkit */
   &::-webkit-scrollbar {
-    width: 6px; /* Breite der Scrollbar */
-    height: 6px; /* Höhe der horizontalen Scrollbar */
+    width: 6px;
+    height: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: ${theme.color.dark}; /* Track */
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${theme.color.beige}; /* Thumb */
+    background: ${theme.color.beige};
     border-radius: 4px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: ${theme.color.green}; /* Hover-Effekt Thumb */
+    background: ${theme.color.green};
+  }
+
+  &.dragging {
+    cursor: grabbing;
   }
 `;
 
@@ -100,30 +127,10 @@ const StyledTextBox = styled.div`
   text-align: start;
   color: ${theme.color.beige};
   max-width: 100%;
-  padding: 0 ${theme.spacing.mobile.side};
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side};
+  padding: 0 var(--side-padding);
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
     max-width: 70%;
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side};
-    max-width: 70%;
-  }
-
-  h3 {
-    text-transform: none;
-    font-weight: ${theme.fontWeight.lightBold};
-    line-height: ${theme.lineHeight.l};
-    @media (min-width: 750px) {
-      font-weight: ${theme.fontWeight.lightBold};
-      line-height: ${theme.lineHeight.xxxl};
-    }
-
-    @media (min-width: 1100px) {
-      font-weight: ${theme.fontWeight.lightBold};
-      line-height: ${theme.lineHeight.xxxl};
-    }
   }
 `;
 
@@ -133,36 +140,41 @@ const StyledScrollBox = styled.div`
   flex-direction: column;
   align-items: start;
   color: ${theme.color.beige};
-  padding: 0 8rem ${theme.spacing.xxl} 0;
+  padding: 0 var(--spacing-xl) var(--spacing-xxl) 0;
   min-width: 600px;
 
-  @media (max-width: 750px) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     min-width: 350px;
-    padding: 0 2.5rem ${theme.spacing.xxl} 0;
-    margin-right: 2rem;
+    margin-right: var(--spacing-xl);
   }
-  span {
-    text-transform: uppercase;
-    font-size: ${theme.fontSizes.xs};
-    line-height: ${theme.lineHeight.s};
-    font-weight: ${theme.fontWeight.light};
-    @media (min-width: 750px) {
-      line-height: ${theme.lineHeight.l};
-      font-size: ${theme.fontSizes.m};
-      font-size: ${theme.fontSizes.xs};
-    }
 
-    @media (min-width: 1100px) {
-      line-height: ${theme.lineHeight.l};
-      font-size: ${theme.fontSizes.s};
+  h5 {
+    padding-bottom: var(--spacing-xs);
+    @media (min-width: ${theme.breakpoints.tablet}) {
+      padding-bottom: var(--spacing-xs);
     }
+  }
+`;
+
+const StyledDesktopTitle = styled.h5`
+  display: none;
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: block;
+  }
+`;
+
+const StyledMobileTitle = styled.h5`
+  display: block;
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: none;
   }
 `;
 
 const ImageWrapper = styled.div`
   position: relative;
-  margin-bottom: ${theme.spacing.ml};
-  /* aspect-ratio: 1 / 1; */
+  margin-bottom: var(--spacing-m);
   aspect-ratio: 3 / 2;
   width: 100%;
 `;
@@ -174,18 +186,16 @@ const IconWrapper = styled.div`
   right: -9rem;
   width: 100%;
 
-  @media (min-width: 750px) {
-    right: -12.5rem;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    right: -13.5rem;
   }
 
-  @media (min-width: 1100px) {
-    right: -12.5rem;
-  }
   svg {
     width: 100%;
     min-height: 20px;
     max-height: 30px;
-    @media (max-width: 750px) {
+
+    @media (max-width: ${theme.breakpoints.tablet}) {
       min-height: 15px;
       max-height: 20px;
     }
@@ -196,10 +206,4 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   object-position: center;
   border-radius: ${theme.borderRadius};
-  /* border-radius: 30px 0 30px 30px; */
-  margin-bottom: ${theme.spacing.m};
-
-  @media (max-width: 750px) {
-    /* border-radius: ${theme.borderRadius} 0 ${theme.borderRadius} ${theme.borderRadius}; */
-  }
 `;

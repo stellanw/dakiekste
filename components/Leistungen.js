@@ -155,7 +155,7 @@ const StyledLeistungBox = styled.div`
 `;
 
 const StyledIconWrapper = styled.div`
-  font-size: ${theme.fontSizes.xxxl};
+  font-size: ${theme.fontSize.xxxl};
   color: ${theme.color.green};
   display: flex;
   align-items: center;
