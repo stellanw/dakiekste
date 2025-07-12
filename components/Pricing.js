@@ -90,16 +90,16 @@ export default function Pricing({ pricingData, servicesData }) {
       <HeadlineContainer>
         <h2>PREISKALKULATOR</h2>
         {isMobile ? (
-          <h3>Dein Erfolg einfach kalkuliert.</h3> // Mobiler Text
+          <h4>Dein Erfolg einfach kalkuliert.</h4> // Mobiler Text
         ) : (
-          <h3>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h3>
+          <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>
         )}
-        <p>
-          Unser Preiskalkulator gibt dir eine erste Orientierung: transparent, unverbindlich und ohne Angebotsanfrage. <br />
-          Du siehst auf einen Blick, ab welchem Budget es bei uns losgeht – als grobe Orientierung für deinen Invest.
-        </p>
       </HeadlineContainer>
       <CalculatorContainer>
+        {/* <p>
+          Unser Preiskalkulator gibt dir eine erste Orientierung: transparent, unverbindlich und ohne Angebotsanfrage. <br />
+          Du siehst auf einen Blick, ab welchem Budget es bei uns losgeht – als grobe Orientierung für deinen Invest.
+        </p> */}
         <CategoriesContainer>
           {pricingData.map((category, categoryIndex) => (
             <CategoryContainer key={categoryIndex}>
@@ -128,8 +128,10 @@ export default function Pricing({ pricingData, servicesData }) {
                 {selectedServices.map((service, index) => (
                   <li key={index}>
                     <SelectedItem>
-                      <PiPushPinLight />
-                      {service.title}
+                      <ItemWrapper>
+                        <PiPushPinLight />
+                        {service.title}
+                      </ItemWrapper>
                       <RemoveButton onClick={() => removeService(service)}>
                         <StyledRemoveIcon />
                       </RemoveButton>
@@ -137,7 +139,7 @@ export default function Pricing({ pricingData, servicesData }) {
                   </li>
                 ))}
               </ul>
-              <h4>Preis ab {totalPrice} EURO*</h4>
+              <h>Preis ab {totalPrice} EURO*</h>
               <p>*zzgl. MwSt.</p>
             </OutcomeContent>
           </OutcomeContainer>
@@ -176,20 +178,27 @@ export default function Pricing({ pricingData, servicesData }) {
     </PricingContainer>
   );
 }
-
-const PricingContainer = styled.div`
+export const PricingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: ${theme.spacing.xxxl} 0 ${theme.spacing.xxxl} 0;
+  padding: var(--spacing-xxxl) 0;
   background-color: ${theme.color.beige};
-  margin: 0;
 
-  @media (min-width: 750px) {
-  }
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.xxxxl} 0 ${theme.spacing.xxxxl} 0;
+  input {
+    background-color: ${theme.color.beige};
+    border: solid 3px ${theme.color.dark};
+    &:checked {
+      background-color: ${theme.color.green};
+    }
+    &:active {
+      background-color: none !important;
+    }
+
+    &:focus {
+      background-color: none !important;
+    }
   }
 `;
 
@@ -198,88 +207,49 @@ const HeadlineContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin: 0 0 ${theme.spacing.xl} 0;
+  margin-bottom: var(--spacing-xl);
   width: 100%;
-  padding: 0 ${theme.spacing.xl} 0 ${theme.spacing.xl};
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.xxl};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.xxl};
-  }
-
-  h3 {
-    text-align: center;
-    font-size: ${theme.fontSizes.m};
-    @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.l};
-    }
-
-    @media (min-width: 1100px) {
-    }
-  }
-
-  p {
-  }
+  padding: 0 var(--spacing-xl);
 `;
 
 const CalculatorContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 ${theme.spacing.xl};
-
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.xxl};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.xxl};
-  }
+  padding: 0 var(--spacing-xl);
 `;
 
 const CategoriesContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${theme.spacing.ml};
-  padding: ${theme.spacing.m} 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-m);
+  padding: var(--spacing-m) 0;
   border-bottom: 1px solid ${theme.color.dark};
-  @media (min-width: 750px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: ${theme.spacing.s};
-    padding: 0;
-  }
 
-  @media (min-width: 1100px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    padding: 0;
     gap: 0;
-    padding: 0;
-  }
-
-  h6 {
-    padding: 0 0 0 ${theme.spacing.xxs};
   }
 `;
 
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  width: 100%;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    width: 50%;
+  }
 `;
 
 const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0;
+  padding-bottom: var(--spacing-xs);
   @media (min-width: 750px) {
     flex-direction: row;
   }
-
   @media (min-width: 1100px) {
-    flex-direction: row;
-    gap: ${theme.spacing.m};
+    gap: var(--spacing-m);
   }
 `;
 
@@ -287,86 +257,57 @@ const Option = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0;
-  cursor: pointer;
-
-  &:hover {
-  }
-
-  &.selected {
-  }
-
-  @media (min-width: 750px) {
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.s} 0;
-  }
 `;
 
 const OptionName = styled.span`
   text-transform: uppercase;
-  font-size: ${theme.fontSizes.xxs};
-  padding: 0 0 0 ${theme.spacing.xs};
-
-  @media (min-width: 750px) {
-    padding: 0 0 0 ${theme.spacing.xxs};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0;
-  }
+  font-size: var(--font-xs);
+  padding-left: var(--spacing-xs);
 `;
 
 const ServiceContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  box-sizing: border-box;
-  @media (min-width: 750px) {
-    flex-direction: row;
-  }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 750px) {
     flex-direction: row;
   }
 `;
 
 const OutcomeContainer = styled.div`
   display: flex;
-  flex: 1;
-  box-sizing: border-box;
+  width: 50%;
 `;
 
 const OutcomeContent = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
+
   justify-content: end;
-  padding: ${theme.spacing.ml} 0;
-  box-sizing: border-box;
-
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.s} 0;
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.s} 0;
-  }
+  padding: var(--spacing-m) 0;
+  width: 50%;
   ul {
-    margin-bottom: ${theme.spacing.ml};
+    margin-bottom: var(--spacing-m);
     li {
-      padding: ${theme.spacing.s} 0;
+      padding: var(--spacing-s) 0;
     }
   }
-
   p {
-    font-size: ${theme.fontSizes.xs};
+    font-size: var(--font-xs);
   }
 `;
 
 const SelectedItem = styled.div`
   display: flex;
-  gap: ${theme.spacing.s};
+  gap: var(--spacing-s);
   align-items: center;
+  justify-content: space-between;
+`;
+
+const ItemWrapper = styled.div`
+  display: flex;
+  gap: var(--spacing-xs);
 `;
 
 const RemoveButton = styled.button`
@@ -376,13 +317,12 @@ const RemoveButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  font-size: ${theme.fontSizes.xxs};
+  font-size: var(--font-xs);
   text-transform: uppercase;
-  margin-left: ${theme.spacing.xs};
+  margin-left: var(--spacing-xs);
   transform: scale(0.9);
-
   &:hover {
-    font-weight: ${theme.fontWeight.fatBold};
+    font-weight: var(--font-weight-fatBold);
   }
 `;
 
@@ -390,7 +330,6 @@ const StyledRemoveIcon = styled(RxCross1)`
   fill: none;
   stroke: currentColor;
   color: inherit;
-
   &:hover {
     transform: scale(1.1);
     stroke-width: 1.1;
@@ -399,30 +338,17 @@ const StyledRemoveIcon = styled(RxCross1)`
 
 const Services = styled.div`
   flex: 2;
-  box-sizing: border-box;
-  padding: ${theme.spacing.s} 0;
-
-  @media (min-width: 750px) {
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0;
-  }
+  padding: 0;
 `;
 
 const StyledArrowIcon = styled(PiArrowUpRight)`
-  margin-left: 1rem;
+  margin-left: var(--spacing-m);
   transform: scale(1.2);
   width: 15px;
   height: 15px;
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.2);
-  }
-
   &.rotate {
     transform: rotate(180deg);
   }
@@ -436,16 +362,8 @@ const ServiceUL = styled.ul`
 const Service = styled.li`
   display: flex;
   flex-direction: column;
-  padding: ${theme.spacing.m} 0 ${theme.spacing.m} 0;
+  padding: var(--spacing-m) 0;
   border-bottom: 1px solid ${theme.color.dark};
-
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.ml} 0 ${theme.spacing.ml} 0;
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.m} 0 ${theme.spacing.m} 0;
-  }
 `;
 
 const ServiceTitleGroup = styled.div`
@@ -458,24 +376,23 @@ const TitleCheckboxContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: ${theme.spacing.s};
+  gap: var(--spacing-s);
 `;
 
-const ServiceTitle = styled.h5`
+const ServiceTitle = styled.h2`
   padding: 0;
-  font-weight: ${theme.fontWeight.extraBold};
+  font-weight: ${theme.fontWeight.mediumBold};
 `;
 
 const OverlayDescription = styled.div`
   display: flex;
   flex-direction: column;
+  border: solid 12px red;
 `;
 
 const Description = styled.p`
-  padding: ${theme.spacing.m} 0 0 0;
-  animation-name: slide-animation;
-  animation-duration: 0.5s;
-  transition: opacity 0.3s ease;
+  padding-top: var(--spacing-xs);
+  animation: slide-animation 0.5s ease;
 
   @keyframes slide-animation {
     0% {
@@ -490,8 +407,8 @@ const Description = styled.p`
 `;
 
 const Price = styled.p`
-  padding-top: ${theme.spacing.m};
+  padding-top: var(--spacing-xs);
   span {
-    font-weight: ${theme.fontWeight.extraBold};
+    font-weight: var(--font-weight-extraBold);
   }
 `;

@@ -1,24 +1,21 @@
 import Layout from "@/components/Layout";
-import HeadBox from "@/components/HeadBox";
-import Team from "@/components/Team";
-import ProjectSlider from "../components/ProjectSlider";
-import FAQ from "@/components/FAQ";
-import ContactForm from "@/components/ContactForm";
 import Head from "next/head";
-import DoubleTextBox from "@/components/DoubleTextBox";
-import StudioBox from "@/components/StudioBox";
-import { IoAccessibility, IoBulbOutline, IoCameraReverseOutline, IoFingerPrintOutline } from "react-icons/io5";
-import { PiNumberCircleOneFill, PiArrowRightLight } from "react-icons/pi";
-import Pricing from "@/components/Pricing";
-import SlideBox from "@/components/SlideBox";
+import Hero from "@/components/Hero";
+import ImageSlider from "@/components/ImageSlider";
 import ScrollBox from "@/components/ScrollBox";
-import ProjectSliderLight from "@/components/ProjectSliderLight";
-import TeamText from "@/components/TeamText";
+import ImageSliderLight from "@/components/ImageSliderLight";
+import DoubleTextBox from "@/components/DoubleTextBox";
 import ImageTextBox from "@/components/ImageTextBox";
-import ImageElement from "@/components/ImageElement";
 import TextSlider from "@/components/TextSlider";
+import StudioBox from "@/components/StudioBox";
+import TeamText from "@/components/TeamText";
+import Team from "@/components/Team";
+import ContactForm from "@/components/ContactForm";
+import ImageElement from "@/components/ImageElement";
+import FAQ from "@/components/FAQ";
+import Pricing from "@/components/Pricing";
+import { PiNumberCircleOneFill, PiArrowRightLight } from "react-icons/pi";
 
-//Image imports
 import image1 from "/public/images/Image1.jpg";
 import image2 from "/public/images/Image2.jpg";
 import image3 from "/public/images/Image3.jpg";
@@ -47,11 +44,6 @@ import studioImage11 from "/public/images/KLUBSTUDIO_17.jpg";
 import studioImage12 from "/public/images/KLUBSTUDIO_19.jpg";
 import studioImage13 from "/public/images/KLUBSTUDIO_10.jpg";
 
-import screenshot1 from "/public/images/averdung_website_screenshot.png";
-import screenshot2 from "/public/images/neuland_website_screenshot.png";
-import screenshot3 from "/public/images/otto_website_screenshot.png";
-import StudioSlider from "@/components/StudioSlider";
-
 export default function HomePage() {
   return (
     <Layout>
@@ -62,7 +54,7 @@ export default function HomePage() {
         <meta name="description" content="Branding und Corporate Fotografie für dein Business" />
         <meta name="author" content="Dein Name" />
       </Head>
-      <HeadBox
+      <Hero
         headline="Fotografie. Branding. Content Creation."
         text={
           <>
@@ -71,26 +63,22 @@ export default function HomePage() {
           </>
         }
       />
-      <ProjectSlider
+      <ImageSlider
         projects={[
           {
-            title: "IMAGE KAMPAGNEN",
-            description: "Description of Project 1",
+            alt: "",
             image: projectImage1,
           },
           {
-            title: "BUSINESS PORTRAITS",
-            description: "Description of Project 2",
+            alt: "",
             image: projectImage2,
           },
           {
-            title: "FOTO REPORTAGEN",
-            description: "Description of Project 3",
+            alt: "",
             image: projectImage3,
           },
           {
-            title: "EVENTS",
-            description: "Description of Project 3",
+            alt: "",
             image: projectImage4,
           },
         ]}
@@ -99,9 +87,6 @@ export default function HomePage() {
         <ScrollBox
           autoplay={false}
           headline1="Leistungen ohne Schnickschnack"
-          // headline2={
-          //   <>Was dich weiterbringt: Branding mit Substanz, Bilder mit Haltung, Design mit System – und Websites, die nicht im Baukasten steckenbleiben.</>
-          // }
           headline2={
             <>
               Branding, Fotografie, Design, Web und Content – alles aus einer Hand, strategisch durchdacht und visuell auf den Punkt. Keine Templates, <br />
@@ -122,89 +107,115 @@ export default function HomePage() {
               image: studioImage1,
               label: "Foto",
               title: "Branding Fotografie",
+              mobileTitle: "Branding Fotos",
               text: "Bilder, die deine Marke zeigen. Wir entwickeln Bildwelten, die Werte und Persönlichkeit transportieren – für Website, Medien und Social Media.",
             },
             {
               image: studioImage2,
               label: "Foto",
               title: "Business- & Teamfotografie",
+              mobileTitle: "Teamfotografie",
               text: "Teamfotos, die Vertrauen schaffen und Kultur sichtbar machen – für Bewerber*innen, Kund*innen und alle, die euch kennenlernen sollen.",
             },
             {
               image: studioImage3,
               label: "Foto & Video",
               title: "Social Media Content & Strategie",
+              mobileTitle: "Social Media Content",
               text: "Individueller Foto- und Videocontent statt Stockbilder – passend zu deinem Stil und deiner Zielgruppe. Für Posts, Reels und Stories.",
             },
             {
               image: studioImage4,
               label: "Video",
               title: "Imagefilm & Video-Content",
+              mobileTitle: "Video Content",
               text: "Bewegte Bilder, die deine Botschaft tragen. Wir entwickeln Formate für Web, Social Media und alle Kanäle, die du bespielst.",
             },
             {
               image: studioImage5,
               label: "Web",
               title: "Website Design (UI/UX)",
+              mobileTitle: "Website Design",
               text: "Webdesign, das wirkt. Struktur, Design und Inhalte greifen ineinander – für Seiten, die zu dir passen und User überzeugen.",
             },
             {
               image: studioImage6,
               label: "Web",
               title: "Website Entwicklung",
+              mobileTitle: "Web Entwicklung",
               text: "Technisch stark, flexibel und ohne Stress. Wir setzen deine Website so um, dass sie läuft, wächst und dir den Rücken freihält.",
             },
             {
               image: studioImage7,
               label: "Design",
               title: "Branding & Corporate Design",
+              mobileTitle: "Corporate Design",
               text: "Logo, Farben, Typografie – wir entwickeln dein visuelles Fundament, das wiedererkennbar macht und deine Marke klar positioniert.",
             },
             {
               image: studioImage8,
               label: "Fotografie",
               title: "Eventfotografie",
+              mobileTitle: "Event Fotos",
               text: "Wir halten Atmosphäre und Highlights deines Events in starken Bildern fest – dezent im Hintergrund, präsent im richtigen Moment.",
             },
             {
               image: studioImage8,
               label: "Strategie",
-              title: "Workshops & Beratung",
+              title: "Workshop & Beratung",
+              mobileTitle: "Workshop",
               text: "Ob Bildsprache, Content oder Branding – wir teilen Wissen, beraten und strukturieren deine Kommunikation für mehr Klarheit und Wirkung.",
             },
           ]}
         />
       </section>
-      <ProjectSliderLight
+      <TextSlider
+        autoplay={true}
+        reviews={[
+          {
+            client: "Maximilian T. - Marketing Director",
+            text: "»Die Zusammenarbeit war effizient und das Ergebnis übertrifft unsere Erwartungen!«",
+            link: "Click here",
+            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
+          },
+          {
+            client: "MiERGEBNISSEriam L. - HR Manager",
+            text: "»Die Mitarbeiterfotos von Dakiekste haben unseren Recruiting-Prozess enorm verbessert. «",
+            link: "Click here",
+            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
+          },
+          {
+            client: "Jana F - CEO",
+            text: "»Dank Dakiekste konnten wir unsere Markenidentität visuell perfekt inszenieren. «",
+            link: "Click here",
+            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
+          },
+        ]}
+      />
+      <ImageSliderLight
         projects={[
           {
-            title: "IMAGE KAMPAGNEN",
-            description: "Description of Project 1",
+            alt: "",
             image: image1,
           },
           {
-            title: "BUSINESS PORTRAITS",
-            description: "Description of Project 2",
+            alt: "",
             image: image2,
           },
           {
-            title: "FOTO REPORTAGEN",
-            description: "Description of Project 3",
+            alt: "",
             image: image3,
           },
           {
-            title: "EVENTS",
-            description: "Description of Project 3",
+            alt: "",
             image: image4,
           },
           {
-            title: "EVENTS",
-            description: "Description of Project 3",
+            alt: "",
             image: image6,
           },
         ]}
       />
-
       <DoubleTextBox
         topline1="Ein Look – viele Kanäle"
         headline1="Markenstrategie trifft Bildsprache"
@@ -214,6 +225,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         headline2="Starke Bilder. Klare Botschaften."
         text2="Wir liefern dir Content, der genau da ankommt, wo er soll – bei deiner Zielgruppe. Ob Reels, Feedposts oder Videos für deine Website: Du bekommst Inhalte, die auffallen, hängen bleiben und Vertrauen schaffen. Du musst dich nicht um jedes Detail kümmern – wir denken mit und liefern Content, den du direkt einsetzen kannst."
       />
+
       <ImageTextBox
         topline="Menschen im Mittelpunkt"
         headline="Businessportraits mit Haltung"
@@ -255,66 +267,108 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
           boxData={[
             {
               icon: PiArrowRightLight,
-              label: "01 Erstgespräch & Analyse",
-              title: "Dein Business verstehen",
+              label: "Erstgespräch & Analyse",
+              title: "01 Dein Business verstehen",
+              mobileTitle: "Deine Vision verstehen",
               text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
             {
               icon: PiArrowRightLight,
               label: "02 Konzeption & Workshops",
               title: "Von der Idee zur Strategie",
+              mobileTitle: "Strategie entwickeln",
               text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Bei größeren Projekten bieten wir Workshops an, um gemeinsam die beste Lösung zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände.",
             },
             {
               icon: PiArrowRightLight,
               label: "03 Organisation",
               title: "Fundament für Erfolg",
-              text: "Wir organisieren alles – vom Briefing bis zur Umsetzung. Mit unserem Netzwerk aus Locationscouts, Stylist*innen und Make-up-Artist*innen stellen wir sicher, dass alles reibungslos läuft. Detaillierte Zeitpläne und Produktionsguides sorgen für klare Abläufe und ein starkes Ergebnis.",
+              mobileTitle: "Das Fundament",
+              text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis hin zu Styling und Make-up. Dank unseres Netzwerks und durchdachter Zeitpläne läuft dein Shooting reibungslos und zuverlässig.",
             },
             {
               icon: PiArrowRightLight,
               label: "04 Umsetzung",
               title: "Realisierung deiner Vision",
+              mobileTitle: "Content erschaffen",
               text: "Fotografie, Design, Web – bei uns greift alles ineinander. Wir arbeiten effizient und ohne doppelte Abstimmungen. Shootings und Drehs laufen strukturiert ab. Design entsteht in Abstimmung mit Strategie und Zielgruppe. Web-Projekte entwickeln wir funktional, durchdacht und einsatzbereit.",
             },
             {
               icon: PiArrowRightLight,
               label: "05 Nachbearbeitung",
               title: "Dein Content. Direkt einsetzbar.",
+              mobileTitle: "Dein content-pool",
               text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool für Website, Social Media und mehr – über Online-Galerie oder Cloud, inkl. Anleitung zur flexiblen Verwendung.",
             },
             {
+              icon: PiArrowRightLight,
               label: "06 Langfristige Unterstützung",
               title: "Wachstum im Fokus",
+              mobileTitle: "Gemeinsam wachsen",
               text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
             },
           ]}
         />
       </section>
-      <TextSlider
-        autoplay={true}
-        reviews={[
-          {
-            client: "Maximilian T. - Marketing Director",
-            text: "»Mit Dakiekste haben wir nicht nur hochwertige Businessfotos erhalten, sondern auch ein kreatives Team, das uns bei jedem Schritt unterstützt hat. Die Zusammenarbeit war effizient und das Ergebnis übertrifft unsere Erwartungen!«",
-            link: "Click here",
-            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-          },
-          {
-            client: "MiERGEBNISSEriam L. - HR Manager",
-            text: "»Die Mitarbeiterfotos von Dakiekste haben unseren Recruiting-Prozess enorm verbessert. Die authentischen, professionellen Bilder haben uns geholfen, die richtigen Talente anzusprechen und unsere Arbeitgebermarke zu stärken.«",
-            link: "Click here",
-            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-          },
-          {
-            client: "Jana F - CEO",
-            text: "»Dank Dakiekste konnten wir unsere Markenidentität visuell perfekt inszenieren. Das Team hat sich wirklich Zeit genommen, uns und unsere Vision zu verstehen – und das sieht man in jedem Bild!«",
-            link: "Click here",
-            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-          },
-        ]}
-      />
-
+      <section id="studio">
+        <StudioBox
+          autoplay="false"
+          topline="KLUB STUDIO"
+          headline="Viel Raum für deine Ideen"
+          text1="Unser Studio bietet den Raum, den kreative Ideen brauchen: lichtdurchflutetes Tageslichtstudio und wandelbare Sets. Mit einer Auswahl an Hintergründen und Requisiten lassen sich unterschiedlichste Konzepte umsetzen."
+          text2="Für eine entspannte Atmosphäre sorgen kostenfreie Parkplätze, Kaffee und Tee – alles, was ein gutes Shooting braucht."
+          slides={[
+            {
+              image: studioImage1,
+              title: "Hair & Makeup Bereich",
+              description:
+                "Unser Stylingbereich ist mit großem Spiegel, Kleiderstange, Steamer und Ablagefläche ausgestattet – ideal zum Ankommen, Vorbereiten und Wohlfühlen.",
+            },
+            {
+              image: studioImage5,
+              title: (
+                <>
+                  <>Große</>
+                  <br />
+                  <>Fotostudio-Fläche</>
+                </>
+              ),
+              description: "80 m² flexibel nutzbare Studiofläche mit viel Tageslicht, mobilem Hintergrundsystem und Raum für große und kleine Produktionen.",
+            },
+            {
+              image: studioImage4,
+              title: "Lounge & Arbeitsbereich",
+              description:
+                "Ein wandelbarer Bereich mit großer Bühne, Vorhang, Tisch, Stühlen und Sofa – ideal für Meetings, Pausen oder auch als Kulisse fürs nächste Set.",
+            },
+            {
+              image: studioImage6,
+              title: "Professionelle Lichttechnik",
+              description:
+                "Ob Dauerlicht oder Blitz – unser Studio ist mit hochwertiger Technik ausgestattet. Alles, was du für eine starke Ausleuchtung und präzise Ergebnisse brauchst, ist vor Ort.",
+            },
+            {
+              image: studioImage7,
+              title: "Flexible Sets & Hintergründe",
+              description:
+                "Unterschiedliche Papierhintergründe, Stoffe und mobile Setups ermöglichen dir abwechslungsreiche Looks – vom cleanen Portrait bis zur szenischen Inszenierung.",
+            },
+            {
+              image: studioImage13,
+              title: "Vielfältige Requisiten",
+              description:
+                "Von Vorhängen über Möbel bis zu kleinen Details – im Studio findest du viele Elemente, um dein Set individuell zu gestalten und neue Looks zu schaffen.",
+            },
+            {
+              image: studioImage9,
+              title: "Kaffee, Tee & kalte Getränke",
+              description:
+                "Für eine entspannte Arbeitsatmosphäre sorgen kleine Extras wie guter Kaffee aus der Siebträgermaschine und eine Auswahl an Getränken – inklusive im Studio-Angebot.",
+            },
+          ]}
+        />
+      </section>
+      <ImageElement image={studioImage4} alt="Bildbeschreibung" />
       <section id="team">
         <TeamText
           topline="Zwei Perspektiven. Eine Haltung."
@@ -338,7 +392,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               die wirken – ehrlich, zugänglich und mit Blick fürs Wesentliche.
             </>
           }
-        />
+        />{" "}
         <Team
           teamMembers={[
             {
@@ -354,298 +408,50 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               email: "mailto:maischa@dakiekste.com",
             },
             {
-              name: "Fabian Hellgardt",
+              name: "Das Team",
               text: "CGI • Motion Control • Animation",
               image: "Fabian.jpg",
               email: "mailto:info@dakiekste.com",
             },
-            {
-              name: "René Kuntzag",
-              text: "Produktdesign • Kochen • 3D Druck",
-              image: "rene.jpg",
-              email: "mailto:info@dakiekste.com",
-            },
-
-            {
-              name: "Marina",
-              text: "Office • Rechnungen • Buchhaltung",
-              image: "Marina.jpg",
-              email: "mailto:info@dakiekste.com",
-            },
-            {
-              name: "Stellan Wetzig",
-              text: "Fotografie • Video • Web Development",
-              image: "Stellan_Portrait.jpg",
-              email: "mailto:stellan@dakiekste.com",
-            },
-            {
-              name: "MaÏscha Souaga",
-              text: "Fotografie • Video • Design »Branding«",
-              image: "Maischa_Portrait.jpg",
-              email: "mailto:maischa@dakiekste.com",
-            },
-            {
-              name: "Stellan Wetzig",
-              text: "Fotografie • Video • Web Development",
-              image: "Stellan_Portrait.jpg",
-              email: "mailto:stellan@dakiekste.com",
-            },
-            {
-              name: "MaÏscha Souaga",
-              text: "Fotografie • Video • Design »Branding«",
-              image: "Maischa_Portrait.jpg",
-              email: "mailto:maischa@dakiekste.com",
-            },
           ]}
         />
+        <section id="contact">
+          <ContactForm />
+        </section>
       </section>
-      <ProjectSliderLight
-        projects={[
-          {
-            title: "Projekt 1",
-            description: "Description of Project 1",
-            image: btsImage1,
-          },
-          {
-            title: "Projekt2",
-            description: "Description of Project 2",
-            image: btsImage2,
-          },
-          {
-            title: "Projekt3",
-            description: "Description of Project 3",
-            image: projectImage1,
-          },
-          {
-            title: "Projekt4",
-            description: "Description of Project 3",
-            image: projectImage2,
-          },
-        ]}
-      />
-      <section id="studio">
-        <StudioBox
-          autoplay="false"
-          topline="KLUB STUDIO"
-          headline="Viel Raum für deine Ideen"
-          text1="Unser Studio bietet den Raum, den kreative Ideen brauchen: lichtdurchflutetes Tageslichtstudio und wandelbare Sets. Mit einer Auswahl an Hintergründen und Requisiten lassen sich unterschiedlichste Konzepte umsetzen."
-          text2="Für eine entspannte Atmosphäre sorgen kostenfreie Parkplätze, Kaffee und Tee – alles, was ein gutes Shooting braucht."
-          slides={[
-            {
-              image: studioImage1,
-              title: "Hair & Makeup Bereich",
-              description:
-                "Unser Stylingbereich ist mit großem Spiegel, Kleiderstange, Steamer und Ablagefläche ausgestattet – ideal zum Ankommen, Vorbereiten und Wohlfühlen.",
-            },
-            {
-              image: studioImage5,
-              title: "Fotostudio-Fläche",
-              description: "80 m² flexibel nutzbare Studiofläche mit viel Tageslicht, mobilem Hintergrundsystem und Raum für große und kleine Produktionen.",
-            },
-            {
-              image: studioImage4,
-              title: "Lounge & Arbeitsbereich",
-              description:
-                "Ein wandelbarer Bereich mit großer Bühne, Vorhang, Tisch, Stühlen und Sofa – ideal für Meetings, Pausen oder auch als Kulisse fürs nächste Set.",
-            },
-            {
-              image: studioImage6,
-              title: "Professionelle Lichttechnik",
-              description:
-                "Ob Dauerlicht oder Blitz – unser Studio ist mit hochwertiger Technik ausgestattet. Alles, was du für eine starke Ausleuchtung und präzise Ergebnisse brauchst, ist vor Ort.",
-            },
-            {
-              image: studioImage7,
-              title: "Flexible Hintergründe & Setups",
-              description:
-                "Unterschiedliche Papierhintergründe, Stoffe und mobile Setups ermöglichen dir abwechslungsreiche Looks – vom cleanen Portrait bis zur szenischen Inszenierung.",
-            },
-            {
-              image: studioImage13,
-              title: "Vielfältige Requisiten & Texturen",
-              description:
-                "Von Vorhängen über Möbel bis zu kleinen Details – im Studio findest du viele Elemente, um dein Set individuell zu gestalten und neue Looks zu schaffen.",
-            },
-            {
-              image: studioImage9,
-              title: "Kaffee, Tee & kalte Getränke",
-              description:
-                "Für eine entspannte Arbeitsatmosphäre sorgen kleine Extras wie guter Kaffee aus der Siebträgermaschine und eine Auswahl an Getränken – inklusive im Studio-Angebot.",
-            },
-          ]}
-        />
-      </section>
-      <ImageElement image={studioImage4} alt="Bildbeschreibung" />
-      <section id="pricing">
-        <Pricing
-          pricingData={[
-            {
-              category: "Wer bist du?",
-              options: ["Soloselbstständig", "Unternehmen"],
-            },
-            {
-              category: "Was brauchst du?",
-              options: ["Fotografie", "Video", "Weiteres"],
-            },
-            {
-              category: "Pakete",
-              options: ["Basic", "Premium"],
-            },
-          ]}
-          servicesData={[
-            {
-              title: "Mitarbeiter*innen & CEO Portraits",
-              category: "Fotografie",
-              descriptions: {
-                Basic: "Ein professionelles Basis-Paket für CEO- und Team-Portraits.",
-                Premium: "Inklusive Location-Scouting, Retusche und erweiterter Optionen.",
-              },
-              price: {
-                Basic: 120,
-                Premium: 250,
-              },
-            },
-            {
-              title: "Personal Branding",
-              category: "Fotografie",
-              descriptions: {
-                Basic: "Ein kompaktes Branding-Paket für Selbstständige und kleine Unternehmen.",
-                Premium: "Umfassendes Branding inkl. Video-Content und strategischer Beratung.",
-              },
-              price: {
-                Basic: 3000,
-                Premium: 5000,
-              },
-            },
-            {
-              title: "Event & Happenings",
-              category: "Fotografie",
-              descriptions: {
-                Basic: "Basis-Eventdokumentation ohne Nachbearbeitung.",
-                Premium: "Professionelle Eventdokumentation inkl. Nachbearbeitung.",
-              },
-              price: {
-                Basic: 850,
-                Premium: 1500,
-              },
-            },
-            {
-              title: "Social Media Content",
-              category: "Fotografie",
-              descriptions: {
-                Basic: "Erstelle modernen Content für Instagram und Co.",
-                Premium: "Erweiterte Content-Produktion inkl. Analyse und Strategie-Entwicklung.",
-              },
-              price: {
-                Basic: 500,
-                Premium: 1200,
-              },
-            },
-            {
-              title: "Konzeption",
-              category: "Fotografie",
-              descriptions: {
-                Basic: "Basis-Konzeptentwicklung mit Fokus auf dein Branding.",
-                Premium: "Erweiterte Konzeption inkl. Workshops und Zielgruppenanalyse.",
-              },
-              price: {
-                Basic: 900,
-                Premium: 2000,
-              },
-            },
-            {
-              title: "Video-Content für Social Media",
-              category: "Video",
-              descriptions: {
-                Basic: "Erstellung von Video-Content für Social-Media-Plattformen.",
-                Premium: "Inklusive Storyboard-Erstellung und Nachbearbeitung.",
-              },
-              price: {
-                Basic: 800,
-                Premium: 1500,
-              },
-            },
-            {
-              title: "Event-Videodokumentation",
-              category: "Video",
-              descriptions: {
-                Basic: "Dokumentation von Events ohne Nachbearbeitung.",
-                Premium: "Professionelle Event-Videodokumentation inkl. Nachbearbeitung.",
-              },
-              price: {
-                Basic: 1000,
-                Premium: 2500,
-              },
-            },
-            {
-              title: "Imagefilm",
-              category: "Video",
-              descriptions: {
-                Basic: "Kurzer Imagefilm für dein Unternehmen.",
-                Premium: "Erweiterter Imagefilm mit Interviews und detaillierter Nachbearbeitung.",
-              },
-              price: {
-                Basic: 4000,
-                Premium: 6000,
-              },
-            },
-            {
-              title: "Web-Design",
-              category: "Weiteres",
-              descriptions: {
-                Basic: "Design einer einfachen, aber modernen Website.",
-                Premium: "Komplexes Web-Design inkl. UI/UX Beratung und Implementierung.",
-              },
-              price: {
-                Basic: 1500,
-                Premium: 5000,
-              },
-            },
-            {
-              title: "Marketingberatung",
-              category: "Weiteres",
-              descriptions: {
-                Basic: "Beratung zur Steigerung deiner Sichtbarkeit auf Social Media.",
-                Premium: "Detaillierte Beratung inkl. Content-Strategie und Kampagnenplanung.",
-              },
-              price: {
-                Basic: 800,
-                Premium: 2000,
-              },
-            },
-          ]}
-        />
-      </section>
-      <ImageElement image={image4} alt="Bildbeschreibung" />
       <TextSlider
         autoplay={true}
         reviews={[
           {
             client: "Maximilian T. - Marketing Director",
-            text: "»Mit Dakiekste haben wir nicht nur hochwertige Businessfotos erhalten, sondern auch ein kreatives Team, das uns bei jedem Schritt unterstützt hat. Die Zusammenarbeit war effizient und das Ergebnis übertrifft unsere Erwartungen!«",
+            text: "»Die Zusammenarbeit war effizient und das Ergebnis übertrifft unsere Erwartungen!«",
             link: "Click here",
             url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-            screenshot: screenshot1,
           },
           {
-            client: "Miriam L. - HR Manager",
-            text: "»Die Mitarbeiterfotos von Dakiekste haben unseren Recruiting-Prozess enorm verbessert. Die authentischen, professionellen Bilder haben uns geholfen, die richtigen Talente anzusprechen und unsere Arbeitgebermarke zu stärken.«",
+            client: "MiERGEBNISSEriam L. - HR Manager",
+            text: "»Die Mitarbeiterfotos von Dakiekste haben unseren Recruiting-Prozess enorm verbessert. «",
             link: "Click here",
             url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-            screenshot: screenshot2,
           },
           {
             client: "Jana F - CEO",
-            text: "»Dank Dakiekste konnten wir unsere Markenidentität visuell perfekt inszenieren. Das Team hat sich wirklich Zeit genommen, uns und unsere Vision zu verstehen – und das sieht man in jedem Bild!«",
+            text: "»Dank Dakiekste konnten wir unsere Markenidentität visuell perfekt inszenieren. «",
             link: "Click here",
             url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-            screenshot: screenshot3,
           },
         ]}
       />
-      <section id="contact">
-        <ContactForm />
-      </section>
+
+      <ImageTextBox
+        topline="Gemeinsam für mehr"
+        headline="Zusammen die Zukunft gestalten"
+        text1="Einmal im Jahr unterstützen wir ein gemeinnütziges Projekt mit einer Fotokampagne. So rücken wir Themen und Menschen ins Licht, die sonst oft übersehen werden – und leisten einen kleinen Beitrag zu mehr Sichtbarkeit und Teilhabe."
+        text2="Du kennst ein Projekt, das das verdient hat? Dann meld dich gerne bei uns – wir freuen uns auf eure Ideen."
+        image={btsImage1}
+        alt="Description of image"
+      />
+
       <section id="faq">
         <FAQ
           faqData={[
@@ -878,14 +684,148 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
           ]}
         />
       </section>
-      <ImageTextBox
-        topline="Gemeinsam für mehr"
-        headline="Zusammen die Zukunft gestalten"
-        text1="Einmal im Jahr unterstützen wir ein gemeinnütziges Projekt mit einer Fotokampagne. So rücken wir Themen und Menschen ins Licht, die sonst oft übersehen werden – und leisten einen kleinen Beitrag zu mehr Sichtbarkeit und Teilhabe."
-        text2="Du kennst ein Projekt, das das verdient hat? Dann meld dich gerne bei uns – wir freuen uns auf eure Ideen."
-        image={btsImage1}
-        alt="Description of image"
-      />
+      <section id="pricing">
+        <Pricing
+          pricingData={[
+            {
+              category: "Dein Business",
+              options: ["Soloselbstständig", "Unternehmen"],
+            },
+            {
+              category: "Dein Projekt",
+              options: ["Fotografie", "Video", "Weiteres"],
+            },
+          ]}
+          servicesData={[
+            {
+              title: "Mitarbeiter*innen & CEO Portraits",
+              category: "Fotografie",
+              descriptions: {
+                Basic: "Ein professionelles Basis-Paket für CEO- und Team-Portraits.",
+                Premium: "Inklusive Location-Scouting, Retusche und erweiterter Optionen.",
+              },
+              price: {
+                Basic: 120,
+                Premium: 250,
+              },
+            },
+            {
+              title: "Personal Branding",
+              category: "Fotografie",
+              descriptions: {
+                Basic: "Ein kompaktes Branding-Paket für Selbstständige und kleine Unternehmen.",
+                Premium: "Umfassendes Branding inkl. Video-Content und strategischer Beratung.",
+              },
+              price: {
+                Basic: 3000,
+                Premium: 5000,
+              },
+            },
+            {
+              title: "Event & Happenings",
+              category: "Fotografie",
+              descriptions: {
+                Basic: "Basis-Eventdokumentation ohne Nachbearbeitung.",
+                Premium: "Professionelle Eventdokumentation inkl. Nachbearbeitung.",
+              },
+              price: {
+                Basic: 850,
+                Premium: 1500,
+              },
+            },
+            {
+              title: "Social Media Content",
+              category: "Fotografie",
+              descriptions: {
+                Basic: "Erstelle modernen Content für Instagram und Co.",
+                Premium: "Erweiterte Content-Produktion inkl. Analyse und Strategie-Entwicklung.",
+              },
+              price: {
+                Basic: 500,
+                Premium: 1200,
+              },
+            },
+            {
+              title: "Konzeption",
+              category: "Fotografie",
+              descriptions: {
+                Basic: "Basis-Konzeptentwicklung mit Fokus auf dein Branding.",
+                Premium: "Erweiterte Konzeption inkl. Workshops und Zielgruppenanalyse.",
+              },
+              price: {
+                Basic: 900,
+                Premium: 2000,
+              },
+            },
+            {
+              title: "Video-Content für Social Media",
+              category: "Video",
+              descriptions: {
+                Basic: "Erstellung von Video-Content für Social-Media-Plattformen.",
+                Premium: "Inklusive Storyboard-Erstellung und Nachbearbeitung.",
+              },
+              price: {
+                Basic: 800,
+                Premium: 1500,
+              },
+            },
+            {
+              title: "Event-Videodokumentation",
+              category: "Video",
+              descriptions: {
+                Basic: "Dokumentation von Events ohne Nachbearbeitung.",
+                Premium: "Professionelle Event-Videodokumentation inkl. Nachbearbeitung.",
+              },
+              price: {
+                Basic: 1000,
+                Premium: 2500,
+              },
+            },
+            {
+              title: "Imagefilm",
+              category: "Video",
+              descriptions: {
+                Basic: "Kurzer Imagefilm für dein Unternehmen.",
+                Premium: "Erweiterter Imagefilm mit Interviews und detaillierter Nachbearbeitung.",
+              },
+              price: {
+                Basic: 4000,
+                Premium: 6000,
+              },
+            },
+            {
+              title: "Web-Design",
+              category: "Weiteres",
+              descriptions: {
+                Basic: "Design einer einfachen, aber modernen Website.",
+                Premium: "Komplexes Web-Design inkl. UI/UX Beratung und Implementierung.",
+              },
+              price: {
+                Basic: 1500,
+                Premium: 5000,
+              },
+            },
+            {
+              title: "Marketingberatung",
+              category: "Weiteres",
+              descriptions: {
+                Basic: "Beratung zur Steigerung deiner Sichtbarkeit auf Social Media.",
+                Premium: "Detaillierte Beratung inkl. Content-Strategie und Kampagnenplanung.",
+              },
+              price: {
+                Basic: 800,
+                Premium: 2000,
+              },
+            },
+          ]}
+        />
+      </section>
+      {/*
+      <ImageElement image={image4} alt="Bildbeschreibung" />
+     
+
+     
+      */}
     </Layout>
   );
 }

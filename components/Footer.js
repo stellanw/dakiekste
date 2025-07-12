@@ -1,8 +1,8 @@
+//
 import Link from "next/link";
 import styled from "styled-components";
-
 import { PiEnvelopeSimpleLight, PiInstagramLogoLight, PiMapPinLight } from "react-icons/pi";
-import { theme } from "@/styles";
+import { theme, spacingValue } from "@/styles";
 
 export default function Footer() {
   const email = "info" + "@" + "dakiekste" + ".com";
@@ -41,38 +41,20 @@ export default function Footer() {
 const StyledFooter = styled.footer`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
   bottom: 0;
-  flex-shrink: 0;
   width: 100%;
-  font-size: 1.2rem;
-  margin: 0;
+  font-size: var(--font-m);
   height: 18rem;
   background-color: ${theme.color.beige};
-  padding: 0 ${theme.spacing.mobile.side};
-
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side};
-  }
+  padding: 0 var(--side-padding);
 `;
 
 const StyledRightWrapper = styled.div`
   display: flex;
   justify-content: end;
   align-items: start;
-  gap: ${theme.spacing.xs};
-  margin-top: ${theme.spacing.xxl};
-
-  @media (min-width: 750px) {
-  }
-
-  @media (min-width: 1100px) {
-    gap: ${theme.spacing.m};
-  }
+  gap: var(--spacing-s);
+  margin-top: var(--spacing-xl);
 `;
 
 const StyledLeftWrapper = styled.div`
@@ -80,45 +62,38 @@ const StyledLeftWrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  margin-top: ${theme.spacing.xxl};
+  margin-top: var(--spacing-xl);
 `;
 
 const StyledLink = styled(Link)`
   margin-bottom: -0.2rem;
-  font-size: ${theme.fontSizes.l};
-
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xxl};
-  }
-
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.xxl};
-  }
+  font-size: var(--font-l);
 `;
 
 const StyledImpressum = styled.p`
-  font-size: 1rem;
+  font-size: var(--font-s);
   margin: 0;
-  padding-top: 1rem;
+  padding-top: var(--spacing-s);
+`;
+
+const iconBaseStyles = `
+font-size: var(--font-s);
+  stroke-width: 10;
+
+  &:hover {
+    color: ${theme.color.green};
+    stroke-width: 14;
+  }
 `;
 
 const StyledIconMail = styled(PiEnvelopeSimpleLight)`
-  &:hover {
-    color: ${theme.color.green};
-    stroke-width: 10;
-  }
+  ${iconBaseStyles}
 `;
 
 const StyledIconInsta = styled(PiInstagramLogoLight)`
-  &:hover {
-    color: ${theme.color.green};
-    stroke-width: 10;
-  }
+  ${iconBaseStyles}
 `;
 
 const StyledIconMap = styled(PiMapPinLight)`
-  &:hover {
-    color: ${theme.color.green};
-    stroke-width: 10;
-  }
+  ${iconBaseStyles}
 `;

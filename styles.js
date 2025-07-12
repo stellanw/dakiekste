@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { css } from "styled-components";
 
 export const theme = {
   color: {
@@ -9,27 +10,28 @@ export const theme = {
     dust: "#8C8A7F",
   },
 
-  borderRadius: "15px",
-
-  fontSizes: {
-    s: "0.875rem", // 14px
-    m: "1rem", // 16px
-    l: "1.25rem", // 20px
-    xl: "1.75rem", // 28px
-    xxl: "2.25rem", // 36px
-  },
+  borderRadius: "20px",
 
   lineHeight: {
-    s: "1.2",
-    m: "1.4",
-    l: "1.6",
+    s: "0.8",
+    m: "1",
+    l: "1.2",
+    xl: "1.4",
+    xxl: "1.6",
   },
 
   fontWeight: {
-    light: 300,
+    light: 100,
     regular: 400,
     bold: 600,
+    mediumBold: 700,
     extraBold: 800,
+  },
+
+  height: {
+    header: "34rem",
+    hero: "30rem",
+    section: "25rem",
   },
 
   spacing: {
@@ -38,7 +40,8 @@ export const theme = {
     m: "1rem", // 16px
     l: "1.5rem", // 24px
     xl: "2rem", // 32px
-    xxl: "3rem", // 48px
+    xxl: "4rem", // 48px
+    xxxl: "6rem", // 48px
   },
 
   breakpoints: {
@@ -48,27 +51,88 @@ export const theme = {
   },
 };
 
-export const spacingValue = (size) => `
-  ${size};
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    calc(${size} * 1.2);
-  }
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    calc(${size} * 1.4);
-  }
-`;
-
 export default createGlobalStyle`
   *,
   *::before,
   *::after {
     margin: 0;
-  padding: 0;
+    padding: 0;
     box-sizing: border-box;
-
   }
+
+   :root {
+     /* Font variables */
+     --font-xxxl: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);     /* 60px → h1 */
+     --font-xxl:  clamp(2rem, 1.7rem + 1.2vw, 3.125rem);     /* 50px → h3 / h4 */
+     --font-xl:   clamp(1.5rem, 1.3rem + 1vw, 2.5rem);       /* 40px → gestyltes p */
+     --font-l:    clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem);    /* 24px → Standard p / h5 */
+     --font-m:    clamp(1rem, 0.9rem + 0.6vw, 1.25rem);      /* 20px → h2 */
+     --font-s:    clamp(1rem, 0.95rem + 0.2vw, 1rem);        /* 16px → kleine Schrift (konstant) */
+     --font-xs: clamp(0.75rem, 0.7rem + 0.4vw, 0.875rem);   /* z. B. für Meta, Labels */
+
+  /* Spacing variables */
+  --spacing-xs: ${theme.spacing.xs};
+  --spacing-s: ${theme.spacing.s};
+  --spacing-m: ${theme.spacing.m};
+  --spacing-l: ${theme.spacing.l};
+  --spacing-xl: ${theme.spacing.xl};
+  --spacing-xxl: ${theme.spacing.xxl};
+  --spacing-xxxl: ${theme.spacing.xxxl};
+
+  /* Side Padding */
+  --side-padding: 1.7rem;
+  --nav-height: 3.4rem;
+
+  /* Height variables */
+  --height-header: ${theme.height.header};
+  --height-hero: ${theme.height.hero};
+  --height-section: ${theme.height.section};
+}
+
+@media (min-width: ${theme.breakpoints.desktop}) {
+  :root {
+    --side-padding: 4rem;
+    --nav-height: 4rem;
+  }
+}
+
+@media (min-width: ${theme.breakpoints.tablet}) {
+  :root {
+    /* Scaled spacing */
+    --spacing-xs: calc(${theme.spacing.xs} * 1.2);
+    --spacing-s: calc(${theme.spacing.s} * 1.2);
+    --spacing-m: calc(${theme.spacing.m} * 1.2);
+    --spacing-l: calc(${theme.spacing.l} * 1.2);
+    --spacing-xl: calc(${theme.spacing.xl} * 1.2);
+    --spacing-xxl: calc(${theme.spacing.xxl} * 1.2);
+--spacing-xxxl: calc(${theme.spacing.xxxl} * 1.2);
+
+    /* Scaled heights */
+    --height-header: calc(${theme.height.header} * 1.2);
+    --height-hero: calc(${theme.height.hero} * 1.2);
+    --height-section: calc(${theme.height.section} * 1.2);
+  }
+}
+
+@media (min-width: ${theme.breakpoints.desktop}) {
+  :root {
+    /* Further scaled spacing */
+    --spacing-xs: calc(${theme.spacing.xs} * 2);
+    --spacing-s: calc(${theme.spacing.s} * 2);
+    --spacing-m: calc(${theme.spacing.m} * 2);
+    --spacing-l: calc(${theme.spacing.l} * 2);
+    --spacing-xl: calc(${theme.spacing.xl} * 2);
+    --spacing-xxl: calc(${theme.spacing.xxl} * 2);
+    --spacing-xxxl: calc(${theme.spacing.xxxl} * 2);
+
+    /* Further scaled heights */
+    --height-header: calc(${theme.height.header} * 1.4);
+    --height-hero: calc(${theme.height.hero} * 1.4);
+    --height-section: calc(${theme.height.section} * 1.4);
+  }
+}
+  
+
 
   body, html {
     margin: 0;
@@ -76,230 +140,193 @@ export default createGlobalStyle`
     height: 100%;
     width: 100%;
     font-family: "Figtree", sans-serif;
-    font-size: 18px;
+    font-size: 16px; 
     background-color: ${theme.color.beige};
     color: ${theme.color.dark};
     scroll-behavior: smooth;
-/* cursor: none;  */
-
   }
-a {
-color: ${theme.color.dark};
-text-decoration: none;
-};
 
-header, main, Footer {
+  a {
+    color: ${theme.color.dark};
+    text-decoration: none;
+  }
+
+  header, main, footer {
     flex-shrink: 0;
     flex-grow: 0;
-}
+  }
 
-h1,h2,h3,h4,h5,h6{
-  white-space: normal;
+  h1,h2,h3,h4,h5,h6 {
+    white-space: normal;
     word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-}
-
-h1{
-  font-weight: 700;
-  font-size: ${theme.fontSizes.l};
-  line-height: ${theme.lineHeight.xl};
-padding-bottom: 0.5rem;
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xxxl};
-    line-height: ${theme.lineHeight.xxxl};
   }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.xxxl};
-    line-height: ${theme.lineHeight.xxxl};
-  }
-}
 
-h2{
-    font-weight: 100;
+  h1 {
+    font-weight: ${theme.fontWeight.extraBold};
+    font-size: var(--font-xxxl);
+    line-height: ${theme.lineHeight.l};
+  }
+
+  h2 {
+    font-weight: ${theme.fontWeight.light};
     text-transform: uppercase;
     letter-spacing: 0.09rem;
-    font-size: ${theme.fontSizes.xxs};
-    padding-bottom: ${theme.spacing.xxs};
+    font-size: var(--font-xs);
+line-height: ${theme.lineHeight.l};
 
-    @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.s};
-      padding-bottom: ${theme.spacing.xs};
+    @media (min-width: ${theme.breakpoints.tablet}) {
+      font-size: var(--font-s);
+
     }
-    @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.s};
-      padding-bottom: ${theme.spacing.xs};
-    }
-}
+  }
 
-h3{
-
-  font-weight: ${theme.fontWeight.fatBold};
-  text-transform: uppercase;
-  font-size: ${theme.fontSizes.m};
-  padding-bottom: ${theme.spacing.m};
-  letter-spacing: 0.03rem;
-  line-height: ${theme.lineHeight.m};
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xl};
-    padding-bottom: ${theme.spacing.m};
-    letter-spacing: 0.05rem;
-    line-height: ${theme.lineHeight.xxl};
-    }
-    @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.xl};
-      padding-bottom: ${theme.spacing.m};
-      letter-spacing: 0.05rem;
-      line-height: ${theme.lineHeight.xxxl} !important;
-    
-    }
-}
-
-h4{
-
-  font-size: ${theme.fontSizes.s};
+h3 {
   font-weight: ${theme.fontWeight.extraBold};
   text-transform: uppercase;
-  padding-bottom: ${theme.spacing.s};
-line-height: ${theme.lineHeight.xl};
-letter-spacing: 0.04rem;
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.m};
-    padding-bottom: ${theme.spacing.m};
+  font-size: var(--font-xl);
+  padding-bottom: var(--spacing-s);
+  letter-spacing: 0.03rem;
+  line-height: ${theme.lineHeight.m};
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+font-size: var(--font-xxl);
+    letter-spacing: 0.05rem;
+    line-height: ${theme.lineHeight.xl};
+  }
+}
+
+  h4 {
+    font-size: var(--font-m);
     font-weight: ${theme.fontWeight.bold};
+    text-transform: none;
+    line-height: ${theme.lineHeight.xl};
+    letter-spacing: 0.04rem;
+
+
+    @media (min-width: ${theme.breakpoints.tablet}) {
+     font-size: var(--font-xl);
     }
-    @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.m};
-      padding-bottom: ${theme.spacing.m};
-    }
-}
-
-h5{
-
-  text-transform: uppercase;
-  font-weight: ${theme.fontWeight.light};
-  font-size: ${theme.fontSizes.xs};
-
-@media (min-width: 750px) {
-  font-size: ${theme.fontSizes.xs};
   }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.s};
-  }
-}
 
-h6{    
-
-  font-weight: ${theme.fontWeight.light};
-  text-transform: uppercase;
-  padding-bottom:${theme.spacing.s};}
-
-p {
-  font-weight: 100;
-  font-size: ${theme.fontSizes.s};
-  line-height: ${theme.lineHeight.l};
-font-weight: ${theme.fontWeight.regular};
-  @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.m};
-      line-height: ${theme.lineHeight.l};
-    }
-    @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.m};
+  h5 {
+    text-transform: uppercase;
+    font-weight: ${theme.fontWeight.bold};
+  font-size: var(--font-l);
+line-height: ${theme.lineHeight.l};
+    @media (min-width: ${theme.breakpoints.tablet}) {
+    font-size: var(--font-xl);
       line-height: ${theme.lineHeight.xl};
     }
-}
+  }
 
-label {
+  
+  h6 {
     text-transform: uppercase;
-    font-weight: 200;
+    font-weight: ${theme.fontWeight.mediumBold};
+font-size: var(--font-m);
+    line-height: ${theme.lineHeight.m};
+    letter-spacing: 0.05rem;
+    padding-bottom: var(--spacing-xs);
+    @media (min-width: ${theme.breakpoints.tablet}) {
+font-size: var(--font-m);
+      line-height: ${theme.lineHeight.l};
+    }
+  }
+
+  h7 {    
+    font-weight: ${theme.fontWeight.light};
+    letter-spacing: 0.09rem;
+  font-size: var(--font-s);
+line-height: ${theme.lineHeight.l};
+
+    @media (min-width: ${theme.breakpoints.tablet}) {
+font-size: var(--font-m);
+
+    }
+  }
+
+  p {
+    font-weight: ${theme.fontWeight.regular};
+  font-size: var(--font-s);
+    line-height: ${theme.lineHeight.xl};
+
+        @media (min-width: ${theme.breakpoints.tablet}) {
+    font-weight: ${theme.fontWeight.regular};
+font-size: var(--font-m);
+    line-height: ${theme.lineHeight.xl};
+
+    }
+  }
+
+  label {
+    text-transform: uppercase;
+    font-weight: ${theme.fontWeight.light};
     color: ${theme.color.green};
-    padding: 0 0 ${theme.spacing.xxs} 0;
+    padding: 0 0 ${theme.spacing.xs} 0;
   }
 
-  input {
+  input, textarea {
+
+        font-family: "Figtree", sans-serif;
+        font-size: var(--font-m);
+        font-weight: ${theme.fontWeight.light};
+        letter-spacing: 0.06rem;
     width: 100%;
-    padding: ${theme.spacing.s};
-    margin-bottom: ${theme.spacing.m};
     border: 1px solid ${theme.color.green};
     border-radius: ${theme.borderRadius};
-    font-size: ${theme.fontSizes.s};
-    background-color: ${theme.color.beige};
-    &:focus {
-
-      outline: none;
-background-color: ${theme.color.green};
-    }
+    color: ${theme.color.beige};
+background-color: transparent;
+ border-radius: calc(0.5 * (${theme.borderRadius}));
   }
 
-  textarea {
-    width: 100%;
-    padding: ${theme.spacing.s};
-    margin-bottom: ${theme.spacing.s};
-    border: 1px solid ${theme.color.green};
-    border-radius: ${theme.borderRadius};
-    font-size: ${theme.fontSizes.s};
-    background-color: ${theme.color.beige};
-    color: ${theme.color.dark};
-    height: 200px;
-    resize: none;
-    &:focus {
-      outline: none;
+      input:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px ${theme.color.dark} inset;
+    -webkit-text-fill-color: ${theme.color.beige};
+  }
+
+  input[type="checkbox"] {
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+    width: 30px;
+    height: 30px;
+    border-radius: 50%; 
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    transform: scale(0.5);
+    outline: none;
+background-color: transparent;
+ 
+ &:checked {
       background-color: ${theme.color.green};
-    }
-  }
+  }}
 
-li{
-  list-style: none;
-}
-
-a:hover {
-
-  }
-
-  textarea, input{
-    font-family: "Figtree", sans-serif;
+  li {
+    list-style: none;
   }
 
   ::selection {
-  background-color:${theme.color.green}; 
-  color: ${theme.color.dark}; 
+    background-color: ${theme.color.green}; 
+    color: ${theme.color.dark}; 
   }
 
-input[type="checkbox"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; 
-  width: 16px;
-  height: 16px;
-  border: 2px solid ${theme.color.dark};
-  border-radius: 50%; 
-  background-color: ${theme.color.beige};
-  cursor: pointer;
-  display: inline-block;
-  margin: 0;
-  transform: scale(0.5);
-  outline: none;
+  img {
+    /* user-drag: none; */
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+  }
+
+button{
+  border-radius: calc(0.5 * (${theme.borderRadius}));
 }
-
-input[type="checkbox"]:checked {
-  background-color: ${theme.color.green};
-}
-
-input[type="checkbox"]:hover {
-
-}
-
-input[type="checkbox"]:active {
-
-}
-
-img {
-  user-drag: none;
-  user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
 `;

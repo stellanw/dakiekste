@@ -7,49 +7,40 @@ import Menu from "./Menu";
 
 export default function NavBar() {
   const [scrollY, setScrollY] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0); // Zustand für die Fensterbreite
+  const [windowWidth, setWindowWidth] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Verzögerung, bevor das Icon angezeigt wird
-    const timeout = setTimeout(() => {
-      setIsVisible(true);
-    }, 500); // 200ms Verzögerung
-
-    return () => clearTimeout(timeout); // Aufräumen des Timers
-  }, [windowWidth]); // Abhängig von der Fensterbreite
+    const timeout = setTimeout(() => setIsVisible(true), 500);
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+    const handleScroll = () => setScrollY(window.scrollY);
+    const handleResize = () => setWindowWidth(window.innerWidth);
 
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth); // Aktualisiert die Fensterbreite beim Resize
-    };
-
-    // Initiales Setzen der Fensterbreite nach dem Laden
     setWindowWidth(window.innerWidth);
-
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize); // Resize-Event hinzufügen
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize); // Clean-up
+      window.removeEventListener("resize", handleResize);
     };
-  }, []); // Nur beim ersten Rendern und bei Resize
+  }, []);
 
-  const logoWidth = windowWidth > 1100 ? 200 : windowWidth > 750 ? 200 : 125; // Dynamische Breite basierend auf der Fenstergröße
-  const iconWidth = windowWidth < 750 ? 45 : windowWidth < 1100 ? 45 : 45;
+  // Vereinfachte Logo Width Logik
+  const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 125;
+  const iconWidth = 45; // Gleichbleibend
+
   return (
     <>
       {isVisible && (
-        <StyledNavBar $scrollY={scrollY}>
+        <StyledNavBar $scrollY={scrollY} isVisible={isVisible}>
           <Link href="/">
-            <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.dark} transition="color 0.5s ease" width={logoWidth} />
+            <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
           </Link>
-          <Menu color={scrollY > 200 ? theme.color.dark : theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
+          <Menu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
         </StyledNavBar>
       )}
     </>
@@ -61,20 +52,14 @@ const StyledNavBar = styled.div`
   position: fixed;
   justify-content: space-between;
   align-items: center;
-  height: ${theme.spacing.xxl};
+  height: var(--nav-height);
   width: 100%;
   z-index: 100;
+
   background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")};
 
   transition: background-color 0.5s ease, opacity 10s ease;
-  opacity: ${({ isVisible }) => (isVisible ? 0 : 1)};
-  padding: 0 ${theme.spacing.mobile.side};
+  opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
 
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side};
-  }
+  padding: 0 var(--side-padding);
 `;
