@@ -10,7 +10,7 @@ export default function TextSlider({ reviews, autoplay }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 750);
+      setIsMobile(window.innerWidth <= parseInt(theme.breakpoints.tablet));
     };
 
     handleResize();
@@ -28,10 +28,10 @@ export default function TextSlider({ reviews, autoplay }) {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 6000,
     arrows: false,
+    // fade: isMobile,
     fade: false,
-    fade: isMobile,
     swipe: true,
     beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex),
     ref: sliderRef,
@@ -42,17 +42,17 @@ export default function TextSlider({ reviews, autoplay }) {
       sliderRef.current.slickGoTo(index);
     }
   };
-  console.log(reviews[currentSlide]?.screenshot?.src);
 
   return (
-    <TextSliderContainer background={reviews[currentSlide]?.screenshot?.src}>
+    <TextSliderContainer>
       <SlideContainer {...settings}>
         {reviews.map((review, index) => (
           <Slide key={index}>
-            <h2>{review.client}</h2>
-            <p>{review.text}</p>
-
-            <StyledLink href={review.url}>{review.link}</StyledLink>
+            <SlideContent>
+              <h2>{review.client}</h2>
+              <p>{review.text}</p>
+              <StyledLink href={review.url}>{review.link}</StyledLink>
+            </SlideContent>
           </Slide>
         ))}
       </SlideContainer>
@@ -77,78 +77,45 @@ export default function TextSlider({ reviews, autoplay }) {
 const TextSliderContainer = styled.div`
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   text-align: center;
-  flex-direction: column;
-
   justify-content: center;
-  background-image: ${({ background }) => (background ? `url(${background})` : "none")};
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat;
-
-  @media (max-width: 750px) {
-    padding: ${theme.spacing.mobile.height.l} 0;
-  }
-
-  @media (min-width: 750px) {
-    height: ${theme.height.tablet};
-  }
-
-  @media (min-width: 1100px) {
-    height: ${theme.height.desktop};
-  }
-
-  transition: background-image 2s ease-in-out, opacity 2s ease-in-out;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: ${theme.color.green};
-    opacity: ${({ background }) => (background && background.trim() !== "" ? 0.9 : 1)};
-    z-index: 1;
-  }
+  background-color: ${theme.color.green};
+  padding: var(--spacing-xxl) 0;
 `;
 
 const SlideContainer = styled(Slider)`
   position: relative;
   z-index: 2;
   width: 100%;
+
+  p {
+    font-size: var(--font-l);
+    font-weight: ${theme.fontWeight.regular};
+    text-transform: none;
+    line-height: ${theme.lineHeight.xl};
+    letter-spacing: 0.04rem;
+    @media (min-width: ${theme.breakpoints.tablet}) {
+      font-size: var(--font-xl);
+    }
+  }
 `;
 
 const Slide = styled.div`
   text-align: center;
   height: 100%;
   width: 100%;
+  padding: 0 var(--side-padding);
+`;
 
-  @media (max-width: 750px) {
-    padding: 0 ${theme.spacing.mobile.side};
-  }
+const SlideContent = styled.div`
+  width: 100%;
+  margin: 0 auto;
 
-  p {
-    font-size: ${theme.fontSizes.m};
-    line-height: ${theme.lineHeight.xl};
-    font-weight: ${theme.fontWeight.lightBold};
-    margin: auto;
-    @media (min-width: 750px) {
-      font-size: ${theme.fontSizes.l};
-      line-height: ${theme.lineHeight.xxl};
-      max-width: 60%;
-    }
-    @media (min-width: 1100px) {
-      font-size: ${theme.fontSizes.xl};
-      line-height: ${theme.lineHeight.xxxl};
-      max-width: 60%;
-    }
-  }
-
-  h5 {
-    margin-top: ${theme.spacing.mobile.height.s};
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    max-width: 60%;
   }
 `;
 
@@ -157,16 +124,11 @@ const StyledLink = styled.a`
   font-weight: ${theme.fontWeight.lightBold};
   text-transform: uppercase;
   letter-spacing: 0.09rem;
-  font-size: ${theme.fontSizes.xxs};
-  margin-top: ${theme.spacing.mobile.height.s};
+  font-size: var(--font-m);
+  margin-top: var(--spacing-xl);
 
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.s};
-    margin-top: ${theme.spacing.tablet.height.s};
-  }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.s};
-    margin-top: ${theme.spacing.desktop.height.s};
+  &:hover {
+    color: ${theme.color.beige};
   }
 `;
 
@@ -177,16 +139,7 @@ const ProgessBarContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  padding: ${theme.spacing.mobile.height.s} ${theme.spacing.mobile.side} 0 ${theme.spacing.mobile.side};
-
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.tablet.height.xl} ${theme.spacing.tablet.side} 0 ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.desktop.height.xl} ${theme.spacing.desktop.side} 0 ${theme.spacing.desktop.side};
-  }
+  padding: var(--spacing-xl) var(--side-padding) 0 var(--side-padding);
 `;
 
 const InteractiveProgressBar = styled.div`
@@ -196,16 +149,11 @@ const InteractiveProgressBar = styled.div`
   width: 100%;
   z-index: 2;
   margin: auto;
-
   height: 1px;
   background-color: ${theme.color.dark};
   cursor: pointer;
 
-  @media (min-width: 750px) {
-    width: 25%;
-  }
-
-  @media (min-width: 1100px) {
+  @media (min-width: ${theme.breakpoints.tablet}) {
     width: 25%;
   }
 `;
