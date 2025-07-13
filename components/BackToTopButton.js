@@ -47,7 +47,7 @@ const BackToTopContainer = styled.div`
   right: ${theme.spacing.l};
   z-index: 100;
   p {
-    font-size: ${theme.fontSizes.xs};
+    font-size: var(--font-xs);
   }
 `;
 

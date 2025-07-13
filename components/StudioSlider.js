@@ -137,17 +137,17 @@ const ArrowContainer = styled.div`
 const Arrow = styled.div`
   position: relative;
   cursor: pointer;
-  font-size: ${theme.fontSizes.m};
+  font-size: var(--font-m);
   &:hover,
   :active {
     color: ${theme.color.green};
   }
 
   @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.l};
+    font-size: var(--font-l);
   }
   @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.xl};
+    font-size: var(--font-xl);
   }
 `;
 

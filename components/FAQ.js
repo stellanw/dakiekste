@@ -20,7 +20,7 @@ export default function FAQ({ faqData }) {
         {faqData.map((faq, index) => (
           <FAQItem key={index} isOpen={openIndex === index}>
             <FAQItemContent isOpen={openIndex === index}>
-              <FAQCaption>{faq.caption}</FAQCaption>
+              <h2>{faq.caption}</h2>
               <FAQItemDetails>
                 <FAQQuestionWrapper>
                   <FAQQuestion>{faq.question}</FAQQuestion>
@@ -37,7 +37,7 @@ export default function FAQ({ faqData }) {
 }
 
 const ArrowIcon = styled(PiArrowUpRight)`
-  margin-left: 1rem;
+  margin-left: var(--spacing-m);
   transform: scale(1.3);
   width: 15px;
   height: 15px;
@@ -49,7 +49,6 @@ const ArrowIcon = styled(PiArrowUpRight)`
     isOpen &&
     `
     transform: rotate(180deg) scale(1.3);
-
   `}
 `;
 
@@ -60,16 +59,10 @@ const FAQContainer = styled.section`
   width: 100%;
   background-color: ${theme.color.dark};
   color: ${theme.color.beige};
-  margin: 0;
+  padding: var(--spacing-xxxl) var(--side-padding);
 
-  padding: ${theme.spacing.mobile.height.xl} ${theme.spacing.mobile.side};
-
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.tablet.height.xl} ${theme.spacing.tablet.side};
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.desktop.height.xl} ${theme.spacing.desktop.side};
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    padding: var(--spacing-xxl) var(--side-padding);
   }
 `;
 
@@ -77,34 +70,11 @@ const FAQHeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-bottom: ${theme.spacing.xl};
+  margin-bottom: var(--spacing-xl);
   width: 100%;
 
   h3 {
     font-weight: ${theme.fontWeight.lightBold};
-  }
-`;
-
-const FAQCaption = styled.h5`
-  min-width: 280px;
-  margin: 0;
-  padding: ${theme.spacing.l} 0 ${theme.spacing.l} ${theme.spacing.l};
-
-  @media (max-width: 750px) {
-    display: none;
-  }
-`;
-
-const FAQQuestion = styled.span`
-  font-weight: ${theme.fontWeight.bold};
-  text-transform: uppercase;
-  font-size: ${theme.fontSizes.xs};
-
-  @media (min-width: 750px) {
-    font-size: ${theme.fontSizes.xs};
-  }
-  @media (min-width: 1100px) {
-    font-size: ${theme.fontSizes.s};
   }
 `;
 
@@ -115,41 +85,27 @@ const FAQList = styled.ul`
   max-height: 450px;
   overflow-y: scroll;
   border-right: solid 1px ${theme.color.beige};
-  padding-right: ${theme.spacing.m};
-  @media (min-width: 750px) {
-    padding-right: ${theme.spacing.xxl};
-  }
+  padding-right: var(--spacing-m);
 
-  @media (min-width: 1100px) {
-    padding-right: ${theme.spacing.xxl};
-  }
-
-  li {
-    border-top: 1px solid ${theme.color.beige};
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    padding-right: var(--spacing-xxl);
   }
 
   &::-webkit-scrollbar {
-    width: 2px; /* Breite der vertikalen Scrollbar */
+    width: 2px;
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent; /* Hintergrund der Track */
-    border-radius: 0px; /* Kein Border-Radius für den Track */
+    background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
     background: ${theme.color.beige};
-    border-radius: 0px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
     background: ${theme.color.green};
   }
-  //angeblich für Safari und Firefox
-  /* & {
-    scrollbar-width: thin; // Optionen: auto, thin, none
-    scrollbar-color: ${theme.color.green} ${theme.color.beige}; // thumb color, track color
-  } */
 `;
 
 const FAQItem = styled.li`
@@ -157,6 +113,25 @@ const FAQItem = styled.li`
   flex-direction: column;
   background-color: ${({ isOpen }) => (isOpen ? theme.color.green : "transparent")};
   color: ${({ isOpen }) => (isOpen ? theme.color.dark : "inherit")};
+
+  h2 {
+    min-width: 280px;
+    margin: 0;
+    padding: var(--spacing-m) 0 var(--spacing-m) var(--spacing-m);
+    font-size: var(--font-s);
+    @media (max-width: ${theme.breakpoints.tablet}) {
+      display: none;
+    }
+  }
+`;
+
+const FAQQuestion = styled.span`
+  font-weight: ${theme.fontWeight.regular};
+  font-size: var(--font-m);
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    font-weight: ${theme.fontWeight.light};
+  }
 `;
 
 const FAQItemContent = styled.div`
@@ -169,14 +144,7 @@ const FAQItemDetails = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: ${theme.spacing.s};
-  @media (min-width: 750px) {
-    padding: ${theme.spacing.l};
-  }
-
-  @media (min-width: 1100px) {
-    padding: ${theme.spacing.l};
-  }
+  padding: var(--spacing-m);
 `;
 
 const FAQQuestionWrapper = styled.div`
@@ -187,8 +155,13 @@ const FAQQuestionWrapper = styled.div`
 
 const AnswerOverlay = styled.p`
   animation: slide-animation 0.5s ease;
-  margin-top: ${theme.spacing.m};
+  margin-top: var(--spacing-m);
   overflow: hidden;
+  font-weight: ${theme.fontWeight.light};
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    font-weight: ${theme.fontWeight.regular};
+  }
 
   @keyframes slide-animation {
     0% {

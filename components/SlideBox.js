@@ -147,18 +147,18 @@ const StyledBox = styled.div`
 
   span {
     text-transform: uppercase;
-    font-size: ${theme.fontSizes.xs};
+    font-size: ${theme.fontSize.xs};
     line-height: ${theme.lineHeight.m};
     font-weight: ${theme.fontWeight.regular};
     @media (min-width: 750px) {
       line-height: ${theme.lineHeight.l};
-      font-size: ${theme.fontSizes.m};
-      font-size: ${theme.fontSizes.xs};
+      font-size: ${theme.fontSize.m};
+      font-size: ${theme.fontSize.xs};
     }
 
     @media (min-width: 1100px) {
       line-height: ${theme.lineHeight.xxl};
-      font-size: ${theme.fontSizes.s};
+      font-size: ${theme.fontSize.s};
     }
   }
 `;

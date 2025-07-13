@@ -1,18 +1,59 @@
-import styled from "styled-components";
 import { theme } from "@/styles";
+import styled from "styled-components";
 import Image from "next/image";
-import Link from "next/link";
-import { PiEnvelopeSimpleLight } from "react-icons/pi";
+import { useRef, useEffect } from "react";
 
-export default function Team({ className, teamMembers = [], justify }) {
-  const linkItems = [
-    {
-      href: "email",
-      icon: <PiEnvelopeSimpleLight />,
-    },
-  ];
+export default function Team({ teamMembers = [] }) {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      container.classList.add("dragging");
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+      container.classList.remove("dragging");
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+      container.classList.remove("dragging");
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    container.addEventListener("mousedown", handleMouseDown);
+    container.addEventListener("mouseleave", handleMouseLeave);
+    container.addEventListener("mouseup", handleMouseUp);
+    container.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      container.removeEventListener("mousedown", handleMouseDown);
+      container.removeEventListener("mouseleave", handleMouseLeave);
+      container.removeEventListener("mouseup", handleMouseUp);
+      container.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
-    <StyledTeamMembersContainer justify={justify} className={className}>
+    <StyledTeamMembersContainer ref={containerRef}>
       {teamMembers.map((member, index) => (
         <StyledTeamMemberContainer key={index}>
           <StyledMemberImageContainer>
@@ -23,13 +64,6 @@ export default function Team({ className, teamMembers = [], justify }) {
             <br />
             {member.text}
           </p>
-          {/* <StyledLinkWrapper>
-            {linkItems.map((linkItem, i) => (
-              <Link key={i} href={member.email} target="_blank" rel="noopener noreferrer">
-                {linkItem.icon}
-              </Link>
-            ))}
-          </StyledLinkWrapper> */}
         </StyledTeamMemberContainer>
       ))}
     </StyledTeamMembersContainer>
@@ -38,34 +72,45 @@ export default function Team({ className, teamMembers = [], justify }) {
 
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  background-color: ${theme.color.beige};
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: var(--side-padding);
+  background-color: transparent;
   width: 100%;
-  gap: ${theme.spacing.l};
-  justify-content: ${({ justify }) => justify};
-  padding: 0 ${theme.spacing.mobile.side} ${theme.spacing.mobile.height.l} ${theme.spacing.mobile.side};
+  user-select: none;
+  padding-right: var(--side-padding);
+  min-width: 250px;
+  cursor: grab;
 
-  @media (min-width: 750px) {
-    padding: 0 ${theme.spacing.tablet.side} ${theme.spacing.tablet.height.l} ${theme.spacing.tablet.side};
-    gap: ${theme.spacing.m};
-    flex-wrap: nowrap;
+  /* Firefox */
+  & {
+    scrollbar-width: thin;
+    scrollbar-color: ${theme.color.dark} transparent;
   }
 
-  @media (min-width: 1100px) {
-    padding: 0 ${theme.spacing.desktop.side} ${theme.spacing.desktop.height.l} ${theme.spacing.desktop.side};
-    gap: ${theme.spacing.xxl};
+  /* Webkit */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
   }
 
-  &.extra-padding {
-    padding-bottom: ${theme.spacing.mobile.height.l};
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-    @media (min-width: 750px) {
-      padding-bottom: ${theme.spacing.tablet.height.l};
-    }
+  &::-webkit-scrollbar-thumb {
+    background: ${theme.color.dark};
+    border-radius: 4px;
+  }
 
-    @media (min-width: 1100px) {
-      padding-bottom: ${theme.spacing.desktop.height.l};
-    }
+  &::-webkit-scrollbar-thumb:hover {
+    background: ${theme.color.green};
+  }
+
+  &.dragging {
+    cursor: grabbing;
   }
 
   p {
@@ -78,17 +123,27 @@ const StyledTeamMembersContainer = styled.div`
 `;
 
 const StyledTeamMemberContainer = styled.div`
+  scroll-snap-align: start;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  width: 300px;
-  padding: 0 0 ${theme.spacing.m} 0;
+  width: 315px;
+  margin-left: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xxl);
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    max-width: 350px;
+    &:last-child {
+      margin-left: calc(2 * var(--spacing-xxl));
+      margin-right: var(--side-padding);
+      min-width: 650px;
+    }
+  }
 `;
 
 const StyledMemberImageContainer = styled.div`
   height: 450px;
-  padding: 0;
-  padding-bottom: ${theme.spacing.m};
+  padding-bottom: var(--spacing-m);
   overflow: hidden;
 `;
 
@@ -96,15 +151,6 @@ const StyledMemberImage = styled(Image)`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
+  object-position: center;
   border-radius: ${theme.borderRadius};
-`;
-
-const StyledLinkWrapper = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: end;
-  gap: ${theme.spacing.s};
-  height: 2rem;
-  font-size: ${theme.fontSizes.m};
 `;
