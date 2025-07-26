@@ -23,7 +23,7 @@ export default function FAQ({ faqData }) {
               <h2>{faq.caption}</h2>
               <FAQItemDetails>
                 <FAQQuestionWrapper>
-                  <FAQQuestion>{faq.question}</FAQQuestion>
+                  <FAQQuestion isOpen={openIndex === index}>{faq.question}</FAQQuestion>
                   <ArrowIcon onClick={() => toggleOverlay(index)} isOpen={openIndex === index} />
                 </FAQQuestionWrapper>
                 {openIndex === index && <AnswerOverlay>{faq.answer}</AnswerOverlay>}
@@ -74,7 +74,7 @@ const FAQHeader = styled.div`
   width: 100%;
 
   h3 {
-    font-weight: ${theme.fontWeight.lightBold};
+    font-weight: ${theme.fontWeight.bold};
   }
 `;
 
@@ -118,7 +118,7 @@ const FAQItem = styled.li`
     min-width: 280px;
     margin: 0;
     padding: var(--spacing-m) 0 var(--spacing-m) var(--spacing-m);
-    font-size: var(--font-s);
+
     @media (max-width: ${theme.breakpoints.tablet}) {
       display: none;
     }
@@ -126,11 +126,10 @@ const FAQItem = styled.li`
 `;
 
 const FAQQuestion = styled.span`
-  font-weight: ${theme.fontWeight.regular};
-  font-size: var(--font-m);
-
+  font-size: var(--font-l);
+  font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.extraBold : theme.fontWeight.regular)};
   @media (min-width: ${theme.breakpoints.tablet}) {
-    font-weight: ${theme.fontWeight.light};
+    font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
   }
 `;
 

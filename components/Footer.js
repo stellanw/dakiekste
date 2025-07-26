@@ -1,7 +1,6 @@
-//
 import Link from "next/link";
 import styled from "styled-components";
-import { PiEnvelopeSimpleLight, PiInstagramLogoLight, PiMapPinLight } from "react-icons/pi";
+import { PiArrowRightLight } from "react-icons/pi";
 import { theme, spacingValue } from "@/styles";
 
 export default function Footer() {
@@ -14,24 +13,31 @@ export default function Footer() {
     <StyledFooter>
       <StyledLeftWrapper>
         <div>
-          <StyledLink href="/impressum">
+          <Link href="/impressum">
             <StyledImpressum>impressum</StyledImpressum>
-          </StyledLink>
+          </Link>
         </div>
       </StyledLeftWrapper>
       <StyledRightWrapper>
         <StyledLink href={createMailToLink()} target="_blank" rel="noopener noreferrer">
-          <StyledIconMail />
+          <p>Mail</p>
+          <StyledIcon />
         </StyledLink>
         <StyledLink href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
-          <StyledIconInsta />
+          <p>Instagram</p>
+          <StyledIcon />
+        </StyledLink>
+        <StyledLink href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
+          <p>LinkedIn</p>
+          <StyledIcon />
         </StyledLink>
         <StyledLink
-          href="https://www.google.com/maps/place/Lienaustra%C3%9Fe+32,+22159+Hamburg/@53.629392,10.1259215,17.04z/data=!4m6!3m5!1s0x47b18a414be2f41d:0x39bdeb585c50610!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11c4jnq7nl?entry=ttu"
+          href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <StyledIconMap />
+          <p>Map</p>
+          <StyledIcon />
         </StyledLink>
       </StyledRightWrapper>
     </StyledFooter>
@@ -43,18 +49,28 @@ const StyledFooter = styled.footer`
   grid-template-columns: repeat(2, 1fr);
   bottom: 0;
   width: 100%;
-  font-size: var(--font-m);
   height: 18rem;
   background-color: ${theme.color.beige};
   padding: 0 var(--side-padding);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: flex;
+    flex-wrap: wrap-reverse;
+  }
 `;
 
 const StyledRightWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: end;
   align-items: start;
   gap: var(--spacing-s);
   margin-top: var(--spacing-xl);
+  width: 100%;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    justify-content: space-between;
+  }
 `;
 
 const StyledLeftWrapper = styled.div`
@@ -66,34 +82,27 @@ const StyledLeftWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  display: flex;
   margin-bottom: -0.2rem;
-  font-size: var(--font-l);
+
+  p {
+    font-size: var(--font-l);
+    font-weight: ${theme.fontWeight.light};
+    margin-right: calc(0.4 * var(--spacing-xs));
+  }
 `;
 
 const StyledImpressum = styled.p`
   font-size: var(--font-s);
   margin: 0;
-  padding-top: var(--spacing-s);
 `;
 
-const iconBaseStyles = `
-font-size: var(--font-s);
+const StyledIcon = styled(PiArrowRightLight)`
+  font-size: calc(1.5 * var(--font-m));
   stroke-width: 10;
+  transform: rotate(-45deg);
 
   &:hover {
     color: ${theme.color.green};
-    stroke-width: 14;
   }
-`;
-
-const StyledIconMail = styled(PiEnvelopeSimpleLight)`
-  ${iconBaseStyles}
-`;
-
-const StyledIconInsta = styled(PiInstagramLogoLight)`
-  ${iconBaseStyles}
-`;
-
-const StyledIconMap = styled(PiMapPinLight)`
-  ${iconBaseStyles}
 `;

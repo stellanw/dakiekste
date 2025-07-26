@@ -1,6 +1,8 @@
 import styled, { keyframes } from "styled-components";
-import { theme, spacingValue, heightValue } from "@/styles";
+import { theme } from "@/styles";
 import { PiArrowDownLight } from "react-icons/pi";
+import Image from "next/image";
+import section01_header_01 from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
 
 const bounce = keyframes`
   0% { transform: translateY(0); }
@@ -10,13 +12,18 @@ const bounce = keyframes`
   100% { transform: translateY(0); }
 `;
 
-export default function Header() {
+export default function Header({ useImageBackground = false }) {
   return (
     <StyledHeadContainer>
-      <VideoBackground autoPlay loop muted playsInline>
-        <source src="/videos/Klubstudio_video.mp4" type="video/mp4" />
-        Dein Browser unterstützt das Video-Tag nicht.
-      </VideoBackground>
+      {useImageBackground ? (
+        <ImageBackground src={section01_header_01} alt="Branding Fotografie" layout="fill" />
+      ) : (
+        <VideoBackground autoPlay loop muted playsInline>
+          <source src="/videos/Test.mp4" type="video/mp4" />
+          Dein Browser unterstützt das Video-Tag nicht.
+        </VideoBackground>
+      )}
+
       <StyledHeadlineContainer>
         <h2>VISUAL CONTENT DER SICHTBAR MACHT</h2>
         <h1>
@@ -25,7 +32,7 @@ export default function Header() {
           GESTALTET MIT
         </h1>
       </StyledHeadlineContainer>
-      <StyledPiArrowDownLight />
+      {/* <StyledPiArrowDownLight /> */}
     </StyledHeadContainer>
   );
 }
@@ -38,23 +45,6 @@ const StyledHeadContainer = styled.div`
   width: 100%;
   overflow: hidden;
   height: var(--height-header);
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-
-  h2 {
-    font-size: var(--font-m);
-    @media (min-width: ${theme.breakpoints.tablet}) {
-      font-size: var(--font-l);
-    }
-  }
 `;
 
 const VideoBackground = styled.video`
@@ -68,13 +58,18 @@ const VideoBackground = styled.video`
   z-index: 0;
 `;
 
+const ImageBackground = styled(Image)`
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+`;
+
 const StyledHeadlineContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
   text-align: start;
   z-index: 2;
-
   bottom: var(--side-padding);
   left: var(--side-padding);
 
@@ -83,11 +78,6 @@ const StyledHeadlineContainer = styled.div`
     margin: 0;
     color: ${theme.color.beige};
     text-transform: uppercase;
-  }
-
-  span {
-    font-weight: 200;
-    width: 100%;
   }
 `;
 

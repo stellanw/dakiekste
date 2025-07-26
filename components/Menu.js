@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import styled, { keyframes, css } from "styled-components";
 import { theme } from "@/styles";
@@ -91,14 +91,21 @@ const rotateAnimation = keyframes`
 
 const Eyes = styled.div`
   display: flex;
-  padding-left: var(--spacing-xs);
-  justify-content: center;
+  padding: 0 var(--spacing-m);
   align-items: center;
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    width: 100%;
-    justify-content: end;
-    transform: padding-right 0.7 ease;
-    padding-right: ${({ $isOpen }) => ($isOpen ? `1.45rem` : `2.2rem`)};
+  justify-content: end;
+  width: 1rem;
+  padding-right: ${({ $isOpen }) => ($isOpen ? `0` : `0.5rem`)};
+  @media (min-width: ${theme.breakpoints.tablet}) {
+  }
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    justify-content: center;
+    transform: ${({ $isOpen }) => ($isOpen ? `0` : `0.5rem`)};
+  }
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    justify-content: center;
+    /* transform: translateX(1rem); */
   }
 `;
 
@@ -114,17 +121,25 @@ const MenuContainer = styled.div`
   border-radius: calc(0.5 * (${theme.borderRadius})) 0 0 calc(0.5 * (${theme.borderRadius}));
   z-index: 100;
 
-  transition: width 0.6s ease-out, transform 0.6s ease-in;
-  width: ${({ $isOpen }) => ($isOpen ? "45rem" : "0")};
+  transition: width 0.3s ease-out, transform 0.3s ease-in;
+
   &:hover {
     color: ${({ $isOpen }) => ($isOpen ? theme.color.green : theme.color.beige)};
   }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    max-width: ${({ $isOpen }) => ($isOpen ? "70%" : "0")};
+  }
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    width: ${({ $isOpen }) => ($isOpen ? "95%" : "0")};
+  }
+
   @media (max-width: ${theme.breakpoints.mobile}) {
     transition: width 0.3s ease-out, transform 0.3s ease-in;
-    width: ${({ $isOpen }) => ($isOpen ? "6rem" : "3rem")};
+    width: ${({ $isOpen }) => ($isOpen ? "50%" : "3rem")};
     transform: ${({ $isOpen }) => ($isOpen ? "translateY(0)" : "translateY(calc(-100% + 3rem))")};
     height: auto;
-    border-radius: 0 0 ${theme.borderRadius} ${theme.borderRadius};
+    border-radius: 0 0 calc(0.5 * (${theme.borderRadius})) calc(0.5 * (${theme.borderRadius}));
     top: 0;
     right: var(--spacing-xs);
     padding: ${({ $isOpen }) => ($isOpen ? "0 var(--spacing-s)" : "0")};
@@ -140,34 +155,38 @@ const StyledIconWrapper = styled.div`
   z-index: 15;
   margin: 0 -0.95rem;
   transform: rotate(${({ rotation }) => rotation}deg);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 `;
 
 const LinkList = styled.ul`
   display: flex;
   flex-direction: column;
-
+  justify-content: space-evenly;
   gap: var(--spacing-s);
   margin: var(--spacing-l) 0 var(--spacing-xs) 0;
   opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
   pointer-events: ${({ $isOpen }) => ($isOpen ? "auto" : "none")};
   transition: none;
   text-align: end;
+  width: 100%;
+
   @media (min-width: ${theme.breakpoints.tablet}) {
     gap: var(--spacing-m);
     flex-direction: row;
-    margin: 0 0 0 var(--spacing-l);
+    margin: 0 0 0 var(--spacing-xl);
+
     align-items: center;
+    justify-content: space-evenly;
   }
 
   li {
-    line-height: 0.5rem;
+    line-height: 1.5rem;
   }
   li a {
     text-decoration: none;
     text-transform: uppercase;
     color: ${theme.color.dark};
-    font-size: var(--font-xs);
+    font-size: var(--font-s);
     &:hover {
       color: ${theme.color.green};
     }
