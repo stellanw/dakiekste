@@ -53,10 +53,11 @@ export default function StudioBox({ topline, headline, text1, text2, slides }) {
             <Slide key={index}>
               <ImageWrapper>
                 <StyledImage src={slide.image} alt={slide.title} layout="fill" />
+                <StyledTextOverlay>
+                  <h6>{slide.title}</h6>
+                  <p>{slide.description}</p>
+                </StyledTextOverlay>
               </ImageWrapper>
-
-              <h6>{slide.title}</h6>
-              <p>{slide.description}</p>
             </Slide>
           ))}
         </ScrollContainer>
@@ -142,10 +143,10 @@ const Slide = styled.div`
   align-items: center;
   text-align: start;
   max-width: 310px;
-  padding-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-xs);
+
   @media (min-width: ${theme.breakpoints.tablet}) {
-    min-width: 400px;
-    padding-bottom: var(--spacing-xxl);
+    min-width: 430px;
   }
 
   h6 {
@@ -158,9 +159,10 @@ const ImageWrapper = styled.div`
   width: 100%;
   margin-bottom: var(--spacing-l);
   aspect-ratio: 1 / 1;
-
+  min-height: 300px;
   @media (min-width: ${theme.breakpoints.tablet}) {
     margin-bottom: var(--spacing-m);
+    aspect-ratio: 4 / 5;
   }
 `;
 
@@ -168,4 +170,29 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   object-position: center;
   border-radius: ${theme.borderRadius};
+`;
+
+const StyledTextOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background-color: rgba(163, 255, 183, 0.8);
+  color: ${theme.color.dark};
+  padding: var(--spacing-l);
+  border-radius: ${theme.borderRadius};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  ${ImageWrapper}:hover & {
+    opacity: 1;
+  }
+
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
 `;

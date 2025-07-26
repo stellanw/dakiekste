@@ -14,10 +14,10 @@ export const theme = {
 
   lineHeight: {
     s: "0.8",
-    m: "1",
-    l: "1.2",
-    xl: "1.4",
-    xxl: "1.6",
+    m: "0.9",
+    l: "1",
+    xl: "1.25",
+    xxl: "1.4",
   },
 
   fontWeight: {
@@ -29,8 +29,8 @@ export const theme = {
   },
 
   height: {
-    header: "34rem",
-    hero: "30rem",
+    header: "40rem",
+    hero: "37rem",
     section: "25rem",
   },
 
@@ -45,9 +45,9 @@ export const theme = {
   },
 
   breakpoints: {
-    mobile: "480px",
-    tablet: "750px",
-    desktop: "1100px",
+    mobile: "600px", // kleine bis mittlere Phones
+    tablet: "800px", // iPads, große Phones quer
+    desktop: "1200px", // Laptops & große Screens
   },
 };
 
@@ -61,14 +61,15 @@ export default createGlobalStyle`
   }
 
    :root {
-     /* Font variables */
-     --font-xxxl: clamp(2.5rem, 2rem + 2.5vw, 3.75rem);     /* 60px → h1 */
-     --font-xxl:  clamp(2rem, 1.7rem + 1.2vw, 3.125rem);     /* 50px → h3 / h4 */
-     --font-xl:   clamp(1.5rem, 1.3rem + 1vw, 2.5rem);       /* 40px → gestyltes p */
-     --font-l:    clamp(1.25rem, 1.1rem + 0.8vw, 1.5rem);    /* 24px → Standard p / h5 */
-     --font-m:    clamp(1rem, 0.9rem + 0.6vw, 1.25rem);      /* 20px → h2 */
-     --font-s:    clamp(1rem, 0.95rem + 0.2vw, 1rem);        /* 16px → kleine Schrift (konstant) */
-     --font-xs: clamp(0.75rem, 0.7rem + 0.4vw, 0.875rem);   /* z. B. für Meta, Labels */
+/* Font variables (jeweils 4px kleiner als vorher) */
+--font-xxxl: clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);     /* 56px → h1 */
+--font-xxl:  clamp(1.75rem, 1.45rem + 1.2vw, 2.875rem);    /* 46px → h3 / h4 */
+--font-xl:   clamp(1.25rem, 1.05rem + 1vw, 2.25rem);       /* 36px → gestyltes p */
+--font-l:    clamp(1rem, 0.9rem + 0.8vw, 1.25rem);         /* 20px → Standard p / h5 */
+--font-m:    clamp(0.875rem, 0.8rem + 0.6vw, 1rem);        /* 16px → h2 */
+--font-s:    clamp(0.875rem, 0.85rem + 0.2vw, 0.875rem);   /* 14px → kleine Schrift (konstant) */
+--font-xs:   clamp(0.625rem, 0.6rem + 0.4vw, 0.75rem);     /* 12px → z. B. für Meta, Labels */
+
 
   /* Spacing variables */
   --spacing-xs: ${theme.spacing.xs};
@@ -173,11 +174,10 @@ export default createGlobalStyle`
     font-weight: ${theme.fontWeight.light};
     text-transform: uppercase;
     letter-spacing: 0.09rem;
-    font-size: var(--font-xs);
+    font-size: var(--font-m);
 line-height: ${theme.lineHeight.l};
-
+margin-bottom: calc(0.35 * var(--spacing-xs));
     @media (min-width: ${theme.breakpoints.tablet}) {
-      font-size: var(--font-s);
 
     }
   }
@@ -185,28 +185,25 @@ line-height: ${theme.lineHeight.l};
 h3 {
   font-weight: ${theme.fontWeight.extraBold};
   text-transform: uppercase;
-  font-size: var(--font-xl);
-  padding-bottom: var(--spacing-s);
+  font-size: var(--font-xxl);
+margin-bottom: var(--spacing-s);
+padding: 0;
   letter-spacing: 0.03rem;
-  line-height: ${theme.lineHeight.m};
+  line-height: ${theme.lineHeight.l};
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-font-size: var(--font-xxl);
-    letter-spacing: 0.05rem;
-    line-height: ${theme.lineHeight.xl};
   }
 }
 
   h4 {
-    font-size: var(--font-m);
-    font-weight: ${theme.fontWeight.bold};
+    font-size: var(--font-xl);
+    font-weight: ${theme.fontWeight.regular};
     text-transform: none;
     line-height: ${theme.lineHeight.xl};
-    letter-spacing: 0.04rem;
-
+    letter-spacing: 0.06rem;
 
     @media (min-width: ${theme.breakpoints.tablet}) {
-     font-size: var(--font-xl);
+
     }
   }
 
@@ -214,10 +211,11 @@ font-size: var(--font-xxl);
     text-transform: uppercase;
     font-weight: ${theme.fontWeight.bold};
   font-size: var(--font-l);
-line-height: ${theme.lineHeight.l};
+line-height: ${theme.lineHeight.m};
+    letter-spacing: 0.07rem;
+margin-bottom: var(--spacing-s);
     @media (min-width: ${theme.breakpoints.tablet}) {
-    font-size: var(--font-xl);
-      line-height: ${theme.lineHeight.xl};
+
     }
   }
 
@@ -228,9 +226,8 @@ line-height: ${theme.lineHeight.l};
 font-size: var(--font-m);
     line-height: ${theme.lineHeight.m};
     letter-spacing: 0.05rem;
-    padding-bottom: var(--spacing-xs);
+margin-bottom: var(--spacing-s);
     @media (min-width: ${theme.breakpoints.tablet}) {
-font-size: var(--font-m);
       line-height: ${theme.lineHeight.l};
     }
   }
@@ -242,29 +239,22 @@ font-size: var(--font-m);
 line-height: ${theme.lineHeight.l};
 
     @media (min-width: ${theme.breakpoints.tablet}) {
-font-size: var(--font-m);
+
 
     }
   }
 
   p {
     font-weight: ${theme.fontWeight.regular};
-  font-size: var(--font-s);
+  font-size: var(--font-l);
     line-height: ${theme.lineHeight.xl};
-
-        @media (min-width: ${theme.breakpoints.tablet}) {
-    font-weight: ${theme.fontWeight.regular};
-font-size: var(--font-m);
-    line-height: ${theme.lineHeight.xl};
-
-    }
   }
 
   label {
     text-transform: uppercase;
     font-weight: ${theme.fontWeight.light};
     color: ${theme.color.green};
-    padding: 0 0 ${theme.spacing.xs} 0;
+    margin-bottom: calc(0.5 * var(--spacing-xs));
   }
 
   input, textarea {
@@ -329,4 +319,51 @@ background-color: transparent;
 button{
   border-radius: calc(0.5 * (${theme.borderRadius}));
 }
+
+.yarl__root{
+  box-shadow: none !important;
+  color: ${theme.color.dark};
+}
+
+.yarl__container {
+  /* background-color: rgba(163, 255, 183, 0.95);  */
+  background-color: rgba(249, 248, 243, 0.9);
+ /* background-color: ${theme.color.beige}; */
+}
+
+.yarl__slide_image {
+  border-radius: 20px;
+  
+}
+
+
+
+.yarl__icon {
+ 
+}
+
+.yarl__navigation_prev{
+   
+}
+
+.yarl__navigation_next{
+    
+}
+
+
+.yarl__button {
+    background: transparent !important;
+    filter: none !important;
+  }
+
+  /* Entfernt sonstige Schatten */
+  .yarl__container,
+  .yarl__toolbar,
+  .yarl__thumbnails_container,
+  .yarl__slide,
+    .yarl__slide_current,
+  .yarl__slide_image {
+    box-shadow: none !important;
+  }
+
 `;

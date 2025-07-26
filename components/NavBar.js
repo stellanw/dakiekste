@@ -29,16 +29,20 @@ export default function NavBar() {
     };
   }, []);
 
-  // Vereinfachte Logo Width Logik
   const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 125;
-  const iconWidth = 45; // Gleichbleibend
+  const iconWidth = 45;
 
   return (
     <>
       {isVisible && (
-        <StyledNavBar $scrollY={scrollY} isVisible={isVisible}>
+        <StyledNavBar /* $scrollY={scrollY} */ isVisible={isVisible}>
           <Link href="/">
-            <DakieksteLogo color={scrollY > 200 ? theme.color.dark : theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
+            <DakieksteLogo
+              // color={scrollY > 200 ? theme.color.dark : theme.color.beige}
+              color={theme.color.beige}
+              transition="color 0.5s ease"
+              width={logoWidth}
+            />
           </Link>
           <Menu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
         </StyledNavBar>
@@ -56,7 +60,8 @@ const StyledNavBar = styled.div`
   width: 100%;
   z-index: 100;
 
-  background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")};
+  /* background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")}; */
+  background-color: transparent;
 
   transition: background-color 0.5s ease, opacity 10s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};

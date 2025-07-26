@@ -1,69 +1,30 @@
 import { theme } from "@/styles";
 import styled from "styled-components";
 import Image from "next/image";
-import { useRef, useEffect } from "react";
+import { useRef, useState } from "react";
+import { PiArrowRightLight } from "react-icons/pi";
 
 export default function Team({ teamMembers = [] }) {
   const containerRef = useRef(null);
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const handleMouseDown = (e) => {
-      isDown = true;
-      container.classList.add("dragging");
-      startX = e.pageX - container.offsetLeft;
-      scrollLeft = container.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-      container.classList.remove("dragging");
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-      container.classList.remove("dragging");
-    };
-
-    const handleMouseMove = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      container.scrollLeft = scrollLeft - walk;
-    };
-
-    container.addEventListener("mousedown", handleMouseDown);
-    container.addEventListener("mouseleave", handleMouseLeave);
-    container.addEventListener("mouseup", handleMouseUp);
-    container.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      container.removeEventListener("mousedown", handleMouseDown);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-      container.removeEventListener("mouseup", handleMouseUp);
-      container.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  const toggleExpand = (index) => {
+    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   return (
     <StyledTeamMembersContainer ref={containerRef}>
       {teamMembers.map((member, index) => (
         <StyledTeamMemberContainer key={index}>
           <StyledMemberImageContainer>
-            <StyledMemberImage src={`/images/${member.image}?v=${Date.now()}`} alt={`Portrait of ${member.name}`} width={1200} height={500} />
+            <StyledMemberImage src={member.image} alt={`Portrait von ${member.name}`} width={1600} height={800} />
           </StyledMemberImageContainer>
-          <p>
-            <span>{member.name}</span>
-            <br />
-            {member.text}
-          </p>
+
+          <NameIconContainer>
+            <h6>{member.name}</h6>
+            <StyledPiArrowRightLight onClick={() => toggleExpand(index)} isExpanded={expandedIndex === index} />
+          </NameIconContainer>
+          {expandedIndex === index && <p>{member.text}</p>}
         </StyledTeamMemberContainer>
       ))}
     </StyledTeamMembersContainer>
@@ -72,85 +33,81 @@ export default function Team({ teamMembers = [] }) {
 
 const StyledTeamMembersContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding: var(--side-padding);
-  background-color: transparent;
+  justify-content: flex-start;
+  gap: var(--spacing-xl);
   width: 100%;
-  user-select: none;
-  padding-right: var(--side-padding);
-  min-width: 250px;
-  cursor: grab;
-
-  /* Firefox */
-  & {
-    scrollbar-width: thin;
-    scrollbar-color: ${theme.color.dark} transparent;
-  }
-
-  /* Webkit */
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${theme.color.dark};
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: ${theme.color.green};
-  }
-
-  &.dragging {
-    cursor: grabbing;
-  }
-
-  p {
-    line-height: 1.3;
-  }
-
-  span {
-    font-weight: 800;
+  margin-bottom: var(--spacing-xxl);
+  padding: 0 var(--side-padding);
+  overflow-x: hidden;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-wrap: wrap;
   }
 `;
 
 const StyledTeamMemberContainer = styled.div`
-  scroll-snap-align: start;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  width: 315px;
-  margin-left: var(--spacing-xxl);
-  padding-bottom: var(--spacing-xxl);
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    max-width: 350px;
+  justify-content: flex-start;
+  margin-bottom: var(--spacing-xl);
+  width: 320px;
+
+  &:last-child {
+    width: 500px; // z. B. 1.5x breiter
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 100%;
+
     &:last-child {
-      margin-left: calc(2 * var(--spacing-xxl));
-      margin-right: var(--side-padding);
-      min-width: 650px;
+      width: 100%;
     }
   }
 `;
 
 const StyledMemberImageContainer = styled.div`
-  height: 450px;
-  padding-bottom: var(--spacing-m);
+  position: relative;
+  width: 100%;
+  height: 320px; // ← feste Höhe für alle
   overflow: hidden;
+  border-radius: ${theme.borderRadius};
 `;
 
 const StyledMemberImage = styled(Image)`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  border-radius: ${theme.borderRadius};
+  object-position: 50% 15%;
+
+  ${StyledTeamMemberContainer}:last-child & {
+    object-position: 50% 50%;
+  }
+
+  ${StyledMemberImageContainer} & {
+    transform: scale(1.5);
+  }
+`;
+
+const NameIconContainer = styled.div`
+  display: flex;
+  padding-top: var(--spacing-xs);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding-top: var(--spacing-s);
+  }
+
+  h6 {
+    margin-right: var(--spacing-xs);
+  }
+`;
+
+const StyledPiArrowRightLight = styled(PiArrowRightLight)`
+  stroke-width: 15;
+  transform: ${({ isExpanded }) => (isExpanded ? "rotate(-45deg)" : "rotate(45deg)")};
+  transition: transform 0.3s ease;
+  cursor: pointer;
 `;

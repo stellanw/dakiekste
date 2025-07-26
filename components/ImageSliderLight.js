@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
 
-export default function ImageSliderLight({ projects }) {
+export default function ImageSliderLight({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
@@ -34,8 +34,8 @@ export default function ImageSliderLight({ projects }) {
     infinite: true,
     speed: 1500,
     fade: true,
-    autoplay: true,
-    autoplaySpeed: 5000,
+    autoplay: autoplay,
+    autoplaySpeed: 6000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoPlay: false,
@@ -94,7 +94,7 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: calc(var(--spacing-xl) * 1.3);
+  top: var(--spacing-xl);
   right: var(--side-padding);
   width: 100px;
 
@@ -159,21 +159,14 @@ const Slide = styled.div`
   overflow: hidden;
   border-radius: ${theme.borderRadius};
   width: 100%;
+  height: var(--height-hero);
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     aspect-ratio: 1/1;
-  }
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    height: var(--height-hero);
-  }
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    height: var(--height-hero);
   }
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
-  object-position: center;
+  object-position: 50% 10%;
 `;

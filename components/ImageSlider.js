@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/legacy/image";
 
-export default function ImageSlider({ projects }) {
+export default function ImageSlider({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
@@ -32,12 +32,11 @@ export default function ImageSlider({ projects }) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1200,
-    autoplay: true,
-    autoplaySpeed: 4000,
+    speed: 3000,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoPlay: true,
+    autoplay: autoplay,
     arrows: false,
     swipe: true,
     afterChange: (index) => setCurrentSlide(index),
@@ -146,24 +145,16 @@ const Slide = styled.div`
   position: relative;
   overflow: hidden;
   min-width: 100%;
-  height: 100%;
+  height: var(--height-hero);
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     aspect-ratio: 1/1;
-  }
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    height: 600px;
-  }
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    height: 800px;
   }
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
-  object-position: center;
+  object-position: 50% 5%;
 `;
 
 const ProjectDetails = styled.div`

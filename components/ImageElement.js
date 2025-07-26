@@ -22,7 +22,7 @@ const ImageElementContainer = styled.div`
 const ImageWrapper = styled.div`
   display: flex;
   position: relative;
-  height: var(--height-header);
+  height: var(--height-hero);
 `;
 
 const StyledImage = styled(Image)`
