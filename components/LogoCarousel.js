@@ -22,11 +22,11 @@ export default function LogoCarousel() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 700,
+    speed: 2000,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
     arrows: false,
     responsive: [
       {

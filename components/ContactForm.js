@@ -127,9 +127,9 @@ export default function ContactForm() {
             <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
           </Wrapper>
 
-          <label htmlFor="roles">Deine Rolle im Projekt</label>
+          <label htmlFor="roles">Wer bist du?</label>
           <StyledCheckboxGroup>
-            {["Geschäftsführ*in", "Gründer*in", "Soloselbstständig", "Marketing", "Personalmanagement", "Projektleitung"].map((role) => (
+            {["Unternehmen", "Gründer*in", "Soloselbstständig", "Verein/Organisation"].map((role) => (
               <StyledLabel key={role}>
                 <input type="checkbox" value={role} checked={formData.roles.includes(role)} onChange={(e) => handleCheckboxChange(e, "roles")} />
                 {role}
@@ -138,7 +138,7 @@ export default function ContactForm() {
 
             <StyledLabel>
               <input type="checkbox" value="Sonstiges" checked={formData.roles.includes("Sonstiges")} onChange={(e) => handleCheckboxChange(e, "roles")} />
-              Sonstiges
+              Etwas anderes
             </StyledLabel>
             {formData.roles.includes("Sonstiges") && <StyledInput name="otherRole" value={formData.otherRole} onChange={handleChange} />}
           </StyledCheckboxGroup>
@@ -166,7 +166,7 @@ export default function ContactForm() {
           </StyledCheckboxGroup>
 
           <StyledButton type="submit" disabled={loading}>
-            {loading ? "Senden..." : "Absenden"}
+            {loading ? "Senden..." : "Senden"}
           </StyledButton>
           {responseMessage && <p>{responseMessage}</p>}
         </StyledForm>
@@ -241,7 +241,8 @@ const StyledButton = styled.button`
   color: ${theme.color.green};
   background-color: ${theme.color.dark};
   font-size: var(--font-m);
-  font-weight: ${theme.fontWeight.bold};
+  font-weight: ${theme.fontWeight.regular};
+  letter-spacing: 0.08rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   border: 1px solid ${theme.color.green};
@@ -310,13 +311,14 @@ const StyledLabel = styled.label`
   justify-content: start;
   align-items: center;
   font-size: var(--font-s);
+  margin-bottom: 0;
 `;
 
 const StyledCheckboxGroup = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  column-gap: var(--spacing-l);
+  column-gap: var(--spacing-xs);
   row-gap: 0;
   padding-bottom: var(--spacing-m);
 

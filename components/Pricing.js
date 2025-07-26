@@ -7,15 +7,20 @@ import { RxCross1 } from "react-icons/rx";
 
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
-    "Wer bist du?": "Soloselbstständig",
-    "Was brauchst du?": "Fotografie",
-    Pakete: "Basic",
+    businessType: "Soloselbstständig", // für spätere Rabattlogik
+    projectType: "Fotografie", // bestimmt die angezeigten Services
   });
 
+  // Liste aller aktuell ausgewählten Services (für Warenkorb & Preis)
   const [selectedServices, setSelectedServices] = useState([]);
+
+  // Kontrolliert, ob die Beschreibung bei einem Service angezeigt wird
   const [isOpen, setIsOpen] = useState([]);
+
+  // Flag für Mobile Breakpoint
   const [isMobile, setIsMobile] = useState(false);
 
+  //Sobald servicesData geladen ist, initialisiere isOpen für alle Services
   useEffect(() => {
     if (servicesData && servicesData.length > 0) {
       setIsOpen(new Array(servicesData.length).fill(false));
@@ -24,13 +29,15 @@ export default function Pricing({ pricingData, servicesData }) {
     }
   }, [servicesData]);
 
-  const handleCategorySelection = (category, option) => {
+  //Wechselt Auswahl bei Kategorie-Checkbox (Business/Projekt)
+  const handleCategorySelection = (key, option) => {
     setSelectedCategory((prev) => ({
       ...prev,
-      [category]: option,
+      [key]: option,
     }));
   };
 
+  //Öffnet/Schließt die Service-Beschreibung und schließt alle anderen
   const toggleOverlay = (index) => {
     setIsOpen((prev) => {
       const newState = [...prev];
@@ -39,67 +46,60 @@ export default function Pricing({ pricingData, servicesData }) {
     });
   };
 
+  //Fügt Service zum Warenkorb hinzu oder entfernt ihn wieder
   const handleServiceSelection = (service) => {
     setSelectedServices((prev) => {
       if (prev.includes(service)) {
-        return prev.filter((s) => s !== service);
+        return prev.filter((s) => s !== service); // entfernen
       } else {
-        return [...prev, service];
+        return [...prev, service]; // hinzufügen
       }
     });
   };
 
-  // Absicherung: servicesData überprüfen, bevor es gefiltert wird
-  const filteredServices =
-    servicesData && servicesData.length > 0
-      ? servicesData.filter((service) => service.category === selectedCategory["Was brauchst du?"] || service.category === "Weiteres")
-      : [];
+  //Filtert Services nach aktuell gewähltem Projekt-Typ
+  const filteredServices = servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
 
-  const applyDiscount = (price) => {
-    if (selectedCategory["Wer bist du?"] === "Soloselbstständig") {
-      return price * 0.7; // 30% Rabatt
-    }
-    return price; // Kein Rabatt
-  };
-
-  const totalPrice = selectedServices.reduce((total, service) => {
-    const price = service.price[selectedCategory["Pakete"]];
-    const discountedPrice = applyDiscount(price); // Discounted price berechnen
-    return total + discountedPrice;
-  }, 0);
-
+  //Entfernt Service aus dem Warenkorb
   const removeService = (serviceToRemove) => {
     setSelectedServices((prev) => prev.filter((service) => service !== serviceToRemove));
   };
 
+  //Setzt das Mobile-Flag bei Fenstergröße ≤ 750px
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 750); // Mobile: bis 768px
+      setIsMobile(window.innerWidth <= 750);
     };
 
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial aufrufen
+    window.addEventListener("resize", handleResize); // Listener hinzufügen
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize); // Aufräumen
     };
   }, []);
+
+  // Gibt rabattierten Preis zurück (wenn soloselbstständig)
+  const applyDiscount = (price) => {
+    if (selectedCategory.businessType === "Soloselbstständig") {
+      return price * 0.7;
+    }
+    return price;
+  };
+
+  //Berechnet Gesamtpreis aller ausgewählten Services (mit Rabatt)
+  const totalPrice = selectedServices.reduce((total, service) => {
+    const discountedPrice = applyDiscount(service.price);
+    return total + discountedPrice;
+  }, 0);
 
   return (
     <PricingContainer>
       <HeadlineContainer>
         <h2>PREISKALKULATOR</h2>
-        {isMobile ? (
-          <h4>Dein Erfolg einfach kalkuliert.</h4> // Mobiler Text
-        ) : (
-          <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>
-        )}
+        {isMobile ? <h4>Dein Erfolg einfach kalkuliert.</h4> : <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>}
       </HeadlineContainer>
       <CalculatorContainer>
-        {/* <p>
-          Unser Preiskalkulator gibt dir eine erste Orientierung: transparent, unverbindlich und ohne Angebotsanfrage. <br />
-          Du siehst auf einen Blick, ab welchem Budget es bei uns losgeht – als grobe Orientierung für deinen Invest.
-        </p> */}
         <CategoriesContainer>
           {pricingData.map((category, categoryIndex) => (
             <CategoryContainer key={categoryIndex}>
@@ -107,12 +107,7 @@ export default function Pricing({ pricingData, servicesData }) {
               <OptionContainer>
                 {category.options.map((option, optionIndex) => (
                   <Option key={optionIndex}>
-                    <input
-                      type="checkbox"
-                      checked={selectedCategory[category.category] === option}
-                      onChange={() => handleCategorySelection(category.category, option)}
-                    />
-
+                    <input type="checkbox" checked={selectedCategory[category.key] === option} onChange={() => handleCategorySelection(category.key, option)} />
                     <OptionName>{option}</OptionName>
                   </Option>
                 ))}
@@ -130,7 +125,7 @@ export default function Pricing({ pricingData, servicesData }) {
                     <SelectedItem>
                       <ItemWrapper>
                         <PiPushPinLight />
-                        {service.title}
+                        <span>{service.title}</span>
                       </ItemWrapper>
                       <RemoveButton onClick={() => removeService(service)}>
                         <StyledRemoveIcon />
@@ -139,7 +134,9 @@ export default function Pricing({ pricingData, servicesData }) {
                   </li>
                 ))}
               </ul>
-              <h>Preis ab {totalPrice} EURO*</h>
+              <Price>
+                Preis ab <span>{totalPrice}</span> EURO *
+              </Price>
               <p>*zzgl. MwSt.</p>
             </OutcomeContent>
           </OutcomeContainer>
@@ -153,15 +150,14 @@ export default function Pricing({ pricingData, servicesData }) {
                         <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceSelection(service)} />
                         <ServiceTitle>{service.title}</ServiceTitle>
                       </TitleCheckboxContainer>
-
                       <StyledArrowIcon className={isOpen[index] ? "rotate" : ""} onClick={() => toggleOverlay(index)} />
                     </ServiceTitleGroup>
                     {isOpen[index] && (
                       <OverlayDescription>
                         <Description>
-                          {service.descriptions[selectedCategory["Pakete"]]}
+                          {service.description}
                           <Price>
-                            Preis ab <span>{applyDiscount(service.price[selectedCategory["Pakete"]])} EURO</span>*
+                            Preis ab <span>{applyDiscount(service.price)} </span>EURO *
                           </Price>
                         </Description>
                       </OverlayDescription>
@@ -178,6 +174,7 @@ export default function Pricing({ pricingData, servicesData }) {
     </PricingContainer>
   );
 }
+
 export const PricingContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -189,6 +186,9 @@ export const PricingContainer = styled.div`
   input {
     background-color: ${theme.color.beige};
     border: solid 3px ${theme.color.dark};
+    min-width: 30px;
+    min-height: 30px;
+
     &:checked {
       background-color: ${theme.color.green};
     }
@@ -245,10 +245,10 @@ const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: var(--spacing-xs);
-  @media (min-width: 750px) {
+  @media (min-width: ${theme.breakpoints.tablet}) {
     flex-direction: row;
   }
-  @media (min-width: 1100px) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
     gap: var(--spacing-m);
   }
 `;
@@ -265,28 +265,27 @@ const OptionName = styled.span`
   padding-left: var(--spacing-xs);
 `;
 
-const ServiceContainer = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-
-  @media (min-width: 750px) {
-    flex-direction: row;
-  }
-`;
-
 const OutcomeContainer = styled.div`
   display: flex;
-  width: 50%;
+  width: 100%;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    width: 50%;
+  }
 `;
 
 const OutcomeContent = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-
   justify-content: end;
-  padding: var(--spacing-m) 0;
-  width: 50%;
+  padding: var(--spacing-m) var(--spacing-l) var(--spacing-m) 0;
+  width: 100%;
+
+  h6 {
+    font-weight: ${theme.fontWeight.bold};
+    padding-top: var(--spacing-m);
+  }
+
   ul {
     margin-bottom: var(--spacing-m);
     li {
@@ -303,11 +302,23 @@ const SelectedItem = styled.div`
   gap: var(--spacing-s);
   align-items: center;
   justify-content: space-between;
+  width: auto;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    max-width: 300px;
+  }
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    max-width: 300px;
+  }
 `;
 
 const ItemWrapper = styled.div`
   display: flex;
   gap: var(--spacing-xs);
+
+  span {
+    text-transform: uppercase;
+    font-size: var(--font-xs);
+  }
 `;
 
 const RemoveButton = styled.button`
@@ -336,11 +347,6 @@ const StyledRemoveIcon = styled(RxCross1)`
   }
 `;
 
-const Services = styled.div`
-  flex: 2;
-  padding: 0;
-`;
-
 const StyledArrowIcon = styled(PiArrowUpRight)`
   margin-left: var(--spacing-m);
   transform: scale(1.2);
@@ -354,9 +360,12 @@ const StyledArrowIcon = styled(PiArrowUpRight)`
   }
 `;
 
-const ServiceUL = styled.ul`
+const ServiceContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    flex-direction: row;
+  }
 `;
 
 const Service = styled.li`
@@ -364,6 +373,19 @@ const Service = styled.li`
   flex-direction: column;
   padding: var(--spacing-m) 0;
   border-bottom: 1px solid ${theme.color.dark};
+`;
+
+const Services = styled.div`
+  padding: 0;
+  width: 100%;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    width: 50%;
+  }
+`;
+
+const ServiceUL = styled.ul`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ServiceTitleGroup = styled.div`
@@ -376,7 +398,7 @@ const TitleCheckboxContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--spacing-s);
+  gap: var(--spacing-xs);
 `;
 
 const ServiceTitle = styled.h2`
@@ -387,7 +409,6 @@ const ServiceTitle = styled.h2`
 const OverlayDescription = styled.div`
   display: flex;
   flex-direction: column;
-  border: solid 12px red;
 `;
 
 const Description = styled.p`
@@ -407,8 +428,10 @@ const Description = styled.p`
 `;
 
 const Price = styled.p`
+  font-size: var(--font-m) !important;
   padding-top: var(--spacing-xs);
+
   span {
-    font-weight: var(--font-weight-extraBold);
+    font-weight: ${theme.fontWeight.bold};
   }
 `;
