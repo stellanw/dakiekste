@@ -14,7 +14,7 @@ export default function Video({ src }) {
 const StyledContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100vh; /* Füllt den gesamten Bildschirm */
+  height: var(--height-hero);
   overflow: hidden;
 `;
 

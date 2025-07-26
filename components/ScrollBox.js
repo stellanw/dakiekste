@@ -148,11 +148,8 @@ const StyledScrollBox = styled.div`
     margin-right: var(--spacing-xl);
   }
 
-  h5 {
-    padding-bottom: var(--spacing-xs);
-    @media (min-width: ${theme.breakpoints.tablet}) {
-      padding-bottom: var(--spacing-xs);
-    }
+  p {
+    line-height: ${theme.lineHeight.xxl};
   }
 `;
 

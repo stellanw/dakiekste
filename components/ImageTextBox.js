@@ -40,6 +40,7 @@ const StyledTextWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   padding: var(--spacing-xxl) var(--side-padding);
+
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
@@ -67,18 +68,6 @@ const StyledImageContainer = styled.div`
   @media (min-width: ${theme.breakpoints.desktop}) {
     padding: var(--side-padding);
     width: 50%;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    height: 20%;
-    width: 100%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(249, 248, 242, 0.5) 100%);
-    pointer-events: none;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 0;
   }
 `;
 
