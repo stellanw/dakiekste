@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import styled, { keyframes, css } from "styled-components";
 import { theme } from "@/styles";
@@ -11,6 +11,22 @@ export default function Menu({ color, iconWidth }) {
 
   const eyesRef = useRef(null);
   const menuRef = useRef(null);
+
+  const normalizeAngle = (angle) => ((angle + 180) % 360) - 180;
+
+  const getShortestAngle = useCallback((from, to) => {
+    return from + normalizeAngle(to - from);
+  }, []);
+
+  const calculateRotation = useCallback((element, cursorX, cursorY) => {
+    if (!element) return 0;
+    const rect = element.getBoundingClientRect();
+    const dx = cursorX - (rect.left + rect.width / 2);
+    const dy = cursorY - (rect.top + rect.height / 2);
+    let angle = Math.atan2(dy, dx) * (180 / Math.PI);
+    angle -= 35;
+    return normalizeAngle(angle);
+  }, []);
 
   // Cursor tracking
   useEffect(() => {
@@ -36,20 +52,9 @@ export default function Menu({ color, iconWidth }) {
   useEffect(() => {
     const newAngle = calculateRotation(eyesRef.current, cursorPosition.x, cursorPosition.y);
     setRotation((prev) => getShortestAngle(prev, newAngle));
-  }, [cursorPosition]);
+  }, [cursorPosition, calculateRotation, getShortestAngle]);
 
-  const calculateRotation = (element, cursorX, cursorY) => {
-    if (!element) return 0;
-    const rect = element.getBoundingClientRect();
-    const dx = cursorX - (rect.left + rect.width / 2);
-    const dy = cursorY - (rect.top + rect.height / 2);
-    let angle = Math.atan2(dy, dx) * (180 / Math.PI);
-    angle -= 35;
-    return normalizeAngle(angle);
-  };
-
-  const normalizeAngle = (angle) => ((angle + 180) % 360) - 180;
-  const getShortestAngle = (from, to) => from + normalizeAngle(to - from);
+  // Toggle-Funktion
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const menuItems = [
