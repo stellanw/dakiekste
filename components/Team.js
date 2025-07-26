@@ -59,7 +59,6 @@ const StyledTeamMemberContainer = styled.div`
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     width: 100%;
-
     &:last-child {
       width: 100%;
     }
