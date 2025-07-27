@@ -32,10 +32,10 @@ export default function ImageSliderLight({ projects, autoplay }) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1500,
+    speed: 1000,
     fade: true,
     autoplay: autoplay,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoPlay: false,
@@ -70,7 +70,14 @@ export default function ImageSliderLight({ projects, autoplay }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage src={project.image} alt={project.alt} layout="fill" />
+            <StyledImage
+              src={project.image}
+              alt={project.alt}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              quality={100}
+              priority={index === 0}
+            />
           </Slide>
         ))}
       </StyledSlider>
@@ -162,7 +169,7 @@ const Slide = styled.div`
   height: var(--height-hero);
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    aspect-ratio: 1/1;
+    max-height: var(--height-section);
   }
 `;
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { theme } from "@/styles";
 import { useRef } from "react";
 
-export default function ScrollBox({ boxData = [], headline1, headline2, introText, mobileTitle, text }) {
+export default function ScrollBox({ boxData = [], headline1, headline2, introText }) {
   const scrollRef = useRef(null);
   let isDown = false;
   let startX;
@@ -30,7 +30,7 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5; // Geschwindigkeit
+    const walk = (x - startX) * 1.5;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -48,20 +48,15 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
       >
-        {boxData.map(({ icon: Icon, label, title, mobileTitle, text, image }, index) => (
+        {boxData.map(({ label, title, mobileTitle, text, image }, index) => (
           <StyledScrollBox key={index}>
-            {Icon && index !== boxData.length - 1 && (
-              <IconWrapper>
-                <Icon size={48} />
-              </IconWrapper>
-            )}
             <h2>{label || `0${index + 1}`}</h2>
             <StyledDesktopTitle>{title}</StyledDesktopTitle>
             <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
 
             {image && (
               <ImageWrapper>
-                <StyledImage src={image} alt={title} layout="fill" />
+                <StyledImage src={image} alt={title} fill />
               </ImageWrapper>
             )}
 
@@ -174,29 +169,6 @@ const ImageWrapper = styled.div`
   margin-bottom: var(--spacing-m);
   aspect-ratio: 3 / 2;
   width: 100%;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  top: 40%;
-  right: -9rem;
-  width: 100%;
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    right: -13.5rem;
-  }
-
-  svg {
-    width: 100%;
-    min-height: 20px;
-    max-height: 30px;
-
-    @media (max-width: ${theme.breakpoints.tablet}) {
-      min-height: 15px;
-      max-height: 20px;
-    }
-  }
 `;
 
 const StyledImage = styled(Image)`

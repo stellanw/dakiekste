@@ -7,9 +7,10 @@ import { RxCross1 } from "react-icons/rx";
 
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
-    businessType: "Soloselbstständig", // für spätere Rabattlogik
-    projectType: "Fotografie", // bestimmt die angezeigten Services
+    businessType: "Soloselbstständig",
+    projectType: "Fotografie",
   });
+  const [serviceCounts, setServiceCounts] = useState({});
 
   // Liste aller aktuell ausgewählten Services (für Warenkorb & Preis)
   const [selectedServices, setSelectedServices] = useState([]);
@@ -50,9 +51,20 @@ export default function Pricing({ pricingData, servicesData }) {
   const handleServiceSelection = (service) => {
     setSelectedServices((prev) => {
       if (prev.includes(service)) {
-        return prev.filter((s) => s !== service); // entfernen
+        // entfernen
+        const updatedCounts = { ...serviceCounts };
+        delete updatedCounts[service.title];
+        setServiceCounts(updatedCounts);
+        return prev.filter((s) => s !== service);
       } else {
-        return [...prev, service]; // hinzufügen
+        // hinzufügen
+        if (service.isCountable) {
+          setServiceCounts((prevCounts) => ({
+            ...prevCounts,
+            [service.title]: 1, // Startwert
+          }));
+        }
+        return [...prev, service];
       }
     });
   };
@@ -87,10 +99,22 @@ export default function Pricing({ pricingData, servicesData }) {
     return price;
   };
 
+  const handleCountChange = (title, delta) => {
+    setServiceCounts((prevCounts) => {
+      const current = prevCounts[title] || 1;
+      const newValue = Math.max(1, current + delta);
+      return {
+        ...prevCounts,
+        [title]: newValue,
+      };
+    });
+  };
+
   //Berechnet Gesamtpreis aller ausgewählten Services (mit Rabatt)
   const totalPrice = selectedServices.reduce((total, service) => {
+    const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
     const discountedPrice = applyDiscount(service.price);
-    return total + discountedPrice;
+    return total + discountedPrice * count;
   }, 0);
 
   return (
@@ -101,73 +125,100 @@ export default function Pricing({ pricingData, servicesData }) {
       </HeadlineContainer>
       <CalculatorContainer>
         <CategoriesContainer>
-          {pricingData.map((category, categoryIndex) => (
-            <CategoryContainer key={categoryIndex}>
-              <h6>{category.category}</h6>
-              <OptionContainer>
-                {category.options.map((option, optionIndex) => (
-                  <Option key={optionIndex}>
-                    <input type="checkbox" checked={selectedCategory[category.key] === option} onChange={() => handleCategorySelection(category.key, option)} />
-                    <OptionName>{option}</OptionName>
-                  </Option>
-                ))}
-              </OptionContainer>
-            </CategoryContainer>
-          ))}
+          {pricingData.map((category, categoryIndex) => {
+            const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
+
+            return (
+              <CategoryContainer key={categoryIndex} $hide={hideThisCategory}>
+                <h6>{category.category}</h6>
+                <OptionContainer>
+                  {category.options.map((option, optionIndex) => (
+                    <Option key={optionIndex}>
+                      <input
+                        type="checkbox"
+                        checked={selectedCategory[category.key] === option}
+                        onChange={() => handleCategorySelection(category.key, option)}
+                      />
+                      <OptionName>{option}</OptionName>
+                    </Option>
+                  ))}
+                </OptionContainer>
+              </CategoryContainer>
+            );
+          })}
         </CategoriesContainer>
         <ServiceContainer>
           <OutcomeContainer>
             <OutcomeContent>
-              <h6>Leistungswarenkorb</h6>
-              <ul>
-                {selectedServices.map((service, index) => (
-                  <li key={index}>
-                    <SelectedItem>
-                      <ItemWrapper>
-                        <PiPushPinLight />
-                        <span>{service.title}</span>
-                      </ItemWrapper>
-                      <RemoveButton onClick={() => removeService(service)}>
-                        <StyledRemoveIcon />
-                      </RemoveButton>
-                    </SelectedItem>
-                  </li>
-                ))}
-              </ul>
-              <Price>
-                Preis ab <span>{totalPrice}</span> EURO *
-              </Price>
-              <p>*zzgl. MwSt.</p>
+              {selectedCategory.businessType === "Vereine & Organisationen" ? (
+                <StyledOrganisationText>
+                  Vereine & Organisationen leisten wertvolle Arbeit für unsere Gesellschaft – und genau das möchten wir unterstützen. Deshalb erstellen wir
+                  individuelle Angebote, die zu euren Zielen und Budgets passen. Gemeinsam schauen wir, was euch am meisten weiterbringt – fair,
+                  bedarfsorientiert und mit echtem Interesse an eurer Mission.
+                </StyledOrganisationText>
+              ) : (
+                <>
+                  <h6>Leistungswarenkorb</h6>
+                  <ul>
+                    {selectedServices.map((service, index) => (
+                      <li key={index}>
+                        <SelectedItem>
+                          <ItemWrapper>
+                            <PiPushPinLight />
+                            <span>{service.title}</span>
+                            {selectedServices.includes(service) && service.isCountable && (
+                              <Counter>
+                                <button onClick={() => handleCountChange(service.title, -1)}>-</button>
+                                <span>{serviceCounts[service.title]}</span>
+                                <button onClick={() => handleCountChange(service.title, 1)}>+</button>
+                              </Counter>
+                            )}
+                          </ItemWrapper>
+                          <RemoveButton onClick={() => removeService(service)}>
+                            <StyledRemoveIcon />
+                          </RemoveButton>
+                        </SelectedItem>
+                      </li>
+                    ))}
+                  </ul>
+                  <Price>
+                    Preis ab <span>{totalPrice}</span>,-*
+                  </Price>
+                  <p>*EUR zzgl. MwSt.</p>
+                </>
+              )}
             </OutcomeContent>
           </OutcomeContainer>
           <Services>
-            {filteredServices.length > 0 ? (
-              filteredServices.map((service, index) => (
-                <ServiceUL key={index} className={isOpen[index] ? "open" : ""}>
-                  <Service>
-                    <ServiceTitleGroup>
-                      <TitleCheckboxContainer>
-                        <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceSelection(service)} />
-                        <ServiceTitle>{service.title}</ServiceTitle>
-                      </TitleCheckboxContainer>
-                      <StyledArrowIcon className={isOpen[index] ? "rotate" : ""} onClick={() => toggleOverlay(index)} />
-                    </ServiceTitleGroup>
-                    {isOpen[index] && (
-                      <OverlayDescription>
-                        <Description>
-                          {service.description}
-                          <Price>
-                            Preis ab <span>{applyDiscount(service.price)} </span>EURO *
-                          </Price>
-                        </Description>
-                      </OverlayDescription>
-                    )}
-                  </Service>
-                </ServiceUL>
-              ))
-            ) : (
-              <p>Keine Services verfügbar</p>
-            )}
+            {selectedCategory.businessType !== "Vereine & Organisationen" &&
+              (filteredServices.length > 0 ? (
+                filteredServices.map((service, index) => (
+                  <ServiceUL key={index} className={isOpen[index] ? "open" : ""}>
+                    <Service>
+                      <ServiceTitleGroup>
+                        <TitleCheckboxContainer>
+                          <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceSelection(service)} />
+                          <ServiceTitle>{service.title}</ServiceTitle>
+                        </TitleCheckboxContainer>
+                        <StyledArrowIcon className={isOpen[index] ? "rotate" : ""} onClick={() => toggleOverlay(index)} />
+                      </ServiceTitleGroup>
+                      {isOpen[index] && (
+                        <OverlayDescription>
+                          <Description>
+                            {service.description}
+                            <Price>
+                              Preis ab <span>{applyDiscount(service.price)}</span>,-
+                              {service.isCountable && <PricePerUnit>{service.unit}</PricePerUnit>}
+                            </Price>
+                          </Description>
+                        </OverlayDescription>
+                      )}
+                    </Service>
+                  </ServiceUL>
+                ))
+              ) : (
+                <p>Keine Services verfügbar</p>
+              ))}
           </Services>
         </ServiceContainer>
       </CalculatorContainer>
@@ -175,7 +226,7 @@ export default function Pricing({ pricingData, servicesData }) {
   );
 }
 
-export const PricingContainer = styled.div`
+const PricingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -233,7 +284,7 @@ const CategoriesContainer = styled.div`
 `;
 
 const CategoryContainer = styled.div`
-  display: flex;
+  display: ${({ $hide }) => ($hide ? "none" : "flex")};
   flex-direction: column;
   width: 100%;
   @media (min-width: ${theme.breakpoints.tablet}) {
@@ -289,7 +340,7 @@ const OutcomeContent = styled.div`
   ul {
     margin-bottom: var(--spacing-m);
     li {
-      padding: var(--spacing-s) 0;
+      padding: var(--spacing-xs) 0;
     }
   }
   p {
@@ -383,6 +434,11 @@ const Services = styled.div`
   }
 `;
 
+const StyledOrganisationText = styled.p`
+  padding: 0 var(--spacing-l);
+  font-size: var(--font-m) !important;
+`;
+
 const ServiceUL = styled.ul`
   display: flex;
   flex-direction: column;
@@ -409,10 +465,11 @@ const ServiceTitle = styled.h2`
 const OverlayDescription = styled.div`
   display: flex;
   flex-direction: column;
+
+  padding: var(--spacing-xs) var(--spacing-l) 0 var(--spacing-l);
 `;
 
 const Description = styled.p`
-  padding-top: var(--spacing-xs);
   animation: slide-animation 0.5s ease;
 
   @keyframes slide-animation {
@@ -428,10 +485,48 @@ const Description = styled.p`
 `;
 
 const Price = styled.p`
+  display: flex;
+  gap: 0.3rem;
   font-size: var(--font-m) !important;
   padding-top: var(--spacing-xs);
 
   span {
     font-weight: ${theme.fontWeight.bold};
   }
+`;
+
+const Counter = styled.div`
+  display: flex;
+  align-items: center;
+  gap: calc(0.5 * var(--spacing-xs));
+
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+
+  span {
+    font-size: var(--font-s);
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: var(--font-s);
+    padding: 0;
+    height: 15px;
+    width: 15px;
+    border-radius: 5px;
+
+    border: 1px solid ${theme.color.dark};
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${theme.color.green};
+    }
+  }
+`;
+
+const PricePerUnit = styled.span`
+  font-size: var(--font-s);
 `;
