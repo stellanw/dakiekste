@@ -683,7 +683,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
             {
               key: "businessType",
               category: "Dein Business",
-              options: ["Soloselbstständig", "Unternehmen"],
+              options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
             },
             {
               key: "projectType",
@@ -696,83 +696,99 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               title: (
                 <>
                   Mitarbeiter*innen & <wbr />
-                  CEO Portraits
+                  CEO Portrait
                 </>
               ),
               category: "Fotografie",
-              description: "Ein professionelles Basis-Paket für CEO- und Team-Portraits.",
+              isCountable: true,
+              unit: "pro Person",
+              description:
+                "Businessportraits, die Persönlichkeit zeigen – für Website, PR oder interne Kommunikation. Authentisch, professionell und auf den Punkt.",
               price: 120,
             },
             {
-              title: "Personal Branding",
+              title: "Personal Branding Fotografie",
               category: "Fotografie",
-              description: "Ein kompaktes Branding-Paket für Selbstständige und kleine Unternehmen.",
+              description:
+                "Dein Auftritt als Marke. Wir entwickeln ein visuelles Konzept und setzen es in hochwertigen Fotos um – individuell, klar und überzeugend.",
               price: 3000,
             },
             {
-              title: "Event & Happenings",
+              title: "Eventfotografie",
               category: "Fotografie",
-              description: "Basis-Eventdokumentation ohne Nachbearbeitung.",
+              description: "Wir dokumentieren dein Event – ob PR, Teamoffsite oder Keynote. Dezente Begleitung, starke Bilder, ganz ohne Nachbearbeitung.",
               price: 850,
             },
             {
               title: "Social Media Content",
               category: "Fotografie",
-              description: "Erstelle modernen Content für Instagram und Co.",
+              description:
+                "Moderner Content für Instagram & Co. Wir liefern Bilder, die zu dir passen – hochwertig, schnell einsetzbar und nah an deiner Zielgruppe.",
               price: 500,
             },
             {
-              title: "Konzeption",
+              title: "Konzeption & Bildsprache",
               category: "Fotografie",
-              description: "Basis-Konzeptentwicklung mit Fokus auf dein Branding.",
+              description:
+                "Visuelles Konzept für deine Marke: Wir erarbeiten die passende Bildsprache – als Grundlage für Content, Kampagnen oder Fotoproduktionen.",
               price: 900,
+            },
+            {
+              title: "Bildbearbeitung & Retusche",
+              category: "Fotografie",
+              description:
+                "Aufwändige Retuschen oder Beauty-Finishes kannst du auch einzeln buchen. Standardkorrekturen sind bei uns immer inklusive – hier geht’s um Extras mit Liebe zum Detail.",
+              isCountable: true,
+              unit: "pro Bild",
+              price: 50,
             },
             {
               title: "Video-Content für Social Media",
               category: "Video",
-              description: "Erstellung von Video-Content für Social-Media-Plattformen.",
+              description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
               price: 800,
             },
             {
               title: "Event-Videodokumentation",
               category: "Video",
-              description: "Dokumentation von Events ohne Nachbearbeitung.",
+              description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
               price: 1000,
             },
             {
               title: "Imagefilm",
               category: "Video",
-              description: "Kurzer Imagefilm für dein Unternehmen.",
+              description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
               price: 4000,
             },
             {
               title: "Web Design (UI/UX)",
               category: "Website",
-              description: "Komplexes Web-Design inkl. UI/UX Beratung und Implementierung.",
+              description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
               price: 3000,
             },
             {
               title: "Web Entwicklung",
               category: "Website",
-              description: "Beratung zur Steigerung deiner Sichtbarkeit auf Social Media.",
+              description:
+                "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
               price: 1500,
             },
             {
               title: "CI Branding Design",
               category: "Design",
-              description: "Kurzer Imagefilm für dein Unternehmen.",
+              description: "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
               price: 4000,
             },
             {
               title: "Logo Design",
               category: "Design",
-              description: "Hier wird ein Text stehen zur Design Kategorie Logo.",
+              description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
               price: 3000,
             },
             {
               title: "Redesign",
               category: "Design",
-              description: "Hier wird ein Text stehen zur Design Kategorie Redesign.",
+              description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
               price: 1500,
             },
           ]}

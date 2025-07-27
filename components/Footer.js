@@ -87,6 +87,9 @@ const StyledLink = styled(Link)`
 
   p {
     font-size: var(--font-l);
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: var(--font-m);
+    }
     font-weight: ${theme.fontWeight.light};
     margin-right: calc(0.4 * var(--spacing-xs));
   }

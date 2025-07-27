@@ -5,7 +5,7 @@ import { theme } from "@/styles";
 import { PiArrowLeftLight, PiArrowRightLight } from "react-icons/pi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Image from "next/legacy/image";
+import Image from "next/image";
 
 export default function ImageSlider({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -32,7 +32,7 @@ export default function ImageSlider({ projects, autoplay }) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 3000,
+    speed: 1000,
     autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -58,7 +58,7 @@ export default function ImageSlider({ projects, autoplay }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage src={project.image} alt={project.alt} layout="fill" />
+            <StyledImage src={project.image} alt={project.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" quality={100} />
           </Slide>
         ))}
       </StyledSlider>
@@ -144,24 +144,17 @@ const Slide = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  min-width: 100%;
+  width: 100%;
   height: var(--height-hero);
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    aspect-ratio: 1/1;
+    max-height: var(--height-section);
   }
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
   object-position: 50% 5%;
-`;
-
-const ProjectDetails = styled.div`
-  position: absolute;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
 `;
 
 const ArrowContainer = styled.div`
