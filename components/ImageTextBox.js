@@ -2,7 +2,7 @@ import { theme } from "@/styles";
 import Image from "next/legacy/image";
 import styled from "styled-components";
 
-export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow }) {
+export default function ImageTextBox({ topline, headline, text1, image, alt, flexflow }) {
   return (
     <StyledImageTextBox $flexflow={flexflow}>
       <StyledImageContainer>
@@ -12,12 +12,7 @@ export default function ImageTextBox({ topline, headline, text1, text2, image, a
       <StyledTextWrapper>
         <h2>{topline}</h2>
         <h3>{headline}</h3>
-        <p>
-          {text1}
-          <br />
-          <br />
-          {text2}
-        </p>
+        <p>{text1}</p>
       </StyledTextWrapper>
     </StyledImageTextBox>
   );
