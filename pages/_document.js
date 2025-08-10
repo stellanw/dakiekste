@@ -1,6 +1,12 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
+const SITE_URL = process.env.NODE_ENV === "production" ? "https://dakiekste.com" : "https://dakiekste.vercel.app";
+const TITLE = "DAKIEKSTE | Branding, Fotografie, Design & Website aus Hamburg";
+const DESCRIPTION =
+  "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus  Fotografie, Branding, Design & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.";
+const OG_IMAGE = `${SITE_URL}/og.jpg`;
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
@@ -24,13 +30,32 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="de">
         <Head>
           {" "}
           <link rel="icon" type="image/png" href="/favicon.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
           <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+          {/* Default SEO / Open Graph */}
+          <meta name="description" content={DESCRIPTION} />
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="DAKIEKSTE" />
+          <meta property="og:url" content={SITE_URL} />
+          <meta property="og:title" content={TITLE} />
+          <meta property="og:description" content={DESCRIPTION} />
+          <meta property="og:image" content={OG_IMAGE} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="DAKIEKSTE – Hero Bild" />
+          {/* Twitter */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={TITLE} />
+          <meta name="twitter:description" content={DESCRIPTION} />
+          <meta name="twitter:image" content={OG_IMAGE} />
+          <meta name="theme-color" content="#A3FFB7" media="(prefers-color-scheme: light)" />
+          <meta name="theme-color" content="#252422" media="(prefers-color-scheme: dark)" />
+          <link rel="canonical" href={SITE_URL} />
         </Head>
         <body>
           <Main />

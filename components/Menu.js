@@ -92,7 +92,7 @@ export default function Menu({ iconWidth = 45, color }) {
 const Wrapper = styled.div`
   display: flex;
   position: fixed;
-  top: calc(0.5 * var(--spacing-xs));
+  top: calc(1 * var(--spacing-s));
   right: 0;
   align-items: center;
   background-color: ${({ $isOpen }) => ($isOpen ? theme.color.beige : theme.color.green)};

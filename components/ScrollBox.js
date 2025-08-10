@@ -2,8 +2,9 @@ import Image from "next/image";
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { useRef } from "react";
+import { PiArrowRightLight } from "react-icons/pi";
 
-export default function ScrollBox({ boxData = [], headline1, headline2, introText }) {
+export default function ScrollBox({ boxData = [], headline1, headline2, introText, showIcon = false }) {
   const scrollRef = useRef(null);
   let isDown = false;
   let startX;
@@ -50,13 +51,21 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
       >
         {boxData.map(({ label, title, mobileTitle, text, image }, index) => (
           <StyledScrollBox key={index}>
-            <h2>{label || `0${index + 1}`}</h2>
+            <h2>
+              {" "}
+              {(showIcon === true || showIcon === "true") && (
+                <StyledIcon>
+                  <PiArrowRightLight />
+                </StyledIcon>
+              )}
+              {label || `0${index + 1}`}
+            </h2>
             <StyledDesktopTitle>{title}</StyledDesktopTitle>
             <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
 
             {image && (
               <ImageWrapper>
-                <StyledImage src={image} alt={title} fill />
+                <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
               </ImageWrapper>
             )}
 
@@ -146,6 +155,15 @@ const StyledScrollBox = styled.div`
   p {
     line-height: ${theme.lineHeight.xxl};
   }
+`;
+
+const StyledIcon = styled.span`
+  display: inline-flex;
+  vertical-align: text-bottom;
+  height: 100%;
+  margin-right: var(--spacing-xs);
+  font-size: 1.3rem;
+  padding-bottom: 0rem;
 `;
 
 const StyledDesktopTitle = styled.h5`

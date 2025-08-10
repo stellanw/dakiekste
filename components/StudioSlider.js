@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Slider from "react-slick";
 import styled from "styled-components";
 import { PiArrowLeftLight, PiArrowRightLight } from "react-icons/pi";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { theme } from "@/styles";
@@ -38,7 +38,14 @@ export default function StudioSlider({ studio }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {studio.map((item, index) => (
           <Slide key={index}>
-            <StyledImage src={item.image} alt={item.alt} width={1400} height={800} priority={false} placeholder="empty" />
+            <StyledImage
+              src={item.image}
+              alt={item.alt}
+              quality={80}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
+              priority={false}
+              placeholder="empty"
+            />
           </Slide>
         ))}
       </StyledSlider>

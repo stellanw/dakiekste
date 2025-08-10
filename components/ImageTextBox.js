@@ -1,12 +1,12 @@
 import { theme } from "@/styles";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import styled from "styled-components";
 
 export default function ImageTextBox({ topline, headline, text1, image, alt, flexflow }) {
   return (
     <StyledImageTextBox $flexflow={flexflow}>
       <StyledImageContainer>
-        <StyledImage src={image} alt={alt} fill />
+        <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
       </StyledImageContainer>
 
       <StyledTextWrapper>
@@ -56,12 +56,12 @@ const StyledImageContainer = styled.div`
   aspect-ratio: 1 / 1;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    padding: var(--side-padding);
+    margin: var(--side-padding);
     width: 50%;
   }
 
   @media (min-width: ${theme.breakpoints.desktop}) {
-    padding: var(--side-padding);
+    margin: var(--side-padding);
     width: 50%;
   }
 `;

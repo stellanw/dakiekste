@@ -153,7 +153,7 @@ const FAQQuestionWrapper = styled.div`
 `;
 
 const AnswerOverlay = styled.p`
-  animation: slide-animation 0.5s ease;
+  animation: slide-animation 1s ease;
   margin-top: var(--spacing-m);
   overflow: hidden;
   font-weight: ${theme.fontWeight.light};

@@ -93,7 +93,7 @@ export default createGlobalStyle`
 @media (min-width: ${theme.breakpoints.desktop}) {
   :root {
     --side-padding: 4rem;
-    --nav-height: 4rem;
+    --nav-height: 6rem;
   }
 }
 
