@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { PiArrowUpRight } from "react-icons/pi";
 import { PiPushPinLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
+import ContactOverlayForm from "./ContactOverlayForm";
 
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
@@ -11,6 +12,7 @@ export default function Pricing({ pricingData, servicesData }) {
     projectType: "Fotografie",
   });
   const [serviceCounts, setServiceCounts] = useState({});
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // Liste aller aktuell ausgewählten Services (für Warenkorb & Preis)
   const [selectedServices, setSelectedServices] = useState([]);
@@ -119,6 +121,14 @@ export default function Pricing({ pricingData, servicesData }) {
 
   return (
     <PricingContainer>
+      {showOverlay && (
+        <ContactOverlayForm
+          selectedServices={selectedServices}
+          serviceCounts={serviceCounts}
+          businessType={selectedCategory.businessType}
+          onClose={() => setShowOverlay(false)}
+        />
+      )}
       <HeadlineContainer>
         <h2>PREISKALKULATOR</h2>
         {isMobile ? <h4>Dein Erfolg einfach kalkuliert.</h4> : <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>}
@@ -185,6 +195,7 @@ export default function Pricing({ pricingData, servicesData }) {
                     Preis ab <span>{totalPrice}</span>,-*
                   </Price>
                   <p>*EUR zzgl. MwSt.</p>
+                  <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
               )}
             </OutcomeContent>
@@ -329,7 +340,7 @@ const OutcomeContent = styled.div`
   flex-direction: column;
   height: 100%;
   justify-content: end;
-  padding: var(--spacing-m) var(--spacing-l) var(--spacing-m) 0;
+  padding: var(--spacing-m) var(--spacing-l) 0 0;
   width: 100%;
 
   h6 {
@@ -529,4 +540,24 @@ const Counter = styled.div`
 
 const PricePerUnit = styled.span`
   font-size: var(--font-s);
+`;
+
+const StyledButton = styled.button`
+  margin-top: var(--spacing-s);
+  width: 300px;
+  padding: var(--spacing-xs) var(--spacing-m);
+  color: ${theme.color.dark};
+  background-color: ${theme.color.beige};
+  font-size: var(--font-s);
+  font-weight: ${theme.fontWeight.regular};
+  letter-spacing: 0.08rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid ${theme.color.dark};
+  text-transform: uppercase;
+
+  &:hover {
+    color: ${theme.color.beige};
+    background-color: ${theme.color.green};
+  }
 `;
