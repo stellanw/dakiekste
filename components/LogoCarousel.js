@@ -6,17 +6,13 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function LogoCarousel() {
   const logos = [
-    { src: "/images/otto_logo.png", alt: "Logo 1", width: 150, height: 75 },
-    { src: "/images/averdung_logo.png", alt: "Logo 2", width: 150, height: 75 },
+    { src: "/images/Ossara-Logo.png", alt: "Logo 5", width: 150, height: 75 },
+    { src: "/images/otto-logo.png", alt: "Logo 1", width: 150, height: 75 },
+    { src: "/images/averdung-logo.png", alt: "Logo 2", width: 150, height: 75 },
     { src: "/images/neuland_logo.png", alt: "Logo 3", width: 150, height: 75 },
-    {
-      src: "/images/milk-made-ice-cream_logo.png",
-      alt: "Logo 4",
-      width: 150,
-      height: 75,
-    },
-    { src: "/images/hofa_logo.png", alt: "Logo 5", width: 150, height: 75 },
-    // Add more logos with their respective alt text, width, and height
+    { src: "/images/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 90, height: 75 },
+    { src: "/images/Improova_Logo_small_black.png", alt: "Logo 5", width: 150, height: 75 },
+    { src: "/images/Logo_QuCare_RGB.png", alt: "Logo 5", width: 150, height: 75 },
   ];
 
   const settings = {
@@ -88,7 +84,6 @@ const LogoContainer = styled.div`
 const LogoImage = styled(Image)`
   max-width: 100%;
   max-height: 100%;
-
   object-fit: contain;
   display: block;
 `;

@@ -118,9 +118,10 @@ export default function HomePage() {
             alt: "",
             image: section02_slider01,
           },
+
           {
             alt: "",
-            image: section02_slider02,
+            image: section02_slider04,
           },
           {
             alt: "",
@@ -128,7 +129,11 @@ export default function HomePage() {
           },
           {
             alt: "",
-            image: section02_slider04,
+            image: section02_slider07,
+          },
+          {
+            alt: "",
+            image: section02_slider08,
           },
           {
             alt: "",
@@ -140,11 +145,7 @@ export default function HomePage() {
           },
           {
             alt: "",
-            image: section02_slider07,
-          },
-          {
-            alt: "",
-            image: section02_slider08,
+            image: section02_slider02,
           },
         ]}
       />
@@ -283,42 +284,42 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
       <Video src="/videos/07_Video/Selections_Website_OSSARA_Workflow_V2_1.mp4" />
       <section id="workflow">
         <ScrollBox
-          autoplay={false}
+          showIcon={true}
           headline1="Workflow"
           headline2={<>Du bringst die Vision, wir kümmern uns um den Weg. Mit einem strukturierten Ablauf halten wir dir den Rücken frei.</>}
           boxData={[
             {
-              label: "01",
+              label: "Schritt 1",
               title: "Erstgespräch & Analyse",
               mobileTitle: "Deine Vision verstehen",
               text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
             {
-              label: "02",
+              label: "Schritt 2",
               title: "Konzeption & Workshops",
               mobileTitle: "Strategie entwickeln",
               text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Zusätzlich bieten wir Workshops an, um gemeinsam die besten Lösungen zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände.",
             },
             {
-              label: "03",
+              label: "Schritt 3",
               title: "Organisation",
               mobileTitle: "Das Fundament",
               text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis hin zu Styling und Hair & Make-up. Dank unseres Netzwerks und durchdachter Zeitpläne läuft dein Shooting reibungslos und zuverlässig.",
             },
             {
-              label: "04",
+              label: "Schritt 4",
               title: "Umsetzung",
               mobileTitle: "Content erschaffen",
               text: "Fotografie, Design, Web – bei uns greift alles ineinander. Wir arbeiten effizient und ohne doppelte Abstimmungen. Shootings und Drehs laufen strukturiert ab. Design entsteht in Abstimmung mit Strategie und Zielgruppe. Web-Projekte entwickeln wir funktional, durchdacht und einsatzbereit.",
             },
             {
-              label: "05",
+              label: "Schritt 5",
               title: "Postproduktion",
               mobileTitle: "Dein content-pool",
               text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool auf den du über eine Online-Galerie oder Cloud zugreifen kannst, mit einer Anleitung zur flexiblen Verwendung.",
             },
             {
-              label: "06",
+              label: "Schritt 6",
               title: "Langfristige Unterstützung",
               mobileTitle: "Gemeinsam wachsen",
               text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
@@ -408,17 +409,51 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               name: "STELLAN",
               image: section10_Team02,
-              text: "Fotografie , Video & Webentwicklung – mit einem Blick fürs Ganze. Mein Fokus liegt auf klaren Prozessen, funktionierenden Systemen und Bildwelten, die funktionieren – technisch wie visuell. Ich verbinde Kreativität mit Struktur und sorge dafür, dass Inhalte sichtbar, verständlich und wirksam werden. Ob Shooting, Imagefilm oder maßgeschneiderte Website: Ich denke Projekte als Einheit und begleite sie von Anfang bis Ende.",
+
+              text: (
+                <>
+                  <p>
+                    Fotografie , Video & Webentwicklung – mit einem Blick fürs Ganze. Mein Fokus liegt auf klaren Prozessen, funktionierenden Systemen und
+                    Bildwelten, die funktionieren – technisch wie visuell. Ich verbinde Kreativität mit Struktur und sorge dafür, dass Inhalte sichtbar,
+                    verständlich und wirksam werden. Ob Shooting, Imagefilm oder maßgeschneiderte Website: Ich denke Projekte als Einheit und begleite sie von
+                    Anfang bis Ende.
+                  </p>
+                </>
+              ),
             },
             {
               name: "MAÏSCHA",
               image: section10_Team01,
-              text: "Design, UI/UX & Fotografie – mit einem Gespür für Gestaltung, die wirkt. Ich arbeite konzeptionell, strukturiert und mit einem starken Blick für Zielgruppen. Als gelernte Fotografin und studierte Designerin entwickle ich Gestaltungssysteme, die Orientierung schaffen und Inhalte klar vermitteln. Meine Schwerpunkte: Branding, visuelle Kommunikation und digitale Nutzerführung. Ich gestalte Websites und Designs, die funktionieren – für Menschen und Marken, die etwas zu sagen haben.",
+              text: (
+                <>
+                  <p>
+                    Ich arbeite visuell und konzeptionell, denke in Bildern, Geschichten und Systemen. Ob Kamera oder Interface – mir geht es darum, Inhalte
+                    klar zu vermitteln, stimmig zu gestalten und Wirkung zu erzeugen.
+                  </p>
+                  <p>
+                    Meine Schwerpunkte liegen in der Fotografie und Videografie, ergänzt durch Erfahrung in Design, visueller Kommunikation und UI/UX. Ich
+                    verstehe mich nicht als Spezialistin für eine Disziplin, sondern als kreative Allrounderin.
+                  </p>
+                  <p>
+                    Ich entwickle Gestaltungslösungen, die funktionieren – für Menschen und Marken, die etwas zu erzählen haben. Dabei denke ich mich tief in
+                    Themen hinein, höre zu, sehe genau hin und finde visuelle Antworten, die Haltung zeigen und Orientierung geben.
+                  </p>
+                </>
+              ),
             },
             {
               name: "UNSERE PHILOSOPHIE",
               image: section10_Team03,
-              text: "Wir arbeiten mit Menschen und Unternehmen, die gestalten wollen – für sich, füreinander und für die Welt, die uns umgibt. Uns interessieren Ideen mit Haltung und Visionen, die zu einer bewussteren Zukunft beitragen. Unsere Perspektiven entstehen aus Erfahrungen, die oft unsichtbar bleiben – und prägen, wie wir zuhören, gestalten und begleiten. Deshalb fühlen wir uns besonders Projekten verbunden, die für Teilhabe, Miteinander und Gerechtigkeit stehen. Denn: Wer gesehen wird, gestaltet mit.",
+              text: (
+                <>
+                  <p>
+                    Wir arbeiten mit Menschen und Unternehmen, die gestalten wollen – für sich, füreinander und für die Welt, die uns umgibt. Uns interessieren
+                    Ideen mit Haltung und Visionen, die zu einer bewussteren Zukunft beitragen. Unsere Perspektiven entstehen aus Erfahrungen, die oft
+                    unsichtbar bleiben – und prägen, wie wir zuhören, gestalten und begleiten. Deshalb fühlen wir uns besonders Projekten verbunden, die für
+                    Teilhabe, Miteinander und Gerechtigkeit stehen. Denn: Wer gesehen wird, gestaltet mit.
+                  </p>
+                </>
+              ),
             },
           ]}
         />
@@ -437,6 +472,147 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         alt="Description of image"
         flexflow="row-reverse"
       />
+      <section id="pricing">
+        <Pricing
+          pricingData={[
+            {
+              key: "businessType",
+              category: "Dein Business",
+              options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
+            },
+            {
+              key: "projectType",
+              category: "Dein Projekt",
+              options: ["Fotografie", "Video", "Design", "Website"],
+            },
+          ]}
+          servicesData={[
+            {
+              title: (
+                <>
+                  Mitarbeiter*innen & <wbr />
+                  CEO Portrait
+                </>
+              ),
+              titlePlain: "Businessportraits",
+              category: "Fotografie",
+              isCountable: true,
+              unit: "pro Person",
+              description:
+                "Dazu zählen Einzelaufnahmen von Mitarbeiter*innen und Führungskräften (z.B. CEO), Teamfotos in kleinen oder größeren Gruppen. Die Fotos entstehen vor Ort oder im Studio und beinhalten eine Bildauswahl sowie eine Basisretusche mit einheitlichem Look.",
+              price: 120,
+            },
+            {
+              title: "Personal Branding Fotografie",
+              titlePlain: "Personal Branding Fotografie",
+              category: "Fotografie",
+              description:
+                "Ein Fotopaket, das dich, dein Team, eure Arbeit und euer Umfeld zeigt – abgestimmt auf deine Marke. Du bekommst einen vielseitigen Bilderpool mit hochwertigen Fotos, die einen stimmigen Gesamteindruck vermitteln. Inklusive Konzept, Planung, Shooting, gemeinsame Bildauswahl und Basisretusche.",
+              price: 3000,
+            },
+            {
+              title: "Produktfotografie",
+              titlePlain: "Produktfotografie",
+              category: "Fotografie",
+              isCountable: true,
+              unit: "pro Bild",
+              description:
+                "Zeig deine Produkte so, wie sie gesehen werden sollen – hochwertig, ansprechend und markengerecht. Je nach Bedarf fotografieren wir Freisteller, inszenierte Aufnahmen oder Anwendungen am Modell. Du bekommst Bilder deiner Produkte, die deinen Verkauf stärken und vielseitig einsetzbar sind. Optional unterstützen wir mit einer erfahrenen Stylistin aus unserem Netzwerk, um deine Produkte perfekt in Szene zu setzen.",
+              price: 50,
+            },
+            {
+              title: "Eventfotografie",
+              titlePlain: "Eventfotografie",
+              category: "Fotografie",
+              description:
+                "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die Bilder erhalten einen einheitlichen Look und werden in einer Onlinegalerie bereitgestellt.",
+              price: 850,
+            },
+            {
+              title: "Content Creation",
+              titlePlain: "Content Creation",
+              category: "Fotografie",
+              description:
+                "Wir erstellen hochwertigen Foto- und Videocontent für Instagram & Co. – markengerecht, zielgruppennah und schnell einsetzbar. Du bekommst bearbeitete Inhalte mit einheitlichem Look, die direkt bereit sind für deine Social-Media-Kanäle, Website oder Kampagnen.",
+              price: 500,
+            },
+            {
+              title: "Konzeption",
+              titlePlain: "Konzeption",
+              category: "Fotografie",
+              description:
+                "Ein Grundkonzept ist in vielen Paketen enthalten. Wenn du tiefer einsteigen willst, kannst du unsere Konzeptionsleistung auch separat buchen. Je nach Bedarf umfasst sie Beratung zu deiner Markenidentität, die Entwicklung einer Bildsprache und die Struktur deiner visuellen Kommunikation.",
+              price: 900,
+            },
+            {
+              title: "Postproduction",
+              titlePlain: "Postproduction",
+              category: "Fotografie",
+              description: "Standardkorrekturen sind inklusive. Aufwändige Retuschen können separat gebucht werden.",
+              isCountable: true,
+              unit: "pro Bild",
+              price: 50,
+            },
+            {
+              title: "Video-Content für Social Media",
+              titlePlain: "Video-Content für Social Media",
+              category: "Video",
+              description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
+              price: 800,
+            },
+            {
+              title: "Event-Videodokumentation",
+              titlePlain: "Event-Videodokumentation",
+              category: "Video",
+              description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
+              price: 1000,
+            },
+            {
+              title: "Imagefilm",
+              titlePlain: "Imagefilm",
+              category: "Video",
+              description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
+              price: 4000,
+            },
+            {
+              title: "Web Design (UI/UX)",
+              titlePlain: "Web Design (UI/UX)",
+              category: "Website",
+              description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
+              price: 3000,
+            },
+            {
+              title: "Web Entwicklung",
+              titlePlain: "Web Entwicklung",
+              category: "Website",
+              description:
+                "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
+              price: 1500,
+            },
+            {
+              title: "CI Branding Design",
+              titlePlain: "CI Branding Design",
+              category: "Design",
+              description: "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
+              price: 4000,
+            },
+            {
+              title: "Logo Design",
+              titlePlain: "Logo Design",
+              category: "Design",
+              description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
+              price: 3000,
+            },
+            {
+              title: "Redesign",
+              titlePlain: "Redesign",
+              category: "Design",
+              description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
+              price: 1500,
+            },
+          ]}
+        />
+      </section>
       <section id="faq">
         <FAQ
           faqData={[
@@ -480,7 +656,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               caption: "Allgemein",
               question: "Müssen wir ein fertiges Konzept mitbringen?",
               answer:
-                "Nein. Konzepte zu entwickeln ist Teil unserer Arbeit. Wenn du schon Ideen hast, nehmen wir sie gerne auf – ansonsten erarbeiten wir gemeinsam, was passt.",
+                "Konzepte zu entwickeln gehört zu unserem Leistungsumfang. Wenn du bereits Ideen hast, nehmen wir sie natürlich gerne auf – und wenn das Konzept schon steht, unterstützen wir dich auch gerne ausschließlich bei der Umsetzung. Andernfalls erarbeiten wir gemeinsam eine passende Lösung.",
             },
             {
               caption: "Allgemein",
@@ -565,7 +741,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               caption: "Fotografie",
               question: "Für wen ist ein Brand-Shooting interessant?",
               answer:
-                "Für alle, die zeigen wollen, wofür sie stehen – ob Solo-Selbstständige, NGOs, Teams oder Unternehmen. Du willst sichtbar werden mit dem, was dich ausmacht? Reichweite gewinnen, Vertrauen aufbauen, Wirkung entfalten? Dann ist ein Brand-Shooting genau das Richtige. Und keine Sorge: Du musst nicht wissen, wie man sich inszeniert – wir helfen dir, dich echt zu zeigen.",
+                "Für alle, die zeigen wollen, wofür sie stehen – ob Solo-Selbstständige, Unternehmen oder NGOs. Du willst sichtbar werden mit dem, was dich ausmacht? Reichweite gewinnen, Vertrauen aufbauen, Wirkung entfalten? Dann ist ein Brand-Shooting genau das Richtige. Und keine Sorge: Du musst nicht wissen, wie man sich inszeniert – wir helfen dir, dich echt zu zeigen.",
             },
 
             // VIDEO
@@ -573,7 +749,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               caption: "Video",
               question: "Welche Art von Videos bietet ihr an?",
               answer:
-                "Ob kurzer Social-Media-Clip, emotionaler Imagefilm oder ein klarer Recruiting-Trailer – wir entwickeln Formate, die zu deiner Botschaft und Zielgruppe passen. Gemeinsam finden wir die passende Form, damit dein Thema sichtbar wird – auf den richtigen Kanälen und mit dem richtigen Ton.",
+                "Ob kurzer Social-Media-Clip, Imagefilm, Interview oder ein Recruiting-Trailer – wir entwickeln Formate, die zu deiner Botschaft und Zielgruppe passen. Gemeinsam finden wir die passende Form, damit dein Thema sichtbar wird – auf den richtigen Kanälen und mit dem richtigen Ton.",
             },
             {
               caption: "Video",
@@ -646,25 +822,13 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
               caption: "Design",
               question: "Wie läuft ein Design-Prozess bei euch ab?",
               answer:
-                "Wir starten mit einem Briefing und entwickeln daraus erste Ansätze. In mehreren Feedbackrunden schärfen wir Schritt für Schritt dein Design – bis alles für dich stimmig ist.",
+                "Wir starten mit einem Briefing und entwickeln daraus erste Ansätze. In mehreren Feedbackrunden schärfen wir Schritt für Schritt dein Design – bis alles für dich stimmig ist. Am Ende erstellen wir dir einen Guide – damit du und dein Team euer Design sicher anwenden könnt.",
             },
             {
               caption: "Design",
               question: "Wie viel Mitgestaltung ist möglich?",
               answer:
                 "So viel wie du willst – oder brauchst. Du bist in den Prozess eingebunden, gibst Feedback und hast jederzeit Einblick in den Zwischenstand.",
-            },
-            {
-              caption: "Design",
-              question: "In welchen Formaten erhalte ich die finalen Dateien?",
-              answer:
-                "Je nach Projekt z. B. als PNG, PDF, SVG, EPS oder InDesign-Datei – immer passend für Web und Print. Du bekommst außerdem eine Übersicht zur richtigen Anwendung.",
-            },
-            {
-              caption: "Design",
-              question: "Gibt’s ein Styleguide oder ein Manual?",
-              answer:
-                "Wenn gewünscht, erstellen wir dir ein Markenhandbuch – damit du (oder dein Team) dein Design sicher anwenden kannst: auf Social Media, Website oder in Printmedien.",
             },
           ]}
         />
@@ -677,123 +841,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         alt="Description of image"
         flexflow="row-reverse"
       />
-      <section id="pricing">
-        <Pricing
-          pricingData={[
-            {
-              key: "businessType",
-              category: "Dein Business",
-              options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
-            },
-            {
-              key: "projectType",
-              category: "Dein Projekt",
-              options: ["Fotografie", "Video", "Design", "Website"],
-            },
-          ]}
-          servicesData={[
-            {
-              title: (
-                <>
-                  Mitarbeiter*innen & <wbr />
-                  CEO Portrait
-                </>
-              ),
-              category: "Fotografie",
-              isCountable: true,
-              unit: "pro Person",
-              description:
-                "Businessportraits, die Persönlichkeit zeigen – für Website, PR oder interne Kommunikation. Authentisch, professionell und auf den Punkt.",
-              price: 120,
-            },
-            {
-              title: "Personal Branding Fotografie",
-              category: "Fotografie",
-              description:
-                "Dein Auftritt als Marke. Wir entwickeln ein visuelles Konzept und setzen es in hochwertigen Fotos um – individuell, klar und überzeugend.",
-              price: 3000,
-            },
-            {
-              title: "Eventfotografie",
-              category: "Fotografie",
-              description: "Wir dokumentieren dein Event – ob PR, Teamoffsite oder Keynote. Dezente Begleitung, starke Bilder, ganz ohne Nachbearbeitung.",
-              price: 850,
-            },
-            {
-              title: "Social Media Content",
-              category: "Fotografie",
-              description:
-                "Moderner Content für Instagram & Co. Wir liefern Bilder, die zu dir passen – hochwertig, schnell einsetzbar und nah an deiner Zielgruppe.",
-              price: 500,
-            },
-            {
-              title: "Konzeption & Bildsprache",
-              category: "Fotografie",
-              description:
-                "Visuelles Konzept für deine Marke: Wir erarbeiten die passende Bildsprache – als Grundlage für Content, Kampagnen oder Fotoproduktionen.",
-              price: 900,
-            },
-            {
-              title: "Bildbearbeitung & Retusche",
-              category: "Fotografie",
-              description:
-                "Aufwändige Retuschen oder Beauty-Finishes kannst du auch einzeln buchen. Standardkorrekturen sind bei uns immer inklusive – hier geht’s um Extras mit Liebe zum Detail.",
-              isCountable: true,
-              unit: "pro Bild",
-              price: 50,
-            },
-            {
-              title: "Video-Content für Social Media",
-              category: "Video",
-              description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
-              price: 800,
-            },
-            {
-              title: "Event-Videodokumentation",
-              category: "Video",
-              description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
-              price: 1000,
-            },
-            {
-              title: "Imagefilm",
-              category: "Video",
-              description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
-              price: 4000,
-            },
-            {
-              title: "Web Design (UI/UX)",
-              category: "Website",
-              description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
-              price: 3000,
-            },
-            {
-              title: "Web Entwicklung",
-              category: "Website",
-              description:
-                "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
-              price: 1500,
-            },
-            {
-              title: "CI Branding Design",
-              category: "Design",
-              description: "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
-              price: 4000,
-            },
-            {
-              title: "Logo Design",
-              category: "Design",
-              description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
-              price: 3000,
-            },
-            {
-              title: "Redesign",
-              category: "Design",
-              description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
-              price: 1500,
-            },
-          ]}
-        />
-      </section>
+
       <Footer />
       <BackToTopButton />
     </>

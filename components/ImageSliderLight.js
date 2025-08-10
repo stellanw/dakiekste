@@ -45,15 +45,11 @@ export default function ImageSliderLight({ projects, autoplay }) {
   };
 
   const handlePrevClick = () => {
-    if (currentSlide > 0) {
-      sliderRef.current.slickPrev();
-    }
+    sliderRef.current.slickPrev();
   };
 
   const handleNextClick = () => {
-    if (currentSlide < projects.length - 1) {
-      sliderRef.current.slickNext();
-    }
+    sliderRef.current.slickNext();
   };
 
   return (
@@ -74,7 +70,7 @@ export default function ImageSliderLight({ projects, autoplay }) {
               src={project.image}
               alt={project.alt}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
               quality={100}
               priority={index === 0}
             />

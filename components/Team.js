@@ -17,14 +17,23 @@ export default function Team({ teamMembers = [] }) {
       {teamMembers.map((member, index) => (
         <StyledTeamMemberContainer key={index}>
           <StyledMemberImageContainer>
-            <StyledMemberImage src={member.image} alt={`Portrait von ${member.name}`} width={1600} height={800} />
+            <StyledMemberImage
+              src={member.image}
+              alt={`Portrait von ${member.name}`}
+              fill
+              quality={80}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
+            />
           </StyledMemberImageContainer>
 
           <NameIconContainer>
             <h6>{member.name}</h6>
             <StyledPiArrowRightLight onClick={() => toggleExpand(index)} isExpanded={expandedIndex === index} />
           </NameIconContainer>
-          {expandedIndex === index && <p>{member.text}</p>}
+          {/* {expandedIndex === index && <TextContainer>{member.text}</TextContainer>} */}
+          <TextContainer $isExpanded={expandedIndex === index}>
+            <Inner>{member.text}</Inner>
+          </TextContainer>
         </StyledTeamMemberContainer>
       ))}
     </StyledTeamMembersContainer>
@@ -106,7 +115,27 @@ const NameIconContainer = styled.div`
 
 const StyledPiArrowRightLight = styled(PiArrowRightLight)`
   stroke-width: 15;
-  transform: ${({ isExpanded }) => (isExpanded ? "rotate(-45deg)" : "rotate(45deg)")};
+  transform: ${({ isExpanded }) => (isExpanded ? "rotate(45deg)" : "rotate(-45deg)")};
   transition: transform 0.3s ease;
   cursor: pointer;
+`;
+
+// const TextContainer = styled.div`
+//   p {
+//     padding-bottom: var(--spacing-xs);
+//   }
+// `;
+
+const TextContainer = styled.div`
+  display: grid;
+  grid-template-rows: ${({ $isExpanded }) => ($isExpanded ? "1fr" : "0fr")};
+  transition: grid-template-rows 350ms ease, opacity 300ms ease;
+  opacity: ${({ $isExpanded }) => ($isExpanded ? 1 : 0)};
+`;
+
+const Inner = styled.div`
+  overflow: hidden; /* wichtig fürs „Zufahren“ */
+  p {
+    padding-bottom: var(--spacing-xs);
+  }
 `;
