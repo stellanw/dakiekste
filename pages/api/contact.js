@@ -1,204 +1,179 @@
 import nodemailer from "nodemailer";
+import { render, toPlainText } from "@react-email/render";
+import sanitizeHtml from "sanitize-html";
+import fs from "node:fs";
+import path from "node:path";
+
+import AdminEmail from "@/emails/AdminEmail";
+import CustomerEmail from "@/emails/CustomerEmail";
+
+export const config = { runtime: "nodejs" };
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.strato.de",
+  port: 465,
+  secure: true,
+  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+});
+
+const LOGO_CID = "dk-logo";
+const logoPath = path.join(process.cwd(), "emails", "logo.png");
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
-    const { email, name, company, message } = req.body;
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
 
+  // Logo laden
+  let logoBuffer = null;
+  try {
+    if (fs.existsSync(logoPath)) logoBuffer = fs.readFileSync(logoPath);
+  } catch {}
+  const hasLogo = !!logoBuffer;
+
+  try {
+    const {
+      email,
+      name,
+      company,
+      message,
+      roles,
+      otherRole,
+      budget,
+      acceptedTerms,
+      servicesHtml: servicesHtmlRaw, // vom Overlay mitgeschickt
+      totalPrice: totalPriceRaw, // vom Overlay mitgeschickt
+      businessType,
+      source,
+      selectedServices, // strukturierte Liste [{title,count,unitPrice,price}]
+      pronouns,
+    } = req.body || {};
+
+    if (!email || !name || !message) {
+      return res.status(400).json({ error: "Missing fields" });
+    }
+
+    // Message normalisieren
     const formattedMessage = message.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>");
 
-    // Extrahiere die Services aus der Nachricht
-    const servicesMatch = formattedMessage.match(/Ausgewählte Leistungen:<br>([\s\S]*)/);
-    const formattedServices = servicesMatch
-      ? `<ul style="margin-top: 10px; padding-left: 20px;">${servicesMatch[1]
-          .split("<br>")
-          .filter((line) => line.trim().startsWith("–"))
-          .map((line) => `<li style="margin-bottom: 5px;">${line.replace("– ", "")}</li>`)
-          .join("")}</ul>`
-      : "";
+    // Services-Liste: bevorzugt direkt aus Body, sonst heuristisch aus message
+    let servicesHtml = "";
+    if (servicesHtmlRaw) {
+      servicesHtml = String(servicesHtmlRaw);
+    } else {
+      const m =
+        formattedMessage.match(/<strong>Ausgewählte Leistungen:<\/strong><\/p>\s*<ul>([\s\S]*?)<\/ul>/i) ||
+        formattedMessage.match(/Ausgewählte Leistungen:<br>([\s\S]*)/i);
+      if (m) {
+        const raw = m[1].includes("<li")
+          ? `<ul>${m[1]}</ul>`
+          : `<ul>${m[1]
+              .split("<br>")
+              .filter((line) => line.trim().startsWith("–"))
+              .map((line) => `<li>${line.replace("– ", "")}</li>`)
+              .join("")}</ul>`;
+        servicesHtml = raw;
+      }
+    }
 
-    // Extrahiere den Preis
-    const priceMatch = formattedMessage.match(/Gesamtsumme: (\d+)\s?€/);
-    const totalPrice = priceMatch ? priceMatch[1] : null;
+    // Gesamtpreis
+    let totalPrice = totalPriceRaw ?? null;
+    if (!totalPrice) {
+      const p = formattedMessage.match(/Gesamtsumme:\s*([\d.,]+)\s?€/i);
+      if (p) totalPrice = p[1];
+    }
 
-    // HTML E-Mail an uns
-    const htmlContent = `
-      <p style="font-size: 18px;"><strong>Name:</strong> ${name}</p>
-      ${company ? `<p style="font-size: 18px;"><strong>Firma:</strong> ${company}</p>` : ""}
-      <p style="font-size: 18px;"><strong>Emailadresse:</strong> ${email}</p>
-      <p style="font-size: 18px;"><strong>Nachricht:</strong></p>
-      <p style="font-size: 18px;">${formattedMessage.replace(/Ausgewählte Leistungen:<br>[\s\S]*/, "")}</p>
-      ${formattedServices}
-      ${totalPrice ? `<p style="font-size: 18px; margin-top: 10px;"><strong>Gesamtpreis:</strong> ${totalPrice} €</p>` : ""}
-    `;
+    // Nachricht ohne Services-Block für Admin
+    const messageWithoutServices = formattedMessage.replace(/<p><strong>Ausgewählte Leistungen:[\s\S]*$/i, "");
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.strato.de",
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
+    // Sanitizen
+    const cleanMessageForAdmin = sanitizeHtml(messageWithoutServices, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
+    });
+    const cleanServices = servicesHtml ? sanitizeHtml(servicesHtml, { allowedTags: ["ul", "li", "strong", "em", "u", "br", "span"] }) : "";
+    const cleanMessageForCustomer = sanitizeHtml(formattedMessage, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
     });
 
-    try {
-      // Mail an uns
-      await transporter.sendMail({
-        from: `"Kontaktformular (Kalkulator)" <${process.env.EMAIL_FROM}>`,
-        to: process.env.EMAIL_TO,
-        subject: "Neue Anfrage über das Kalkulator-Overlay",
-        text: `Neue Anfrage von ${name}:\n\n${message}`,
-        html: htmlContent,
-      });
+    // Quelle & Betreff
+    const s = (source || "").toLowerCase();
+    const isOverlay = s === "overlay" || Boolean(cleanServices) || Boolean(totalPrice);
+    const adminSubject = isOverlay ? "Neue Anfrage über das Kalkulator-Overlay" : "Neue Nachricht über das Kontaktformular";
+    const sourceLabel = isOverlay ? "eingegangen über das Kalkulator-Overlay" : "eingegangen über das Kontaktformular";
 
-      // Mail an Kund*in
-      await transporter.sendMail({
-        from: `"DAKIEKSTE" <${process.env.EMAIL_FROM}>`,
-        to: email,
-        subject: "Deine Anfrage bei uns",
-        html: `
-<div style="padding: 40px 0;">
-  <div style="max-width: 600px; margin: auto; padding: 40px; border-radius: 8px; font-family: sans-serif; color: #252422;">
-    <div style="text-align: center; margin-bottom: 20px;">
-      <img src="https://img.freepik.com/vektoren-premium/eule-augen-logo-design-vorlage_1156-1271.jpg" alt="Dakiekste Logo" style="max-width: 150px;" />
-    </div>
-
-    <h2 style="color: #A3FFB7; font-size: 24px; margin-bottom: 20px;">Danke für deine Anfrage, ${name}!</h2>
-    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px; color: #252422;">
-      Wir haben deine Nachricht erhalten und melden uns schnellstmöglich bei dir.
-    </p>
-    <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px; color: #252422;">
-      Hier noch einmal deine Nachricht:
-    </p>
-    <div style="padding: 15px; border-radius: 4px; font-size: 16px; line-height: 1.5; margin-bottom: 20px; color: #252422;">
-      ${formattedMessage}
-    </div>
-    <p style="font-size: 16px; line-height: 1.5; color: #252422; margin-top: 30px;">
-      Falls du in der Zwischenzeit noch weitere Fragen hast, schreib uns gerne per Mail oder WhatsApp:
-    </p>
-    <div style="text-align: center; margin: 20px 0;">
-      <a href="mailto:info@dakiekste.com" style="background-color: #A3FFB7; color: #252422; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-size: 16px; font-weight: bold; display: inline-block;">
-        Schreib uns eine Mail
-      </a>
-    </div>
-    <p style="font-size: 16px; line-height: 1.5; color: #252422;">
-      Herzliche Grüße,<br>Dein Dakiekste Team
-    </p>
-  </div>
-  <div style="max-width: 600px; margin: auto; text-align: center; font-size: 12px; color: #A3FFB7; margin-top: 20px; background-color: #8C8A7F;">
-    © ${new Date().getFullYear()} Dakiekste. Alle Rechte vorbehalten.
-  </div>
-</div>
-        `,
-      });
-
-      res.status(200).json({ message: "E-Mail wurde erfolgreich gesendet!" });
-    } catch (error) {
-      console.error("Fehler beim Versenden der E-Mail:", error);
-      res.status(500).json({ error: "Fehler beim Versenden der E-Mail." });
+    // Dev: SMTP verify
+    if (process.env.NODE_ENV !== "production") {
+      try {
+        await transporter.verify();
+      } catch (e) {
+        return res.status(500).json({ error: "SMTP_VERIFY_FAILED", message: e.message, code: e.code });
+      }
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    // Rendern
+    const [adminHtml, customerHtml] = await Promise.all([
+      render(
+        <AdminEmail
+          name={name}
+          pronouns={pronouns || null}
+          email={email}
+          company={company}
+          messageHtml={cleanMessageForAdmin}
+          servicesHtml={cleanServices || null}
+          totalPrice={totalPrice || null}
+          roles={roles || null}
+          otherRole={otherRole || null}
+          budget={budget || null}
+          acceptedTerms={typeof acceptedTerms === "boolean" ? acceptedTerms : null}
+          businessType={businessType || null}
+          selectedServices={Array.isArray(selectedServices) ? selectedServices : null}
+          sourceLabel={sourceLabel}
+          previewText={adminSubject}
+        />
+      ),
+      render(<CustomerEmail name={name} messageHtml={cleanMessageForCustomer} year={new Date().getFullYear()} logoCid={hasLogo ? LOGO_CID : undefined} />),
+    ]);
+
+    const adminText = toPlainText(adminHtml);
+    const customerText = toPlainText(customerHtml);
+
+    // Admin-Mail
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      replyTo: email,
+      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      subject: adminSubject,
+      text: adminText,
+      html: adminHtml,
+    });
+
+    // Kunden-Mail
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Deine Anfrage bei uns",
+      text: customerText,
+      html: customerHtml,
+      attachments: hasLogo
+        ? [
+            {
+              filename: "logo.png",
+              content: logoBuffer,
+              contentType: "image/png",
+              cid: LOGO_CID,
+              contentDisposition: "inline",
+            },
+          ]
+        : [],
+    });
+
+    return res.status(200).json({ ok: true, message: "E-Mail wurde erfolgreich gesendet!" });
+  } catch (error) {
+    const isDev = process.env.NODE_ENV !== "production";
+    return res.status(500).json({
+      error: "MAIL_SEND_FAILED",
+      message: isDev ? error.message || String(error) : "Fehler beim Versenden der E-Mail.",
+    });
   }
 }
-
-// import nodemailer from "nodemailer";
-
-// export default async function handler(req, res) {
-//   if (req.method === "POST") {
-//     const { email, name, company, roles, otherRole, budget, message, acceptedTerms } = req.body;
-
-//     const formattedMessage = message.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>");
-
-//     const htmlContent = `
-//       <p style=" font-size: 18px;"><strong>Name:</strong> ${name}</p>
-//       ${company ? `<p style=" font-size: 18px;><strong>Firma:</strong> ${company}</p>` : ""}
-//       <p style=" font-size: 18px;"><strong>Emailadresse:</strong> ${email}</p>
-//       <p style=" font-size: 18px;"><strong>Rolle im Projekt:</strong> ${roles.join(", ")}${
-//       roles.includes("Sonstiges") && otherRole ? ` (${otherRole})` : ""
-//     }</p>
-//       <p style=" font-size: 18px;"><strong>Budget:</strong> ${budget.join(", ")}</p>
-//       <p style=" font-size: 18px;"><strong>Nachricht:</strong></p>
-//       <p style=" font-size: 18px;">${formattedMessage}</p>
-//       <p style=" font-size: 18px;"><strong>AGB & Datenschutz akzeptiert:</strong> ${acceptedTerms ? "Ja" : "Nein"}</p>
-//     `;
-
-//     const transporter = nodemailer.createTransport({
-//       host: "smtp.strato.de",
-//       port: 465,
-//       secure: true,
-//       auth: {
-//         user: process.env.EMAIL_USER,
-//         pass: process.env.EMAIL_PASS,
-//       },
-//     });
-
-//     try {
-//       await transporter.sendMail({
-//         from: `"Kontaktformular" <${process.env.EMAIL_FROM}>`,
-//         to: process.env.EMAIL_TO,
-//         subject: "Neue Anfrage über das Kontaktformular",
-//         text: `Neue Anfrage von ${name}:\n\n${message}`,
-//         html: htmlContent,
-//       });
-//       // Mail an Kund*in
-//       await transporter.sendMail({
-//         from: `"DAKIEKSTE" <${process.env.EMAIL_FROM}>`,
-//         to: email, // Kund*innen-Email
-//         subject: "Deine Anfrage bei uns",
-//         html: `
-// <div style=" padding: 40px 0;">
-//   <div style="max-width: 600px; margin: auto;  padding: 40px; border-radius: 8px; font-family: sans-serif; color: #252422;">
-
-//     <div style="text-align: center; margin-bottom: 20px; ">
-//       <img src="https://img.freepik.com/vektoren-premium/eule-augen-logo-design-vorlage_1156-1271.jpg" alt="Dakiekste Logo" style="max-width: 150px;" />
-//     </div>
-
-//     <h2 style="color: #A3FFB7;  font-size: 24px; margin-bottom: 20px;">Danke für deine Anfrage, ${name}!</h2>
-
-//     <p style="font-size: 16px; line-height: 1.5; margin-bottom: 20px;  color: #252422;">
-//       Wir haben deine Nachricht erhalten und melden uns schnellstmöglich bei dir.
-//     </p>
-
-//     <p style="font-size: 16px; line-height: 1.5; margin-bottom: 10px;  color: #252422;">
-//       Hier noch einmal deine Nachricht:
-//     </p>
-
-//     <div style=" padding: 15px; border-radius: 4px; font-size: 16px; line-height: 1.5; margin-bottom: 20px; color: #252422;">
-//       ${formattedMessage}
-//     </div>
-
-//     <p style="font-size: 16px; line-height: 1.5; color: #252422; margin-top: 30px;">
-//     Falls du in der Zwischenzeit noch weitere Fragen hast, schreib uns gerne per Mail oder WhatsApp:
-//   </p>
-
-//   <div style="text-align: center; margin: 20px 0;">
-//     <a href="mailto:info@dakiekste.com" style="background-color: #A3FFB7; color: #252422; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-size: 16px; font-weight: bold; display: inline-block;">
-//       Schreib uns eine Mail
-//     </a>
-//   </div>
-
-//     <p style="font-size: 16px; line-height: 1.5;  color: #252422;">
-//       Herzliche Grüße,<br>Dein Dakiekste Team
-//     </p>
-//   </div>
-
-//   <div style="max-width: 600px; margin: auto; text-align: center; font-size: 12px; color: #A3FFB7; margin-top: 20px; background-color: #8C8A7F;">
-//     © ${new Date().getFullYear()} Dakiekste. Alle Rechte vorbehalten.
-//   </div>
-// </div>
-
-//     `,
-//       });
-
-//       res.status(200).json({ message: "E-Mail wurde erfolgreich gesendet!" });
-//     } catch (error) {
-//       console.error("Fehler beim Versenden der E-Mail:", error);
-//       res.status(500).json({ error: "Fehler beim Versenden der E-Mail." });
-//     }
-//   } else {
-//     res.setHeader("Allow", ["POST"]);
-//     res.status(405).end(`Method ${req.method} Not Allowed`);
-//   }
-// }

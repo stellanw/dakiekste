@@ -257,12 +257,12 @@ line-height: ${theme.lineHeight.l};
     margin-bottom: calc(0.5 * var(--spacing-xs));
   }
 
-  input, textarea {
+  input, textarea, select {
 
         font-family: "Figtree", sans-serif;
         font-size: var(--font-m);
         font-weight: ${theme.fontWeight.light};
-        letter-spacing: 0.06rem;
+        letter-spacing: 0.04rem;
     width: 100%;
     border: 1px solid ${theme.color.green};
     border-radius: ${theme.borderRadius};
