@@ -23,6 +23,28 @@ export default function Pricing({ pricingData, servicesData }) {
   // Flag für Mobile Breakpoint
   const [isMobile, setIsMobile] = useState(false);
 
+  const initialOverlayFormData = {
+    firstName: "",
+    lastName: "",
+    pronouns: "",
+    customPronouns: "",
+    company: "",
+    email: "",
+    message: "",
+  };
+  const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
+
+  // Preisformartierung
+  const DEC0 = new Intl.NumberFormat("de-DE", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
+  const euroDash = (value, { star = false } = {}) => {
+    const rounded = Math.round(Number(value) || 0);
+    return `${DEC0.format(rounded)},- ` + (star ? "*" : "");
+  };
+
   //Sobald servicesData geladen ist, initialisiere isOpen für alle Services
   useEffect(() => {
     if (servicesData && servicesData.length > 0) {
@@ -126,6 +148,8 @@ export default function Pricing({ pricingData, servicesData }) {
           selectedServices={selectedServices}
           serviceCounts={serviceCounts}
           businessType={selectedCategory.businessType}
+          formData={overlayFormData}
+          setFormData={setOverlayFormData}
           onClose={() => setShowOverlay(false)}
         />
       )}
@@ -191,9 +215,7 @@ export default function Pricing({ pricingData, servicesData }) {
                       </li>
                     ))}
                   </ul>
-                  <Price>
-                    Preis ab <span>{totalPrice}</span>,-*
-                  </Price>
+                  <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
                   <p>*EUR zzgl. MwSt.</p>
                   <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
@@ -217,10 +239,10 @@ export default function Pricing({ pricingData, servicesData }) {
                         <OverlayDescription>
                           <Description>
                             {service.description}
-                            <Price>
+                            <ServicePrice>
                               Preis ab <span>{applyDiscount(service.price)}</span>,-
-                              {service.isCountable && <PricePerUnit>{service.unit}</PricePerUnit>}
-                            </Price>
+                              {service.isCountable && <span> {service.unit}</span>}
+                            </ServicePrice>
                           </Description>
                         </OverlayDescription>
                       )}
@@ -376,10 +398,15 @@ const SelectedItem = styled.div`
 const ItemWrapper = styled.div`
   display: flex;
   gap: var(--spacing-xs);
-
+  align-items: center;
   span {
     text-transform: uppercase;
     font-size: var(--font-xs);
+  }
+
+  svg {
+    min-height: 16px;
+    min-width: 16px;
   }
 `;
 
@@ -403,6 +430,7 @@ const StyledRemoveIcon = styled(RxCross1)`
   fill: none;
   stroke: currentColor;
   color: inherit;
+
   &:hover {
     transform: scale(1.1);
     stroke-width: 1.1;
@@ -495,15 +523,9 @@ const Description = styled.p`
   }
 `;
 
-const Price = styled.p`
-  display: flex;
-  gap: 0.3rem;
-  font-size: var(--font-m) !important;
-  padding-top: var(--spacing-xs);
-
-  span {
-    font-weight: ${theme.fontWeight.bold};
-  }
+const Price = styled.h6`
+  margin-bottom: calc(0.5 * var(--spacing-xs));
+  /* font-weight: ${theme.fontWeight.regular}; */
 `;
 
 const Counter = styled.div`
@@ -557,7 +579,12 @@ const StyledButton = styled.button`
   text-transform: uppercase;
 
   &:hover {
-    color: ${theme.color.beige};
     background-color: ${theme.color.green};
   }
+`;
+
+const ServicePrice = styled.p`
+  padding-top: var(--spacing-s);
+  text-transform: none;
+  font-weight: ${theme.fontWeight.regular};
 `;

@@ -2,10 +2,14 @@ import styled from "styled-components";
 import { useState } from "react";
 import { theme } from "@/styles";
 import Link from "next/link";
+import { PiArrowUpRight } from "react-icons/pi";
 
 export default function ContactForm() {
   const initialFormData = {
-    name: "",
+    firstName: "",
+    lastName: "",
+    pronouns: "", // "", "sie/ihr", "er/ihm", "they/them", "keine Angabe", "andere"
+    customPronouns: "", // nur wenn "andere"
     company: "",
     email: "",
     roles: [],
@@ -29,11 +33,11 @@ export default function ContactForm() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
-      setFormData({ ...formData, [name]: checked });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+    setFormData((prev) => {
+      const next = { ...prev, [name]: type === "checkbox" ? checked : value };
+      return next;
+    });
+    // console.log("change:", name, value);
   };
 
   const handleSubmit = async (e) => {
@@ -47,6 +51,11 @@ export default function ContactForm() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email || !emailRegex.test(formData.email)) {
       setResponseMessage("Bitte gib eine gültige Emailadresse ein.");
+      return;
+    }
+
+    if (!formData.firstName) {
+      setResponseMessage("Bitte gib deinen Vornamen ein.");
       return;
     }
 
@@ -65,17 +74,28 @@ export default function ContactForm() {
     setLoading(true);
 
     try {
+      const fullName = [formData.firstName, formData.lastName].filter(Boolean).join(" ");
+      const pronouns = formData.pronouns === "andere" ? formData.customPronouns : formData.pronouns;
+      const payload = {
+        ...formData,
+        name: fullName, // Backend erwartet weiterhin "name"
+        pronouns, // NEU
+        source: "contact",
+      };
+      delete payload.firstName;
+      delete payload.lastName;
+      delete payload.customPronouns;
+
       const res = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
+        console.log("API error:", data); // <-- zeigt die genaue Fehlermeldung in der Browser-Konsole
         throw new Error(data.error || "Fehler beim Senden");
       }
 
@@ -112,21 +132,95 @@ export default function ContactForm() {
         </StyledSuccessMessage>
       ) : (
         <StyledForm onSubmit={handleSubmit}>
+          {" "}
+          <SideBySideWrapper>
+            {/* <Wrapper>
+              <label htmlFor="pronouns">Pronomen</label>
+              <StyledSelect id="pronouns" name="pronouns" value={formData.pronouns ?? ""} onChange={handleChange}>
+                <option value="" disabled>
+                  Bitte wählen
+                </option>
+                <option value="sie/ihr">sie/ihr</option>
+                <option value="er/ihm">er/ihm</option>
+                <option value="they/them">they/them</option>
+                <option value="keine Angabe">keine Angabe</option>
+                <option value="andere">andere…</option>
+              </StyledSelect>
+            </Wrapper> */}
+            {/* <Wrapper>
+              <label htmlFor="pronouns">Pronomen</label>
+
+              <SelectWrap>
+                <StyledSelect
+                  id="pronouns"
+                  name="pronouns"
+                  value={formData.pronouns ?? ""}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, pronouns: e.target.value }))}
+                >
+                  <option value="" disabled>
+                    Bitte wählen
+                  </option>
+                  <option value="sie/ihr">sie/ihr</option>
+                  <option value="er/ihm">er/ihm</option>
+                  <option value="they/them">they/them</option>
+                  <option value="keine Angabe">keine Angabe</option>
+                  <option value="andere">andere…</option>
+                </StyledSelect>
+
+                <IconOverlay className="select-icon" aria-hidden="true">
+                  <StyledPiArrowUpRight size={20} />
+                </IconOverlay>
+              </SelectWrap>
+            </Wrapper> */}
+            <Wrapper>
+              <label htmlFor="pronouns">Pronomen</label>
+              <SelectWrap>
+                <StyledSelect
+                  id="pronouns"
+                  name="pronouns"
+                  value={formData.pronouns ?? ""}
+                  onChange={(e) => setFormData((p) => ({ ...p, pronouns: e.target.value }))}
+                >
+                  <option value="" disabled>
+                    Bitte wählen
+                  </option>
+                  <option value="sie/ihr">sie/ihr</option>
+                  <option value="er/ihm">er/ihm</option>
+                  <option value="they/them">they/them</option>
+                  <option value="keine Angabe">keine Angabe</option>
+                  <option value="andere">andere…</option>
+                </StyledSelect>
+              </SelectWrap>
+            </Wrapper>
+            <Wrapper>
+              {formData.pronouns === "andere" && (
+                <>
+                  <label htmlFor="customPronouns">Eigene Pronomen</label>
+                  <StyledInput name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z. B. dey/deren" />
+                </>
+              )}
+            </Wrapper>
+          </SideBySideWrapper>
           <SideBySideWrapper>
             <Wrapper>
-              <label htmlFor="name">Vor und Nachname</label>
-              <StyledInput name="name" value={formData.name} onChange={handleChange} required />
+              <label htmlFor="firstName">Vorname</label>
+              <StyledInput name="firstName" value={formData.firstName} onChange={handleChange} required />
+            </Wrapper>
+            <Wrapper>
+              <label htmlFor="lastName">Nachname</label>
+              <StyledInput name="lastName" value={formData.lastName} onChange={handleChange} required />
+            </Wrapper>
+          </SideBySideWrapper>
+          <SideBySideWrapper>
+            <Wrapper>
+              <label htmlFor="email">Email</label>
+              <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
             </Wrapper>
             <Wrapper>
               <label htmlFor="company">Firma</label>
               <StyledInput name="company" value={formData.company} onChange={handleChange} />
             </Wrapper>
           </SideBySideWrapper>
-          <Wrapper>
-            <label htmlFor="email">Email</label>
-            <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
-          </Wrapper>
-
           <label htmlFor="roles">Wer bist du?</label>
           <StyledCheckboxGroup>
             {["Unternehmen", "Gründer*in", "Soloselbstständig", "Verein/Organisation"].map((role) => (
@@ -142,7 +236,6 @@ export default function ContactForm() {
             </StyledLabel>
             {formData.roles.includes("Sonstiges") && <StyledInput name="otherRole" value={formData.otherRole} onChange={handleChange} />}
           </StyledCheckboxGroup>
-
           <label htmlFor="budget">Dein Budget</label>
           <StyledCheckboxGroup>
             {["< 1.000 €", "1.000 – 3.000 €", "3.000 – 6.000 €", "> 6.000 €"].map((range) => (
@@ -152,10 +245,8 @@ export default function ContactForm() {
               </StyledLabel>
             ))}
           </StyledCheckboxGroup>
-
           <label htmlFor="message">Deine Nachricht</label>
           <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
-
           <StyledCheckboxGroup>
             <label>
               <StyledLabel htmlFor="acceptedTerms">
@@ -164,7 +255,6 @@ export default function ContactForm() {
               </StyledLabel>
             </label>
           </StyledCheckboxGroup>
-
           <StyledButton type="submit" disabled={loading}>
             {loading ? "Senden..." : "Senden"}
           </StyledButton>
@@ -369,3 +459,110 @@ const StyledSuccessMessage = styled.div`
     margin-bottom: var(--spacing-l);
   }
 `;
+
+const IconOverlay = styled.span`
+  --r: 0deg;
+  position: absolute;
+  top: 25%;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    top: 35%;
+  }
+  right: 12px;
+  translate: 0 -50%;
+  transform: rotate(var(--r));
+  transform-origin: 50% 50%;
+  transform-box: border-box;
+  pointer-events: none;
+  line-height: 0;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  color: ${theme.color.green};
+  will-change: transform, color;
+
+  & svg {
+    display: block;
+  }
+`;
+
+const SelectWrap = styled.div`
+  /* Stell dir hier deine „Variablen“ ein */
+  --arrow-size: 6px; /* Größe des Dreiecks */
+  --arrow-color: ${theme.color.green};
+  --arrow-offset: 14px; /* Abstand vom rechten Rand */
+
+  position: relative;
+  width: 100%;
+
+  /* Der Pfeil */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 28%;
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      top: 35%;
+    }
+    right: var(--arrow-offset);
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    /* CSS-Dreieck nach unten */
+    width: 0;
+    height: 0;
+    border-left: var(--arrow-size) solid transparent;
+    border-right: var(--arrow-size) solid transparent;
+    border-top: var(--arrow-size) solid var(--arrow-color);
+  }
+
+  /* Fokuszustand: Farbe ändern (optional) */
+  &:focus-within::after {
+    border-top-color: ${theme.color.dark};
+  }
+`;
+
+const StyledSelect = styled.select`
+  display: block;
+  width: 100%;
+  margin-bottom: var(--spacing-m);
+  padding: var(--spacing-xs);
+  height: var(--spacing-m);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: calc(2.4 * var(--spacing-m));
+  }
+
+  /* Platz für den Pfeil rechts schaffen */
+  padding-right: calc(var(--arrow-offset) + (var(--arrow-size) * 2) + 6px);
+
+  /* WICHTIG: Entfernt native Pfeile, damit nur unser Pfeil sichtbar ist */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
+
+  /* Wenn du global schon Farben/Rahmen setzt, kannst du die vier Zeilen weglassen: */
+  background-color: ${theme.color.dark};
+  color: ${theme.color.beige};
+  border: 1px solid ${theme.color.green};
+  border-radius: calc(0.5 * ${theme.borderRadius});
+
+  &:focus {
+    outline: none;
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
+    border-color: ${theme.color.green};
+  }
+
+  & option {
+    color: ${theme.color.dark};
+    background: ${theme.color.beige};
+  }
+
+  /* Für alten Edge/IE */
+  &::-ms-expand {
+    display: none;
+  }
+`;
+
+const StyledPiArrowUpRight = styled(PiArrowUpRight)``;

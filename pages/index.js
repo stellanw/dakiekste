@@ -38,16 +38,16 @@ import section02_slider07 from "/public/images/02_Slider/branding-fotografie-ern
 import section02_slider08 from "/public/images/02_Slider/team-portrait-foto-erneuerbare-energie-dakiekste-01.jpg";
 
 //03_Workflow
-import section03_workflow01 from "/public/images/03_Workflow/behind-the-scenes-dakiekste-01.jpg";
-import section03_workflow02 from "/public/images/03_Workflow/behind-the-scenes-dakiekste-02.jpg";
-import section03_workflow03 from "/public/images/03_Workflow/behind-the-scenes-dakiekste-03.jpg";
-import section03_workflow04 from "/public/images/03_Workflow/behind-the-scenes-dakiekste-04.jpg";
-import section03_workflow05 from "/public/images/03_Workflow/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
-import section03_workflow06 from "/public/images/03_Workflow/branding-fotografie-finanzexperten-dakiekste-01.jpg";
-import section03_workflow07 from "/public/images/03_Workflow/eventfotografie-reeperbahnfestival-dakiekste-01.jpg";
-import section03_workflow08 from "/public/images/03_Workflow/social-media-content-dakiekste-01.jpg";
-import section03_workflow09 from "/public/images/03_Workflow/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
-import section03_workflow10 from "/public/images/03_Workflow/branding-fotografie-workshop-konzeption-dakiekste-01.jpg";
+import section03_service01 from "/public/images/03_Service/behind-the-scenes-dakiekste-01.jpg";
+import section03_service02 from "/public/images/03_Service/behind-the-scenes-dakiekste-02.jpg";
+import section03_service03 from "/public/images/03_Service/behind-the-scenes-dakiekste-03.jpg";
+import section03_service04 from "/public/images/03_Service/behind-the-scenes-dakiekste-04.jpg";
+import section03_service05 from "/public/images/03_Service/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
+import section03_service06 from "/public/images/03_Service/branding-fotografie-finanzexperten-dakiekste-01.jpg";
+import section03_service07 from "/public/images/03_Service/eventfotografie-reeperbahnfestival-dakiekste-01.jpg";
+import section03_service08 from "/public/images/03_Service/social-media-content-dakiekste-01.jpg";
+import section03_service09 from "/public/images/03_Service/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
+import section03_service10 from "/public/images/03_Service/branding-fotografie-workshop-konzeption-dakiekste-01.jpg";
 
 //04_Slider
 import section04_slider01 from "/public/images/04_Slider/business-portrait-fotografie-dakiekste-01.jpg";
@@ -156,70 +156,70 @@ export default function HomePage() {
           headline2={<>Strategisch durchdacht und visuell auf den Punkt. Kein Baukasten oder Stock-Foto, sondern Gesamtlösungen, die wirklich zu dir passen.</>}
           boxData={[
             {
-              image: section03_workflow05,
+              image: section03_service05,
               label: "Foto",
               title: "Branding Fotografie",
               mobileTitle: "Branding Fotos",
               text: "Bilder, die zeigen, wofür deine Marke steht. Deine Markenwerte übersetzen wir in eine visuelle Bildsprache die überzeugt. Deine Marke und Vision im Ganzen zu verstehen, ist uns dabei besonders wichtig.",
             },
             {
-              image: section03_workflow09,
+              image: section03_service09,
               label: "Foto",
               title: "Businessportraits",
               mobileTitle: "Business-Portraits",
               text: "Ob CEO, Mitarbeiter*innen oder das ganze Team – wir fotografieren dich authentisch und stärken dabei dein Employer Branding. Im ganzen Shootig-Prozess begleiten wir dich, damit du dich vor der Kamera rundum wohl fühlen kannst.",
             },
             {
-              image: section03_workflow01,
+              image: section03_service01,
               label: "Video",
               title: "Imagefilm & Video-Content",
               mobileTitle: "Video Content",
               text: "Bewegte Bilder erzählen mehr als Worte. Mit unterschiedlichen Formaten wie Imagefilmen, Dokumentationen oder Interviews gibst du deiner Zielgruppe tiefere Einblicke in deine Marke.",
             },
             {
-              image: section03_workflow04,
+              image: section03_service04,
               label: "Web",
               title: "Website Design (UI/UX)",
               mobileTitle: "Website Design",
               text: "Webdesign, das mitdenkt und Websites, die einfach funktionieren – visuell, strukturell und inhaltlich. Design, Nutzerführung und Inhalte greifen bei uns ineinander und werden zu einem stimmigen Gesamtbild, das User überzeugt.",
             },
             {
-              image: section03_workflow03,
+              image: section03_service03,
               label: "Web",
               title: "Website Entwicklung",
               mobileTitle: "Web Entwicklung",
               text: "Wir kümmern uns um die Umsetzung deiner Website – ohne Technikstress. Sie läuft, wächst und hält dir den Rücken frei. Ob CMS-System oder komplexere Anforderungen: Gemeinsam finden wir die passende Lösung für dich.",
             },
             {
-              image: section03_workflow02,
+              image: section03_service02,
               label: "Design",
               title: "Branding & Corporate Design",
               mobileTitle: "Corporate Design",
               text: "Mit einem Designsystem aus Logo, Farben und Typografie, entwickeln wir das visuelle Fundament deiner Marke. Klar, durchdacht und wiedererkennbar. So wirst du sichtbarer und bleibst im Kopf.",
             },
             {
-              image: section03_workflow07,
+              image: section03_service07,
               label: "Fotografie",
               title: "Eventfotografie",
               mobileTitle: "Event Fotos",
               text: "Egal ob PR-Event, Produktlaunch, Networking, Keynote oder Teamoffsite – wir halten Atmosphäre und Highlights in starken Bildern fest: dezent im Hintergrund, präsent im richtigen Moment.",
             },
             {
-              image: section03_workflow06,
+              image: section03_service06,
               label: "Foto",
               title: "Produktfotografie",
               mobileTitle: "Produktfotografie",
               text: "Dein Business hat Produkte? Ob Freisteller, Inszeniert oder am Model. Unsere Wurzeln liegen in der Produktfotografie – und das sieht man.",
             },
             {
-              image: section03_workflow08,
+              image: section03_service08,
               label: "Foto & Video",
               title: "Content Creation & Strategie",
               mobileTitle: "Content Creation",
               text: "Persönlicher Content statt Standard: Wir erstellen Foto- und Videoinhalte mit Qualität und einem hohen Anspruch an Ästhetik. Für Posts, Reels & Stories, die wirken.",
             },
             {
-              image: section03_workflow10,
+              image: section03_service10,
               label: "Strategie",
               title: "Konzeption & Workshop",
               mobileTitle: "Workshop",
@@ -289,37 +289,37 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           headline2={<>Du bringst die Vision, wir kümmern uns um den Weg. Mit einem strukturierten Ablauf halten wir dir den Rücken frei.</>}
           boxData={[
             {
-              label: "Schritt 1",
+              label: "01",
               title: "Erstgespräch & Analyse",
               mobileTitle: "Deine Vision verstehen",
               text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
             {
-              label: "Schritt 2",
+              label: "02",
               title: "Konzeption & Workshops",
               mobileTitle: "Strategie entwickeln",
               text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Zusätzlich bieten wir Workshops an, um gemeinsam die besten Lösungen zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände.",
             },
             {
-              label: "Schritt 3",
+              label: "03",
               title: "Organisation",
               mobileTitle: "Das Fundament",
               text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis hin zu Styling und Hair & Make-up. Dank unseres Netzwerks und durchdachter Zeitpläne läuft dein Shooting reibungslos und zuverlässig.",
             },
             {
-              label: "Schritt 4",
+              label: "04",
               title: "Umsetzung",
               mobileTitle: "Content erschaffen",
               text: "Fotografie, Design, Web – bei uns greift alles ineinander. Wir arbeiten effizient und ohne doppelte Abstimmungen. Shootings und Drehs laufen strukturiert ab. Design entsteht in Abstimmung mit Strategie und Zielgruppe. Web-Projekte entwickeln wir funktional, durchdacht und einsatzbereit.",
             },
             {
-              label: "Schritt 5",
+              label: "05",
               title: "Postproduktion",
               mobileTitle: "Dein content-pool",
               text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool auf den du über eine Online-Galerie oder Cloud zugreifen kannst, mit einer Anleitung zur flexiblen Verwendung.",
             },
             {
-              label: "Schritt 6",
+              label: "06",
               title: "Langfristige Unterstützung",
               mobileTitle: "Gemeinsam wachsen",
               text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
