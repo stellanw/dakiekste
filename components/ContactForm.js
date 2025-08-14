@@ -147,7 +147,7 @@ export default function ContactForm() {
                 <option value="andere">andere…</option>
               </StyledSelect>
             </Wrapper> */}
-            <Wrapper>
+            {/* <Wrapper>
               <label htmlFor="pronouns">Pronomen</label>
 
               <SelectWrap>
@@ -170,6 +170,26 @@ export default function ContactForm() {
                 <IconOverlay className="select-icon" aria-hidden="true">
                   <StyledPiArrowUpRight size={20} />
                 </IconOverlay>
+              </SelectWrap>
+            </Wrapper> */}
+            <Wrapper>
+              <label htmlFor="pronouns">Pronomen</label>
+              <SelectWrap>
+                <StyledSelect
+                  id="pronouns"
+                  name="pronouns"
+                  value={formData.pronouns ?? ""}
+                  onChange={(e) => setFormData((p) => ({ ...p, pronouns: e.target.value }))}
+                >
+                  <option value="" disabled>
+                    Bitte wählen
+                  </option>
+                  <option value="sie/ihr">sie/ihr</option>
+                  <option value="er/ihm">er/ihm</option>
+                  <option value="they/them">they/them</option>
+                  <option value="keine Angabe">keine Angabe</option>
+                  <option value="andere">andere…</option>
+                </StyledSelect>
               </SelectWrap>
             </Wrapper>
             <Wrapper>
@@ -467,34 +487,65 @@ const IconOverlay = styled.span`
 `;
 
 const SelectWrap = styled.div`
+  /* Stell dir hier deine „Variablen“ ein */
+  --arrow-size: 6px; /* Größe des Dreiecks */
+  --arrow-color: ${theme.color.green};
+  --arrow-offset: 14px; /* Abstand vom rechten Rand */
+
   position: relative;
   width: 100%;
 
-  &:hover svg {
-    stroke-width: 10;
+  /* Der Pfeil */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 28%;
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      top: 35%;
+    }
+    right: var(--arrow-offset);
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    /* CSS-Dreieck nach unten */
+    width: 0;
+    height: 0;
+    border-left: var(--arrow-size) solid transparent;
+    border-right: var(--arrow-size) solid transparent;
+    border-top: var(--arrow-size) solid var(--arrow-color);
   }
 
-  &:focus-within ${IconOverlay} {
-    --r: 90deg;
-    color: ${theme.color.dark};
+  /* Fokuszustand: Farbe ändern (optional) */
+  &:focus-within::after {
+    border-top-color: ${theme.color.dark};
   }
 `;
 
 const StyledSelect = styled.select`
   display: block;
-  inline-size: 100%;
+  width: 100%;
   margin-bottom: var(--spacing-m);
-  padding: 0 var(--spacing-xs);
+  padding: var(--spacing-xs);
   height: var(--spacing-m);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     height: calc(2.4 * var(--spacing-m));
   }
 
+  /* Platz für den Pfeil rechts schaffen */
+  padding-right: calc(var(--arrow-offset) + (var(--arrow-size) * 2) + 6px);
+
+  /* WICHTIG: Entfernt native Pfeile, damit nur unser Pfeil sichtbar ist */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background-image: none;
+
+  /* Wenn du global schon Farben/Rahmen setzt, kannst du die vier Zeilen weglassen: */
+  background-color: ${theme.color.dark};
+  color: ${theme.color.beige};
+  border: 1px solid ${theme.color.green};
+  border-radius: calc(0.5 * ${theme.borderRadius});
 
   &:focus {
     outline: none;
@@ -506,6 +557,11 @@ const StyledSelect = styled.select`
   & option {
     color: ${theme.color.dark};
     background: ${theme.color.beige};
+  }
+
+  /* Für alten Edge/IE */
+  &::-ms-expand {
+    display: none;
   }
 `;
 
