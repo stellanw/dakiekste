@@ -36,14 +36,14 @@ export default function NavBar() {
     <>
       {isVisible && (
         <StyledNavBar /* $scrollY={scrollY} */ isVisible={isVisible}>
-          <Link href="/">
+          <StyledLink href="/">
             <DakieksteLogo
               // color={scrollY > 200 ? theme.color.dark : theme.color.beige}
               color={theme.color.beige}
               transition="color 0.5s ease"
               width={logoWidth}
             />
-          </Link>
+          </StyledLink>
           <Menu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
         </StyledNavBar>
       )}
@@ -54,17 +54,21 @@ export default function NavBar() {
 const StyledNavBar = styled.div`
   display: flex;
   position: fixed;
-  justify-content: space-between;
-  align-items: center;
-  height: var(--nav-height);
+  /* justify-content: space-between;
+  align-items: start; */
+  /* height: var(--nav-height); */
   width: 100%;
   z-index: 100;
 
   /* background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")}; */
   background-color: transparent;
 
-  transition: background-color 0.5s ease, opacity 10s ease;
+  transition:
+    background-color 0.5s ease,
+    opacity 10s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
 
   padding: 0 var(--side-padding);
 `;
+
+const StyledLink = styled(Link)``;

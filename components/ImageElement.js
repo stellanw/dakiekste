@@ -15,7 +15,6 @@ const ImageElementContainer = styled.div`
   display: flex;
   position: relative;
   width: 100%;
-
   padding: 0;
 `;
 
