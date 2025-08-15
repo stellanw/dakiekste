@@ -18,7 +18,8 @@ export default function Pricing({ pricingData, servicesData }) {
   const [selectedServices, setSelectedServices] = useState([]);
 
   // Kontrolliert, ob die Beschreibung bei einem Service angezeigt wird
-  const [isOpen, setIsOpen] = useState([]);
+  // const [isOpen, setIsOpen] = useState([]);
+  const [openKey, setOpenKey] = useState(null);
 
   // Flag für Mobile Breakpoint
   const [isMobile, setIsMobile] = useState(false);
@@ -34,6 +35,22 @@ export default function Pricing({ pricingData, servicesData }) {
   };
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
 
+  const SPECIAL_SERVICE_TITLE = "Für gemeinnützige Organisationen, Vereine & Initiativen";
+  const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+
+  const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+  const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+
+  // Virtueller Service nur für den BT "Vereine & Organisationen":
+  const ORG_SERVICE = {
+    title: SPECIAL_SERVICE_TITLE,
+    description: "Individuelle Angebote für gemeinnützige Organisationen, Vereine & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
+    category: "Spezial",
+    price: 0, // wichtig: 0, damit keine NaN in der Summe entstehen
+    isCountable: false,
+    unit: "",
+  };
+
   // Preisformartierung
   const DEC0 = new Intl.NumberFormat("de-DE", {
     minimumFractionDigits: 0,
@@ -45,14 +62,18 @@ export default function Pricing({ pricingData, servicesData }) {
     return `${DEC0.format(rounded)},- ` + (star ? "*" : "");
   };
 
-  //Sobald servicesData geladen ist, initialisiere isOpen für alle Services
   useEffect(() => {
-    if (servicesData && servicesData.length > 0) {
-      setIsOpen(new Array(servicesData.length).fill(false));
-    } else {
-      console.error("servicesData ist leer oder undefined");
-    }
-  }, [servicesData]);
+    setOpenKey(null);
+  }, [selectedCategory.businessType, selectedCategory.projectType]);
+
+  //Sobald servicesData geladen ist, initialisiere isOpen für alle Services
+  // useEffect(() => {
+  //   if (servicesData && servicesData.length > 0) {
+  //     setIsOpen(new Array(servicesData.length).fill(false));
+  //   } else {
+  //     console.error("servicesData ist leer oder undefined");
+  //   }
+  // }, [servicesData]);
 
   //Wechselt Auswahl bei Kategorie-Checkbox (Business/Projekt)
   const handleCategorySelection = (key, option) => {
@@ -63,42 +84,89 @@ export default function Pricing({ pricingData, servicesData }) {
   };
 
   //Öffnet/Schließt die Service-Beschreibung und schließt alle anderen
-  const toggleOverlay = (index) => {
-    setIsOpen((prev) => {
-      const newState = [...prev];
-      newState[index] = !newState[index];
-      return newState.map((item, i) => (i === index ? item : false));
-    });
+  // const toggleOverlay = (index) => {
+  //   setIsOpen((prev) => {
+  //     const newState = [...prev];
+  //     newState[index] = !newState[index];
+  //     return newState.map((item, i) => (i === index ? item : false));
+  //   });
+  // };
+  const toggleOverlay = (key) => {
+    setOpenKey((prev) => (prev === key ? null : key));
   };
 
   //Fügt Service zum Warenkorb hinzu oder entfernt ihn wieder
+  // const handleServiceSelection = (service) => {
+  //   setSelectedServices((prev) => {
+  //     const isSelected = prev.includes(service);
+
+  //     // Wenn wir im Vereine-Modus sind: exklusiv genau dieses eine Feld togglen
+  //     if (selectedCategory.businessType === "Vereine & Organisationen") {
+  //       return isSelected ? [] : [service];
+  //     }
+
+  //     // Normaler Modus
+  //     if (isSelected) {
+  //       const updatedCounts = { ...serviceCounts };
+  //       delete updatedCounts[service.title];
+  //       setServiceCounts(updatedCounts);
+  //       return prev.filter((s) => s !== service);
+  //     } else {
+  //       if (service.isCountable) {
+  //         setServiceCounts((prevCounts) => ({
+  //           ...prevCounts,
+  //           [service.title]: 1,
+  //         }));
+  //       }
+  //       // Sicherheit: Spezialservice im normalen Modus nie beibehalten
+  //       if (service.title === SPECIAL_SERVICE_TITLE) return prev;
+  //       return [...prev, service];
+  //     }
+  //   });
+  // };
   const handleServiceSelection = (service) => {
     setSelectedServices((prev) => {
-      if (prev.includes(service)) {
-        // entfernen
+      const isSelected = prev.some((s) => s.title === service.title);
+
+      // Vereine-Modus: exklusiv
+      if (selectedCategory.businessType === "Vereine & Organisationen") {
+        return isSelected ? [] : [service];
+      }
+
+      // Normaler Modus
+      if (isSelected) {
         const updatedCounts = { ...serviceCounts };
         delete updatedCounts[service.title];
         setServiceCounts(updatedCounts);
-        return prev.filter((s) => s !== service);
+        return prev.filter((s) => s.title !== service.title);
       } else {
-        // hinzufügen
         if (service.isCountable) {
           setServiceCounts((prevCounts) => ({
             ...prevCounts,
-            [service.title]: 1, // Startwert
+            [service.title]: 1,
           }));
         }
+        // Spezialservice im normalen Modus nicht hinzufügen
+        if (service.title === SPECIAL_SERVICE_TITLE) return prev;
         return [...prev, service];
       }
     });
   };
 
   //Filtert Services nach aktuell gewähltem Projekt-Typ
-  const filteredServices = servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
+  const filteredServices =
+    selectedCategory.businessType === "Vereine & Organisationen"
+      ? [ORG_SERVICE] // nur das eine spezielle Feld anzeigen
+      : servicesData && servicesData.length > 0
+        ? servicesData.filter((service) => service.category === selectedCategory.projectType)
+        : [];
 
   //Entfernt Service aus dem Warenkorb
+  // const removeService = (serviceToRemove) => {
+  //   setSelectedServices((prev) => prev.filter((service) => service !== serviceToRemove));
+  // };
   const removeService = (serviceToRemove) => {
-    setSelectedServices((prev) => prev.filter((service) => service !== serviceToRemove));
+    setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
   };
 
   //Setzt das Mobile-Flag bei Fenstergröße ≤ 750px
@@ -123,6 +191,17 @@ export default function Pricing({ pricingData, servicesData }) {
     return price;
   };
 
+  useEffect(() => {
+    if (selectedCategory.businessType === "Vereine & Organisationen") {
+      // bei Wechsel auf Vereine: alle alten Services raus
+      setSelectedServices((prev) => prev.filter((s) => s.title === SPECIAL_SERVICE_TITLE));
+      setServiceCounts({});
+    } else {
+      // bei Wechsel weg von Vereine: den Spezialservice raus
+      setSelectedServices((prev) => prev.filter((s) => s.title !== SPECIAL_SERVICE_TITLE));
+    }
+  }, [selectedCategory.businessType]);
+
   const handleCountChange = (title, delta) => {
     setServiceCounts((prevCounts) => {
       const current = prevCounts[title] || 1;
@@ -136,8 +215,9 @@ export default function Pricing({ pricingData, servicesData }) {
 
   //Berechnet Gesamtpreis aller ausgewählten Services (mit Rabatt)
   const totalPrice = selectedServices.reduce((total, service) => {
+    const price = Number(service.price) || 0;
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
-    const discountedPrice = applyDiscount(service.price);
+    const discountedPrice = applyDiscount(price);
     return total + discountedPrice * count;
   }, 0);
 
@@ -151,6 +231,7 @@ export default function Pricing({ pricingData, servicesData }) {
           formData={overlayFormData}
           setFormData={setOverlayFormData}
           onClose={() => setShowOverlay(false)}
+          priceOnRequest={priceOnRequest}
         />
       )}
       <HeadlineContainer>
@@ -184,12 +265,29 @@ export default function Pricing({ pricingData, servicesData }) {
         <ServiceContainer>
           <OutcomeContainer>
             <OutcomeContent>
-              {selectedCategory.businessType === "Vereine & Organisationen" ? (
-                <StyledOrganisationText>
-                  Vereine & Organisationen leisten wertvolle Arbeit für unsere Gesellschaft – und genau das möchten wir unterstützen. Deshalb erstellen wir
-                  individuelle Angebote, die zu euren Zielen und Budgets passen. Gemeinsam schauen wir, was euch am meisten weiterbringt – fair,
-                  bedarfsorientiert und mit echtem Interesse an eurer Mission.
-                </StyledOrganisationText>
+              {isOrg ? (
+                <>
+                  <h6>Leistungswarenkorb</h6>
+
+                  {isOrgSelected && (
+                    <ul>
+                      <li>
+                        <SelectedItem>
+                          <ItemWrapper>
+                            <PiPushPinLight />
+                            <span>Leistungen für Vereine & Organisationen</span>
+                          </ItemWrapper>
+                          <RemoveButton onClick={() => setSelectedServices([])}>
+                            <StyledRemoveIcon />
+                          </RemoveButton>
+                        </SelectedItem>
+                      </li>
+                    </ul>
+                  )}
+
+                  {/* kein Preis im Vereine-Case */}
+                  <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+                </>
               ) : (
                 <>
                   <h6>Leistungswarenkorb</h6>
@@ -200,7 +298,7 @@ export default function Pricing({ pricingData, servicesData }) {
                           <ItemWrapper>
                             <PiPushPinLight />
                             <span>{service.title}</span>
-                            {selectedServices.includes(service) && service.isCountable && (
+                            {service.isCountable && (
                               <Counter>
                                 <button onClick={() => handleCountChange(service.title, -1)}>-</button>
                                 <span>{serviceCounts[service.title]}</span>
@@ -223,35 +321,44 @@ export default function Pricing({ pricingData, servicesData }) {
             </OutcomeContent>
           </OutcomeContainer>
           <Services>
-            {selectedCategory.businessType !== "Vereine & Organisationen" &&
-              (filteredServices.length > 0 ? (
-                filteredServices.map((service, index) => (
-                  <ServiceUL key={index} className={isOpen[index] ? "open" : ""}>
+            {Array.isArray(filteredServices) && filteredServices.length > 0 ? (
+              filteredServices.map((service) => {
+                const key = service.id || service.title; // stabiler Key
+                const isOpen = openKey === key;
+                const isSelected = selectedServices.some((s) => s.title === service.title);
+
+                return (
+                  <ServiceUL key={key} className={isOpen ? "open" : ""}>
                     <Service>
                       <ServiceTitleGroup>
                         <TitleCheckboxContainer>
-                          <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceSelection(service)} />
+                          <input type="checkbox" checked={isSelected} onChange={() => handleServiceSelection(service)} />
                           <ServiceTitle>{service.title}</ServiceTitle>
                         </TitleCheckboxContainer>
-                        <StyledArrowIcon className={isOpen[index] ? "rotate" : ""} onClick={() => toggleOverlay(index)} />
+
+                        <StyledArrowIcon className={isOpen ? "rotate" : ""} onClick={() => toggleOverlay(key)} />
                       </ServiceTitleGroup>
-                      {isOpen[index] && (
+
+                      {isOpen && (
                         <OverlayDescription>
                           <Description>
                             {service.description}
-                            <ServicePrice>
-                              Preis ab <span>{applyDiscount(service.price)}</span>,-
-                              {service.isCountable && <span> {service.unit}</span>}
-                            </ServicePrice>
+                            {service.price > 0 && (
+                              <ServicePrice>
+                                Preis ab <span>{applyDiscount(service.price)}</span>,-
+                                {service.isCountable && <span> {service.unit}</span>}
+                              </ServicePrice>
+                            )}
                           </Description>
                         </OverlayDescription>
                       )}
                     </Service>
                   </ServiceUL>
-                ))
-              ) : (
-                <p>Keine Services verfügbar</p>
-              ))}
+                );
+              })
+            ) : (
+              <p>Keine Services verfügbar</p>
+            )}
           </Services>
         </ServiceContainer>
       </CalculatorContainer>
