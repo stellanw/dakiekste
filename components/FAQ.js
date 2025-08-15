@@ -127,7 +127,7 @@ const FAQItem = styled.li`
 
 const FAQQuestion = styled.span`
   font-size: var(--font-l);
-  font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.extraBold : theme.fontWeight.regular)};
+  font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.regular)};
   @media (min-width: ${theme.breakpoints.tablet}) {
     font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
   }
