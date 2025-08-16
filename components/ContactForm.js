@@ -369,7 +369,7 @@ const StyledCheckboxGroup = styled.div`
   column-gap: var(--spacing-xs);
   row-gap: 0;
   padding-bottom: var(--spacing-s);
-
+  font-size: var(--font-xs);
   label {
     font-weight: ${theme.fontWeight.light};
   }
