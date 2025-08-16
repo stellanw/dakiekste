@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect } from "react";
-import { PiArrowUpRight } from "react-icons/pi";
-import { PiPushPinLight } from "react-icons/pi";
+import { PiPushPinLight, PiArrowUpRight, PiInfo } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import ContactOverlayForm from "./ContactOverlayForm";
 
@@ -35,7 +34,7 @@ export default function Pricing({ pricingData, servicesData }) {
   };
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
 
-  const SPECIAL_SERVICE_TITLE = "Für gemeinnützige Organisationen, Vereine & Initiativen";
+  const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
   const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
 
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
@@ -44,7 +43,8 @@ export default function Pricing({ pricingData, servicesData }) {
   // Virtueller Service nur für den BT "Vereine & Organisationen":
   const ORG_SERVICE = {
     title: SPECIAL_SERVICE_TITLE,
-    description: "Individuelle Angebote für gemeinnützige Organisationen, Vereine & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
+    description:
+      "Individuelle Angebote für gemeinnützige Organisationen, Vereine, NGOs & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
     category: "Spezial",
     price: 0, // wichtig: 0, damit keine NaN in der Summe entstehen
     isCountable: false,
@@ -66,16 +66,6 @@ export default function Pricing({ pricingData, servicesData }) {
     setOpenKey(null);
   }, [selectedCategory.businessType, selectedCategory.projectType]);
 
-  //Sobald servicesData geladen ist, initialisiere isOpen für alle Services
-  // useEffect(() => {
-  //   if (servicesData && servicesData.length > 0) {
-  //     setIsOpen(new Array(servicesData.length).fill(false));
-  //   } else {
-  //     console.error("servicesData ist leer oder undefined");
-  //   }
-  // }, [servicesData]);
-
-  //Wechselt Auswahl bei Kategorie-Checkbox (Business/Projekt)
   const handleCategorySelection = (key, option) => {
     setSelectedCategory((prev) => ({
       ...prev,
@@ -83,47 +73,10 @@ export default function Pricing({ pricingData, servicesData }) {
     }));
   };
 
-  //Öffnet/Schließt die Service-Beschreibung und schließt alle anderen
-  // const toggleOverlay = (index) => {
-  //   setIsOpen((prev) => {
-  //     const newState = [...prev];
-  //     newState[index] = !newState[index];
-  //     return newState.map((item, i) => (i === index ? item : false));
-  //   });
-  // };
   const toggleOverlay = (key) => {
     setOpenKey((prev) => (prev === key ? null : key));
   };
 
-  //Fügt Service zum Warenkorb hinzu oder entfernt ihn wieder
-  // const handleServiceSelection = (service) => {
-  //   setSelectedServices((prev) => {
-  //     const isSelected = prev.includes(service);
-
-  //     // Wenn wir im Vereine-Modus sind: exklusiv genau dieses eine Feld togglen
-  //     if (selectedCategory.businessType === "Vereine & Organisationen") {
-  //       return isSelected ? [] : [service];
-  //     }
-
-  //     // Normaler Modus
-  //     if (isSelected) {
-  //       const updatedCounts = { ...serviceCounts };
-  //       delete updatedCounts[service.title];
-  //       setServiceCounts(updatedCounts);
-  //       return prev.filter((s) => s !== service);
-  //     } else {
-  //       if (service.isCountable) {
-  //         setServiceCounts((prevCounts) => ({
-  //           ...prevCounts,
-  //           [service.title]: 1,
-  //         }));
-  //       }
-  //       // Sicherheit: Spezialservice im normalen Modus nie beibehalten
-  //       if (service.title === SPECIAL_SERVICE_TITLE) return prev;
-  //       return [...prev, service];
-  //     }
-  //   });
-  // };
   const handleServiceSelection = (service) => {
     setSelectedServices((prev) => {
       const isSelected = prev.some((s) => s.title === service.title);
@@ -162,9 +115,6 @@ export default function Pricing({ pricingData, servicesData }) {
         : [];
 
   //Entfernt Service aus dem Warenkorb
-  // const removeService = (serviceToRemove) => {
-  //   setSelectedServices((prev) => prev.filter((service) => service !== serviceToRemove));
-  // };
   const removeService = (serviceToRemove) => {
     setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
   };
@@ -267,7 +217,7 @@ export default function Pricing({ pricingData, servicesData }) {
             <OutcomeContent>
               {isOrg ? (
                 <>
-                  <h6>Leistungswarenkorb</h6>
+                  <h6>Deine Auswahl</h6>
 
                   {isOrgSelected && (
                     <ul>
@@ -284,13 +234,17 @@ export default function Pricing({ pricingData, servicesData }) {
                       </li>
                     </ul>
                   )}
-
+                  <OverlayInfo>
+                    <PiInfo />
+                    Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und
+                    ein individuelles Angebot zu erstellen.
+                  </OverlayInfo>
                   {/* kein Preis im Vereine-Case */}
                   <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
               ) : (
                 <>
-                  <h6>Leistungswarenkorb</h6>
+                  <h6>Deine Auswahl</h6>
                   <ul>
                     {selectedServices.map((service, index) => (
                       <li key={index}>
@@ -315,6 +269,11 @@ export default function Pricing({ pricingData, servicesData }) {
                   </ul>
                   <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
                   <p>*EUR zzgl. MwSt.</p>
+                  <OverlayInfo>
+                    <PiInfo />
+                    Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
+                    individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
+                  </OverlayInfo>
                   <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
               )}
@@ -412,14 +371,16 @@ const CalculatorContainer = styled.div`
 
 const CategoriesContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: var(--spacing-m);
   padding: var(--spacing-m) 0;
+
   border-bottom: 1px solid ${theme.color.dark};
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    padding: 0;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    flex-direction: row;
     gap: 0;
+    padding: 0;
   }
 `;
 
@@ -575,14 +536,9 @@ const Service = styled.li`
 const Services = styled.div`
   padding: 0;
   width: 100%;
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
     width: 50%;
   }
-`;
-
-const StyledOrganisationText = styled.p`
-  padding: 0 var(--spacing-l);
-  font-size: var(--font-m) !important;
 `;
 
 const ServiceUL = styled.ul`
@@ -694,4 +650,16 @@ const ServicePrice = styled.p`
   padding-top: var(--spacing-s);
   text-transform: none;
   font-weight: ${theme.fontWeight.regular};
+`;
+
+const OverlayInfo = styled.p`
+  font-size: var(--font-xs);
+  line-height: ${theme.lineHeight.xxl};
+  color: ${theme.color.dark};
+  opacity: 0.7;
+  margin: var(--spacing-s) 0 0 0;
+  max-width: 300px;
+  svg {
+    margin-right: 3px;
+  }
 `;

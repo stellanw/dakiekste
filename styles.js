@@ -46,7 +46,7 @@ export const theme = {
 
   breakpoints: {
     mobile: "600px", // kleine bis mittlere Phones
-    tablet: "850px", // iPads, große Phones quer
+    tablet: "768px", // iPads, große Phones quer
     desktop: "1200px", // Laptops & große Screens
   },
 };

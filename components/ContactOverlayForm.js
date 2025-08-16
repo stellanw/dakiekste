@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { theme } from "@/styles";
-import { PiArrowDownThin, PiX } from "react-icons/pi";
+import { PiArrowDownThin, PiX, PiInfo } from "react-icons/pi";
+import Link from "next/link";
 
 export default function ContactOverlayForm({
   selectedServices = [],
@@ -20,6 +21,7 @@ export default function ContactOverlayForm({
     company: "",
     email: "",
     message: "",
+    acceptedTerms: false,
   });
 
   const isControlled = !!formData && !!setFormData;
@@ -28,9 +30,17 @@ export default function ContactOverlayForm({
 
   const showOnRequest = !!priceOnRequest;
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setData((prev) => ({ ...prev, [name]: value }));
+  // };
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const toPlainText = (node) => {
@@ -89,7 +99,7 @@ export default function ContactOverlayForm({
       message: combinedMessage,
       source: "overlay",
       businessType: businessType || undefined,
-
+      acceptedTerms: data.acceptedTerms || false,
       servicesHtml: `<ul>${selectedSummaryHTML}</ul>`,
       pronouns: pronouns || undefined,
 
@@ -217,7 +227,11 @@ export default function ContactOverlayForm({
                   )}
                 </>
               )}
-
+              <OverlayInfo>
+                <PiInfo />
+                Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
+                individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
+              </OverlayInfo>
               <ChangeButton type="button" onClick={onClose}>
                 Auswahl ändern
               </ChangeButton>
@@ -274,6 +288,15 @@ export default function ContactOverlayForm({
             <OverlayLabel htmlFor="message">Nachricht</OverlayLabel>
             <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
 
+            <StyledCheckboxGroup>
+              <label>
+                <label htmlFor="acceptedTerms">
+                  <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} required />
+                  Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
+                </label>
+              </label>
+            </StyledCheckboxGroup>
+
             <OverlaySubmitButton type="submit">Abschicken</OverlaySubmitButton>
           </OverlayFormContainer>
         </FormCol>
@@ -309,6 +332,10 @@ const OverlayFormContainer = styled.form`
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding: var(--spacing-xl);
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    max-width: 800px;
   }
 
   label {
@@ -431,7 +458,7 @@ const OverlayTextArea = styled.textarea`
   max-height: none;
   min-height: 80px;
   resize: none;
-  margin-bottom: var(--spacing-s);
+  margin-bottom: calc(0.5 * var(--spacing-xs));
 `;
 
 const OverlaySubmitButton = styled.button`
@@ -452,49 +479,46 @@ const OverlaySubmitButton = styled.button`
 
 const CloseButton = styled.button`
   position: absolute;
-  top: var(--spacing-s);
-  right: var(--spacing-s);
+  top: var(--spacing-m);
+  right: var(--spacing-m);
   background: none;
   border: none;
   font-size: var(--font-l);
-
   color: ${theme.color.dark};
+  z-index: 100;
   cursor: pointer;
 
   &:hover {
-    color: ${theme.color.green};
+    color: ${theme.color.beige};
     svg {
       stroke-width: 10px;
     }
   }
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    top: var(--spacing-m);
-    right: var(--spacing-m);
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    top: var(--spacing-s);
+    right: var(--spacing-s);
   }
 `;
 
 const OverlayTwoCol = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: var(--spacing-l);
   width: 100%;
   max-width: 1000px;
 
   height: calc(100dvh - 2 * var(--overlay-pad));
-  /* overflow: hidden; */
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    flex-direction: row;
-  }
+  /* overflow: hidden; */
 `;
 
 const SummaryCol = styled.div`
-  display: block;
-  width: 50%;
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    display: none;
-    width: 100%;
+  display: none;
+  width: 100%;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: block;
+    width: 50%;
   }
 `;
 
@@ -631,7 +655,7 @@ const TotalRow = styled(Row)`
 `;
 
 const ChangeButton = styled.button`
-  margin-top: var(--spacing-m);
+  margin-top: var(--spacing-s);
   width: 100%;
   padding: var(--spacing-xs) var(--spacing-m);
   color: ${theme.color.dark};
@@ -647,4 +671,45 @@ const ChangeButton = styled.button`
 
 const Empty = styled.p`
   opacity: 0.8;
+`;
+
+const StyledCheckboxGroup = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: var(--spacing-xs);
+  row-gap: 0;
+  padding-bottom: calc(0.5 * var(--spacing-xs));
+  font-size: var(--font-xs);
+  label {
+    font-weight: ${theme.fontWeight.light};
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 0;
+    color: ${theme.color.dark};
+  }
+`;
+
+const StyledLink = styled(Link)`
+  font-weight: ${theme.fontWeight.bold};
+  color: ${theme.color.dark};
+  padding: 0 0.2rem;
+
+  &:hover {
+    color: ${theme.color.green};
+  }
+`;
+
+const OverlayInfo = styled.p`
+  font-size: var(--font-xs);
+  line-height: ${theme.lineHeight.xxl};
+  color: ${theme.color.dark};
+  opacity: 0.7;
+  margin: var(--spacing-s) 0 0 0;
+
+  svg {
+    margin-right: 3px;
+  }
 `;
