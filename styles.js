@@ -45,8 +45,8 @@ export const theme = {
   },
 
   breakpoints: {
-    mobile: "600px", // kleine bis mittlere Phones
-    tablet: "850px", // iPads, große Phones quer
+    mobile: "480px", // kleine bis mittlere Phones
+    tablet: "768px", // iPads, große Phones quer
     desktop: "1200px", // Laptops & große Screens
   },
 };
@@ -151,6 +151,8 @@ export default createGlobalStyle`
     color: ${theme.color.dark};
     text-decoration: none;
   }
+
+a:visited { color: inherit; }
 
   header, main, footer {
     flex-shrink: 0;
@@ -317,8 +319,16 @@ background-color: transparent;
   }
 
 button{
+  font-family: "Figtree", sans-serif;
   border-radius: calc(0.5 * (${theme.borderRadius}));
+  color: inherit;
 cursor: pointer;
+ -webkit-font-smoothing: antialiased;
+-webkit-tap-highlight-color: transparent;
+
+ user-select: none;
+  -webkit-user-select: none; 
+  -ms-user-select: none; 
 }
 
 .yarl__root{

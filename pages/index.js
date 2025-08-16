@@ -457,6 +457,149 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             },
           ]}
         />
+        <section id="pricing">
+          <Pricing
+            pricingData={[
+              {
+                key: "businessType",
+                category: "Dein Business",
+                options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
+              },
+              {
+                key: "projectType",
+                category: "Dein Projekt",
+                options: ["Fotografie", "Video", "Design", "Website"],
+              },
+            ]}
+            servicesData={[
+              {
+                title: (
+                  <>
+                    Mitarbeiter*innen & <wbr />
+                    CEO Portrait
+                  </>
+                ),
+                titlePlain: "Businessportraits",
+                category: "Fotografie",
+                isCountable: true,
+                unit: "pro Person",
+                description:
+                  "Dazu zählen Einzelaufnahmen von Mitarbeiter*innen und Führungskräften (z.B. CEO), Teamfotos in kleinen oder größeren Gruppen. Die Fotos entstehen vor Ort oder im Studio und beinhalten eine Bildauswahl sowie eine Basisretusche mit einheitlichem Look.",
+                price: 120,
+              },
+              {
+                title: "Personal Branding Fotografie",
+                titlePlain: "Personal Branding Fotografie",
+                category: "Fotografie",
+                description:
+                  "Ein Fotopaket, das dich, dein Team, eure Arbeit und euer Umfeld zeigt – abgestimmt auf deine Marke. Du bekommst einen vielseitigen Bilderpool mit hochwertigen Fotos, die einen stimmigen Gesamteindruck vermitteln. Inklusive Konzept, Planung, Shooting, gemeinsame Bildauswahl und Basisretusche.",
+                price: 3000,
+              },
+              {
+                title: "Produktfotografie",
+                titlePlain: "Produktfotografie",
+                category: "Fotografie",
+                isCountable: true,
+                unit: "pro Bild",
+                description:
+                  "Zeig deine Produkte so, wie sie gesehen werden sollen – hochwertig, ansprechend und markengerecht. Je nach Bedarf fotografieren wir Freisteller, inszenierte Aufnahmen oder Anwendungen am Modell. Du bekommst Bilder deiner Produkte, die deinen Verkauf stärken und vielseitig einsetzbar sind. Optional unterstützen wir mit einer erfahrenen Stylistin aus unserem Netzwerk, um deine Produkte perfekt in Szene zu setzen.",
+                price: 50,
+              },
+              {
+                title: "Eventfotografie",
+                titlePlain: "Eventfotografie",
+                category: "Fotografie",
+                description:
+                  "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die Bilder erhalten einen einheitlichen Look und werden in einer Onlinegalerie bereitgestellt.",
+                price: 850,
+              },
+              {
+                title: "Content Creation",
+                titlePlain: "Content Creation",
+                category: "Fotografie",
+                description:
+                  "Wir erstellen hochwertigen Foto- und Videocontent für Instagram & Co. – markengerecht, zielgruppennah und schnell einsetzbar. Du bekommst bearbeitete Inhalte mit einheitlichem Look, die direkt bereit sind für deine Social-Media-Kanäle, Website oder Kampagnen.",
+                price: 500,
+              },
+              {
+                title: "Konzeption",
+                titlePlain: "Konzeption",
+                category: "Fotografie",
+                description:
+                  "Ein Grundkonzept ist in vielen Paketen enthalten. Wenn du tiefer einsteigen willst, kannst du unsere Konzeptionsleistung auch separat buchen. Je nach Bedarf umfasst sie Beratung zu deiner Markenidentität, die Entwicklung einer Bildsprache und die Struktur deiner visuellen Kommunikation.",
+                price: 900,
+              },
+              {
+                title: "Postproduction",
+                titlePlain: "Postproduction",
+                category: "Fotografie",
+                description: "Standardkorrekturen sind inklusive. Aufwändige Retuschen können separat gebucht werden.",
+                isCountable: true,
+                unit: "pro Bild",
+                price: 50,
+              },
+              {
+                title: "Video-Content für Social Media",
+                titlePlain: "Video-Content für Social Media",
+                category: "Video",
+                description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
+                price: 800,
+              },
+              {
+                title: "Event-Videodokumentation",
+                titlePlain: "Event-Videodokumentation",
+                category: "Video",
+                description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
+                price: 1000,
+              },
+              {
+                title: "Imagefilm",
+                titlePlain: "Imagefilm",
+                category: "Video",
+                description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
+                price: 4000,
+              },
+              {
+                title: "Web Design (UI/UX)",
+                titlePlain: "Web Design (UI/UX)",
+                category: "Website",
+                description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
+                price: 3000,
+              },
+              {
+                title: "Web Entwicklung",
+                titlePlain: "Web Entwicklung",
+                category: "Website",
+                description:
+                  "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
+                price: 1500,
+              },
+              {
+                title: "CI Branding Design",
+                titlePlain: "CI Branding Design",
+                category: "Design",
+                description:
+                  "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
+                price: 4000,
+              },
+              {
+                title: "Logo Design",
+                titlePlain: "Logo Design",
+                category: "Design",
+                description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
+                price: 3000,
+              },
+              {
+                title: "Redesign",
+                titlePlain: "Redesign",
+                category: "Design",
+                description:
+                  "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
+                price: 1500,
+              },
+            ]}
+          />
+        </section>
         <ImageElement image={section11_Image01} alt="Klub Studio Studiofläche" />
         <section id="contact">
           <ContactForm />
@@ -471,148 +614,9 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         image={section12_TextBox01}
         alt="Description of image"
         flexflow="row-reverse"
+        mobileFlexflow="column-reverse"
       />
-      <section id="pricing">
-        <Pricing
-          pricingData={[
-            {
-              key: "businessType",
-              category: "Dein Business",
-              options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
-            },
-            {
-              key: "projectType",
-              category: "Dein Projekt",
-              options: ["Fotografie", "Video", "Design", "Website"],
-            },
-          ]}
-          servicesData={[
-            {
-              title: (
-                <>
-                  Mitarbeiter*innen & <wbr />
-                  CEO Portrait
-                </>
-              ),
-              titlePlain: "Businessportraits",
-              category: "Fotografie",
-              isCountable: true,
-              unit: "pro Person",
-              description:
-                "Dazu zählen Einzelaufnahmen von Mitarbeiter*innen und Führungskräften (z.B. CEO), Teamfotos in kleinen oder größeren Gruppen. Die Fotos entstehen vor Ort oder im Studio und beinhalten eine Bildauswahl sowie eine Basisretusche mit einheitlichem Look.",
-              price: 120,
-            },
-            {
-              title: "Personal Branding Fotografie",
-              titlePlain: "Personal Branding Fotografie",
-              category: "Fotografie",
-              description:
-                "Ein Fotopaket, das dich, dein Team, eure Arbeit und euer Umfeld zeigt – abgestimmt auf deine Marke. Du bekommst einen vielseitigen Bilderpool mit hochwertigen Fotos, die einen stimmigen Gesamteindruck vermitteln. Inklusive Konzept, Planung, Shooting, gemeinsame Bildauswahl und Basisretusche.",
-              price: 3000,
-            },
-            {
-              title: "Produktfotografie",
-              titlePlain: "Produktfotografie",
-              category: "Fotografie",
-              isCountable: true,
-              unit: "pro Bild",
-              description:
-                "Zeig deine Produkte so, wie sie gesehen werden sollen – hochwertig, ansprechend und markengerecht. Je nach Bedarf fotografieren wir Freisteller, inszenierte Aufnahmen oder Anwendungen am Modell. Du bekommst Bilder deiner Produkte, die deinen Verkauf stärken und vielseitig einsetzbar sind. Optional unterstützen wir mit einer erfahrenen Stylistin aus unserem Netzwerk, um deine Produkte perfekt in Szene zu setzen.",
-              price: 50,
-            },
-            {
-              title: "Eventfotografie",
-              titlePlain: "Eventfotografie",
-              category: "Fotografie",
-              description:
-                "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die Bilder erhalten einen einheitlichen Look und werden in einer Onlinegalerie bereitgestellt.",
-              price: 850,
-            },
-            {
-              title: "Content Creation",
-              titlePlain: "Content Creation",
-              category: "Fotografie",
-              description:
-                "Wir erstellen hochwertigen Foto- und Videocontent für Instagram & Co. – markengerecht, zielgruppennah und schnell einsetzbar. Du bekommst bearbeitete Inhalte mit einheitlichem Look, die direkt bereit sind für deine Social-Media-Kanäle, Website oder Kampagnen.",
-              price: 500,
-            },
-            {
-              title: "Konzeption",
-              titlePlain: "Konzeption",
-              category: "Fotografie",
-              description:
-                "Ein Grundkonzept ist in vielen Paketen enthalten. Wenn du tiefer einsteigen willst, kannst du unsere Konzeptionsleistung auch separat buchen. Je nach Bedarf umfasst sie Beratung zu deiner Markenidentität, die Entwicklung einer Bildsprache und die Struktur deiner visuellen Kommunikation.",
-              price: 900,
-            },
-            {
-              title: "Postproduction",
-              titlePlain: "Postproduction",
-              category: "Fotografie",
-              description: "Standardkorrekturen sind inklusive. Aufwändige Retuschen können separat gebucht werden.",
-              isCountable: true,
-              unit: "pro Bild",
-              price: 50,
-            },
-            {
-              title: "Video-Content für Social Media",
-              titlePlain: "Video-Content für Social Media",
-              category: "Video",
-              description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
-              price: 800,
-            },
-            {
-              title: "Event-Videodokumentation",
-              titlePlain: "Event-Videodokumentation",
-              category: "Video",
-              description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
-              price: 1000,
-            },
-            {
-              title: "Imagefilm",
-              titlePlain: "Imagefilm",
-              category: "Video",
-              description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
-              price: 4000,
-            },
-            {
-              title: "Web Design (UI/UX)",
-              titlePlain: "Web Design (UI/UX)",
-              category: "Website",
-              description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
-              price: 3000,
-            },
-            {
-              title: "Web Entwicklung",
-              titlePlain: "Web Entwicklung",
-              category: "Website",
-              description:
-                "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
-              price: 1500,
-            },
-            {
-              title: "CI Branding Design",
-              titlePlain: "CI Branding Design",
-              category: "Design",
-              description: "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
-              price: 4000,
-            },
-            {
-              title: "Logo Design",
-              titlePlain: "Logo Design",
-              category: "Design",
-              description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
-              price: 3000,
-            },
-            {
-              title: "Redesign",
-              titlePlain: "Redesign",
-              category: "Design",
-              description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
-              price: 1500,
-            },
-          ]}
-        />
-      </section>
+
       <section id="faq">
         <FAQ
           faqData={[

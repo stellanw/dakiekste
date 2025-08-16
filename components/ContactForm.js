@@ -37,7 +37,6 @@ export default function ContactForm() {
       const next = { ...prev, [name]: type === "checkbox" ? checked : value };
       return next;
     });
-    // console.log("change:", name, value);
   };
 
   const handleSubmit = async (e) => {
@@ -303,7 +302,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledInput = styled.input`
-  margin-bottom: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
   padding: var(--spacing-xs);
   height: var(--spacing-m);
 
@@ -335,10 +334,10 @@ const StyledInput = styled.input`
 
 const StyledTextArea = styled.textarea`
   padding: var(--spacing-s);
-  margin-bottom: var(--spacing-m);
+  margin-bottom: calc(0.5 * var(--spacing-xs));
   width: 100% !important;
-  min-height: 200px;
-  max-height: 200px;
+  min-height: 150px;
+  max-height: 150px;
   resize: none;
 
   &:active {
@@ -368,8 +367,8 @@ const StyledCheckboxGroup = styled.div`
   flex-wrap: wrap;
   column-gap: var(--spacing-xs);
   row-gap: 0;
-  padding-bottom: var(--spacing-m);
-
+  padding-bottom: var(--spacing-s);
+  font-size: var(--font-xs);
   label {
     font-weight: ${theme.fontWeight.light};
   }
@@ -482,7 +481,7 @@ const SelectWrap = styled.div`
 const StyledSelect = styled.select`
   display: block;
   width: 100%;
-  margin-bottom: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
   padding: var(--spacing-xs);
   height: var(--spacing-m);
 
