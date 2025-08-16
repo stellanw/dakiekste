@@ -380,7 +380,11 @@ const SelectWrap = styled.div`
   &::after {
     content: "";
     position: absolute;
-    top: 40%;
+    top: 35%;
+
+    @media (max-width: ${theme.breakpoints.tablet}) {
+      top: 40%;
+    }
 
     right: var(--arrow-offset);
     transform: translateY(-50%);
@@ -486,11 +490,11 @@ const OverlayTwoCol = styled.div`
 `;
 
 const SummaryCol = styled.div`
-  display: none;
-  width: 100%;
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    display: block;
-    width: 50%;
+  display: block;
+  width: 50%;
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    display: none;
+    width: 100%;
   }
 `;
 
