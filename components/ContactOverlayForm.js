@@ -13,7 +13,7 @@ export default function ContactOverlayForm({
   priceOnRequest = false,
   onClose,
 }) {
-  const [localForm, setLocalForm] = useState({
+  const initialForm = {
     firstName: "",
     lastName: "",
     pronouns: "",
@@ -22,7 +22,12 @@ export default function ContactOverlayForm({
     email: "",
     message: "",
     acceptedTerms: false,
-  });
+  };
+
+  const [localForm, setLocalForm] = useState(initialForm);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
 
   const isControlled = !!formData && !!setFormData;
   const data = isControlled ? formData : localForm;
@@ -30,10 +35,16 @@ export default function ContactOverlayForm({
 
   const showOnRequest = !!priceOnRequest;
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setData((prev) => ({ ...prev, [name]: value }));
-  // };
+  const resetForm = () => {
+    if (isControlled) {
+      setFormData(initialForm);
+    } else {
+      setLocalForm(initialForm);
+    }
+    setResponseMessage("");
+    setIsSuccess(false);
+    setIsError(false);
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -110,7 +121,6 @@ export default function ContactOverlayForm({
         unitPrice: showOnRequest ? undefined : s.unitPrice,
         price: showOnRequest ? undefined : s.price,
       })),
-      servicesHtml: `<ul>${selectedSummaryHTML}</ul>`,
       priceDisplay: showOnRequest ? "auf Anfrage" : `${total.toFixed(2)} €`,
     };
 
@@ -123,14 +133,21 @@ export default function ContactOverlayForm({
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || json.error || "Fehler beim Senden");
 
-      alert("Vielen Dank für deine Nachricht!");
-      onClose?.();
+      // Reset Formular
+      if (isControlled) {
+        setFormData(initialForm);
+      } else {
+        setLocalForm(initialForm);
+      }
+
+      setResponseMessage("Wir melden uns in Kürze bei dir mit weiteren Infos oder einem Angebot.");
+      setIsSuccess(true);
     } catch (err) {
       console.error("Fehler beim Senden:", err);
-      alert("Ups! Da ist was schiefgelaufen.");
+      setResponseMessage("Da ist etwas schiefgelaufen. Bitte versuch es nochmal.");
+      setIsError(true);
     }
   };
-
   const DEC0 = new Intl.NumberFormat("de-DE", {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -167,138 +184,165 @@ export default function ContactOverlayForm({
   return (
     <OverlayWrapper>
       <OverlayTwoCol>
-        <SummaryCol>
-          <SummaryBox>
-            <SummaryTop>
-              <h5>Deine Auswahl</h5>
+        {!isSuccess && (
+          <SummaryCol>
+            <SummaryBox>
+              <SummaryTop>
+                <h5>Deine Auswahl</h5>
 
-              {structured.length === 0 ? (
-                <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
-              ) : (
-                <ListWrap>
-                  <List ref={listRef}>
-                    {structured.map((x, i) => (
-                      <li key={i}>
-                        <Row>
-                          <span>
-                            {x.title}
-                            {x.count > 1 ? ` (${x.count}x)` : ""}
-                          </span>
-                          <strong>{showOnRequest ? "auf Anfrage" : euroDash(x.price)}</strong>
-                        </Row>
-                      </li>
-                    ))}
-                  </List>
+                {structured.length === 0 ? (
+                  <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
+                ) : (
+                  <ListWrap>
+                    <List ref={listRef}>
+                      {structured.map((x, i) => (
+                        <li key={i}>
+                          <Row>
+                            <span>
+                              {x.title}
+                              {x.count > 1 ? ` (${x.count}x)` : ""}
+                            </span>
+                            <strong>{showOnRequest ? "auf Anfrage" : euroDash(x.price)}</strong>
+                          </Row>
+                        </li>
+                      ))}
+                    </List>
 
-                  {showDownHint && (
-                    <ScrollHint
-                      type="button"
-                      onClick={() => {
-                        const el = listRef.current;
-                        if (!el) return;
-                        el.scrollBy({ top: el.clientHeight * 0.8, behavior: "smooth" });
-                      }}
-                      aria-label="Weiter nach unten"
-                      title="Weiter nach unten"
-                    >
-                      <PiArrowDownThin />
-                    </ScrollHint>
-                  )}
-                </ListWrap>
-              )}
-            </SummaryTop>
+                    {showDownHint && (
+                      <ScrollHint
+                        type="button"
+                        onClick={() => {
+                          const el = listRef.current;
+                          if (!el) return;
+                          el.scrollBy({ top: el.clientHeight * 0.8, behavior: "smooth" });
+                        }}
+                        aria-label="Weiter nach unten"
+                        title="Weiter nach unten"
+                      >
+                        <PiArrowDownThin />
+                      </ScrollHint>
+                    )}
+                  </ListWrap>
+                )}
+              </SummaryTop>
 
-            <SummaryBottom>
-              {structured.length > 0 && (
-                <>
-                  {showOnRequest ? (
-                    <TotalRow>
-                      <span>Gesamtsumme</span>
-                      <strong>auf Anfrage</strong>
-                    </TotalRow>
-                  ) : (
-                    <>
+              <SummaryBottom>
+                {structured.length > 0 && (
+                  <>
+                    {showOnRequest ? (
                       <TotalRow>
                         <span>Gesamtsumme</span>
-                        <strong>{euroDash(total, { star: true })}</strong>
+                        <strong>auf Anfrage</strong>
                       </TotalRow>
-                      <p>*EUR zzgl. MwSt.</p>
-                    </>
-                  )}
+                    ) : (
+                      <>
+                        <TotalRow>
+                          <span>Gesamtsumme</span>
+                          <strong>{euroDash(total, { star: true })}</strong>
+                        </TotalRow>
+                        <p>*EUR zzgl. MwSt.</p>
+                      </>
+                    )}
+                  </>
+                )}
+                <OverlayInfo>
+                  <PiInfo />
+                  Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
+                  individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
+                </OverlayInfo>
+                <ChangeButton type="button" onClick={onClose}>
+                  Auswahl ändern
+                </ChangeButton>
+              </SummaryBottom>
+            </SummaryBox>
+          </SummaryCol>
+        )}
+
+        <FormCol $isSuccess={isSuccess}>
+          {isSuccess ? (
+            <StyledSuccessMessage>
+              <CloseButton onClick={onClose}>
+                <PiX />
+              </CloseButton>
+              <h3>Danke für deine Nachricht!</h3>
+              <p>{responseMessage}</p>
+              <StyledButton
+                type="button"
+                onClick={() => {
+                  setResponseMessage("");
+                  setIsSuccess(false);
+                }}
+              >
+                Neue Nachricht senden
+              </StyledButton>
+            </StyledSuccessMessage>
+          ) : isError ? (
+            <StyledSuccessMessage>
+              <h3>Ups!</h3>
+              <p>{responseMessage}</p>
+              <StyledButton onClick={resetForm}>Erneut versuchen</StyledButton>
+            </StyledSuccessMessage>
+          ) : (
+            <OverlayFormContainer onSubmit={handleSubmit}>
+              <CloseButton onClick={onClose}>
+                <PiX />
+              </CloseButton>
+              <h5>Angebotsanfrage</h5>
+
+              <OverlayLabel htmlFor="pronouns">Pronomen</OverlayLabel>
+              <SelectWrap>
+                <OverlaySelect id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange}>
+                  <option value="" disabled>
+                    Bitte wählen
+                  </option>
+                  <option value="sie/ihr">sie/ihr</option>
+                  <option value="er/ihm">er/ihm</option>
+                  <option value="they/them">they/them</option>
+                  <option value="keine Angabe">keine Angabe</option>
+                  <option value="andere">andere…</option>
+                </OverlaySelect>
+              </SelectWrap>
+              {data.pronouns === "andere" && (
+                <>
+                  <OverlayLabel htmlFor="customPronouns">Eigene Pronomen</OverlayLabel>
+                  <OverlayInput
+                    id="customPronouns"
+                    name="customPronouns"
+                    value={data.customPronouns}
+                    onChange={handleChange}
+                    placeholder="z. B. dey/deren"
+                    required
+                  />
                 </>
               )}
-              <OverlayInfo>
-                <PiInfo />
-                Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
-                individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
-              </OverlayInfo>
-              <ChangeButton type="button" onClick={onClose}>
-                Auswahl ändern
-              </ChangeButton>
-            </SummaryBottom>
-          </SummaryBox>
-        </SummaryCol>
 
-        <FormCol>
-          <CloseButton onClick={onClose}>
-            <PiX />
-          </CloseButton>
-          <OverlayFormContainer onSubmit={handleSubmit}>
-            <h5>Angebotsanfrage</h5>
+              <OverlayLabel htmlFor="firstName">Vorname</OverlayLabel>
+              <OverlayInput id="firstName" name="firstName" value={data.firstName} onChange={handleChange} required />
 
-            <OverlayLabel htmlFor="pronouns">Pronomen</OverlayLabel>
-            <SelectWrap>
-              <OverlaySelect id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange}>
-                <option value="" disabled>
-                  Bitte wählen
-                </option>
-                <option value="sie/ihr">sie/ihr</option>
-                <option value="er/ihm">er/ihm</option>
-                <option value="they/them">they/them</option>
-                <option value="keine Angabe">keine Angabe</option>
-                <option value="andere">andere…</option>
-              </OverlaySelect>
-            </SelectWrap>
-            {data.pronouns === "andere" && (
-              <>
-                <OverlayLabel htmlFor="customPronouns">Eigene Pronomen</OverlayLabel>
-                <OverlayInput
-                  id="customPronouns"
-                  name="customPronouns"
-                  value={data.customPronouns}
-                  onChange={handleChange}
-                  placeholder="z. B. dey/deren"
-                  required
-                />
-              </>
-            )}
+              <OverlayLabel htmlFor="lastName">Nachname</OverlayLabel>
+              <OverlayInput id="lastName" name="lastName" value={data.lastName} onChange={handleChange} />
 
-            <OverlayLabel htmlFor="firstName">Vorname</OverlayLabel>
-            <OverlayInput id="firstName" name="firstName" value={data.firstName} onChange={handleChange} required />
+              <OverlayLabel htmlFor="company">Firma</OverlayLabel>
+              <OverlayInput id="company" name="company" value={data.company} onChange={handleChange} />
 
-            <OverlayLabel htmlFor="lastName">Nachname</OverlayLabel>
-            <OverlayInput id="lastName" name="lastName" value={data.lastName} onChange={handleChange} />
+              <OverlayLabel htmlFor="email">Email</OverlayLabel>
+              <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} required />
 
-            <OverlayLabel htmlFor="company">Firma</OverlayLabel>
-            <OverlayInput id="company" name="company" value={data.company} onChange={handleChange} />
+              <OverlayLabel htmlFor="message">Nachricht</OverlayLabel>
+              <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
 
-            <OverlayLabel htmlFor="email">Email</OverlayLabel>
-            <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} required />
-
-            <OverlayLabel htmlFor="message">Nachricht</OverlayLabel>
-            <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
-
-            <StyledCheckboxGroup>
-              <label>
-                <label htmlFor="acceptedTerms">
-                  <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} required />
-                  Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
+              <StyledCheckboxGroup>
+                <label>
+                  <label htmlFor="acceptedTerms">
+                    <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} required />
+                    Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
+                  </label>
                 </label>
-              </label>
-            </StyledCheckboxGroup>
+              </StyledCheckboxGroup>
 
-            <OverlaySubmitButton type="submit">Abschicken</OverlaySubmitButton>
-          </OverlayFormContainer>
+              <OverlaySubmitButton type="submit">Abschicken</OverlaySubmitButton>
+            </OverlayFormContainer>
+          )}
         </FormCol>
       </OverlayTwoCol>
     </OverlayWrapper>
@@ -318,6 +362,7 @@ const OverlayWrapper = styled.div`
 `;
 
 const OverlayFormContainer = styled.form`
+  position: relative;
   background-color: ${theme.color.beige};
   border: 1px solid ${theme.color.dark};
   border-radius: ${theme.borderRadius};
@@ -489,7 +534,7 @@ const CloseButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: ${theme.color.beige};
+    color: ${theme.color.green};
     svg {
       stroke-width: 10px;
     }
@@ -529,7 +574,7 @@ const FormCol = styled.div`
   justify-content: center;
   min-height: 0;
   @media (min-width: ${theme.breakpoints.tablet}) {
-    width: 50%;
+    width: ${({ $isSuccess }) => ($isSuccess ? "100%" : "50%")};
   }
 `;
 
@@ -608,10 +653,6 @@ const ScrollHint = styled.button`
   border: none;
   border-radius: 0;
   background: none;
-
-  /* padding: calc(0.5 * var(--spacing-xs)); */
-  /* bottom: calc(-0.66 * var(--spacing-l)); */
-  /* background: linear-gradient(180deg, transparent, ${theme.color.dark} 1000%); */
 
   color: ${theme.color.dark};
   cursor: pointer;
@@ -711,5 +752,45 @@ const OverlayInfo = styled.p`
 
   svg {
     margin-right: 3px;
+  }
+`;
+
+const StyledSuccessMessage = styled.div`
+  position: relative;
+  background-color: ${theme.color.beige};
+  border: 1px solid ${theme.color.dark};
+  border-radius: ${theme.borderRadius};
+  padding: var(--spacing-l);
+  width: 100%;
+  max-width: 600px;
+  color: ${theme.color.dark};
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h3 {
+    margin-bottom: var(--spacing-m);
+  }
+
+  p {
+    margin-bottom: var(--spacing-m);
+    font-size: var(--font-s);
+    line-height: ${theme.lineHeight.xxl};
+  }
+`;
+
+const StyledButton = styled.button`
+  padding: var(--spacing-xs) var(--spacing-m);
+  font-size: var(--font-m);
+  background-color: ${theme.color.beige};
+  color: ${theme.color.dark};
+  border: 1px solid ${theme.color.dark};
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
   }
 `;
