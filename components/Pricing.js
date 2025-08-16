@@ -236,7 +236,7 @@ export default function Pricing({ pricingData, servicesData }) {
       )}
       <HeadlineContainer>
         <h2>PREISKALKULATOR</h2>
-        {isMobile ? <h4>Dein Erfolg einfach kalkuliert.</h4> : <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>}
+        {isMobile ? <h4>Schätze deinen Invest ein.</h4> : <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>}
       </HeadlineContainer>
       <CalculatorContainer>
         <CategoriesContainer>

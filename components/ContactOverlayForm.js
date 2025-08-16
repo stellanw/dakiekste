@@ -502,6 +502,7 @@ const FormCol = styled.div`
   position: relative;
   width: 100%;
   display: flex;
+  justify-content: center;
   min-height: 0;
   @media (min-width: ${theme.breakpoints.tablet}) {
     width: 50%;

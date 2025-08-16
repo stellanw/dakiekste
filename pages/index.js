@@ -471,6 +471,7 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         image={section12_TextBox01}
         alt="Description of image"
         flexflow="row-reverse"
+        mobileFlexflow="column-reverse"
       />
       <section id="pricing">
         <Pricing
