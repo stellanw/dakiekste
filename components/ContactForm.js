@@ -8,8 +8,8 @@ export default function ContactForm() {
   const initialFormData = {
     firstName: "",
     lastName: "",
-    pronouns: "", // "", "sie/ihr", "er/ihm", "they/them", "keine Angabe", "andere"
-    customPronouns: "", // nur wenn "andere"
+    pronouns: "",
+    customPronouns: "",
     company: "",
     email: "",
     roles: [],
@@ -43,11 +43,9 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Reset states bei neuem Submit
     setResponseMessage("");
     setIsSuccess(false);
 
-    // Email Format Validierung
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email || !emailRegex.test(formData.email)) {
       setResponseMessage("Bitte gib eine gültige Emailadresse ein.");
@@ -59,13 +57,11 @@ export default function ContactForm() {
       return;
     }
 
-    // Custom validation for roles
     if (formData.roles.length === 0) {
       setResponseMessage("Bitte wähle deine Rolle im Projekt aus.");
       return;
     }
 
-    // Custom validation for budget
     if (formData.budget.length === 0) {
       setResponseMessage("Bitte wähle dein Budget aus.");
       return;
@@ -78,8 +74,8 @@ export default function ContactForm() {
       const pronouns = formData.pronouns === "andere" ? formData.customPronouns : formData.pronouns;
       const payload = {
         ...formData,
-        name: fullName, // Backend erwartet weiterhin "name"
-        pronouns, // NEU
+        name: fullName,
+        pronouns,
         source: "contact",
       };
       delete payload.firstName;
@@ -95,7 +91,7 @@ export default function ContactForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        console.log("API error:", data); // <-- zeigt die genaue Fehlermeldung in der Browser-Konsole
+        console.log("API error:", data);
         throw new Error(data.error || "Fehler beim Senden");
       }
 
@@ -134,44 +130,6 @@ export default function ContactForm() {
         <StyledForm onSubmit={handleSubmit}>
           {" "}
           <SideBySideWrapper>
-            {/* <Wrapper>
-              <label htmlFor="pronouns">Pronomen</label>
-              <StyledSelect id="pronouns" name="pronouns" value={formData.pronouns ?? ""} onChange={handleChange}>
-                <option value="" disabled>
-                  Bitte wählen
-                </option>
-                <option value="sie/ihr">sie/ihr</option>
-                <option value="er/ihm">er/ihm</option>
-                <option value="they/them">they/them</option>
-                <option value="keine Angabe">keine Angabe</option>
-                <option value="andere">andere…</option>
-              </StyledSelect>
-            </Wrapper> */}
-            {/* <Wrapper>
-              <label htmlFor="pronouns">Pronomen</label>
-
-              <SelectWrap>
-                <StyledSelect
-                  id="pronouns"
-                  name="pronouns"
-                  value={formData.pronouns ?? ""}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, pronouns: e.target.value }))}
-                >
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  <option value="sie/ihr">sie/ihr</option>
-                  <option value="er/ihm">er/ihm</option>
-                  <option value="they/them">they/them</option>
-                  <option value="keine Angabe">keine Angabe</option>
-                  <option value="andere">andere…</option>
-                </StyledSelect>
-
-                <IconOverlay className="select-icon" aria-hidden="true">
-                  <StyledPiArrowUpRight size={20} />
-                </IconOverlay>
-              </SelectWrap>
-            </Wrapper> */}
             <Wrapper>
               <label htmlFor="pronouns">Pronomen</label>
               <SelectWrap>
@@ -349,7 +307,7 @@ const StyledInput = styled.input`
   padding: var(--spacing-xs);
   height: var(--spacing-m);
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     height: calc(2.4 * var(--spacing-m));
   }
 
@@ -528,7 +486,7 @@ const StyledSelect = styled.select`
   padding: var(--spacing-xs);
   height: var(--spacing-m);
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     height: calc(2.4 * var(--spacing-m));
   }
 
@@ -564,5 +522,3 @@ const StyledSelect = styled.select`
     display: none;
   }
 `;
-
-const StyledPiArrowUpRight = styled(PiArrowUpRight)``;

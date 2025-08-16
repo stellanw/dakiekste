@@ -46,7 +46,7 @@ export const theme = {
 
   breakpoints: {
     mobile: "600px", // kleine bis mittlere Phones
-    tablet: "800px", // iPads, große Phones quer
+    tablet: "850px", // iPads, große Phones quer
     desktop: "1200px", // Laptops & große Screens
   },
 };
@@ -318,6 +318,7 @@ background-color: transparent;
 
 button{
   border-radius: calc(0.5 * (${theme.borderRadius}));
+cursor: pointer;
 }
 
 .yarl__root{
