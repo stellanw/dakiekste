@@ -152,6 +152,8 @@ export default createGlobalStyle`
     text-decoration: none;
   }
 
+a:visited { color: inherit; }
+
   header, main, footer {
     flex-shrink: 0;
     flex-grow: 0;
@@ -317,8 +319,16 @@ background-color: transparent;
   }
 
 button{
+  font-family: "Figtree", sans-serif;
   border-radius: calc(0.5 * (${theme.borderRadius}));
+  color: inherit;
 cursor: pointer;
+ -webkit-font-smoothing: antialiased;
+-webkit-tap-highlight-color: transparent;
+
+ user-select: none;
+  -webkit-user-select: none; 
+  -ms-user-select: none; 
 }
 
 .yarl__root{

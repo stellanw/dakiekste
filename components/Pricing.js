@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect } from "react";
-import { PiPushPinLight, PiArrowUpRight, PiInfo } from "react-icons/pi";
+import { PiPushPinLight, PiArrowUpRight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import ContactOverlayForm from "./ContactOverlayForm";
 
@@ -235,7 +235,6 @@ export default function Pricing({ pricingData, servicesData }) {
                     </ul>
                   )}
                   <OverlayInfo>
-                    <PiInfo />
                     Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und
                     ein individuelles Angebot zu erstellen.
                   </OverlayInfo>
@@ -270,7 +269,6 @@ export default function Pricing({ pricingData, servicesData }) {
                   <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
                   <p>*EUR zzgl. MwSt.</p>
                   <OverlayInfo>
-                    <PiInfo />
                     Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
                     individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
                   </OverlayInfo>
@@ -594,6 +592,7 @@ const Price = styled.h6`
 const Counter = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: calc(0.5 * var(--spacing-xs));
 
   background-color: transparent;
@@ -607,18 +606,21 @@ const Counter = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
     font-size: var(--font-s);
     padding: 0;
-    height: 15px;
-    width: 15px;
+    height: 16px;
+    width: 16px;
     border-radius: 5px;
-
+    line-height: 0.2;
     border: 1px solid ${theme.color.dark};
     cursor: pointer;
 
     &:hover {
       background-color: ${theme.color.green};
+    }
+
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      line-height: 0.8;
     }
   }
 `;
@@ -657,9 +659,6 @@ const OverlayInfo = styled.p`
   line-height: ${theme.lineHeight.xxl};
   color: ${theme.color.dark};
   opacity: 0.7;
-  margin: var(--spacing-s) 0 0 0;
+  margin: calc(0.5 * var(--spacing-xs)) 0 0 0;
   max-width: 300px;
-  svg {
-    margin-right: 3px;
-  }
 `;
