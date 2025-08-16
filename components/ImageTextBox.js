@@ -24,7 +24,7 @@ const StyledImageTextBox = styled.div`
   width: 100%;
   background-color: ${theme.color.beige};
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
     flex-direction: ${({ $flexflow }) => $flexflow || "row"};
   }
 `;
@@ -39,8 +39,8 @@ const StyledTextWrapper = styled.div`
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    width: 50%;
     padding: var(--side-padding);
+    padding: calc(2 * var(--spacing-xxl)) var(--side-padding);
   }
 
   @media (min-width: ${theme.breakpoints.desktop}) {
@@ -56,13 +56,13 @@ const StyledImageContainer = styled.div`
   aspect-ratio: 1 / 1;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    margin: var(--side-padding);
-    width: 50%;
+    aspect-ratio: 3 / 2;
   }
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     margin: var(--side-padding);
     width: 50%;
+    aspect-ratio: 1 / 1;
   }
 `;
 

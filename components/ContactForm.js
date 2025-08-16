@@ -37,7 +37,6 @@ export default function ContactForm() {
       const next = { ...prev, [name]: type === "checkbox" ? checked : value };
       return next;
     });
-    // console.log("change:", name, value);
   };
 
   const handleSubmit = async (e) => {

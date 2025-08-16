@@ -39,7 +39,7 @@ const StyledTextWrapper = styled.div`
   width: 100%;
   padding: var(--spacing-xxxl) var(--side-padding) var(--spacing-xxl) var(--side-padding);
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 70%;
   }
 `;

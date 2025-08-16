@@ -49,7 +49,7 @@ const StyledTeamMembersContainer = styled.div`
   margin-bottom: var(--spacing-xxl);
   padding: 0 var(--side-padding);
   overflow-x: hidden;
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     flex-wrap: wrap;
   }
 `;
@@ -129,7 +129,9 @@ const StyledPiArrowRightLight = styled(PiArrowRightLight)`
 const TextContainer = styled.div`
   display: grid;
   grid-template-rows: ${({ $isExpanded }) => ($isExpanded ? "1fr" : "0fr")};
-  transition: grid-template-rows 350ms ease, opacity 300ms ease;
+  transition:
+    grid-template-rows 350ms ease,
+    opacity 300ms ease;
   opacity: ${({ $isExpanded }) => ($isExpanded ? 1 : 0)};
 `;
 
