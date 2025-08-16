@@ -2,9 +2,9 @@ import { theme } from "@/styles";
 import Image from "next/image";
 import styled from "styled-components";
 
-export default function ImageTextBox({ topline, headline, text1, image, alt, flexflow }) {
+export default function ImageTextBox({ topline, headline, text1, image, alt, flexflow, mobileFlexflow }) {
   return (
-    <StyledImageTextBox $flexflow={flexflow}>
+    <StyledImageTextBox $flexflow={flexflow} $mobileFlexflow={mobileFlexflow}>
       <StyledImageContainer>
         <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
       </StyledImageContainer>
@@ -20,7 +20,7 @@ export default function ImageTextBox({ topline, headline, text1, image, alt, fle
 
 const StyledImageTextBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ $mobileFlexflow }) => $mobileFlexflow || "column"};
   width: 100%;
   background-color: ${theme.color.beige};
 
