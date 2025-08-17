@@ -1,14 +1,42 @@
-import Header from "@/components/Header";
+// import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
 import { theme } from "@/styles";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 export default function Impressum() {
+  const router = useRouter();
+
+  const handleBack = () => {
+    if (typeof document !== "undefined" && document.referrer) {
+      const refUrl = new URL(document.referrer);
+      if (refUrl.origin === window.location.origin) {
+        // Zurück auf die exakte Seite inkl. Hash
+        router.push(refUrl.pathname + refUrl.search + refUrl.hash);
+        return;
+      }
+    }
+    // Fallback: Startseite
+    router.push("/");
+  };
+
   return (
     <>
       <NavBar />
-      <Header useImageBackground={false} />
+      {/* <Header useImageBackground={false} /> */}
       <StyledImpressumContainer>
+        <button
+          onClick={handleBack}
+          style={{
+            marginTop: "2rem",
+            padding: "0.5rem 1rem",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            cursor: "pointer",
+          }}
+        >
+          ← Zurück
+        </button>
         <h1>Impressum und Datenschutzerklärung</h1>
         <h2>Impressum</h2>
         <h3>Angaben gemäß § 5 TMG</h3>
@@ -123,8 +151,7 @@ export default function Impressum() {
           <strong>Cookies</strong>
         </p>
         <p>
-          Unsere Website verwendet Cookies. Bei Cookies handelt es sich um kleine Textdateien, die auf Ihrem Endgerät gespeichert werden. Cookies richten auf
-          Ihrem Endgerät keinen Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver und sicherer zu machen.
+          Unsere Website verwendet keine Cookies, außer solche, die für den Betrieb technisch notwendig sind. Diese speichern keine personenbezogenen Daten.
         </p>
 
         <p>
@@ -163,5 +190,24 @@ const StyledImpressumContainer = styled.div`
     text-align: start;
 
     margin: var(--spacing-m) 0;
+  }
+
+  button {
+    margin-top: var(--spacing-xs);
+    width: 300px;
+    padding: var(--spacing-xs);
+    color: ${theme.color.dark};
+    background-color: ${theme.color.beige};
+    font-size: var(--font-s);
+    font-weight: ${theme.fontWeight.regular};
+    letter-spacing: 0.08rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid ${theme.color.dark} !important;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: ${theme.color.green};
+    }
   }
 `;
