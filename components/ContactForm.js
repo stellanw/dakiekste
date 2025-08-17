@@ -384,7 +384,7 @@ const SideBySideWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-l);
+  gap: var(--spacing-s);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
