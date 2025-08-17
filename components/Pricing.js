@@ -1,92 +1,111 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { PiPushPinLight, PiArrowUpRight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import ContactOverlayForm from "./ContactOverlayForm";
 
+const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
+const ORG_SERVICE = {
+  title: SPECIAL_SERVICE_TITLE,
+  description:
+    "Individuelle Angebote für gemeinnützige Organisationen, Vereine, NGOs & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
+  category: "Spezial",
+  price: 0,
+  isCountable: false,
+  unit: "",
+};
+
+const initialOverlayFormData = {
+  firstName: "",
+  lastName: "",
+  pronouns: "",
+  customPronouns: "",
+  company: "",
+  email: "",
+  message: "",
+};
+
+const DEC0 = new Intl.NumberFormat("de-DE", {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 0,
+});
+
+export const euroDash = (value, { star = false } = {}) => {
+  const rounded = Math.round(Number(value) || 0);
+  return `${DEC0.format(rounded)},- ` + (star ? "*" : "");
+};
+
 export default function Pricing({ pricingData, servicesData }) {
+  // States
   const [selectedCategory, setSelectedCategory] = useState({
     businessType: "Soloselbstständig",
     projectType: "Fotografie",
   });
   const [serviceCounts, setServiceCounts] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
-
-  // Liste aller aktuell ausgewählten Services (für Warenkorb & Preis)
   const [selectedServices, setSelectedServices] = useState([]);
-
-  // Kontrolliert, ob die Beschreibung bei einem Service angezeigt wird
-  // const [isOpen, setIsOpen] = useState([]);
   const [openKey, setOpenKey] = useState(null);
-
-  // Flag für Mobile Breakpoint
   const [isMobile, setIsMobile] = useState(false);
-
-  const initialOverlayFormData = {
-    firstName: "",
-    lastName: "",
-    pronouns: "",
-    customPronouns: "",
-    company: "",
-    email: "",
-    message: "",
-  };
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
 
-  const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
-  const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+  // Refs
+  const stashRef = useRef({ services: [], counts: {} });
+  const selRef = useRef([]);
+  const countsRef = useRef({});
 
-  const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
-  const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+  // Effects
+  useEffect(() => {
+    selRef.current = selectedServices;
+  }, [selectedServices]);
 
-  // Virtueller Service nur für den BT "Vereine & Organisationen":
-  const ORG_SERVICE = {
-    title: SPECIAL_SERVICE_TITLE,
-    description:
-      "Individuelle Angebote für gemeinnützige Organisationen, Vereine, NGOs & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
-    category: "Spezial",
-    price: 0, // wichtig: 0, damit keine NaN in der Summe entstehen
-    isCountable: false,
-    unit: "",
-  };
-
-  // Preisformartierung
-  const DEC0 = new Intl.NumberFormat("de-DE", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  });
-
-  const euroDash = (value, { star = false } = {}) => {
-    const rounded = Math.round(Number(value) || 0);
-    return `${DEC0.format(rounded)},- ` + (star ? "*" : "");
-  };
+  useEffect(() => {
+    countsRef.current = serviceCounts;
+  }, [serviceCounts]);
 
   useEffect(() => {
     setOpenKey(null);
   }, [selectedCategory.businessType, selectedCategory.projectType]);
 
-  const handleCategorySelection = (key, option) => {
-    setSelectedCategory((prev) => ({
-      ...prev,
-      [key]: option,
-    }));
-  };
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 750);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
+  useEffect(() => {
+    const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+    if (isOrg) {
+      stashRef.current = {
+        services: selRef.current.filter((s) => s.title !== ORG_SERVICE.title),
+        counts: { ...countsRef.current },
+      };
+      setSelectedServices([ORG_SERVICE]);
+      setServiceCounts({});
+    } else {
+      const withoutOrg = selRef.current.filter((s) => s.title !== ORG_SERVICE.title);
+      const restoreServices = withoutOrg.length > 0 ? withoutOrg : stashRef.current.services || [];
+      const restoreCounts = Object.keys(countsRef.current).length > 0 ? countsRef.current : stashRef.current.counts || {};
+      setSelectedServices(restoreServices);
+      setServiceCounts(restoreCounts);
+    }
+    setOpenKey(null);
+  }, [selectedCategory.businessType]);
+
+  // Handler
+  const handleCategorySelection = (key, option) => {
+    setSelectedCategory((prev) => ({ ...prev, [key]: option }));
+  };
   const toggleOverlay = (key) => {
     setOpenKey((prev) => (prev === key ? null : key));
   };
-
   const handleServiceSelection = (service) => {
     setSelectedServices((prev) => {
       const isSelected = prev.some((s) => s.title === service.title);
-
-      // Vereine-Modus: exklusiv
       if (selectedCategory.businessType === "Vereine & Organisationen") {
         return isSelected ? [] : [service];
       }
-
-      // Normaler Modus
       if (isSelected) {
         const updatedCounts = { ...serviceCounts };
         delete updatedCounts[service.title];
@@ -94,76 +113,38 @@ export default function Pricing({ pricingData, servicesData }) {
         return prev.filter((s) => s.title !== service.title);
       } else {
         if (service.isCountable) {
-          setServiceCounts((prevCounts) => ({
-            ...prevCounts,
-            [service.title]: 1,
-          }));
+          setServiceCounts((prevCounts) => ({ ...prevCounts, [service.title]: 1 }));
         }
-        // Spezialservice im normalen Modus nicht hinzufügen
         if (service.title === SPECIAL_SERVICE_TITLE) return prev;
         return [...prev, service];
       }
     });
   };
-
-  //Filtert Services nach aktuell gewähltem Projekt-Typ
-  const filteredServices =
-    selectedCategory.businessType === "Vereine & Organisationen"
-      ? [ORG_SERVICE] // nur das eine spezielle Feld anzeigen
-      : servicesData && servicesData.length > 0
-        ? servicesData.filter((service) => service.category === selectedCategory.projectType)
-        : [];
-
-  //Entfernt Service aus dem Warenkorb
   const removeService = (serviceToRemove) => {
     setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
   };
-
-  //Setzt das Mobile-Flag bei Fenstergröße ≤ 750px
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 750);
-    };
-
-    handleResize(); // Initial aufrufen
-    window.addEventListener("resize", handleResize); // Listener hinzufügen
-
-    return () => {
-      window.removeEventListener("resize", handleResize); // Aufräumen
-    };
-  }, []);
-
-  // Gibt rabattierten Preis zurück (wenn soloselbstständig)
   const applyDiscount = (price) => {
-    if (selectedCategory.businessType === "Soloselbstständig") {
-      return price * 0.7;
-    }
+    if (selectedCategory.businessType === "Soloselbstständig") return price * 0.7;
     return price;
   };
-
-  useEffect(() => {
-    if (selectedCategory.businessType === "Vereine & Organisationen") {
-      // bei Wechsel auf Vereine: alle alten Services raus
-      setSelectedServices((prev) => prev.filter((s) => s.title === SPECIAL_SERVICE_TITLE));
-      setServiceCounts({});
-    } else {
-      // bei Wechsel weg von Vereine: den Spezialservice raus
-      setSelectedServices((prev) => prev.filter((s) => s.title !== SPECIAL_SERVICE_TITLE));
-    }
-  }, [selectedCategory.businessType]);
-
   const handleCountChange = (title, delta) => {
     setServiceCounts((prevCounts) => {
       const current = prevCounts[title] || 1;
       const newValue = Math.max(1, current + delta);
-      return {
-        ...prevCounts,
-        [title]: newValue,
-      };
+      return { ...prevCounts, [title]: newValue };
     });
   };
 
-  //Berechnet Gesamtpreis aller ausgewählten Services (mit Rabatt)
+  // Derived Values
+  const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+  const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+  const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+  const filteredServices =
+    selectedCategory.businessType === "Vereine & Organisationen"
+      ? [ORG_SERVICE]
+      : servicesData && servicesData.length > 0
+        ? servicesData.filter((service) => service.category === selectedCategory.projectType)
+        : [];
   const totalPrice = selectedServices.reduce((total, service) => {
     const price = Number(service.price) || 0;
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
@@ -238,7 +219,6 @@ export default function Pricing({ pricingData, servicesData }) {
                     Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und
                     ein individuelles Angebot zu erstellen.
                   </OverlayInfo>
-                  {/* kein Preis im Vereine-Case */}
                   <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
               ) : (
@@ -280,7 +260,7 @@ export default function Pricing({ pricingData, servicesData }) {
           <Services>
             {Array.isArray(filteredServices) && filteredServices.length > 0 ? (
               filteredServices.map((service) => {
-                const key = service.id || service.title; // stabiler Key
+                const key = service.id || service.title;
                 const isOpen = openKey === key;
                 const isSelected = selectedServices.some((s) => s.title === service.title);
 
@@ -433,7 +413,6 @@ const OutcomeContent = styled.div`
 
   h6 {
     font-weight: ${theme.fontWeight.bold};
-    padding-top: var(--spacing-m);
   }
 
   ul {
@@ -586,7 +565,6 @@ const Description = styled.p`
 
 const Price = styled.h6`
   margin-bottom: calc(0.5 * var(--spacing-xs));
-  /* font-weight: ${theme.fontWeight.regular}; */
 `;
 
 const Counter = styled.div`
@@ -614,7 +592,7 @@ const Counter = styled.div`
     line-height: 0.2;
     border: 1px solid ${theme.color.dark};
     cursor: pointer;
-
+    background-color: transparent;
     &:hover {
       background-color: ${theme.color.green};
     }
@@ -625,14 +603,10 @@ const Counter = styled.div`
   }
 `;
 
-const PricePerUnit = styled.span`
-  font-size: var(--font-s);
-`;
-
 const StyledButton = styled.button`
-  margin-top: var(--spacing-s);
+  margin-top: var(--spacing-xs);
   width: 300px;
-  padding: var(--spacing-xs) var(--spacing-m);
+  padding: var(--spacing-xs);
   color: ${theme.color.dark};
   background-color: ${theme.color.beige};
   font-size: var(--font-s);

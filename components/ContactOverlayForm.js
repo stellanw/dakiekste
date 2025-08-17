@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { theme } from "@/styles";
-import { PiArrowDownThin, PiX, PiInfo } from "react-icons/pi";
+import { PiArrowDownThin, PiX } from "react-icons/pi";
 import Link from "next/link";
 
 export default function ContactOverlayForm({
@@ -14,8 +14,7 @@ export default function ContactOverlayForm({
   onClose,
 }) {
   const initialForm = {
-    firstName: "",
-    lastName: "",
+    fullName: "",
     pronouns: "",
     customPronouns: "",
     company: "",
@@ -100,11 +99,10 @@ export default function ContactOverlayForm({
   <p><strong>Business-Typ:</strong> ${businessType || "-"}</p>
 `;
 
-    const fullName = [data.firstName, data.lastName].filter(Boolean).join(" ").trim();
     const pronouns = data.pronouns === "andere" ? (data.customPronouns || "").trim() : data.pronouns;
 
     const payload = {
-      name: fullName || undefined,
+      name: data.fullName || undefined,
       company: data.company || undefined,
       email: data.email,
       message: combinedMessage,
@@ -246,7 +244,6 @@ export default function ContactOverlayForm({
                   </>
                 )}
                 <OverlayInfo>
-                  <PiInfo />
                   Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
                   individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
                 </OverlayInfo>
@@ -289,44 +286,80 @@ export default function ContactOverlayForm({
               </CloseButton>
               <h5>Angebotsanfrage</h5>
 
-              <OverlayLabel htmlFor="pronouns">Pronomen</OverlayLabel>
-              <SelectWrap>
-                <OverlaySelect id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange}>
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  <option value="sie/ihr">sie/ihr</option>
-                  <option value="er/ihm">er/ihm</option>
-                  <option value="they/them">they/them</option>
-                  <option value="keine Angabe">keine Angabe</option>
-                  <option value="andere">andere…</option>
-                </OverlaySelect>
-              </SelectWrap>
-              {data.pronouns === "andere" && (
-                <>
-                  <OverlayLabel htmlFor="customPronouns">Eigene Pronomen</OverlayLabel>
-                  <OverlayInput
-                    id="customPronouns"
-                    name="customPronouns"
-                    value={data.customPronouns}
-                    onChange={handleChange}
-                    placeholder="z. B. dey/deren"
-                    required
-                  />
-                </>
-              )}
+              <PronounRow>
+                <PronounCol>
+                  <OverlayLabel htmlFor="pronouns">Pronomen</OverlayLabel>
+                  <SelectWrap>
+                    <OverlaySelect id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange}>
+                      <option value="" disabled>
+                        Bitte wählen
+                      </option>
+                      <option value="sie/ihr">sie/ihr</option>
+                      <option value="er/ihm">er/ihm</option>
+                      <option value="they/them">they/them</option>
+                      <option value="keine Angabe">keine Angabe</option>
+                      <option value="andere">andere…</option>
+                    </OverlaySelect>
+                  </SelectWrap>
+                </PronounCol>
 
-              <OverlayLabel htmlFor="firstName">Vorname</OverlayLabel>
-              <OverlayInput id="firstName" name="firstName" value={data.firstName} onChange={handleChange} required />
+                {data.pronouns === "andere" && (
+                  <PronounCol>
+                    <OverlayLabel htmlFor="customPronouns">Eigene</OverlayLabel>
+                    <OverlayInput
+                      id="customPronouns"
+                      name="customPronouns"
+                      value={data.customPronouns}
+                      onChange={handleChange}
+                      placeholder="z. B. dey/deren"
+                      required
+                    />
+                  </PronounCol>
+                )}
+              </PronounRow>
 
-              <OverlayLabel htmlFor="lastName">Nachname</OverlayLabel>
-              <OverlayInput id="lastName" name="lastName" value={data.lastName} onChange={handleChange} />
+              <OverlayLabel htmlFor="fullName">Vor und Nachname</OverlayLabel>
+              <OverlayInput id="fullName" name="fullName" value={data.fullName} onChange={handleChange} placeholder="" required />
 
               <OverlayLabel htmlFor="company">Firma</OverlayLabel>
               <OverlayInput id="company" name="company" value={data.company} onChange={handleChange} />
 
               <OverlayLabel htmlFor="email">Email</OverlayLabel>
-              <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} required />
+              <OverlayInput
+                id="email"
+                name="email"
+                type="email"
+                value={data.email}
+                onChange={handleChange}
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+                title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)"
+                inputMode="email"
+                autoComplete="email"
+                required
+              />
+
+              <SummaryMobil>
+                <h5>Deine Auswahl</h5>
+                {structured.length === 0 ? (
+                  <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
+                ) : (
+                  <ListWrap>
+                    <List ref={listRef}>
+                      {structured.map((x, i) => (
+                        <li key={i}>
+                          <Row>
+                            <span>
+                              {x.title}
+                              {x.count > 1 ? ` (${x.count}x)` : ""}
+                            </span>
+                            <strong>{showOnRequest ? "auf Anfrage" : euroDash(x.price)}</strong>
+                          </Row>
+                        </li>
+                      ))}
+                    </List>
+                  </ListWrap>
+                )}
+              </SummaryMobil>
 
               <OverlayLabel htmlFor="message">Nachricht</OverlayLabel>
               <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
@@ -334,13 +367,25 @@ export default function ContactOverlayForm({
               <StyledCheckboxGroup>
                 <label>
                   <label htmlFor="acceptedTerms">
-                    <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} required />
+                    <input
+                      type="checkbox"
+                      id="acceptedTerms"
+                      name="acceptedTerms"
+                      checked={data.acceptedTerms}
+                      onChange={handleChange}
+                      onInvalid={(e) => e.target.setCustomValidity("Bitte akzeptiere die AGBs & Datenschutz, um fortzufahren.")}
+                      onInput={(e) => e.target.setCustomValidity("")}
+                      required
+                    />
                     Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
                   </label>
                 </label>
               </StyledCheckboxGroup>
 
               <OverlaySubmitButton type="submit">Abschicken</OverlaySubmitButton>
+              {/* <MobileChangeButton type="button" onClick={onClose}>
+                Auswahl ändern
+              </MobileChangeButton> */}
             </OverlayFormContainer>
           )}
         </FormCol>
@@ -398,7 +443,7 @@ const OverlayLabel = styled.label`
 
 const controlBase = `
   padding: calc(0.7*var(--spacing-xs)) var(--spacing-xs);
-  margin-bottom: var(--spacing-s);
+  margin-bottom: var(--spacing-xs);
   background-color: ${theme.color.beige} !important;
   border: 1px solid ${theme.color.dark} !important;
   color: ${theme.color.dark};
@@ -452,10 +497,10 @@ const SelectWrap = styled.div`
   &::after {
     content: "";
     position: absolute;
-    top: 35%;
+    top: 50%;
 
     @media (max-width: ${theme.breakpoints.tablet}) {
-      top: 40%;
+      top: 50%;
     }
 
     right: var(--arrow-offset);
@@ -507,8 +552,8 @@ const OverlayTextArea = styled.textarea`
 `;
 
 const OverlaySubmitButton = styled.button`
-  padding: var(--spacing-xs) var(--spacing-m);
-  font-size: var(--font-m);
+  padding: var(--spacing-xs);
+  font-size: var(--font-s);
   font-weight: ${theme.fontWeight.regular};
   background-color: ${theme.color.beige};
   color: ${theme.color.dark};
@@ -671,6 +716,28 @@ const ScrollHint = styled.button`
   }
 `;
 
+const SummaryMobil = styled.div`
+  display: flex;
+  display: none;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: var(--spacing-xs) 0;
+
+  max-height: 80px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: block;
+  }
+
+  h5 {
+    font-size: var(--font-s);
+    margin-bottom: var(--spacing-xs);
+  }
+`;
+
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
@@ -684,6 +751,18 @@ const Row = styled.div`
   strong {
     white-space: nowrap;
   }
+
+  ${SummaryMobil} & {
+    padding-bottom: var(--spacing-xs);
+
+    span {
+      font-size: var(--font-xs);
+      padding-bottom: 0;
+    }
+    strong {
+      font-size: var(--font-xs);
+    }
+  }
 `;
 
 const TotalRow = styled(Row)`
@@ -696,9 +775,10 @@ const TotalRow = styled(Row)`
 `;
 
 const ChangeButton = styled.button`
-  margin-top: var(--spacing-s);
+  font-size: var(--font-s);
+  padding: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
   width: 100%;
-  padding: var(--spacing-xs) var(--spacing-m);
   color: ${theme.color.dark};
   background: ${theme.color.beige};
   border: 1px solid ${theme.color.dark};
@@ -712,6 +792,10 @@ const ChangeButton = styled.button`
 
 const Empty = styled.p`
   opacity: 0.8;
+  ${SummaryMobil} & {
+    font-size: var(--font-xs);
+    margin-bottom: var(--spacing-xs);
+  }
 `;
 
 const StyledCheckboxGroup = styled.div`
@@ -729,6 +813,7 @@ const StyledCheckboxGroup = styled.div`
     justify-content: start;
     align-items: center;
     margin-bottom: 0;
+    margin-left: -3px;
     color: ${theme.color.dark};
   }
 `;
@@ -781,8 +866,8 @@ const StyledSuccessMessage = styled.div`
 `;
 
 const StyledButton = styled.button`
-  padding: var(--spacing-xs) var(--spacing-m);
-  font-size: var(--font-m);
+  font-size: var(--font-s);
+  padding: var(--spacing-xs);
   background-color: ${theme.color.beige};
   color: ${theme.color.dark};
   border: 1px solid ${theme.color.dark};
@@ -793,4 +878,39 @@ const StyledButton = styled.button`
     background-color: ${theme.color.green};
     color: ${theme.color.dark};
   }
+`;
+
+const MobileChangeButton = styled.button`
+  font-size: var(--font-s);
+  padding: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+  width: 100%;
+  color: ${theme.color.dark};
+  background: ${theme.color.beige};
+  border: 1px solid ${theme.color.dark};
+  text-transform: uppercase;
+  cursor: pointer;
+  display: none; /* default: ausgeblendet */
+
+  &:hover {
+    background: ${theme.color.green};
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: block;
+  }
+`;
+
+const PronounRow = styled.div`
+  display: flex;
+  gap: var(--spacing-xs);
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    gap: calc(0.5 * var(--spacing-xs));
+  }
+`;
+
+const PronounCol = styled.div`
+  flex: 1 1 50%;
+  min-width: 0;
 `;
