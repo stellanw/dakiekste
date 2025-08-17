@@ -140,7 +140,7 @@ export default async function handler(req, res) {
 
     // Admin-Mail
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"DAKIEKSTE | WEBFORMULAR" <${process.env.EMAIL_USER}>`,
       replyTo: email,
       to: process.env.EMAIL_TO || process.env.EMAIL_USER,
       subject: adminSubject,
@@ -150,7 +150,7 @@ export default async function handler(req, res) {
 
     // Kunden-Mail
     await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+      from: `"DAKIEKSTE⌾" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Deine Anfrage bei uns",
       text: customerText,

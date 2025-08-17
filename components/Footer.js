@@ -17,6 +17,8 @@ export default function Footer() {
             <StyledImpressum>impressum</StyledImpressum>
           </Link>
         </div>
+        <p>you are safe with us 🏳️‍⚧️ 🏳️‍🌈 – and so are your cookies 🍪</p>
+        <p>© 2025 | Dakiekste. Alle Rechte vorbehalten.</p>
       </StyledLeftWrapper>
       <StyledRightWrapper>
         <StyledLink href={createMailToLink()} target="_blank" rel="noopener noreferrer">
@@ -79,6 +81,11 @@ const StyledLeftWrapper = styled.div`
   justify-content: start;
   align-items: start;
   margin-top: var(--spacing-xl);
+
+  p {
+    margin-top: var(--spacing-xs);
+    font-size: var(--font-m);
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -98,6 +105,7 @@ const StyledLink = styled(Link)`
 const StyledImpressum = styled.p`
   font-size: var(--font-s);
   margin: 0;
+  margin-bottom: var(--spacing-m);
 `;
 
 const StyledIcon = styled(PiArrowRightLight)`

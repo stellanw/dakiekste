@@ -491,7 +491,7 @@ const StyledArrowIcon = styled(PiArrowUpRight)`
   cursor: pointer;
   transition: transform 0.3s ease;
   &.rotate {
-    transform: rotate(180deg);
+    transform: scale(1.2) rotate(180deg);
   }
 `;
 

@@ -34,10 +34,8 @@ import section02_slider03 from "/public/images/02_Slider/branding-fotografie-bil
 import section02_slider04 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-02.jpg";
 import section02_slider05 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-03.jpg";
 import section02_slider06 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-04.jpg";
-import section02_slider07 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-05.jpg";
-import section02_slider08 from "/public/images/02_Slider/team-portrait-foto-erneuerbare-energie-dakiekste-01.jpg";
 
-//03_Workflow
+//03_Service
 import section03_service01 from "/public/images/03_Service/behind-the-scenes-dakiekste-01.jpg";
 import section03_service02 from "/public/images/03_Service/behind-the-scenes-dakiekste-02.jpg";
 import section03_service03 from "/public/images/03_Service/behind-the-scenes-dakiekste-03.jpg";
@@ -126,14 +124,6 @@ export default function HomePage() {
           {
             alt: "",
             image: section02_slider03,
-          },
-          {
-            alt: "",
-            image: section02_slider07,
-          },
-          {
-            alt: "",
-            image: section02_slider08,
           },
           {
             alt: "",

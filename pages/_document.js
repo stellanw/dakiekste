@@ -1,11 +1,23 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-const SITE_URL = process.env.NODE_ENV === "production" ? "https://dakiekste.com" : "https://dakiekste.vercel.app";
+const getSiteUrl = () => {
+  // 1) explizit gesetzt (empfohlen)
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+
+  // 2) Vercel Preview/Prod: VERCEL_URL enthält host (ohne Protokoll)
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+
+  // 3) Local dev fallback
+  return "http://localhost:3000";
+};
+
+const SITE_URL = getSiteUrl();
+
 const TITLE = "DAKIEKSTE | Branding, Fotografie, Design & Website aus Hamburg";
 const DESCRIPTION =
   "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus  Fotografie, Branding, Design & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.";
-const OG_IMAGE = `${SITE_URL}/og.jpg`;
+const OG_IMAGE = `${SITE_URL}/og.jpg?v=2`;
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -35,7 +47,7 @@ export default class MyDocument extends Document {
           {" "}
           <link rel="icon" type="image/png" href="/favicon.png" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
           <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
           {/* Default SEO / Open Graph */}
           <meta name="description" content={DESCRIPTION} />
@@ -53,9 +65,11 @@ export default class MyDocument extends Document {
           <meta name="twitter:title" content={TITLE} />
           <meta name="twitter:description" content={DESCRIPTION} />
           <meta name="twitter:image" content={OG_IMAGE} />
+          {/* Canonical unbedingt mit derselben Domain wie OG */}
+          <link rel="canonical" href={SITE_URL} />
+          {/* Theme-Color */}
           <meta name="theme-color" content="#A3FFB7" media="(prefers-color-scheme: light)" />
           <meta name="theme-color" content="#252422" media="(prefers-color-scheme: dark)" />
-          <link rel="canonical" href={SITE_URL} />
         </Head>
         <body>
           <Main />
