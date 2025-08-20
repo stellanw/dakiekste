@@ -82,7 +82,7 @@ const FAQList = styled.ul`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 450px;
+  max-height: 350px;
   overflow-y: scroll;
   border-right: solid 1px ${theme.color.beige};
   padding-right: var(--spacing-m);
