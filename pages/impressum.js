@@ -1,4 +1,4 @@
-// import Header from "@/components/Header";
+import Header from "@/components/Header";
 import NavBar from "@/components/NavBar";
 import { theme } from "@/styles";
 import styled from "styled-components";
@@ -23,7 +23,7 @@ export default function Impressum() {
   return (
     <>
       <NavBar />
-      {/* <Header useImageBackground={false} /> */}
+      <Header useImageBackground={false} />
       <StyledImpressumContainer>
         <button
           onClick={handleBack}

@@ -263,7 +263,7 @@ export default function ContactOverlayForm({
               </CloseButton>
               <h3>Danke für deine Nachricht!</h3>
               <p>{responseMessage}</p>
-              <StyledButton
+              {/* <StyledButton
                 type="button"
                 onClick={() => {
                   setResponseMessage("");
@@ -271,7 +271,7 @@ export default function ContactOverlayForm({
                 }}
               >
                 Neue Nachricht senden
-              </StyledButton>
+              </StyledButton> */}
             </StyledSuccessMessage>
           ) : isError ? (
             <StyledSuccessMessage>
@@ -382,10 +382,10 @@ export default function ContactOverlayForm({
                 </label>
               </StyledCheckboxGroup>
 
-              <OverlaySubmitButton type="submit">Abschicken</OverlaySubmitButton>
-              {/* <MobileChangeButton type="button" onClick={onClose}>
+              <MobileChangeButton type="button" onClick={onClose}>
                 Auswahl ändern
-              </MobileChangeButton> */}
+              </MobileChangeButton>
+              <OverlaySubmitButton type="submit">Abschicken</OverlaySubmitButton>
             </OverlayFormContainer>
           )}
         </FormCol>
@@ -553,6 +553,7 @@ const OverlayTextArea = styled.textarea`
 
 const OverlaySubmitButton = styled.button`
   padding: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
   font-size: var(--font-s);
   font-weight: ${theme.fontWeight.regular};
   background-color: ${theme.color.beige};
@@ -735,6 +736,7 @@ const SummaryMobil = styled.div`
   h5 {
     font-size: var(--font-s);
     margin-bottom: var(--spacing-xs);
+    letter-spacing: 0.003rem;
   }
 `;
 
@@ -845,22 +847,21 @@ const StyledSuccessMessage = styled.div`
   background-color: ${theme.color.beige};
   border: 1px solid ${theme.color.dark};
   border-radius: ${theme.borderRadius};
-  padding: var(--spacing-l);
+  padding: var(--side-padding);
   width: 100%;
   max-width: 600px;
   color: ${theme.color.dark};
-  text-align: center;
+  text-align: start;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   h3 {
-    margin-bottom: var(--spacing-m);
   }
 
   p {
-    margin-bottom: var(--spacing-m);
-    font-size: var(--font-s);
+    /* margin-bottom: var(--spacing-m); */
+
     line-height: ${theme.lineHeight.xxl};
   }
 `;
@@ -883,7 +884,7 @@ const StyledButton = styled.button`
 const MobileChangeButton = styled.button`
   font-size: var(--font-s);
   padding: var(--spacing-xs);
-  margin-top: var(--spacing-xs);
+
   width: 100%;
   color: ${theme.color.dark};
   background: ${theme.color.beige};

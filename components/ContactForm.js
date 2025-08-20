@@ -108,8 +108,8 @@ export default function ContactForm() {
   return (
     <StyledFormWrapper>
       <StyledTextContainer>
-        <h2>Bereit, was zu starten?</h2>
-        <h4>Lass uns dein Projekt sichtbar machen – strategisch und visuell.</h4>
+        <h2>LASS UNS REDEN</h2>
+        <h4>Schreib uns eine Nachricht und lass uns gemeinsam deine Marke voranbringen.</h4>
       </StyledTextContainer>
 
       {isSuccess ? (
@@ -149,36 +149,40 @@ export default function ContactForm() {
                 </StyledSelect>
               </SelectWrap>
             </Wrapper>
-            <Wrapper>
+            {/* <Wrapper>
               {formData.pronouns === "andere" && (
                 <>
                   <label htmlFor="customPronouns">Eigene Pronomen</label>
                   <StyledInput name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z. B. dey/deren" />
                 </>
               )}
+            </Wrapper> */}
+            <Wrapper>
+              <label htmlFor="firstName">Vor und Nachname</label>
+              <StyledInput name="firstName" value={formData.firstName} onChange={handleChange} required />
             </Wrapper>
           </SideBySideWrapper>
           <SideBySideWrapper>
-            <Wrapper>
+            {/* <Wrapper>
               <label htmlFor="firstName">Vorname</label>
               <StyledInput name="firstName" value={formData.firstName} onChange={handleChange} required />
-            </Wrapper>
-            <Wrapper>
+            </Wrapper> */}
+            {/* <Wrapper>
               <label htmlFor="lastName">Nachname</label>
               <StyledInput name="lastName" value={formData.lastName} onChange={handleChange} required />
-            </Wrapper>
+            </Wrapper> */}
           </SideBySideWrapper>
           <SideBySideWrapper>
             <Wrapper>
               <label htmlFor="email">Email</label>
               <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
             </Wrapper>
-            <Wrapper>
+            {/* <Wrapper>
               <label htmlFor="company">Firma</label>
               <StyledInput name="company" value={formData.company} onChange={handleChange} />
-            </Wrapper>
+            </Wrapper> */}
           </SideBySideWrapper>
-          <label htmlFor="roles">Wer bist du?</label>
+          {/* <label htmlFor="roles">Wer bist du?</label>
           <StyledCheckboxGroup>
             {["Unternehmen", "Gründer*in", "Soloselbstständig", "Verein/Organisation"].map((role) => (
               <StyledLabel key={role}>
@@ -201,7 +205,7 @@ export default function ContactForm() {
                 {range}
               </StyledLabel>
             ))}
-          </StyledCheckboxGroup>
+          </StyledCheckboxGroup> */}
           <label htmlFor="message">Deine Nachricht</label>
           <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
           <StyledCheckboxGroup>
@@ -302,7 +306,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledInput = styled.input`
-  margin-bottom: var(--spacing-s);
+  margin-bottom: var(--spacing-xs);
   padding: var(--spacing-xs);
   height: var(--spacing-m);
 
@@ -367,7 +371,7 @@ const StyledCheckboxGroup = styled.div`
   flex-wrap: wrap;
   column-gap: var(--spacing-xs);
   row-gap: 0;
-  padding-bottom: var(--spacing-s);
+  padding-bottom: var(--spacing-xs);
   font-size: var(--font-xs);
   label {
     font-weight: ${theme.fontWeight.light};
@@ -481,7 +485,7 @@ const SelectWrap = styled.div`
 const StyledSelect = styled.select`
   display: block;
   width: 100%;
-  margin-bottom: var(--spacing-s);
+  margin-bottom: var(--spacing-xs);
   padding: var(--spacing-xs);
   height: var(--spacing-m);
 

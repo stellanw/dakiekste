@@ -166,8 +166,18 @@ export default function Pricing({ pricingData, servicesData }) {
         />
       )}
       <HeadlineContainer>
-        <h2>PREISKALKULATOR</h2>
-        {isMobile ? <h4>Schätze deinen Invest ein.</h4> : <h4>Sichtbarkeit beginnt mit Klarheit – auch beim Budget.</h4>}
+        <h2>BUDGETPLANUNG</h2>
+        {isMobile ? (
+          <h4>
+            Jedes Projekt ist individuell – genau wie dein Budget. <br />
+            Für eine erste Orientierung nutze unseren Preiskalkulator.
+          </h4>
+        ) : (
+          <h4>
+            Jedes Projekt ist individuell – genau wie dein Budget. <br />
+            Für eine erste Orientierung nutze unseren Preiskalkulator.
+          </h4>
+        )}
       </HeadlineContainer>
       <CalculatorContainer>
         <CategoriesContainer>
@@ -338,6 +348,10 @@ const HeadlineContainer = styled.div`
   margin-bottom: var(--spacing-xl);
   width: 100%;
   padding: 0 var(--spacing-xl);
+  h4 {
+    text-align: center;
+    max-width: 1000px;
+  }
 `;
 
 const CalculatorContainer = styled.div`
@@ -539,6 +553,7 @@ const TitleCheckboxContainer = styled.div`
 const ServiceTitle = styled.h2`
   padding: 0;
   font-weight: ${theme.fontWeight.mediumBold};
+  margin: 0;
 `;
 
 const OverlayDescription = styled.div`
@@ -550,7 +565,7 @@ const OverlayDescription = styled.div`
 
 const Description = styled.p`
   animation: slide-animation 0.5s ease;
-
+  font-weight: ${theme.fontWeight.light};
   @keyframes slide-animation {
     0% {
       height: 0;
@@ -626,6 +641,8 @@ const ServicePrice = styled.p`
   padding-top: var(--spacing-s);
   text-transform: none;
   font-weight: ${theme.fontWeight.regular};
+  span {
+  }
 `;
 
 const OverlayInfo = styled.p`
