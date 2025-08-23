@@ -2,7 +2,7 @@ import { theme } from "@/styles";
 import styled from "styled-components";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { PiArrowRightLight } from "react-icons/pi";
+import { PiPlus, PiMinus } from "react-icons/pi";
 
 export default function Team({ teamMembers = [] }) {
   const containerRef = useRef(null);
@@ -27,10 +27,10 @@ export default function Team({ teamMembers = [] }) {
           </StyledMemberImageContainer>
 
           <NameIconContainer>
+            <ToggleIcon onClick={() => toggleExpand(index)}>{expandedIndex === index ? <PiMinus /> : <PiPlus />}</ToggleIcon>
             <h6>{member.name}</h6>
-            <StyledPiArrowRightLight onClick={() => toggleExpand(index)} isExpanded={expandedIndex === index} />
           </NameIconContainer>
-          {/* {expandedIndex === index && <TextContainer>{member.text}</TextContainer>} */}
+
           <TextContainer $isExpanded={expandedIndex === index}>
             <Inner>{member.text}</Inner>
           </TextContainer>
@@ -101,6 +101,7 @@ const StyledMemberImage = styled(Image)`
 `;
 
 const NameIconContainer = styled.div`
+  position: relative;
   display: flex;
   padding-top: var(--spacing-xs);
 
@@ -109,22 +110,9 @@ const NameIconContainer = styled.div`
   }
 
   h6 {
-    margin-right: var(--spacing-xs);
+    margin-left: var(--spacing-m);
   }
 `;
-
-const StyledPiArrowRightLight = styled(PiArrowRightLight)`
-  stroke-width: 15;
-  transform: ${({ isExpanded }) => (isExpanded ? "rotate(45deg)" : "rotate(-45deg)")};
-  transition: transform 0.3s ease;
-  cursor: pointer;
-`;
-
-// const TextContainer = styled.div`
-//   p {
-//     padding-bottom: var(--spacing-xs);
-//   }
-// `;
 
 const TextContainer = styled.div`
   display: grid;
@@ -139,5 +127,24 @@ const Inner = styled.div`
   overflow: hidden; /* wichtig fürs „Zufahren“ */
   p {
     padding-bottom: var(--spacing-xs);
+  }
+`;
+
+const ToggleIcon = styled.div`
+  position: absolute;
+  cursor: pointer;
+  font-size: var(--font-l);
+  color: ${theme.color.dark};
+  top: 25%;
+  left: 0;
+  &:hover {
+    scale: 1.15;
+  }
+
+  svg {
+    border-radius: 3px;
+    stroke-width: 8px;
+    background-color: ${theme.color.green};
+    padding: 4px;
   }
 `;
