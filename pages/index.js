@@ -319,12 +319,11 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
       </section>
       <section id="studio">
         <StudioBox
-          autoplay="false"
           topline="UNSER STUDIO"
           headline="Viel Raum für deine Ideen"
           text1="Unser Studio bietet den Raum, den kreative Ideen brauchen: lichtdurchflutetes Tageslichtstudio und wandelbare Sets. Mit einer Auswahl an Hintergründen und Requisiten lassen sich unterschiedlichste Konzepte umsetzen. Für eine entspannte Atmosphäre sorgen kostenfreie Parkplätze, Kaffee und Tee – alles, was ein gutes Shooting braucht."
           text2=""
-          slides={[
+          cards={[
             {
               image: section08_Studio05,
               title: "Freie Parkplätze",
@@ -374,6 +373,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           ]}
         />
       </section>
+
       <ImageElement image={section09_Image01} alt="Bildbeschreibung" />
       <section id="team">
         <TeamText

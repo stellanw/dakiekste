@@ -1,33 +1,35 @@
 import Image from "next/image";
 import styled from "styled-components";
 import { theme } from "@/styles";
-import { useRef, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useRef, useEffect, useLayoutEffect, useMemo, useState, useCallback } from "react";
 import { PiArrowRightLight } from "react-icons/pi";
 
 export default function ScrollBox({ boxData = [], headline1, headline2, introText, showIcon = false }) {
   const scrollRef = useRef(null);
 
-  const onWheel = (e) => {
-    const c = scrollRef.current;
-    if (!c) return;
-    // vertikal bevorzugen, sonst echtes deltaX nutzen (Trackpad)
-    const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-    if (!delta) return;
-    e.preventDefault(); // wichtig, sonst „verpufft“ es
-    cancelAnimationFrame(rafMomentumRef.current); // Momentum abbrechen
-    const WHEEL_GAIN = 1.0; // 0.8–1.2 nach Geschmack
-    const next = wrapLeft(getScroll() + delta * WHEEL_GAIN);
-    applyScroll(next);
-  };
-
   const [isDragging, setIsDragging] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
-  const dragRef = useRef({ startX: 0, startScroll: 0, lastX: 0, lastT: 0, vx: 0 });
+  // Fokus-Modus
+  const [focusedIndex, setFocusedIndex] = useState(null);
+  const rafScrollToRef = useRef(null);
+
+  // Bookkeeping
+  const dragRef = useRef({
+    startX: 0,
+    startY: 0,
+    startScroll: 0,
+    lastX: 0,
+    lastT: 0,
+    vx: 0,
+    downTime: 0,
+  });
   const rafAutoRef = useRef(null);
   const rafMomentumRef = useRef(null);
 
+  // Loop math
   const seqWRef = useRef(0);
   const startRef = useRef(0);
   const readyRef = useRef(false);
@@ -45,22 +47,17 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
 
   const tripleData = useMemo(() => [...boxData, ...boxData, ...boxData], [boxData]);
 
-  // wrap ohne doppelten Write
   const wrapLeft = (left) => {
     const w = seqWRef.current;
     const start = startRef.current;
     if (!readyRef.current || w <= 0) return left;
-    if (left - start >= w) {
-      // mehrere Sequenzen auf einmal abdecken
-      return left - w * Math.floor((left - start) / w);
-    }
-    if (left < start) {
-      return left + w * Math.ceil((start - left) / w);
-    }
+    if (left - start >= w) return left - w * Math.floor((left - start) / w);
+    if (left < start) return left + w * Math.ceil((start - left) / w);
     return left;
   };
 
-  const measure = () => {
+  // messen
+  const measure = useCallback(() => {
     const c = scrollRef.current;
     if (!c || boxData.length === 0) return;
 
@@ -77,10 +74,9 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
     seqWRef.current = seqW;
     startRef.current = left1;
 
-    const mid = left1;
-    applyScroll(mid);
+    applyScroll(left1);
     readyRef.current = true;
-  };
+  }, [boxData.length]);
 
   useLayoutEffect(() => {
     const id = requestAnimationFrame(() => requestAnimationFrame(measure));
@@ -94,20 +90,117 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
       cancelAnimationFrame(id);
       window.removeEventListener("resize", onResize);
     };
-  }, [boxData.length]);
+  }, [measure]);
 
-  // Autoplay (ruhig + weich)
+  //no scale bei touch
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const update = () => setIsTouch(mq.matches);
+    update();
+    // Safari <16 fallback
+    if (mq.addEventListener) mq.addEventListener("change", update);
+    else mq.addListener(update);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", update);
+      else mq.removeListener(update);
+    };
+  }, []);
+
+  /* ===========================
+     WHEEL: HORIZ/NUDGE OHNE preventDefault
+  ============================*/
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleWheel = (e) => {
+      const absX = Math.abs(e.deltaX);
+      const absY = Math.abs(e.deltaY);
+
+      if (absX > absY * 1.1 || e.shiftKey) {
+        applyScroll(wrapLeft(getScroll() + e.deltaX));
+      } else {
+        const NUDGE = 0.35; // 0.2–0.5 feintunen
+        applyScroll(wrapLeft(getScroll() + e.deltaY * NUDGE));
+      }
+    };
+
+    el.addEventListener("wheel", handleWheel, { passive: true });
+    return () => el.removeEventListener("wheel", handleWheel);
+  }, []); // nur Refs
+
+  // smooth scroll-to
+  const scrollToLeft = useCallback((target, duration = 420) => {
+    cancelAnimationFrame(rafScrollToRef.current);
+    const start = getScroll();
+    const delta = target - start;
+    const t0 = performance.now();
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const step = (now) => {
+      const t = Math.min(1, (now - t0) / duration);
+      applyScroll(wrapLeft(start + delta * easeOutCubic(t)));
+      if (t < 1) rafScrollToRef.current = requestAnimationFrame(step);
+    };
+    rafScrollToRef.current = requestAnimationFrame(step);
+  }, []);
+
+  // Card zentrieren
+  const centerCard = useCallback(
+    (i) => {
+      const c = scrollRef.current;
+      if (!c) return;
+      const el = c.children[i];
+      if (!el) return;
+      const elCenter = el.offsetLeft + el.offsetWidth / 2;
+      const viewCenter = getScroll() + c.clientWidth / 2;
+      const target = getScroll() + (elCenter - viewCenter);
+      cancelAnimationFrame(rafMomentumRef.current);
+      scrollToLeft(target, 420);
+    },
+    [scrollToLeft]
+  );
+
+  // Toggle Focus
+  const onCardClick = useCallback(
+    (i) => {
+      setFocusedIndex((prev) => {
+        const next = prev === i ? null : i;
+        if (next !== null) requestAnimationFrame(() => centerCard(i));
+        return next;
+      });
+    },
+    [centerCard]
+  );
+
+  // Outside-Click schließt Focus
+  useEffect(() => {
+    if (focusedIndex === null) return;
+    const onDocPointerDown = (e) => {
+      const wrapper = scrollRef.current;
+      if (!wrapper) return;
+      if (!wrapper.contains(e.target)) {
+        setFocusedIndex(null);
+        return;
+      }
+      const cardEl = e.target.closest("[data-card-idx]");
+      const idx = cardEl ? Number(cardEl.dataset.cardIdx) : null;
+      if (idx !== focusedIndex) setFocusedIndex(null);
+    };
+    document.addEventListener("pointerdown", onDocPointerDown);
+    return () => document.removeEventListener("pointerdown", onDocPointerDown);
+  }, [focusedIndex]);
+
+  // Autoplay
   useEffect(() => {
     if (prefersReducedMotion) return;
 
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const BASE_SPEED_DESKTOP = 0.1;
-    const BASE_SPEED_MOBILE = 0.03;
-    const BASE_SPEED = isMobile ? BASE_SPEED_MOBILE : BASE_SPEED_DESKTOP;
+    const BASE_SPEED = isMobile ? 0.03 : 0.05;
 
-    let currentSpeed = 0; // px/ms
+    let currentSpeed = 0;
     let targetSpeed = 0;
-    const LERP = 0.045; // weicher
+    const LERP = 0.045;
 
     let last = performance.now();
 
@@ -118,15 +211,13 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
       const dt = now - last;
       last = now;
 
-      const paused = isDragging || isHovering || isFocused || !readyRef.current;
+      const paused = isDragging || isHovering || isFocused || focusedIndex !== null || !readyRef.current;
       targetSpeed = paused ? 0 : BASE_SPEED;
 
-      // kein wobble -> weniger micro-jitter
       currentSpeed += (targetSpeed - currentSpeed) * LERP;
 
       if (!paused && currentSpeed > 0.0002) {
-        const next = wrapLeft(getScroll() + currentSpeed * dt);
-        applyScroll(next);
+        applyScroll(wrapLeft(getScroll() + currentSpeed * dt));
       }
 
       rafAutoRef.current = requestAnimationFrame(tick);
@@ -138,32 +229,29 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
       if (document.visibilityState === "hidden") {
         cancelAnimationFrame(rafAutoRef.current);
       } else {
-        const now = performance.now();
         rafAutoRef.current = requestAnimationFrame((t) => {
-          last = t; // dt resetten
+          last = t;
           tick(t);
         });
       }
     };
     document.addEventListener("visibilitychange", onVis);
-
     return () => {
       cancelAnimationFrame(rafAutoRef.current);
       document.removeEventListener("visibilitychange", onVis);
     };
-  }, [isDragging, isHovering, isFocused, prefersReducedMotion]);
+  }, [isDragging, isHovering, isFocused, prefersReducedMotion, focusedIndex]);
 
-  // Momentum (länger & smoother)
+  // Momentum (Drag → Nachrollen)
   const startMomentum = (initialVx) => {
     cancelAnimationFrame(rafMomentumRef.current);
     if (prefersReducedMotion) return;
-
     const c = scrollRef.current;
     if (!c || !readyRef.current) return;
 
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const MAX_VX = isMobile ? 1.1 : 1.3; // px/ms
-    const FRICTION = isMobile ? 0.0013 : 0.0011; // kleiner = länger
+    const MAX_VX = isMobile ? 1.1 : 1.3;
+    const FRICTION = isMobile ? 0.0013 : 0.0011;
     const CUTOFF = 0.0025;
 
     let vx = Math.max(Math.min(initialVx, MAX_VX), -MAX_VX);
@@ -173,13 +261,10 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
       const dt = now - last;
       last = now;
 
-      // Reibung in Richtung 0
       if (vx > 0) vx = Math.max(0, vx - FRICTION * dt);
       else if (vx < 0) vx = Math.min(0, vx + FRICTION * dt);
 
-      const next = wrapLeft(getScroll() - vx * dt);
-      applyScroll(next);
-
+      applyScroll(wrapLeft(getScroll() - vx * dt));
       if (Math.abs(vx) > CUTOFF) {
         rafMomentumRef.current = requestAnimationFrame(step);
       }
@@ -190,18 +275,31 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
     }
   };
 
-  // Pointer Events
+  // Pointer Events + Klick-Erkennung über pointerup
+  const CLICK_MAX_DIST = 6; // px – bis zu dieser Bewegung zählt es noch als Klick
+  const CLICK_MAX_TIME = 600; // ms – optionaler Zeit-Guard
+
   const onPointerDown = (e) => {
     const c = scrollRef.current;
     if (!c) return;
+
+    if (focusedIndex !== null) {
+      const cardEl = e.target.closest("[data-card-idx]");
+      const i = cardEl ? Number(cardEl.dataset.cardIdx) : null;
+      if (i !== focusedIndex) setFocusedIndex(null);
+    }
+
     c.setPointerCapture?.(e.pointerId);
     setIsDragging(true);
     c.classList.add("dragging");
 
     const x = e.clientX;
+    const y = e.clientY;
     dragRef.current.startX = x;
+    dragRef.current.startY = y;
     dragRef.current.lastX = x;
     dragRef.current.lastT = performance.now();
+    dragRef.current.downTime = dragRef.current.lastT;
     dragRef.current.vx = 0;
     dragRef.current.startScroll = getScroll();
 
@@ -239,18 +337,41 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
     setIsDragging(false);
     c.classList.remove("dragging");
     c.releasePointerCapture?.(e.pointerId);
+
+    // ---- Klick-Erkennung ----
+    const dx = e.clientX - dragRef.current.startX;
+    const dy = e.clientY - dragRef.current.startY;
+    const dist = Math.hypot(dx, dy);
+    const elapsed = performance.now() - dragRef.current.downTime;
+
+    // Wenn kleine Bewegung + kurzer Tap → als Klick behandeln
+    if (dist <= CLICK_MAX_DIST && elapsed <= CLICK_MAX_TIME) {
+      const elUnder = document.elementFromPoint(e.clientX, e.clientY);
+      const cardEl = elUnder?.closest?.("[data-card-idx]");
+      const idx = cardEl ? Number(cardEl.dataset.cardIdx) : null;
+      if (idx !== null && !Number.isNaN(idx)) {
+        onCardClick(idx);
+        return; // KEIN Momentum beim Klick
+      }
+    }
+
+    // Andernfalls: Momentum
     startMomentum(dragRef.current.vx);
   };
 
+  useEffect(() => {
+    return () => cancelAnimationFrame(rafScrollToRef.current);
+  }, []);
+
   return (
-    <StyledSlideBoxContainer>
+    <ScrollBoxContainer>
       <StyledTextBox>
         <h2>{headline1}</h2>
         <h4>{headline2}</h4>
         <p>{introText}</p>
       </StyledTextBox>
 
-      <StyledScrollBoxContainer
+      <StyledScrollBoxWrapper
         ref={scrollRef}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -263,60 +384,73 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
         onMouseLeave={() => setIsHovering(false)}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        onWheel={onWheel}
         role="listbox"
         aria-label="Horizontale Scroll-Liste"
       >
-        {tripleData.map(({ label, title, mobileTitle, text, image }, i) => (
-          <StyledScrollBox key={i}>
-            <StyledScrollBoxInner>
-              <h2>
-                {(showIcon === true || showIcon === "true") && (
-                  <StyledIcon>
-                    <PiArrowRightLight />
-                  </StyledIcon>
+        {tripleData.map(({ label, title, mobileTitle, text, image }, i) => {
+          const focused = focusedIndex === i;
+          return (
+            <StyledScrollBox
+              key={i}
+              data-card-idx={i}
+              /* onClick entfernt – Klick in endDrag */
+              style={{ zIndex: focused ? 5 : 0 }}
+            >
+              <StyledScrollBoxInner
+                style={{
+                  transform: focused && !isTouch ? "scale(1.12)" : "scale(1)",
+                  transition: "transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+                  transformOrigin: "center center",
+                  willChange: "transform",
+                }}
+              >
+                <h2>
+                  {(showIcon === true || showIcon === "true") && (
+                    <StyledIcon>
+                      <PiArrowRightLight />
+                    </StyledIcon>
+                  )}
+                  {label || `0${(i % boxData.length) + 1}`}
+                </h2>
+
+                <StyledDesktopTitle>{title}</StyledDesktopTitle>
+                <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
+
+                {image && (
+                  <ImageWrapper>
+                    <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
+                  </ImageWrapper>
                 )}
-                {label || `0${(i % boxData.length) + 1}`}
-              </h2>
 
-              <StyledDesktopTitle>{title}</StyledDesktopTitle>
-              <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
-
-              {image && (
-                <ImageWrapper>
-                  <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
-                </ImageWrapper>
-              )}
-
-              <p>{text}</p>
-            </StyledScrollBoxInner>
-          </StyledScrollBox>
-        ))}
-      </StyledScrollBoxContainer>
-    </StyledSlideBoxContainer>
+                <p>{text}</p>
+              </StyledScrollBoxInner>
+            </StyledScrollBox>
+          );
+        })}
+      </StyledScrollBoxWrapper>
+    </ScrollBoxContainer>
   );
 }
 
 /* --- Styles --- */
 
-const StyledSlideBoxContainer = styled.div`
+const ScrollBoxContainer = styled.div`
   background-color: ${theme.color.dark};
   padding: var(--spacing-xxxl) 0;
   overflow: hidden;
 `;
 
-const StyledScrollBoxContainer = styled.div`
+const StyledScrollBoxWrapper = styled.div`
   display: flex;
   position: relative;
   user-select: none;
   overflow-x: scroll;
 
-  /* iOS soll nicht mit nativer Inertia "dagegen arbeiten" */
   -webkit-overflow-scrolling: auto;
-  touch-action: pan-y; /* vertikal scrollen erlauben, horizontal übernehmen wir */
+  touch-action: pan-y;
   contain: layout paint;
 
-  background-color: ${theme.color.dark};
+  background-color: transparent;
   min-width: 250px;
   margin-left: var(--side-padding);
   padding: var(--spacing-xxl) 0 0 0;
@@ -328,8 +462,8 @@ const StyledScrollBoxContainer = styled.div`
     cursor: grabbing;
   }
 
-  -ms-overflow-style: none; /* IE/Edge alt */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
@@ -349,15 +483,7 @@ const StyledTextBox = styled.div`
   }
 `;
 
-const StyledScrollBoxInner = styled.div`
-  will-change: transform;
-  transform-origin: left center;
-  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-`;
+const StyledScrollBoxInner = styled.div``; // Inline-Styles für Scaling
 
 const StyledScrollBox = styled.div`
   display: flex;
@@ -367,26 +493,7 @@ const StyledScrollBox = styled.div`
   color: ${theme.color.beige};
   padding: 0 var(--spacing-xl) var(--spacing-xxl) 0;
   min-width: 600px;
-  flex: 0 0 1; /* gleiche Breite erzwingen */
-
-  z-index: 0; /* Basis, wir liften auf Hover */
-  &:hover {
-    z-index: 3;
-  }
-
-  /* Nur auf Geräten mit Hover/Fine Pointer zoomen */
-  @media (hover: hover) and (pointer: fine) {
-    &:hover ${StyledScrollBoxInner} {
-      transform: scale(1.03); /* Stellschraube: 1.02–1.05 */
-    }
-  }
-
-  /* Auf Touch dezent bei Tap („active“) */
-  @media (hover: none) {
-    &:active ${StyledScrollBoxInner} {
-      transform: scale(1.01);
-    }
-  }
+  flex: 0 0 1;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     min-width: 350px;
@@ -432,371 +539,3 @@ const StyledImage = styled(Image)`
   object-position: center;
   border-radius: ${theme.borderRadius};
 `;
-
-// import Image from "next/image";
-// import styled from "styled-components";
-// import { theme } from "@/styles";
-// import { useRef, useEffect, useState } from "react";
-// import { PiArrowRightLight } from "react-icons/pi";
-
-// export default function ScrollBox({ boxData = [], headline1, headline2, introText, showIcon = false }) {
-//   const scrollRef = useRef(null);
-
-//   // UI/Interaction State
-//   const [isDragging, setIsDragging] = useState(false);
-//   const [isHovering, setIsHovering] = useState(false);
-//   const [isFocused, setIsFocused] = useState(false);
-
-//   // Drag bookkeeping
-//   const dragRef = useRef({
-//     startX: 0,
-//     startScroll: 0,
-//     lastX: 0,
-//     lastT: 0,
-//     vx: 0, // px/ms
-//   });
-
-//   // RAF ids
-//   const rafAutoRef = useRef(null);
-//   const rafMomentumRef = useRef(null);
-
-//   // Settings
-//   const BASE_SPEED = 0.04; // px/ms (≈ 2.4px/s) – super langsam, dreh nach Bedarf hoch
-//   const FRICTION = 0.0025; // Reibung für Momentum (px/ms^2)
-//   const MAX_VX = 1.2; // Kappe maximale Geschwindigkeit
-
-//   const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-//   // --- Helpers ---
-//   const container = () => scrollRef.current;
-//   const totalWidth = () => container()?.scrollWidth ?? 0;
-//   const viewWidth = () => container()?.clientWidth ?? 0;
-
-//   // Endlos-Loop: wir rendern boxData zweimal hintereinander
-//   const doubledData = [...boxData, ...boxData];
-
-//   // Auto-Scroll per RAF
-//   useEffect(() => {
-//     if (prefersReducedMotion) return;
-
-//     let last = performance.now();
-
-//     const tick = (now) => {
-//       const c = container();
-//       if (!c) return;
-
-//       const dt = now - last;
-//       last = now;
-
-//       const paused = isDragging || isHovering || isFocused;
-//       if (!paused) {
-//         c.scrollLeft += BASE_SPEED * dt;
-//         // Endlos-Reset
-//         const half = (totalWidth() - viewWidth()) / 2; // halbe Strecke der doppelten Liste
-//         if (half > 0 && c.scrollLeft >= half) {
-//           c.scrollLeft -= half;
-//         }
-//       }
-//       rafAutoRef.current = requestAnimationFrame(tick);
-//     };
-
-//     rafAutoRef.current = requestAnimationFrame(tick);
-//     return () => cancelAnimationFrame(rafAutoRef.current);
-//   }, [isDragging, isHovering, isFocused, prefersReducedMotion]);
-
-//   //Pause bei Visibility hidden
-//   useEffect(() => {
-//     const handleVisibility = () => {
-//       if (document.visibilityState === "hidden") {
-//         cancelAnimationFrame(rafAutoRef.current);
-//       } else {
-//         rafAutoRef.current = requestAnimationFrame(tick);
-//       }
-//     };
-//     document.addEventListener("visibilitychange", handleVisibility);
-//     return () => document.removeEventListener("visibilitychange", handleVisibility);
-//   }, []);
-
-//   // Momentum-Scroll nach Loslassen
-//   const startMomentum = (initialVx) => {
-//     cancelAnimationFrame(rafMomentumRef.current);
-//     if (prefersReducedMotion) return;
-
-//     const c = container();
-//     if (!c) return;
-
-//     let vx = Math.max(Math.min(initialVx, MAX_VX), -MAX_VX); // clamp
-//     let last = performance.now();
-
-//     const step = (now) => {
-//       const dt = now - last;
-//       last = now;
-
-//       // Reibung in Richtung 0
-//       if (vx > 0) {
-//         vx = Math.max(0, vx - FRICTION * dt);
-//       } else if (vx < 0) {
-//         vx = Math.min(0, vx + FRICTION * dt);
-//       }
-
-//       // Move
-//       c.scrollLeft -= vx * dt;
-
-//       // Endlos-Reset auch hier
-//       const half = (totalWidth() - viewWidth()) / 2;
-//       if (half > 0) {
-//         if (c.scrollLeft >= half) c.scrollLeft -= half;
-//         if (c.scrollLeft < 0) c.scrollLeft += half;
-//       }
-
-//       if (Math.abs(vx) > 0.01) {
-//         rafMomentumRef.current = requestAnimationFrame(step);
-//       }
-//     };
-
-//     // nur starten, wenn nennenswerte Geschwindigkeit
-//     if (Math.abs(initialVx) > 0.05) {
-//       rafMomentumRef.current = requestAnimationFrame(step);
-//     }
-//   };
-
-//   // Pointer Events (Mouse + Touch)
-//   const onPointerDown = (e) => {
-//     const c = container();
-//     if (!c) return;
-
-//     c.setPointerCapture?.(e.pointerId);
-//     setIsDragging(true);
-//     c.classList.add("dragging");
-
-//     const x = e.clientX;
-//     dragRef.current.startX = x;
-//     dragRef.current.lastX = x;
-//     dragRef.current.lastT = performance.now();
-//     dragRef.current.vx = 0;
-//     dragRef.current.startScroll = c.scrollLeft;
-
-//     // Momentum stoppen, wenn neu gezogen wird
-//     cancelAnimationFrame(rafMomentumRef.current);
-//   };
-
-//   const onPointerMove = (e) => {
-//     if (!isDragging) return;
-//     const c = container();
-//     if (!c) return;
-
-//     e.preventDefault();
-
-//     const x = e.clientX;
-//     const t = performance.now();
-
-//     const dx = x - dragRef.current.startX;
-//     // scroll in umgekehrte Richtung der Bewegung
-//     c.scrollLeft = dragRef.current.startScroll - dx;
-
-//     // Geschwindigkeit messen (letzte Frame-Differenz)
-//     const dt = t - dragRef.current.lastT || 16;
-//     const dxFrame = x - dragRef.current.lastX;
-//     dragRef.current.vx = dxFrame / dt; // px/ms
-
-//     dragRef.current.lastX = x;
-//     dragRef.current.lastT = t;
-
-//     // Endlos-Reset beim Drag ebenso ermöglichen
-//     const half = (totalWidth() - viewWidth()) / 2;
-//     if (half > 0) {
-//       if (c.scrollLeft >= half) {
-//         c.scrollLeft -= half;
-//         dragRef.current.startScroll -= half;
-//       } else if (c.scrollLeft < 0) {
-//         c.scrollLeft += half;
-//         dragRef.current.startScroll += half;
-//       }
-//     }
-//   };
-
-//   const endDrag = (e) => {
-//     if (!isDragging) return;
-//     const c = container();
-//     if (!c) return;
-
-//     setIsDragging(false);
-//     c.classList.remove("dragging");
-//     c.releasePointerCapture?.(e.pointerId);
-
-//     // Momentum starten (note: beim Scrollen nach links ist vx positiv → wir ziehen links → scrollLeft verringern)
-//     startMomentum(dragRef.current.vx);
-//   };
-
-//   return (
-//     <StyledSlideBoxContainer>
-//       <StyledTextBox>
-//         <h2>{headline1}</h2>
-//         <h4>{headline2}</h4>
-//         <p>{introText}</p>
-//       </StyledTextBox>
-
-//       <StyledScrollBoxContainer
-//         ref={scrollRef}
-//         onPointerDown={onPointerDown}
-//         onPointerMove={onPointerMove}
-//         onPointerUp={endDrag}
-//         onPointerCancel={endDrag}
-//         onPointerLeave={(e) => {
-//           // nicht abrupt stoppen – Ende wie bei Up
-//           if (isDragging) endDrag(e);
-//         }}
-//         onMouseEnter={() => setIsHovering(true)}
-//         onMouseLeave={() => setIsHovering(false)}
-//         onFocus={() => setIsFocused(true)}
-//         onBlur={() => setIsFocused(false)}
-//         role="listbox"
-//         aria-label="Horizontale Scroll-Liste"
-//       >
-//         {doubledData.map(({ label, title, mobileTitle, text, image }, i) => (
-//           <StyledScrollBox key={i}>
-//             <h2>
-//               {(showIcon === true || showIcon === "true") && (
-//                 <StyledIcon>
-//                   <PiArrowRightLight />
-//                 </StyledIcon>
-//               )}
-//               {label || `0${(i % boxData.length) + 1}`}
-//             </h2>
-
-//             <StyledDesktopTitle>{title}</StyledDesktopTitle>
-//             <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
-
-//             {image && (
-//               <ImageWrapper>
-//                 <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
-//               </ImageWrapper>
-//             )}
-
-//             <p>{text}</p>
-//           </StyledScrollBox>
-//         ))}
-//       </StyledScrollBoxContainer>
-//     </StyledSlideBoxContainer>
-//   );
-// }
-
-// /* --- Styles (deine bestehenden + kleine Ergänzungen) --- */
-
-// const StyledSlideBoxContainer = styled.div`
-//   background-color: ${theme.color.dark};
-//   padding: var(--spacing-xxxl) 0;
-//   overflow: hidden;
-// `;
-
-// const StyledScrollBoxContainer = styled.div`
-//   display: flex;
-//   position: relative;
-//   user-select: none;
-//   overflow-x: scroll;
-//   background-color: ${theme.color.dark};
-//   min-width: 250px;
-//   margin-left: var(--side-padding);
-//   padding: var(--spacing-xxl) 0 0 0;
-//   cursor: grab;
-//   scroll-behavior: auto; /* wichtig für manuelles Setzen ohne Browser-Smooth */
-
-//   //scroll-snap-type: x proximity; /* sanftes Einrasten */
-//   //overscroll-behavior-x: contain; /* verhindert Seitenscroll-Mitschwingen */
-//   //scroll-padding-left: var(--side-padding); /* Snap-Offset passend zu deinem linken Padding */
-
-//   &:hover,
-//   &.dragging {
-//     cursor: grabbing;
-//   }
-
-//   /* Firefox */
-//   scrollbar-width: thin;
-//   scrollbar-color: ${theme.color.beige} ${theme.color.dark};
-
-//   /* Webkit */
-//   &::-webkit-scrollbar {
-//     width: 6px;
-//     height: 6px;
-//   }
-//   &::-webkit-scrollbar-track {
-//     background: transparent;
-//   }
-//   &::-webkit-scrollbar-thumb {
-//     background: ${theme.color.beige};
-//     border-radius: 4px;
-//   }
-//   &::-webkit-scrollbar-thumb:hover {
-//     background: ${theme.color.green};
-//   }
-// `;
-
-// const StyledTextBox = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: start;
-//   text-align: start;
-//   color: ${theme.color.beige};
-//   max-width: 100%;
-//   padding: 0 var(--side-padding);
-
-//   @media (min-width: ${theme.breakpoints.tablet}) {
-//     max-width: 70%;
-//   }
-// `;
-
-// const StyledScrollBox = styled.div`
-//   display: flex;
-//   position: relative;
-//   flex-direction: column;
-//   align-items: start;
-//   color: ${theme.color.beige};
-//   padding: 0 var(--spacing-xl) var(--spacing-xxl) 0;
-//   min-width: 600px;
-//   /* flex: 0 0 1;
-//   scroll-snap-align: start; */
-//   @media (max-width: ${theme.breakpoints.tablet}) {
-//     min-width: 350px;
-//     margin-right: var(--spacing-xl);
-//   }
-
-//   p {
-//     line-height: ${theme.lineHeight.xxl};
-//   }
-// `;
-
-// const StyledIcon = styled.span`
-//   display: inline-flex;
-//   vertical-align: text-bottom;
-//   height: 100%;
-//   margin-right: var(--spacing-xs);
-//   font-size: 1.3rem;
-//   padding-bottom: 0rem;
-// `;
-
-// const StyledDesktopTitle = styled.h5`
-//   display: none;
-//   @media (min-width: ${theme.breakpoints.tablet}) {
-//     display: block;
-//   }
-// `;
-
-// const StyledMobileTitle = styled.h5`
-//   display: block;
-//   @media (min-width: ${theme.breakpoints.tablet}) {
-//     display: none;
-//   }
-// `;
-
-// const ImageWrapper = styled.div`
-//   position: relative;
-//   margin-bottom: var(--spacing-m);
-//   aspect-ratio: 3 / 2;
-//   width: 100%;
-// `;
-
-// const StyledImage = styled(Image)`
-//   object-fit: cover;
-//   object-position: center;
-//   border-radius: ${theme.borderRadius};
-// `;
