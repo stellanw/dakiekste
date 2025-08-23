@@ -142,6 +142,7 @@ export default createGlobalStyle`
     width: 100%;
     font-family: "Figtree", sans-serif;
     font-size: 16px; 
+  
     background-color: ${theme.color.beige};
     color: ${theme.color.dark};
     scroll-behavior: smooth;
@@ -161,8 +162,9 @@ a:visited { color: inherit; }
 
   h1,h2,h3,h4,h5,h6 {
     white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
+      word-wrap: normal;
+    word-break: keep-all;
+    /* overflow-wrap: break-word; */
     hyphens: auto;
   }
 
@@ -192,7 +194,7 @@ margin-bottom: var(--spacing-s);
 padding: 0;
   letter-spacing: 0.03rem;
   line-height: ${theme.lineHeight.l};
-
+word-wrap: normal !important;
   @media (min-width: ${theme.breakpoints.tablet}) {
   }
 }
