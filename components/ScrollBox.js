@@ -151,11 +151,9 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
       if (isTouch) return; // mobil: Track per transform, Wheel ignorieren
       const absX = Math.abs(e.deltaX);
       const absY = Math.abs(e.deltaY);
+      // Nur wenn klar horizontal (oder Shift) bewegen – kein Y→X Nudge mehr
       if (absX > absY * 1.1 || e.shiftKey) {
         applyScroll(clampOrWrapLeft(getScroll() + e.deltaX));
-      } else {
-        const NUDGE = 0.35;
-        applyScroll(clampOrWrapLeft(getScroll() + e.deltaY * NUDGE));
       }
     };
 
