@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect, useRef } from "react";
-import { PiPushPinLight, PiArrowUpRight } from "react-icons/pi";
+import { PiPushPinLight, PiPlus, PiMinus } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import ContactOverlayForm from "./ContactOverlayForm";
 
@@ -257,10 +257,10 @@ export default function Pricing({ pricingData, servicesData }) {
                     ))}
                   </ul>
                   <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
-                  <p>*EUR zzgl. MwSt.</p>
+
                   <OverlayInfo>
-                    Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
-                    individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
+                    *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder
+                    direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
                   </OverlayInfo>
                   <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
@@ -283,7 +283,7 @@ export default function Pricing({ pricingData, servicesData }) {
                           <ServiceTitle>{service.title}</ServiceTitle>
                         </TitleCheckboxContainer>
 
-                        <StyledArrowIcon className={isOpen ? "rotate" : ""} onClick={() => toggleOverlay(key)} />
+                        <ToggleIcon onClick={() => toggleOverlay(key)}>{isOpen ? <PiMinus /> : <PiPlus />}</ToggleIcon>
                       </ServiceTitleGroup>
 
                       {isOpen && (
@@ -496,19 +496,6 @@ const StyledRemoveIcon = styled(RxCross1)`
   }
 `;
 
-const StyledArrowIcon = styled(PiArrowUpRight)`
-  margin-left: var(--spacing-m);
-  transform: scale(1.2);
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  &.rotate {
-    transform: scale(1.2) rotate(180deg);
-  }
-`;
-
 const ServiceContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
@@ -652,4 +639,23 @@ const OverlayInfo = styled.p`
   opacity: 0.7;
   margin: calc(0.5 * var(--spacing-xs)) 0 0 0;
   max-width: 300px;
+`;
+
+const ToggleIcon = styled.div`
+  margin-left: var(--spacing-m);
+  font-size: var(--spacing-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: ${theme.color.dark};
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: ${theme.color.green};
+  }
+
+  svg {
+    pointer-events: none;
+  }
 `;

@@ -238,14 +238,13 @@ export default function ContactOverlayForm({
                           <span>Gesamtsumme</span>
                           <strong>{euroDash(total, { star: true })}</strong>
                         </TotalRow>
-                        <p>*EUR zzgl. MwSt.</p>
                       </>
                     )}
                   </>
                 )}
                 <OverlayInfo>
-                  Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein
-                  individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
+                  *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder
+                  direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
                 </OverlayInfo>
                 <ChangeButton type="button" onClick={onClose}>
                   Auswahl ändern
