@@ -1,29 +1,54 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { PiPlus, PiMinus } from "react-icons/pi";
 
 export default function FAQ({ faqData = [] }) {
-  const [activeCaption, setActiveCaption] = useState("Fotografie");
+  const [activeCaption, setActiveCaption] = useState("Allgemein");
   const [openIndex, setOpenIndex] = useState(null);
 
-  // Einmalig Kategorien aus den Daten ableiten
+  const listRef = useRef(null);
+  const itemRefs = useRef([]);
+
+  const centerItem = (index, { behavior = "auto" } = {}) => {
+    const container = listRef.current;
+    const el = itemRefs.current[index];
+    if (!container || !el) return;
+
+    const cRect = container.getBoundingClientRect();
+    const eRect = el.getBoundingClientRect();
+
+    const target = container.scrollTop + (eRect.top - cRect.top) + eRect.height / 2 - container.clientHeight / 2;
+
+    container.scrollTo({ top: Math.max(target, 0), behavior });
+  };
+
   const captions = useMemo(() => {
     const set = new Set(faqData.map((f) => f.caption).filter(Boolean));
     return [...Array.from(set), "Alle"];
   }, [faqData]);
 
-  // Daten nach aktiver Kategorie filtern
   const filteredFaqs = useMemo(() => {
     return faqData.filter((f) => activeCaption === "Alle" || f.caption === activeCaption);
   }, [faqData, activeCaption]);
 
-  // Bei Kategorienwechsel offene Frage schließen
+  useEffect(() => {
+    itemRefs.current = [];
+  }, [filteredFaqs]);
+
   useEffect(() => {
     setOpenIndex(null);
   }, [activeCaption]);
 
   const toggleOverlay = (index) => setOpenIndex(openIndex === index ? null : index);
+
+  useEffect(() => {
+    if (openIndex == null) return;
+
+    centerItem(openIndex, { behavior: "auto" });
+    const t = setTimeout(() => centerItem(openIndex, { behavior: "auto" }), 180); // feinjustage
+    return () => clearTimeout(t);
+  }, [openIndex, filteredFaqs]);
 
   return (
     <FAQContainer>
@@ -32,7 +57,6 @@ export default function FAQ({ faqData = [] }) {
         <h3>Die häufigsten Fragen</h3>
       </FAQHeader>
 
-      {/* Filter-Leiste */}
       <FilterBar role="tablist" aria-label="FAQ Kategorien">
         {captions.map((cap) => {
           const active = activeCaption === cap;
@@ -44,9 +68,9 @@ export default function FAQ({ faqData = [] }) {
         })}
       </FilterBar>
 
-      <FAQList>
+      <FAQList ref={listRef}>
         {filteredFaqs.map((faq, index) => (
-          <FAQItem key={`${faq.caption}-${faq.question}`} isOpen={openIndex === index}>
+          <FAQItem key={`${faq.caption}-${faq.question}`} isOpen={openIndex === index} ref={(el) => (itemRefs.current[index] = el)}>
             <FAQItemContent isOpen={openIndex === index}>
               <h2>{faq.caption}</h2>
               <FAQItemDetails>
@@ -66,8 +90,6 @@ export default function FAQ({ faqData = [] }) {
     </FAQContainer>
   );
 }
-
-/* --- Styles --- */
 
 const FAQContainer = styled.section`
   display: flex;
@@ -101,33 +123,37 @@ const FilterBar = styled.div`
   gap: var(--spacing-xs);
   width: 100%;
   margin-bottom: var(--spacing-l);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    justify-content: space-between;
+  }
 `;
 
 const FilterChip = styled.button`
   appearance: none;
-  /* Standard-Border abhängig von $active */
+  width: 140px;
   border: 1px solid ${({ $active }) => ($active ? theme.color.green : theme.color.beige)};
   background: ${({ $active }) => ($active ? theme.color.green : "transparent")};
   color: ${({ $active }) => ($active ? theme.color.dark : theme.color.beige)};
   padding: calc(0.4 * var(--spacing-s)) var(--spacing-s);
   border-radius: calc(0.5 * ${theme.borderRadius});
-  font-size: var(--font-xs);
+  font-size: var(--font-m);
   letter-spacing: 0.04em;
   cursor: pointer;
 
-  /* Hover: Border wird grün (auch wenn nicht aktiv),
-     Textfarbe wird grün wenn nicht aktiv */
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 48%;
+  }
+
   &:hover {
     border-color: ${theme.color.green};
     color: ${({ $active }) => ($active ? theme.color.dark : theme.color.green)};
   }
 
-  /* Active (Mousedown): Border wird dark für klares Feedback */
   &:active {
     border-color: ${theme.color.green};
   }
 
-  /* Optional: Tastaturfokus zugänglich machen */
   &:focus-visible {
     outline: none;
     box-shadow:
@@ -138,15 +164,18 @@ const FilterChip = styled.button`
 
 const FAQList = styled.ul`
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 100%;
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: scroll;
   border-right: solid 1px ${theme.color.beige};
   padding-right: var(--spacing-m);
-
+  scroll-behavior: auto;
+  overscroll-behavior: contain;
   @media (min-width: ${theme.breakpoints.tablet}) {
-    padding-right: var(--spacing-xxl);
+    padding-right: var(--spacing-xl);
+    max-height: 350px;
   }
 
   &::-webkit-scrollbar {
@@ -173,9 +202,9 @@ const FAQItem = styled.li`
   flex-direction: column;
   background-color: ${({ isOpen }) => (isOpen ? theme.color.green : "transparent")};
   color: ${({ isOpen }) => (isOpen ? theme.color.dark : "inherit")};
-
+  border-radius: ${({ isOpen }) => (isOpen ? theme.borderRadius : "0")};
   h2 {
-    min-width: 280px;
+    min-width: 200px;
     margin: 0;
     padding: ${({ isOpen }) => (isOpen ? "var(--spacing-m) 0 var(--spacing-m) var(--spacing-m)" : "var(--spacing-m) 0")};
     @media (max-width: ${theme.breakpoints.tablet}) {
@@ -185,17 +214,17 @@ const FAQItem = styled.li`
 `;
 
 const FAQQuestion = styled.span`
-  font-size: var(--font-l);
-  font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.regular)};
+  font-size: var(--font-m);
+  font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
   @media (min-width: ${theme.breakpoints.tablet}) {
     font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
+    font-size: var(--font-l);
   }
 `;
 
 const FAQItemContent = styled.div`
   display: flex;
   width: 100%;
-  align-items: ${({ isOpen }) => (isOpen ? "start" : "center")};
 `;
 
 const FAQItemDetails = styled.div`
@@ -213,12 +242,12 @@ const FAQQuestionWrapper = styled.div`
 
 const AnswerOverlay = styled.p`
   animation: slide-animation 1s ease;
-  margin-top: var(--spacing-m);
+  margin-top: var(--spacing-s);
   overflow: hidden;
   font-weight: ${theme.fontWeight.light};
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    font-weight: ${theme.fontWeight.regular};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: var(--font-s);
   }
 
   @keyframes slide-animation {
@@ -242,9 +271,13 @@ const ToggleIcon = styled.div`
   cursor: pointer;
   color: ${({ isOpen }) => (isOpen ? theme.color.dark : theme.color.beige)};
   transition: color 0.3s ease;
-
+  align-self: ${({ isOpen }) => (isOpen ? "flex-start" : "center")};
   &:hover {
-    color: ${({ isOpen }) => (isOpen ? theme.color.beige : theme.color.green)};
+    color: ${({ isOpen }) => (isOpen ? theme.color.dark : theme.color.green)};
+    svg {
+      stroke-width: 1.5;
+      scale: 1.1;
+    }
   }
 
   svg {

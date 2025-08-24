@@ -2,46 +2,30 @@ import styled from "styled-components";
 import { useState } from "react";
 import { theme } from "@/styles";
 import Link from "next/link";
-import { PiArrowUpRight } from "react-icons/pi";
 
 export default function ContactForm() {
   const initialFormData = {
-    firstName: "",
-    lastName: "",
+    fullName: "",
     pronouns: "",
     customPronouns: "",
     company: "",
     email: "",
-    roles: [],
-    otherRole: "",
-    budget: [],
     message: "",
     acceptedTerms: false,
   };
+
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleCheckboxChange = (e, category) => {
-    const { value, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [category]: checked ? [value] : [],
-    }));
-  };
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => {
-      const next = { ...prev, [name]: type === "checkbox" ? checked : value };
-      return next;
-    });
+    setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setResponseMessage("");
     setIsSuccess(false);
 
@@ -51,35 +35,30 @@ export default function ContactForm() {
       return;
     }
 
-    if (!formData.firstName) {
-      setResponseMessage("Bitte gib deinen Vornamen ein.");
+    if (!formData.fullName?.trim()) {
+      setResponseMessage("Bitte gib deinen Namen ein.");
       return;
     }
 
-    if (formData.roles.length === 0) {
-      setResponseMessage("Bitte wähle deine Rolle im Projekt aus.");
-      return;
-    }
-
-    if (formData.budget.length === 0) {
-      setResponseMessage("Bitte wähle dein Budget aus.");
+    // falls „andere“ gewählt wurde, sollte ein Wert vorhanden sein
+    if (formData.pronouns === "andere" && !formData.customPronouns.trim()) {
+      setResponseMessage("Bitte gib deine eigenen Pronomen ein.");
       return;
     }
 
     setLoading(true);
-
     try {
-      const fullName = [formData.firstName, formData.lastName].filter(Boolean).join(" ");
-      const pronouns = formData.pronouns === "andere" ? formData.customPronouns : formData.pronouns;
+      const pronouns = formData.pronouns === "andere" ? (formData.customPronouns || "").trim() : formData.pronouns || undefined;
+
       const payload = {
-        ...formData,
-        name: fullName,
+        email: formData.email,
+        name: formData.fullName.trim(),
+        company: formData.company || undefined,
+        message: formData.message,
         pronouns,
+        acceptedTerms: !!formData.acceptedTerms,
         source: "contact",
       };
-      delete payload.firstName;
-      delete payload.lastName;
-      delete payload.customPronouns;
 
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -88,7 +67,6 @@ export default function ContactForm() {
       });
 
       const data = await res.json();
-
       if (!res.ok) {
         console.log("API error:", data);
         throw new Error(data.error || "Fehler beim Senden");
@@ -127,95 +105,67 @@ export default function ContactForm() {
         </StyledSuccessMessage>
       ) : (
         <StyledForm onSubmit={handleSubmit}>
-          {" "}
           <SideBySideWrapper>
             <Wrapper>
-              <label htmlFor="pronouns">Pronomen</label>
-              <SelectWrap>
-                <StyledSelect
-                  id="pronouns"
-                  name="pronouns"
-                  value={formData.pronouns ?? ""}
-                  onChange={(e) => setFormData((p) => ({ ...p, pronouns: e.target.value }))}
-                >
-                  <option value="" disabled>
-                    Bitte wählen
-                  </option>
-                  <option value="sie/ihr">sie/ihr</option>
-                  <option value="er/ihm">er/ihm</option>
-                  <option value="they/them">they/them</option>
-                  <option value="keine Angabe">keine Angabe</option>
-                  <option value="andere">andere…</option>
-                </StyledSelect>
-              </SelectWrap>
+              <PronounRow>
+                <PronounCol>
+                  <PronounLabel htmlFor="pronouns">Pronomen</PronounLabel>
+                  <StyledSelect
+                    id="pronouns"
+                    name="pronouns"
+                    value={formData.pronouns ?? ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      setFormData((p) => ({
+                        ...p,
+                        pronouns: value,
+                        customPronouns: value === "andere" ? p.customPronouns : "",
+                      }));
+                    }}
+                  >
+                    <option value="" disabled>
+                      Bitte wählen
+                    </option>
+                    <option value="sie/ihr">sie/ihr</option>
+                    <option value="er/ihm">er/ihm</option>
+                    <option value="they/them">they/them</option>
+                    <option value="keine Angabe">keine Angabe</option>
+                    <option value="andere">andere…</option>
+                  </StyledSelect>
+                </PronounCol>
+
+                {formData.pronouns === "andere" && (
+                  <PronounCol>
+                    <PronounLabel htmlFor="customPronouns">Eigene</PronounLabel>
+                    <StyledInput id="customPronouns" name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z.B. dey/deren" />
+                  </PronounCol>
+                )}
+              </PronounRow>
             </Wrapper>
-            {/* <Wrapper>
-              {formData.pronouns === "andere" && (
-                <>
-                  <label htmlFor="customPronouns">Eigene Pronomen</label>
-                  <StyledInput name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z. B. dey/deren" />
-                </>
-              )}
-            </Wrapper> */}
+
             <Wrapper>
-              <label htmlFor="firstName">Vor und Nachname</label>
-              <StyledInput name="firstName" value={formData.firstName} onChange={handleChange} required />
+              <label htmlFor="fullName">Vor und Nachname</label>
+              <StyledInput name="fullName" value={formData.fullName} onChange={handleChange} required />
             </Wrapper>
           </SideBySideWrapper>
-          <SideBySideWrapper>
-            {/* <Wrapper>
-              <label htmlFor="firstName">Vorname</label>
-              <StyledInput name="firstName" value={formData.firstName} onChange={handleChange} required />
-            </Wrapper> */}
-            {/* <Wrapper>
-              <label htmlFor="lastName">Nachname</label>
-              <StyledInput name="lastName" value={formData.lastName} onChange={handleChange} required />
-            </Wrapper> */}
-          </SideBySideWrapper>
+
           <SideBySideWrapper>
             <Wrapper>
               <label htmlFor="email">Email</label>
               <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
             </Wrapper>
-            {/* <Wrapper>
-              <label htmlFor="company">Firma</label>
-              <StyledInput name="company" value={formData.company} onChange={handleChange} />
-            </Wrapper> */}
           </SideBySideWrapper>
-          {/* <label htmlFor="roles">Wer bist du?</label>
-          <StyledCheckboxGroup>
-            {["Unternehmen", "Gründer*in", "Soloselbstständig", "Verein/Organisation"].map((role) => (
-              <StyledLabel key={role}>
-                <input type="checkbox" value={role} checked={formData.roles.includes(role)} onChange={(e) => handleCheckboxChange(e, "roles")} />
-                {role}
-              </StyledLabel>
-            ))}
 
-            <StyledLabel>
-              <input type="checkbox" value="Sonstiges" checked={formData.roles.includes("Sonstiges")} onChange={(e) => handleCheckboxChange(e, "roles")} />
-              Etwas anderes
-            </StyledLabel>
-            {formData.roles.includes("Sonstiges") && <StyledInput name="otherRole" value={formData.otherRole} onChange={handleChange} />}
-          </StyledCheckboxGroup>
-          <label htmlFor="budget">Dein Budget</label>
-          <StyledCheckboxGroup>
-            {["< 1.000 €", "1.000 – 3.000 €", "3.000 – 6.000 €", "> 6.000 €"].map((range) => (
-              <StyledLabel key={range}>
-                <input type="checkbox" value={range} checked={formData.budget.includes(range)} onChange={(e) => handleCheckboxChange(e, "budget")} />
-                {range}
-              </StyledLabel>
-            ))}
-          </StyledCheckboxGroup> */}
           <label htmlFor="message">Deine Nachricht</label>
           <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
+
           <StyledCheckboxGroup>
-            <label>
-              <StyledLabel htmlFor="acceptedTerms">
-                <input type="checkbox" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
-                Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
-              </StyledLabel>
-            </label>
+            <StyledLabel htmlFor="acceptedTerms">
+              <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
+              Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
+            </StyledLabel>
           </StyledCheckboxGroup>
+
           <StyledButton type="submit" disabled={loading}>
             {loading ? "Senden..." : "Senden"}
           </StyledButton>
@@ -225,6 +175,8 @@ export default function ContactForm() {
     </StyledFormWrapper>
   );
 }
+
+/* ===== Styles ===== */
 
 const StyledFormWrapper = styled.div`
   display: flex;
@@ -362,7 +314,7 @@ const StyledLabel = styled.label`
   justify-content: start;
   align-items: center;
   font-size: var(--font-s);
-  margin-bottom: 0;
+  margin-bottom: var(--spacing-xs);
 `;
 
 const StyledCheckboxGroup = styled.div`
@@ -421,98 +373,39 @@ const StyledSuccessMessage = styled.div`
   }
 `;
 
-const IconOverlay = styled.span`
-  --r: 0deg;
-  position: absolute;
-  top: 25%;
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    top: 35%;
-  }
-  right: 12px;
-  translate: 0 -50%;
-  transform: rotate(var(--r));
-  transform-origin: 50% 50%;
-  transform-box: border-box;
-  pointer-events: none;
-  line-height: 0;
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  color: ${theme.color.green};
-  will-change: transform, color;
-
-  & svg {
-    display: block;
-  }
-`;
-
-const SelectWrap = styled.div`
-  /* Stell dir hier deine „Variablen“ ein */
-  --arrow-size: 6px; /* Größe des Dreiecks */
-  --arrow-color: ${theme.color.green};
-  --arrow-offset: 14px; /* Abstand vom rechten Rand */
-
-  position: relative;
-  width: 100%;
-
-  /* Der Pfeil */
-  &::after {
-    content: "";
-    position: absolute;
-    top: 28%;
-    @media (max-width: ${theme.breakpoints.mobile}) {
-      top: 35%;
-    }
-    right: var(--arrow-offset);
-    transform: translateY(-50%);
-    pointer-events: none;
-
-    /* CSS-Dreieck nach unten */
-    width: 0;
-    height: 0;
-    border-left: var(--arrow-size) solid transparent;
-    border-right: var(--arrow-size) solid transparent;
-    border-top: var(--arrow-size) solid var(--arrow-color);
-  }
-
-  /* Fokuszustand: Farbe ändern (optional) */
-  &:focus-within::after {
-    border-top-color: ${theme.color.dark};
-  }
-`;
+/* ---- Select + Pronouns Split ---- */
 
 const StyledSelect = styled.select`
   display: block;
+  box-sizing: border-box;
   width: 100%;
   margin-bottom: var(--spacing-xs);
-  padding: var(--spacing-xs);
-  height: var(--spacing-m);
+  height: calc(1.063 * var(--spacing-m));
+  padding: 0 var(--spacing-xs);
+  color: ${theme.color.beige};
+  background-color: ${theme.color.dark};
+  border: 1px solid ${theme.color.green};
+  border-radius: calc(0.5 * ${theme.borderRadius});
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     height: calc(2.4 * var(--spacing-m));
   }
 
-  /* Platz für den Pfeil rechts schaffen */
-  padding-right: calc(var(--arrow-offset) + (var(--arrow-size) * 2) + 6px);
-
-  /* WICHTIG: Entfernt native Pfeile, damit nur unser Pfeil sichtbar ist */
+  /* Pfeil */
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: none;
-
-  /* Wenn du global schon Farben/Rahmen setzt, kannst du die vier Zeilen weglassen: */
-  background-color: ${theme.color.dark};
-  color: ${theme.color.beige};
-  border: 1px solid ${theme.color.green};
-  border-radius: calc(0.5 * ${theme.borderRadius});
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1rem;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polyline points='5 7 10 12 15 7' fill='none' stroke='${theme.color.green.replace("#", "%23")}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 
   &:focus {
     outline: none;
     background-color: ${theme.color.green};
     color: ${theme.color.dark};
     border-color: ${theme.color.green};
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polyline points='5 7 10 12 15 7' fill='none' stroke='${theme.color.dark.replace("#", "%23")}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
   }
 
   & option {
@@ -520,8 +413,33 @@ const StyledSelect = styled.select`
     background: ${theme.color.beige};
   }
 
-  /* Für alten Edge/IE */
+  /* legacy IE/Edge */
   &::-ms-expand {
     display: none;
   }
+`;
+
+const PronounRow = styled.div`
+  display: flex;
+  gap: var(--spacing-s);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    gap: 0;
+  }
+`;
+
+const PronounCol = styled.div`
+  flex: 1 1 50%;
+  min-width: 0;
+
+  & > label {
+    display: block;
+    margin-bottom: calc(0.5 * var(--spacing-xs));
+  }
+`;
+
+const PronounLabel = styled.label`
+  font-weight: ${theme.fontWeight.bold};
+  letter-spacing: 0.035rem;
 `;

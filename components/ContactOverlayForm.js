@@ -1,18 +1,11 @@
+// ContactOverlayForm.js
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { theme } from "@/styles";
 import { PiArrowDownThin, PiX } from "react-icons/pi";
 import Link from "next/link";
 
-export default function ContactOverlayForm({
-  selectedServices = [],
-  serviceCounts = {},
-  businessType,
-  formData,
-  setFormData,
-  priceOnRequest = false,
-  onClose,
-}) {
+export default function ContactOverlayForm({ selectedServices = [], serviceCounts = {}, businessType, formData, setFormData, priceOnRequest = false, onClose }) {
   const initialForm = {
     fullName: "",
     pronouns: "",
@@ -78,9 +71,11 @@ export default function ContactOverlayForm({
 
   const total = structured.reduce((sum, x) => sum + x.price, 0);
 
+  // ContactOverlayForm.js – NUR diese Funktion ersetzen
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // strukturierte Auswahl liegt schon in `structured`
     const selectedSummaryHTML = structured
       .map((s) => {
         const countStr = s.count > 1 ? ` (${s.count}x)` : "";
@@ -89,37 +84,33 @@ export default function ContactOverlayForm({
       })
       .join("");
 
-    const totalStr = showOnRequest ? "auf Anfrage" : `${total.toFixed(2)} €`;
-
-    const combinedMessage = `
-  <p>${(data.message || "").replace(/\n/g, "<br>")}</p>
-  <p><strong>Ausgewählte Leistungen:</strong></p>
-  <ul>${selectedSummaryHTML}</ul>
-  <p><strong>Gesamtsumme:</strong> ${totalStr}</p>
-  <p><strong>Business-Typ:</strong> ${businessType || "-"}</p>
-`;
-
+    const totalStr = showOnRequest ? undefined : Number(total.toFixed(2)); // als Zahl schicken
     const pronouns = data.pronouns === "andere" ? (data.customPronouns || "").trim() : data.pronouns;
 
+    // ⬇️ WICHTIG: Nachricht jetzt **ohne** Services/Total/Business-Typ
+    // Rohtext senden; das API formatiert \n → <p>/<br>
     const payload = {
       name: data.fullName || undefined,
       company: data.company || undefined,
       email: data.email,
-      message: combinedMessage,
+      message: data.message || "", // <-- nur freie Nachricht
       source: "overlay",
       businessType: businessType || undefined,
       acceptedTerms: data.acceptedTerms || false,
-      servicesHtml: `<ul>${selectedSummaryHTML}</ul>`,
-      pronouns: pronouns || undefined,
 
-      totalPrice: showOnRequest ? undefined : total.toFixed(2),
+      // Leistungen separat
+      servicesHtml: `<ul>${selectedSummaryHTML}</ul>`,
+      totalPrice: totalStr, // Zahl (oder undefined bei "auf Anfrage")
       selectedServices: structured.map((s) => ({
         title: s.title,
         count: s.count,
         unitPrice: showOnRequest ? undefined : s.unitPrice,
         price: showOnRequest ? undefined : s.price,
       })),
+      // optionaler Anzeige-String fürs Fallback
       priceDisplay: showOnRequest ? "auf Anfrage" : `${total.toFixed(2)} €`,
+
+      pronouns: pronouns || undefined,
     };
 
     try {
@@ -131,12 +122,9 @@ export default function ContactOverlayForm({
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || json.error || "Fehler beim Senden");
 
-      // Reset Formular
-      if (isControlled) {
-        setFormData(initialForm);
-      } else {
-        setLocalForm(initialForm);
-      }
+      // Reset
+      if (isControlled) setFormData(initialForm);
+      else setLocalForm(initialForm);
 
       setResponseMessage("Wir melden uns in Kürze bei dir mit weiteren Infos oder einem Angebot.");
       setIsSuccess(true);
@@ -146,6 +134,7 @@ export default function ContactOverlayForm({
       setIsError(true);
     }
   };
+
   const DEC0 = new Intl.NumberFormat("de-DE", {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -242,10 +231,7 @@ export default function ContactOverlayForm({
                     )}
                   </>
                 )}
-                <OverlayInfo>
-                  *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder
-                  direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.
-                </OverlayInfo>
+                <OverlayInfo>*EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.</OverlayInfo>
                 <ChangeButton type="button" onClick={onClose}>
                   Auswahl ändern
                 </ChangeButton>
@@ -288,31 +274,23 @@ export default function ContactOverlayForm({
               <PronounRow>
                 <PronounCol>
                   <OverlayLabel htmlFor="pronouns">Pronomen</OverlayLabel>
-                  <SelectWrap>
-                    <OverlaySelect id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange}>
-                      <option value="" disabled>
-                        Bitte wählen
-                      </option>
-                      <option value="sie/ihr">sie/ihr</option>
-                      <option value="er/ihm">er/ihm</option>
-                      <option value="they/them">they/them</option>
-                      <option value="keine Angabe">keine Angabe</option>
-                      <option value="andere">andere…</option>
-                    </OverlaySelect>
-                  </SelectWrap>
+
+                  <OverlaySelect id="pronouns" name="pronouns" value={data.pronouns} onChange={handleChange}>
+                    <option value="" disabled>
+                      Bitte wählen
+                    </option>
+                    <option value="sie/ihr">sie/ihr</option>
+                    <option value="er/ihm">er/ihm</option>
+                    <option value="they/them">they/them</option>
+                    <option value="keine Angabe">keine Angabe</option>
+                    <option value="andere">andere…</option>
+                  </OverlaySelect>
                 </PronounCol>
 
                 {data.pronouns === "andere" && (
                   <PronounCol>
                     <OverlayLabel htmlFor="customPronouns">Eigene</OverlayLabel>
-                    <OverlayInput
-                      id="customPronouns"
-                      name="customPronouns"
-                      value={data.customPronouns}
-                      onChange={handleChange}
-                      placeholder="z. B. dey/deren"
-                      required
-                    />
+                    <OverlayInput id="customPronouns" name="customPronouns" value={data.customPronouns} onChange={handleChange} placeholder="z. B. dey/deren" required />
                   </PronounCol>
                 )}
               </PronounRow>
@@ -324,18 +302,7 @@ export default function ContactOverlayForm({
               <OverlayInput id="company" name="company" value={data.company} onChange={handleChange} />
 
               <OverlayLabel htmlFor="email">Email</OverlayLabel>
-              <OverlayInput
-                id="email"
-                name="email"
-                type="email"
-                value={data.email}
-                onChange={handleChange}
-                pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
-                title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)"
-                inputMode="email"
-                autoComplete="email"
-                required
-              />
+              <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)" inputMode="email" autoComplete="email" required />
 
               <SummaryMobil>
                 <h5>Deine Auswahl</h5>
@@ -366,16 +333,7 @@ export default function ContactOverlayForm({
               <StyledCheckboxGroup>
                 <label>
                   <label htmlFor="acceptedTerms">
-                    <input
-                      type="checkbox"
-                      id="acceptedTerms"
-                      name="acceptedTerms"
-                      checked={data.acceptedTerms}
-                      onChange={handleChange}
-                      onInvalid={(e) => e.target.setCustomValidity("Bitte akzeptiere die AGBs & Datenschutz, um fortzufahren.")}
-                      onInput={(e) => e.target.setCustomValidity("")}
-                      required
-                    />
+                    <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} onInvalid={(e) => e.target.setCustomValidity("Bitte akzeptiere die AGBs & Datenschutz, um fortzufahren.")} onInput={(e) => e.target.setCustomValidity("")} required />
                     Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
                   </label>
                 </label>
@@ -483,37 +441,6 @@ const OverlayInput = styled.input`
   }
 `;
 
-const SelectWrap = styled.div`
-  /* Stell dir hier deine „Variablen“ ein */
-  --arrow-size: 6px; /* Größe des Dreiecks */
-  --arrow-color: ${theme.color.dark};
-  --arrow-offset: 14px; /* Abstand vom rechten Rand */
-
-  position: relative;
-  width: 100%;
-
-  /* Der Pfeil */
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-
-    @media (max-width: ${theme.breakpoints.tablet}) {
-      top: 50%;
-    }
-
-    right: var(--arrow-offset);
-    transform: translateY(-50%);
-    pointer-events: none;
-
-    width: 0;
-    height: 0;
-    border-left: var(--arrow-size) solid transparent;
-    border-right: var(--arrow-size) solid transparent;
-    border-top: var(--arrow-size) solid ${theme.color.dark};
-  }
-`;
-
 const OverlaySelect = styled.select`
   ${controlBase}
 
@@ -525,13 +452,26 @@ const OverlaySelect = styled.select`
 
   display: block;
   width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: none;
 
   &::-ms-expand {
     display: none;
+  }
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Abstand vom Rand */
+  background-size: 1rem;
+  /* Standard: Pfeil grün */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polyline points='5 7 10 12 15 7' fill='none' stroke='${theme.color.dark.replace("#", "%23")}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+
+  &:focus,
+  &:active {
+    outline: none;
+    color: ${theme.color.dark};
+    background-color: ${theme.color.green};
+
+    border-color: ${theme.color.green};
   }
 
   & option {

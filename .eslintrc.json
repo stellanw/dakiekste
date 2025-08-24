@@ -1,15 +1,24 @@
 {
-  "env": {
-    "jest": true
-  },
-  "extends": ["next/core-web-vitals", "plugin:jest/recommended"],
+  "env": { "jest": true },
+  "extends": ["next/core-web-vitals", "plugin:jest/recommended", "plugin:prettier/recommended"],
+  "plugins": ["jest"],
   "rules": {
-    "import/no-anonymous-default-export": [
+    "import/no-anonymous-default-export": ["error", { "allowObject": true }],
+    "max-len": [
       "error",
       {
-        "allowObject": true
+        "code": 100,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreComments": true,
+        "ignoreUrls": true
       }
     ]
   },
-  "plugins": ["jest"]
+  "overrides": [
+    {
+      "files": ["**/*styled*.{js,jsx,ts,tsx}", "**/*.styles.{js,jsx,ts,tsx}"],
+      "rules": { "max-len": "off" }
+    }
+  ]
 }
