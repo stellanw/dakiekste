@@ -1,3 +1,4 @@
+// pages/api/contact.js
 import nodemailer from "nodemailer";
 import { render, toPlainText } from "@react-email/render";
 import sanitizeHtml from "sanitize-html";
@@ -42,11 +43,11 @@ export default async function handler(req, res) {
       otherRole,
       budget,
       acceptedTerms,
-      servicesHtml: servicesHtmlRaw, // vom Overlay mitgeschickt
-      totalPrice: totalPriceRaw, // vom Overlay mitgeschickt
+      servicesHtml: servicesHtmlRaw, // vom Overlay
+      totalPrice: totalPriceRaw, // vom Overlay
       businessType,
       source,
-      selectedServices, // strukturierte Liste [{title,count,unitPrice,price}]
+      selectedServices, // [{title,count,unitPrice,price}]
       pronouns,
     } = req.body || {};
 
@@ -54,55 +55,66 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
-    // Message normalisieren
+    // Nachricht vorbereiten
     const formattedMessage = message.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>");
 
-    // Services-Liste: bevorzugt direkt aus Body, sonst heuristisch aus message
+    // Services ggf. aus Raw übernehmen
     let servicesHtml = "";
     if (servicesHtmlRaw) {
       servicesHtml = String(servicesHtmlRaw);
-    } else {
-      const m =
-        formattedMessage.match(/<strong>Ausgewählte Leistungen:<\/strong><\/p>\s*<ul>([\s\S]*?)<\/ul>/i) ||
-        formattedMessage.match(/Ausgewählte Leistungen:<br>([\s\S]*)/i);
-      if (m) {
-        const raw = m[1].includes("<li")
-          ? `<ul>${m[1]}</ul>`
-          : `<ul>${m[1]
-              .split("<br>")
-              .filter((line) => line.trim().startsWith("–"))
-              .map((line) => `<li>${line.replace("– ", "")}</li>`)
-              .join("")}</ul>`;
-        servicesHtml = raw;
-      }
     }
 
-    // Gesamtpreis
-    let totalPrice = totalPriceRaw ?? null;
-    if (!totalPrice) {
-      const p = formattedMessage.match(/Gesamtsumme:\s*([\d.,]+)\s?€/i);
-      if (p) totalPrice = p[1];
-    }
+    // --- Hilfsfunktionen ---
+    const stripServicesFromHtml = (html) => {
+      if (!html) return "";
+      return String(html)
+        .replace(/<p>\s*<strong>\s*Ausgewählte Leistungen:?\s*<\/strong>\s*<\/p>\s*<ul[\s\S]*?<\/ul>\s*/i, "")
+        .replace(/Ausgewählte Leistungen:<br>[\s\S]*?(<\/p>|$)/i, "")
+        .replace(/<p>\s*<strong>\s*Gesamtsumme:\s*<\/strong>[\s\S]*?<\/p>\s*/i, "")
+        .trim();
+    };
 
-    // Nachricht ohne Services-Block für Admin
+    const fmtEuroDash = (n) => {
+      if (n == null || n === "" || isNaN(Number(n))) return "auf Anfrage";
+      const rounded = Math.round(Number(n));
+      return new Intl.NumberFormat("de-DE", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(rounded) + " ,-";
+    };
+
+    // Customer: Nachricht nur ohne Services
+    const messageWithoutServicesForCustomer = stripServicesFromHtml(formattedMessage);
+
+    // Customer: Items aus selectedServices
+    const itemsForCustomer = Array.isArray(selectedServices)
+      ? selectedServices.map((s) => ({
+          qty: s.count ?? 1,
+          title: s.title,
+          price: typeof s.price === "number" ? fmtEuroDash(s.price) : req.body?.priceDisplay || "auf Anfrage",
+        }))
+      : [];
+
+    // Customer: Total
+    const totalPriceDisplay = typeof totalPriceRaw === "number" ? fmtEuroDash(totalPriceRaw) : req.body?.priceDisplay || "auf Anfrage";
+
+    // Message ohne Services für Admin
     const messageWithoutServices = formattedMessage.replace(/<p><strong>Ausgewählte Leistungen:[\s\S]*$/i, "");
 
     // Sanitizen
     const cleanMessageForAdmin = sanitizeHtml(messageWithoutServices, {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
     });
-    const cleanServices = servicesHtml ? sanitizeHtml(servicesHtml, { allowedTags: ["ul", "li", "strong", "em", "u", "br", "span"] }) : "";
-    const cleanMessageForCustomer = sanitizeHtml(formattedMessage, {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
-    });
+    const cleanServices = servicesHtml
+      ? sanitizeHtml(servicesHtml, {
+          allowedTags: ["ul", "li", "strong", "em", "u", "br", "span"],
+        })
+      : "";
 
     // Quelle & Betreff
     const s = (source || "").toLowerCase();
-    const isOverlay = s === "overlay" || Boolean(cleanServices) || Boolean(totalPrice);
-    const adminSubject = isOverlay ? "Neue Anfrage über das Kalkulator-Overlay" : "Neue Nachricht über das Kontaktformular";
-    const sourceLabel = isOverlay ? "eingegangen über das Kalkulator-Overlay" : "eingegangen über das Kontaktformular";
+    const isOverlay = s === "overlay" || Boolean(cleanServices) || Boolean(totalPriceRaw);
+    const adminSubject = isOverlay ? "Neue Anfrage über das Preiskalkulator" : "Neue Nachricht über das Kontaktformular";
+    const sourceLabel = isOverlay ? "eingegangen über das Preiskalkulator" : "eingegangen über das Kontaktformular";
 
-    // Dev: SMTP verify
+    // SMTP verify im Dev
     if (process.env.NODE_ENV !== "production") {
       try {
         await transporter.verify();
@@ -111,7 +123,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // Rendern
+    // --- Rendern ---
     const [adminHtml, customerHtml] = await Promise.all([
       render(
         <AdminEmail
@@ -121,7 +133,7 @@ export default async function handler(req, res) {
           company={company}
           messageHtml={cleanMessageForAdmin}
           servicesHtml={cleanServices || null}
-          totalPrice={totalPrice || null}
+          totalPrice={totalPriceRaw || null}
           roles={roles || null}
           otherRole={otherRole || null}
           budget={budget || null}
@@ -130,9 +142,21 @@ export default async function handler(req, res) {
           selectedServices={Array.isArray(selectedServices) ? selectedServices : null}
           sourceLabel={sourceLabel}
           previewText={adminSubject}
+          logoCid={hasLogo ? LOGO_CID : undefined}
         />
       ),
-      render(<CustomerEmail name={name} messageHtml={cleanMessageForCustomer} year={new Date().getFullYear()} logoCid={hasLogo ? LOGO_CID : undefined} />),
+      render(
+        <CustomerEmail
+          name={name}
+          messageHtml={sanitizeHtml(messageWithoutServicesForCustomer, {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "strong", "em", "u", "span"]),
+          })}
+          items={itemsForCustomer}
+          totalPrice={totalPriceDisplay}
+          year={new Date().getFullYear()}
+          logoCid={hasLogo ? LOGO_CID : undefined}
+        />
+      ),
     ]);
 
     const adminText = toPlainText(adminHtml);
@@ -146,11 +170,22 @@ export default async function handler(req, res) {
       subject: adminSubject,
       text: adminText,
       html: adminHtml,
+      attachments: hasLogo
+        ? [
+            {
+              filename: "logo.png",
+              content: logoBuffer,
+              contentType: "image/png",
+              cid: LOGO_CID,
+              contentDisposition: "inline",
+            },
+          ]
+        : [],
     });
 
     // Kunden-Mail
     await transporter.sendMail({
-      from: `"DAKIEKSTE⌾" <${process.env.EMAIL_USER}>`,
+      from: `"DAKIEKSTE" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Deine Anfrage bei uns",
       text: customerText,

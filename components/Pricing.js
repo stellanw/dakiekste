@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect, useRef } from "react";
-import { PiPushPinLight, PiPlus, PiMinus } from "react-icons/pi";
+import { PiPushPinLight, PiPlus, PiMinus, PiTrashLight } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import ContactOverlayForm from "./ContactOverlayForm";
 
@@ -152,6 +152,12 @@ export default function Pricing({ pricingData, servicesData }) {
     return total + discountedPrice * count;
   }, 0);
 
+  const clearAllSelections = () => {
+    setSelectedServices([]);
+    setServiceCounts({});
+    setOpenKey(null);
+  };
+
   return (
     <PricingContainer>
       {showOverlay && (
@@ -256,6 +262,12 @@ export default function Pricing({ pricingData, servicesData }) {
                       </li>
                     ))}
                   </ul>
+                  {selectedServices.length > 0 && (
+                    <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Auswahl leeren">
+                      <PiTrashLight />
+                      <span>Gesamte Auswahl leeren</span>
+                    </ClearAllButton>
+                  )}
                   <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
 
                   <OverlayInfo>
@@ -479,10 +491,6 @@ const RemoveButton = styled.button`
   font-size: var(--font-xs);
   text-transform: uppercase;
   margin-left: var(--spacing-xs);
-  transform: scale(0.9);
-  &:hover {
-    font-weight: var(--font-weight-fatBold);
-  }
 `;
 
 const StyledRemoveIcon = styled(RxCross1)`
@@ -491,8 +499,8 @@ const StyledRemoveIcon = styled(RxCross1)`
   color: inherit;
 
   &:hover {
-    transform: scale(1.1);
-    stroke-width: 1.1;
+    transform: scale(1.05);
+    stroke-width: 1px;
   }
 `;
 
@@ -657,5 +665,38 @@ const ToggleIcon = styled.div`
 
   svg {
     pointer-events: none;
+  }
+`;
+
+const ClearAllButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: calc(0.5 * var(--spacing-xs)) 0 var(--spacing-s);
+  padding: 0;
+  background: none;
+  border: none;
+  color: ${theme.color.dark};
+  cursor: pointer;
+  font-size: var(--font-xs);
+  text-transform: uppercase;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.05);
+      stroke-width: 6px;
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px ${theme.color.dark};
+    border-radius: 6px;
   }
 `;
