@@ -46,6 +46,11 @@ import section03_service07 from "/public/images/03_Service/eventfotografie-reepe
 import section03_service08 from "/public/images/03_Service/social-media-content-dakiekste-01.jpg";
 import section03_service09 from "/public/images/03_Service/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
 import section03_service10 from "/public/images/03_Service/branding-fotografie-workshop-konzeption-dakiekste-01.jpg";
+import section03_service11 from "/public/images/03_Service/behind-the-scenes-dakiekste-01-variante_02.jpg";
+import section03_service12 from "/public/images/03_Service/behind-the-scenes-dakiekste-01-variante.jpg";
+import section03_service13 from "/public/images/03_Service/behind-the-scenes-dakiekste-02_variante.jpg";
+import section03_service14 from "/public/images/03_Service/produktfotografie-dakiekste-01.jpg";
+import section03_service15 from "/public/images/03_Service/produktfotografie-dakiekste-02.jpg";
 
 //04_Slider
 import section04_slider01 from "/public/images/04_Slider/business-portrait-fotografie-dakiekste-01.jpg";
@@ -53,6 +58,7 @@ import section04_slider02 from "/public/images/04_Slider/business-portrait-fotog
 import section04_slider03 from "/public/images/04_Slider/business-portrait-fotografie-finanzexperten-dakiekste-02.jpg";
 import section04_slider04 from "/public/images/04_Slider/team-portrait-fotografie-bildung-integration-verein-dakiekste-01.jpg";
 import section04_slider05 from "/public/images/04_Slider/team-portrait-fotografie-bildung-integration-verein-dakiekste-02.jpg";
+import section04_slider06 from "/public/images/04_Slider/business-portrait-fotografie-dakiekste-03.jpg";
 
 //05_TextBox
 import section05_TextBox01 from "/public/images/05_TextBox/business-portrait-fotografie-dakiekste-02.jpg";
@@ -139,70 +145,69 @@ export default function HomePage() {
           boxData={[
             {
               image: section03_service05,
-              label: "Foto",
+
               title: "Branding Fotografie",
               mobileTitle: "Branding Fotos",
               text: "Bilder, die zeigen, wofür deine Marke steht. Deine Markenwerte übersetzen wir in eine visuelle Bildsprache die überzeugt. Deine Marke und Vision im Ganzen zu verstehen, ist uns dabei besonders wichtig.",
             },
             {
               image: section03_service09,
-              label: "Foto",
+
               title: "Businessportraits",
               mobileTitle: "Business-Portraits",
               text: "Ob CEO, Mitarbeiter*innen oder das ganze Team – wir fotografieren dich authentisch und stärken dabei dein Employer Branding. Im ganzen Shootig-Prozess begleiten wir dich, damit du dich vor der Kamera rundum wohl fühlen kannst.",
             },
             {
               image: section03_service01,
-              label: "Video",
               title: "Imagefilm & Video-Content",
               mobileTitle: "Video Content",
               text: "Bewegte Bilder erzählen mehr als Worte. Mit unterschiedlichen Formaten wie Imagefilmen, Dokumentationen oder Interviews gibst du deiner Zielgruppe tiefere Einblicke in deine Marke.",
             },
             {
               image: section03_service04,
-              label: "Web",
+
               title: "Website Design (UI/UX)",
               mobileTitle: "Website Design",
               text: "Webdesign, das mitdenkt und Websites, die einfach funktionieren – visuell, strukturell und inhaltlich. Design, Nutzerführung und Inhalte greifen bei uns ineinander und werden zu einem stimmigen Gesamtbild, das User überzeugt.",
             },
             {
               image: section03_service03,
-              label: "Web",
+
               title: "Website Entwicklung",
               mobileTitle: "Web Entwicklung",
               text: "Wir kümmern uns um die Umsetzung deiner Website – ohne Technikstress. Sie läuft, wächst und hält dir den Rücken frei. Ob CMS-System oder komplexere Anforderungen: Gemeinsam finden wir die passende Lösung für dich.",
             },
             {
               image: section03_service02,
-              label: "Design",
+
               title: "Branding & Corporate Design",
               mobileTitle: "Corporate Design",
               text: "Mit einem Designsystem aus Logo, Farben und Typografie, entwickeln wir das visuelle Fundament deiner Marke. Klar, durchdacht und wiedererkennbar. So wirst du sichtbarer und bleibst im Kopf.",
             },
             {
               image: section03_service07,
-              label: "Fotografie",
+
               title: "Eventfotografie",
               mobileTitle: "Event Fotos",
               text: "Egal ob PR-Event, Produktlaunch, Networking, Keynote oder Teamoffsite – wir halten Atmosphäre und Highlights in starken Bildern fest: dezent im Hintergrund, präsent im richtigen Moment.",
             },
             {
-              image: section03_service06,
-              label: "Foto",
+              image: section03_service15,
+
               title: "Produktfotografie",
               mobileTitle: "Produktfotografie",
               text: "Dein Business hat Produkte? Ob Freisteller, Inszeniert oder am Model. Unsere Wurzeln liegen in der Produktfotografie – und das sieht man.",
             },
             {
               image: section03_service08,
-              label: "Foto & Video",
+
               title: "Content Creation & Strategie",
               mobileTitle: "Content Creation",
               text: "Persönlicher Content statt Standard: Wir erstellen Foto- und Videoinhalte mit Qualität und einem hohen Anspruch an Ästhetik. Für Posts, Reels & Stories, die wirken.",
             },
             {
-              image: section03_service10,
-              label: "Strategie",
+              image: section03_service13,
+
               title: "Konzeption & Workshop",
               mobileTitle: "Workshop",
               text: "Corporate Identity, Branding und Bildsprache – wir teilen Wissen, beraten und strukturieren deine visuelle Kommunikation für mehr Klarheit und Wirkung.",
@@ -220,6 +225,10 @@ export default function HomePage() {
           {
             alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
             image: section04_slider02,
+          },
+          {
+            alt: "Business Portrait im Klub Studio",
+            image: section04_slider06,
           },
           {
             alt: "Business Portrait Foto im Studio vor Orange",
@@ -271,38 +280,32 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           headline2={<>Du bringst die Vision, wir kümmern uns um den Weg. Mit einem strukturierten Ablauf halten wir dir den Rücken frei.</>}
           boxData={[
             {
-              label: "01",
-              title: "Erstgespräch & Analyse",
+              title: "01 Erstgespräch & Analyse",
               mobileTitle: "Deine Vision verstehen",
               text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
             {
-              label: "02",
-              title: "Konzeption & Workshops",
+              title: "02 Konzeption & Workshops",
               mobileTitle: "Strategie entwickeln",
               text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Zusätzlich bieten wir Workshops an, um gemeinsam die besten Lösungen zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände.",
             },
             {
-              label: "03",
-              title: "Organisation",
+              title: "03 Organisation",
               mobileTitle: "Das Fundament",
               text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis hin zu Styling und Hair & Make-up. Dank unseres Netzwerks und durchdachter Zeitpläne läuft dein Shooting reibungslos und zuverlässig.",
             },
             {
-              label: "04",
-              title: "Umsetzung",
+              title: "04 Umsetzung",
               mobileTitle: "Content erschaffen",
               text: "Fotografie, Design, Web – bei uns greift alles ineinander. Wir arbeiten effizient und ohne doppelte Abstimmungen. Shootings und Drehs laufen strukturiert ab. Design entsteht in Abstimmung mit Strategie und Zielgruppe. Web-Projekte entwickeln wir funktional, durchdacht und einsatzbereit.",
             },
             {
-              label: "05",
-              title: "Postproduktion",
+              title: "05 Postproduktion",
               mobileTitle: "Dein content-pool",
               text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool auf den du über eine Online-Galerie oder Cloud zugreifen kannst, mit einer Anleitung zur flexiblen Verwendung.",
             },
             {
-              label: "06",
-              title: "Langfristige Unterstützung",
+              title: "06 Langfristige Unterstützung",
               mobileTitle: "Gemeinsam wachsen",
               text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
             },
@@ -381,6 +384,17 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         <Team
           teamMembers={[
             {
+              name: "MAÏSCHA",
+              image: section10_Team01,
+              text: (
+                <>
+                  <p>Ich arbeite visuell und konzeptionell, denke in Bildern, Geschichten und Systemen. Ob Kamera oder Interface – mir geht es darum, Inhalte klar zu vermitteln, stimmig zu gestalten und Wirkung zu erzeugen.</p>
+                  <p>Meine Schwerpunkte liegen in der Fotografie und Videografie, ergänzt durch Erfahrung in Design, visueller Kommunikation und UI/UX. Ich verstehe mich nicht als Spezialistin für eine Disziplin, sondern als kreative Allrounderin.</p>
+                  <p>Ich entwickle Gestaltungslösungen, die funktionieren – für Menschen und Marken, die etwas zu erzählen haben. Dabei denke ich mich tief in Themen hinein, höre zu, sehe genau hin und finde visuelle Antworten, die Haltung zeigen und Orientierung geben.</p>
+                </>
+              ),
+            },
+            {
               name: "STELLAN",
               image: section10_Team02,
 
@@ -390,17 +404,6 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
                     Fotografie , Video & Webentwicklung – mit einem Blick fürs Ganze. Mein Fokus liegt auf klaren Prozessen, funktionierenden Systemen und Bildwelten, die funktionieren – technisch wie visuell. Ich verbinde Kreativität mit Struktur und sorge dafür, dass Inhalte sichtbar, verständlich und wirksam werden. Ob Shooting, Imagefilm oder
                     maßgeschneiderte Website: Ich denke Projekte als Einheit und begleite sie von Anfang bis Ende.
                   </p>
-                </>
-              ),
-            },
-            {
-              name: "MAÏSCHA",
-              image: section10_Team01,
-              text: (
-                <>
-                  <p>Ich arbeite visuell und konzeptionell, denke in Bildern, Geschichten und Systemen. Ob Kamera oder Interface – mir geht es darum, Inhalte klar zu vermitteln, stimmig zu gestalten und Wirkung zu erzeugen.</p>
-                  <p>Meine Schwerpunkte liegen in der Fotografie und Videografie, ergänzt durch Erfahrung in Design, visueller Kommunikation und UI/UX. Ich verstehe mich nicht als Spezialistin für eine Disziplin, sondern als kreative Allrounderin.</p>
-                  <p>Ich entwickle Gestaltungslösungen, die funktionieren – für Menschen und Marken, die etwas zu erzählen haben. Dabei denke ich mich tief in Themen hinein, höre zu, sehe genau hin und finde visuelle Antworten, die Haltung zeigen und Orientierung geben.</p>
                 </>
               ),
             },
