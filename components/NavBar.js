@@ -35,14 +35,9 @@ export default function NavBar() {
   return (
     <>
       {isVisible && (
-        <StyledNavBar /* $scrollY={scrollY} */ isVisible={isVisible}>
+        <StyledNavBar $scrollY={scrollY} isVisible={isVisible}>
           <Link href="/">
-            <DakieksteLogo
-              // color={scrollY > 200 ? theme.color.dark : theme.color.beige}
-              color={theme.color.beige}
-              transition="color 0.5s ease"
-              width={logoWidth}
-            />
+            <DakieksteLogo color={theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
           </Link>
           <Menu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
         </StyledNavBar>
@@ -52,20 +47,26 @@ export default function NavBar() {
 }
 
 const StyledNavBar = styled.div`
-  display: flex;
   position: fixed;
-  align-items: center;
-  height: var(--nav-height);
+  top: 0;
+  left: 0;
   width: 100%;
+  height: var(--nav-height);
   z-index: 100;
 
-  /* background-color: ${({ $scrollY }) => ($scrollY > 200 ? theme.color.beige : "transparent")}; */
-  background-color: transparent;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--side-padding);
 
+  background-color: transparent;
   transition:
     background-color 0.5s ease,
     opacity 10s ease;
   opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
 
-  padding: 0 var(--side-padding);
+  /* >> entscheidend: Klicks durchlassen, außer auf die Kinder */
+  pointer-events: none;
+  & > * {
+    pointer-events: auto;
+  }
 `;

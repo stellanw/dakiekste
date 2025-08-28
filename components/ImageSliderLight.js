@@ -66,14 +66,7 @@ export default function ImageSliderLight({ projects, autoplay }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {projects.map((project, index) => (
           <Slide key={index}>
-            <StyledImage
-              src={project.image}
-              alt={project.alt}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
-              quality={100}
-              priority={index === 0}
-            />
+            <StyledImage src={project.image} alt={project.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" quality={100} priority={index === 0} />
           </Slide>
         ))}
       </StyledSlider>
@@ -97,23 +90,42 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: var(--spacing-xl);
+  top: var(--spacing-l);
   right: var(--side-padding);
-  width: 100px;
+  width: 120px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     display: none;
   }
+
+  svg {
+    stroke-width: 1px;
+
+    font-size: 1.6rem;
+  }
 `;
 
 const Arrow = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: ${theme.color.beige};
+  background-color: ${theme.color.dark};
+
   cursor: pointer;
-  font-size: var(--font-xl);
+  transition:
+    background-color 0.1s ease,
+    transform 0.1s ease;
 
   &:hover,
-  :active {
-    color: ${theme.color.green};
+  &:active {
+    background-color: ${theme.color.green};
+
+    transform: scale(1.05);
   }
 `;
 
@@ -127,17 +139,17 @@ const StyledSlider = styled(Slider)`
     width: 100%;
     gap: 0;
     z-index: 100;
-    bottom: calc(-1 * var(--spacing-xs));
+    bottom: calc(-1 * var(--spacing-s));
   }
 
   .slick-dots li {
-    margin: 0 -1px;
+    margin: 0 2px;
   }
 
   .slick-dots li button {
-    background-color: ${theme.color.dark};
-    height: 10px;
-    width: 10px;
+    background-color: ${theme.color.green};
+    height: 20px;
+    width: 20px;
     border: none;
     border-radius: 50%;
     opacity: 1;
@@ -147,7 +159,7 @@ const StyledSlider = styled(Slider)`
 
   .slick-dots li.slick-active button {
     opacity: 1;
-    background-color: ${theme.color.dark};
+    background-color: ${theme.color.green};
     transform: scale(0.8);
   }
 
