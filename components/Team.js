@@ -17,17 +17,11 @@ export default function Team({ teamMembers = [] }) {
       {teamMembers.map((member, index) => (
         <StyledTeamMemberContainer key={index}>
           <StyledMemberImageContainer>
-            <StyledMemberImage
-              src={member.image}
-              alt={`Portrait von ${member.name}`}
-              fill
-              quality={80}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
-            />
+            <StyledMemberImage src={member.image} alt={`Portrait von ${member.name}`} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
           </StyledMemberImageContainer>
 
-          <NameIconContainer>
-            <ToggleIcon onClick={() => toggleExpand(index)}>{expandedIndex === index ? <PiMinus /> : <PiPlus />}</ToggleIcon>
+          <NameIconContainer role="button" tabIndex={0} onClick={() => toggleExpand(index)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleExpand(index)} $isExpanded={expandedIndex === index}>
+            <ToggleIcon $isExpanded={expandedIndex === index}>{expandedIndex === index ? <PiMinus /> : <PiPlus />}</ToggleIcon>
             <h6>{member.name}</h6>
           </NameIconContainer>
 
@@ -100,20 +94,6 @@ const StyledMemberImage = styled(Image)`
   }
 `;
 
-const NameIconContainer = styled.div`
-  position: relative;
-  display: flex;
-  padding-top: var(--spacing-xs);
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    padding-top: var(--spacing-s);
-  }
-
-  h6 {
-    margin-left: var(--spacing-m);
-  }
-`;
-
 const TextContainer = styled.div`
   display: grid;
   grid-template-rows: ${({ $isExpanded }) => ($isExpanded ? "1fr" : "0fr")};
@@ -126,25 +106,58 @@ const TextContainer = styled.div`
 const Inner = styled.div`
   overflow: hidden; /* wichtig fürs „Zufahren“ */
   p {
-    padding-bottom: var(--spacing-xs);
+    padding: var(--spacing-xs) 0;
   }
 `;
 
 const ToggleIcon = styled.div`
-  position: absolute;
+  display: grid;
+  place-items: center;
+  padding-bottom: 3px;
+  svg {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    border-radius: 50%;
+    stroke-width: 8px;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease,
+      transform 0.2s ease;
+
+    /* Icon-Farbe abhängig vom State */
+    background-color: ${({ $isExpanded }) => ($isExpanded ? theme.color.green : theme.color.dark)};
+    color: ${theme.color.beige};
+  }
+`;
+
+const NameIconContainer = styled.div`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding-top: var(--spacing-xs);
   cursor: pointer;
-  font-size: var(--font-l);
-  color: ${theme.color.dark};
-  top: 25%;
-  left: 0;
-  &:hover {
-    scale: 1.15;
+  user-select: none;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding-top: var(--spacing-s);
   }
 
-  svg {
-    border-radius: 3px;
-    stroke-width: 8px;
+  /* Farbe im Expanded-State */
+  h6 {
+    font-size: var(--font-l);
+    transition: color 0.25s ease;
+    color: ${({ $isExpanded }) => ($isExpanded ? theme.color.green : theme.color.dark)};
+    margin-bottom: 0;
+  }
+
+  /* Gemeinsames Hover-Verhalten */
+  &:hover h6 {
+    color: ${theme.color.green};
+  }
+  &:hover ${ToggleIcon} svg {
+    transform: scale(1.05);
     background-color: ${theme.color.green};
-    padding: 4px;
   }
 `;
