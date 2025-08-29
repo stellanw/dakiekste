@@ -281,32 +281,26 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           boxData={[
             {
               title: "01 Erstgespräch & Analyse",
-              mobileTitle: "Deine Vision verstehen",
               text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
             {
               title: "02 Konzeption & Workshops",
-              mobileTitle: "Strategie entwickeln",
               text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deiner Marke, deinen Zielen und deinem Budget passt. Zusätzlich bieten wir Workshops an, um gemeinsam die besten Lösungen zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände.",
             },
             {
               title: "03 Organisation",
-              mobileTitle: "Das Fundament",
               text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis hin zu Styling und Hair & Make-up. Dank unseres Netzwerks und durchdachter Zeitpläne läuft dein Shooting reibungslos und zuverlässig.",
             },
             {
               title: "04 Umsetzung",
-              mobileTitle: "Content erschaffen",
               text: "Fotografie, Design, Web – bei uns greift alles ineinander. Wir arbeiten effizient und ohne doppelte Abstimmungen. Shootings und Drehs laufen strukturiert ab. Design entsteht in Abstimmung mit Strategie und Zielgruppe. Web-Projekte entwickeln wir funktional, durchdacht und einsatzbereit.",
             },
             {
               title: "05 Postproduktion",
-              mobileTitle: "Dein content-pool",
               text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool auf den du über eine Online-Galerie oder Cloud zugreifen kannst, mit einer Anleitung zur flexiblen Verwendung.",
             },
             {
               title: "06 Langfristige Unterstützung",
-              mobileTitle: "Gemeinsam wachsen",
               text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
             },
           ]}

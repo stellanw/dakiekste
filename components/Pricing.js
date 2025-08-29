@@ -582,6 +582,7 @@ const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
 `;
 
 const ServiceDot = styled.span`
+  min-width: 15px;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -595,6 +596,10 @@ const ServiceTitle = styled.h2`
   margin: 0;
   color: ${theme.color.dark};
   padding-top: 2px;
+  font-size: var(--font-m);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+  }
 `;
 
 const OverlayDescription = styled.div`
@@ -602,11 +607,21 @@ const OverlayDescription = styled.div`
   flex-direction: column;
 
   padding: var(--spacing-xs) var(--spacing-l) 0 var(--spacing-m);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: var(--spacing-xs) var(--spacing-l) 0 calc(0.9 * var(--spacing-l));
+  }
 `;
 
 const Description = styled.p`
   animation: slide-animation 0.5s ease;
   font-weight: ${theme.fontWeight.light};
+
+  font-size: var(--font-m);
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+  }
+
   @keyframes slide-animation {
     0% {
       height: 0;
@@ -681,8 +696,9 @@ const StyledButton = styled.button`
 const ServicePrice = styled.p`
   padding-top: var(--spacing-s);
   text-transform: none;
-  font-weight: ${theme.fontWeight.regular};
+  font-size: var(--font-m);
   span {
+    font-weight: ${theme.fontWeight.bold};
   }
 `;
 
@@ -711,6 +727,10 @@ const ToggleIcon = styled.div`
 
   svg {
     pointer-events: none;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: var(--spacing-m);
   }
 `;
 
