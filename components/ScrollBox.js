@@ -2,7 +2,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { theme } from "@/styles";
 import { useRef, useEffect, useLayoutEffect, useMemo, useState, useCallback } from "react";
-import { PiArrowRightLight, PiArrowLeftLight } from "react-icons/pi";
+import { PiArrowRightLight, PiArrowLeftLight, PiArrowBendDownRightLight } from "react-icons/pi";
 
 const MOBILE_CYCLIC = false; // <- auf true setzen, wenn Pfeile mobil endlos loopen sollen
 
@@ -417,7 +417,7 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
           data-touch={isTouch ? "1" : "0"}
         >
           <StyledTrack ref={trackRef}>
-            {data.map(({ label, title, mobileTitle, text, image }, i) => {
+            {data.map(({ title, text, image }, i) => {
               const focused = focusedIndex === i;
               return (
                 <StyledScrollBox key={i} data-card-idx={i} style={{ zIndex: focused ? 5 : 0 }}>
@@ -433,16 +433,14 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
                         <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
                       </ImageWrapper>
                     )}
-                    <StyledDesktopTitle>
-                      {" "}
+                    <StyledTitle>
                       {(showIcon === true || showIcon === "true") && (
                         <StyledIcon>
-                          <PiArrowRightLight />
+                          <PiArrowBendDownRightLight />
                         </StyledIcon>
                       )}
                       {title}
-                    </StyledDesktopTitle>
-                    <StyledMobileTitle>{mobileTitle}</StyledMobileTitle>
+                    </StyledTitle>
 
                     <p>{text}</p>
                   </StyledScrollBoxInner>
@@ -569,12 +567,8 @@ const StyledIcon = styled.span`
   font-size: 1.3rem;
 `;
 
-const StyledDesktopTitle = styled.h5`
-  display: none;
+const StyledTitle = styled.h5`
   margin-bottom: var(--spacing-xs);
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    display: block;
-  }
 `;
 
 const StyledMobileTitle = styled.h5`
@@ -605,7 +599,6 @@ const ArrowsLayer = styled.div`
   inset: 0; /* über dem gesamten Viewport */
   display: none;
   z-index: 10;
-
   @media (hover: none), (pointer: coarse) {
     display: block; /* nur mobil anzeigen */
   }
@@ -614,22 +607,23 @@ const ArrowsLayer = styled.div`
 const MobileArrowBase = styled.button`
   pointer-events: auto; /* Klicks erlaubt */
   position: absolute;
-  top: var(--spacing-xl);
-  width: 40px;
-  height: 40px;
+  top: var(--spacing-l);
+  width: 30px;
+  height: 30px;
   border: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-xl);
+  font-size: var(--font-xxl);
   color: ${theme.color.beige};
   background: transparent;
   transition:
     transform 0.12s ease,
     opacity 0.2s ease;
 
-  &:active {
+  &:active:hover {
     transform: scale(1.1);
+    color: ${theme.color.green};
   }
 
   &:disabled {
@@ -640,7 +634,7 @@ const MobileArrowBase = styled.button`
 `;
 
 const MobileArrowLeft = styled(MobileArrowBase)`
-  right: calc(2 * var(--side-padding));
+  right: calc(2.5 * var(--side-padding));
 `;
 
 const MobileArrowRight = styled(MobileArrowBase)`

@@ -146,12 +146,27 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
   };
 
   /// Down Button
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia(`(max-width: ${theme.breakpoints.mobile})`);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener ? mq.addEventListener("change", update) : mq.addListener(update);
+    return () => (mq.removeEventListener ? mq.removeEventListener("change", update) : mq.removeListener(update));
+  }, []);
+
   const listRef = useRef(null);
   const [showDownHint, setShowDownHint] = useState(false);
 
   useEffect(() => {
     const el = listRef.current;
-    if (!el) return;
+    if (!el) {
+      setShowDownHint(false);
+      return;
+    }
 
     const update = () => {
       const canScroll = el.scrollHeight > el.clientHeight + 1;
@@ -160,13 +175,30 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
     };
 
     update();
-    el.addEventListener("scroll", update);
+    el.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     return () => {
       el.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [structured.length]); // neu berechnen, wenn Auswahl sich ändert
+  }, [isMobile, structured.length]);
+
+  //fix body to prevent scrolling
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    const prevHtmlOverflow = html.style.overflow;
+    const prevBodyOverflow = body.style.overflow;
+
+    html.style.overflow = "hidden";
+    body.style.overflow = "hidden";
+
+    return () => {
+      html.style.overflow = prevHtmlOverflow;
+      body.style.overflow = prevBodyOverflow;
+    };
+  }, []);
 
   return (
     <OverlayWrapper>
@@ -176,12 +208,11 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
             <SummaryBox>
               <SummaryTop>
                 <h5>Deine Auswahl</h5>
-
                 {structured.length === 0 ? (
                   <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
                 ) : (
                   <ListWrap>
-                    <List ref={listRef}>
+                    <List ref={!isMobile ? listRef : null}>
                       {structured.map((x, i) => (
                         <li key={i}>
                           <Row>
@@ -196,16 +227,7 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
                     </List>
 
                     {showDownHint && (
-                      <ScrollHint
-                        type="button"
-                        onClick={() => {
-                          const el = listRef.current;
-                          if (!el) return;
-                          el.scrollBy({ top: el.clientHeight * 0.8, behavior: "smooth" });
-                        }}
-                        aria-label="Weiter nach unten"
-                        title="Weiter nach unten"
-                      >
+                      <ScrollHint type="button" onClick={() => listRef.current?.scrollBy({ top: listRef.current.clientHeight * 0.8, behavior: "smooth" })} aria-label="Weiter nach unten" title="Weiter nach unten">
                         <PiArrowDownThin />
                       </ScrollHint>
                     )}
@@ -304,13 +326,13 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
               <OverlayLabel htmlFor="email">Email</OverlayLabel>
               <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)" inputMode="email" autoComplete="email" required />
 
-              <SummaryMobil>
-                <h5>Deine Auswahl</h5>
+              <StyledSummaryHeadline>Deine Auswahl</StyledSummaryHeadline>
+              <SummaryMobil ref={isMobile ? listRef : null}>
                 {structured.length === 0 ? (
                   <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
                 ) : (
                   <ListWrap>
-                    <List ref={listRef}>
+                    <List>
                       {structured.map((x, i) => (
                         <li key={i}>
                           <Row>
@@ -324,6 +346,11 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
                       ))}
                     </List>
                   </ListWrap>
+                )}
+                {showDownHint && (
+                  <ScrollHint type="button" onClick={() => listRef.current?.scrollBy({ top: listRef.current.clientHeight * 0.8, behavior: "smooth" })}>
+                    <PiArrowDownThin />
+                  </ScrollHint>
                 )}
               </SummaryMobil>
 
@@ -361,6 +388,10 @@ const OverlayWrapper = styled.div`
   align-items: center;
 
   padding: calc(0.5 * var(--side-padding)) var(--side-padding);
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 `;
 
 const OverlayFormContainer = styled.form`
@@ -654,15 +685,18 @@ const ScrollHint = styled.button`
       stroke-width: 10px;
     }
   }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    bottom: 39%;
+  }
 `;
 
 const SummaryMobil = styled.div`
-  display: flex;
   display: none;
   flex-direction: column;
   flex: 1 1 auto;
   min-height: 0;
-  margin: var(--spacing-xs) 0;
+  margin: 0 0 var(--spacing-xs) 0;
 
   max-height: 80px;
   overflow-y: auto;
@@ -671,11 +705,15 @@ const SummaryMobil = styled.div`
   @media (max-width: ${theme.breakpoints.mobile}) {
     display: block;
   }
+`;
 
-  h5 {
-    font-size: var(--font-s);
-    margin-bottom: var(--spacing-xs);
-    letter-spacing: 0.003rem;
+const StyledSummaryHeadline = styled.h5`
+  font-size: var(--font-s);
+  margin-bottom: var(--spacing-s);
+  letter-spacing: 0.003rem;
+  display: none;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: block;
   }
 `;
 

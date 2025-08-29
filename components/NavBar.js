@@ -29,7 +29,7 @@ export default function NavBar() {
     };
   }, []);
 
-  const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 125;
+  const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 120;
   const iconWidth = 45;
 
   return (
@@ -57,6 +57,10 @@ const StyledNavBar = styled.div`
   display: flex;
   align-items: center;
   padding: 0 var(--side-padding);
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: var(--side-padding) 0 0 var(--side-padding);
+  }
 
   background-color: transparent;
   transition:
