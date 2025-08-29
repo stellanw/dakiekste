@@ -107,12 +107,14 @@ const Wrapper = styled.div`
   display: flex;
   position: fixed;
   top: calc(1 * var(--spacing-s));
-  right: 0;
+  right: -6px;
   align-items: center;
   /* background-color: ${({ $isOpen }) => ($isOpen ? theme.color.beige : theme.color.green)}; */
   background-color: ${theme.color.beige};
   border-radius: ${({ $isOpen }) => ($isOpen ? `calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius})` : `calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius})`)};
   padding: calc(0.5 * var(--spacing-xs)) 0;
+
+  outline: 1px solid ${theme.color.dark};
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     height: auto;

@@ -326,33 +326,35 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
               <OverlayLabel htmlFor="email">Email</OverlayLabel>
               <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)" inputMode="email" autoComplete="email" required />
 
-              <StyledSummaryHeadline>Deine Auswahl</StyledSummaryHeadline>
-              <SummaryMobil ref={isMobile ? listRef : null}>
-                {structured.length === 0 ? (
-                  <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
-                ) : (
-                  <ListWrap>
-                    <List>
-                      {structured.map((x, i) => (
-                        <li key={i}>
-                          <Row>
-                            <span>
-                              {x.title}
-                              {x.count > 1 ? ` (${x.count}x)` : ""}
-                            </span>
-                            <strong>{showOnRequest ? "auf Anfrage" : euroDash(x.price)}</strong>
-                          </Row>
-                        </li>
-                      ))}
-                    </List>
-                  </ListWrap>
-                )}
+              <MobileListBox>
+                <StyledSummaryHeadline>Deine Auswahl</StyledSummaryHeadline>
+                <SummaryMobil ref={isMobile ? listRef : null}>
+                  {structured.length === 0 ? (
+                    <Empty>Du hast noch keine Leistungen ausgewählt.</Empty>
+                  ) : (
+                    <ListWrap>
+                      <List>
+                        {structured.map((x, i) => (
+                          <li key={i}>
+                            <Row>
+                              <span>
+                                {x.title}
+                                {x.count > 1 ? ` (${x.count}x)` : ""}
+                              </span>
+                              <strong>{showOnRequest ? "auf Anfrage" : euroDash(x.price)}</strong>
+                            </Row>
+                          </li>
+                        ))}
+                      </List>
+                    </ListWrap>
+                  )}
+                </SummaryMobil>
                 {showDownHint && (
                   <ScrollHint type="button" onClick={() => listRef.current?.scrollBy({ top: listRef.current.clientHeight * 0.8, behavior: "smooth" })}>
                     <PiArrowDownThin />
                   </ScrollHint>
                 )}
-              </SummaryMobil>
+              </MobileListBox>
 
               <OverlayLabel htmlFor="message">Nachricht</OverlayLabel>
               <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
@@ -665,13 +667,22 @@ const ScrollHint = styled.button`
   display: flex;
   align-items: end;
   justify-content: center;
-  height: 100px;
+  height: 50px;
   border: none;
   border-radius: 0;
   background: none;
-
+  z-index: 1;
   color: ${theme.color.dark};
   cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -40px 0 0 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, ${theme.color.beige} 85%);
+    z-index: -1;
+  }
 
   svg {
     width: 20px;
@@ -687,11 +698,20 @@ const ScrollHint = styled.button`
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    bottom: 39%;
+    height: 30px;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -40px 0 0 0;
+      pointer-events: none;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, ${theme.color.beige} 85%);
+      z-index: -1;
+    }
   }
 `;
 
 const SummaryMobil = styled.div`
+  position: relative;
   display: none;
   flex-direction: column;
   flex: 1 1 auto;
@@ -891,4 +911,8 @@ const PronounRow = styled.div`
 const PronounCol = styled.div`
   flex: 1 1 50%;
   min-width: 0;
+`;
+
+const MobileListBox = styled.div`
+  position: relative; /* Anker fürs Overlay */
 `;
