@@ -32,8 +32,9 @@ export default function ImageSlider({ projects, autoplay }) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1000,
+    speed: 10,
     autoplaySpeed: 5000,
+    fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: autoplay,
@@ -42,9 +43,9 @@ export default function ImageSlider({ projects, autoplay }) {
     afterChange: (index) => setCurrentSlide(index),
     responsive: [
       {
-        breakpoint: 750,
+        breakpoint: 600,
         settings: {
-          dots: true,
+          dots: false,
         },
       },
     ],
@@ -109,25 +110,22 @@ const StyledSlider = styled(Slider)`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin: 0 2px;
   }
 
   .slick-dots li button {
     background-color: ${theme.color.dark};
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
     border: none;
     border-radius: 50%;
     opacity: 1;
     transform: scale(0.5);
-
-    @media (max-width: ${theme.breakpoints.mobile}) {
-      background-color: ${theme.color.beige};
-    }
   }
 
   .slick-dots li.slick-active button {
-    transform: scale(0.8);
+    transform: scale(0.7);
+    background-color: ${theme.color.green};
   }
 
   .slick-dots li button::before {
@@ -137,6 +135,14 @@ const StyledSlider = styled(Slider)`
 
   .slick-dots li button:hover {
     background-color: ${theme.color.green};
+    transform: scale(0.65);
+  }
+
+  .slick-dots li:first-child button {
+    transform: scale(0.35);
+  }
+  .slick-dots li:last-child button {
+    transform: scale(0.35);
   }
 `;
 
@@ -166,7 +172,8 @@ const ArrowContainer = styled.div`
   width: 100px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    display: none;
+    /* display: none; */
+    width: 65px;
   }
 `;
 
@@ -174,8 +181,19 @@ const Arrow = styled.div`
   position: relative;
   cursor: pointer;
   font-size: var(--font-xl);
+
+  cursor: pointer;
+  transition:
+    background-color 0.1s ease,
+    transform 0.1s ease;
+
   &:hover,
   :active {
     color: ${theme.color.green};
+    transform: scale(1.05);
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: var(--font-xxl);
   }
 `;

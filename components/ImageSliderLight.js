@@ -32,8 +32,9 @@ export default function ImageSliderLight({ projects, autoplay }) {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1000,
+    // speed: 1000,
     fade: true,
+    speed: 10,
     autoplay: autoplay,
     autoplaySpeed: 5000,
     slidesToShow: 1,
@@ -102,6 +103,7 @@ const ArrowContainer = styled.div`
     stroke-width: 1px;
 
     font-size: 1.6rem;
+    /* font-size: var(--font-xl); */
   }
 `;
 
@@ -147,10 +149,9 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-dots li button {
-    background-color: ${theme.color.green};
+    background-color: ${theme.color.dark};
     height: 20px;
     width: 20px;
-    border: none;
     border-radius: 50%;
     opacity: 1;
     transition: opacity 0.3s ease;
@@ -160,12 +161,24 @@ const StyledSlider = styled(Slider)`
   .slick-dots li.slick-active button {
     opacity: 1;
     background-color: ${theme.color.green};
-    transform: scale(0.8);
+    transform: scale(0.7);
+  }
+
+  .slick-dots li button:hover {
+    background-color: ${theme.color.green};
+    transform: scale(0.65);
   }
 
   .slick-dots li button::before {
     content: "";
     display: none;
+  }
+
+  .slick-dots li:first-child button {
+    transform: scale(0.35);
+  }
+  .slick-dots li:last-child button {
+    transform: scale(0.35);
   }
 `;
 
