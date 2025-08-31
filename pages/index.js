@@ -108,7 +108,7 @@ export default function HomePage() {
       </Head>
       <Hero headline="Fotografie. Branding. Content Creation." text={<>Weil deine Marke mehr als schöne Bilder braucht – bieten wir ein Gesamtkonzept aus Fotografie, Design, Web und Content Creation. Mit vielseitiger Expertise, Erfahrung und Empathie begleiten wir dich, damit deine Botschaft nachhaltig wirkt.</>} />
       <ImageSlider
-        autoplay={false}
+        autoplay={true}
         projects={[
           {
             alt: "",
