@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     const handleContextMenu = (e) => {
-      if (e.target.closest("p, h1, h2, h3, h4, h5, h6, span")) {
+      if (e.target.closest("a, p, h1, h2, h3, h4, h5, h6, span")) {
         return;
       }
 

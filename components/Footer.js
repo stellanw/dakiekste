@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { PiArrowRightLight } from "react-icons/pi";
+import { PiArrowUpRightLight } from "react-icons/pi";
 import { theme } from "@/styles";
 import PrideFlag from "@/Icons/PrideFlag";
 
@@ -12,88 +12,82 @@ export default function Footer() {
 
   return (
     <StyledFooter>
-      <StyledLeftWrapper>
-        <h3>
-          Headline finden <br />
-          Ideen sammeln
-          <br />
-          Oder so
-        </h3>
-        <StyledLinkListWrapper>
-          <StyledLink href={createMailToLink()} target="_blank" rel="noopener noreferrer">
-            <p>{email}</p>
+      <h3>
+        Headline finden <br />
+        Ideen sammeln
+        <br />
+        Oder so
+      </h3>
+      <StyledLinkListWrapper>
+        <StyledLinkWrapper>
+          <p>{email}</p>
+          <Link href={createMailToLink()} target="_blank" rel="noopener noreferrer">
             <StyledIcon />
-          </StyledLink>
-          <StyledLink href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
-            <p>Instagram</p>
+          </Link>
+        </StyledLinkWrapper>
+        <StyledLinkWrapper>
+          <p>Instagram</p>
+          <Link href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
             <StyledIcon />
-          </StyledLink>
-          <StyledLink href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
-            <p>LinkedIn</p>
+          </Link>
+        </StyledLinkWrapper>
+        <StyledLinkWrapper>
+          <p>LinkedIn</p>
+          <Link href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
             <StyledIcon />
-          </StyledLink>
-          <StyledLink href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
-            <p>Map</p>
+          </Link>
+        </StyledLinkWrapper>
+        <StyledLinkWrapper>
+          <p>Map</p>
+          <Link href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
             <StyledIcon />
-          </StyledLink>
-        </StyledLinkListWrapper>
-
+          </Link>
+        </StyledLinkWrapper>
+      </StyledLinkListWrapper>
+      <StyledBottomWrapper>
         <StyledCopyright>
           © 2025 | Dakiekste. Alle Rechte vorbehalten. <Link href="/impressum">Impressum</Link>
-        </StyledCopyright>
-      </StyledLeftWrapper>
-      <StyledRightWrapper>
-        {" "}
-        <p>
+        </StyledCopyright>{" "}
+        <StyledPrideWrapper>
           <FlagWrapper>
             <PrideFlag />
           </FlagWrapper>
-          Wir möchten ein Saferspace für dich sein.
-        </p>
-      </StyledRightWrapper>
+          <p>Wir möchten ein Saferspace für dich sein.</p>
+        </StyledPrideWrapper>
+      </StyledBottomWrapper>
     </StyledFooter>
   );
 }
 
 const StyledFooter = styled.footer`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  bottom: 0;
-  width: 100%;
-  background-color: ${theme.color.green};
-  padding: 0 var(--side-padding);
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    display: flex;
-    flex-wrap: wrap-reverse;
-  }
-`;
-
-const StyledRightWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: end;
+  justify-content: start;
   align-items: end;
   gap: var(--spacing-s);
   margin-top: var(--spacing-xl);
   width: 100%;
-  padding-bottom: var(--spacing-xl);
+  padding: var(--spacing-xxl) var(--side-padding);
+  background-color: ${theme.color.green};
   @media (max-width: ${theme.breakpoints.mobile}) {
     justify-content: space-between;
   }
+
+  &::selection,
+  & *::selection {
+    background: ${theme.color.beige};
+    color: ${theme.color.dark};
+  }
 `;
 
-const StyledLeftWrapper = styled.div`
+const StyledPrideWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-  margin-top: var(--spacing-xl);
-  padding-bottom: var(--spacing-xl);
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
   p {
-    margin-top: var(--spacing-xs);
-    font-size: var(--font-m);
+    font-size: var(--font-l);
   }
 
   h3 {
@@ -117,7 +111,7 @@ const StyledLinkListWrapper = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
+const StyledLinkWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: -0.2rem;
@@ -133,17 +127,19 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const StyledIcon = styled(PiArrowRightLight)`
+const StyledIcon = styled(PiArrowUpRightLight)`
   font-size: calc(1.5 * var(--font-m));
   stroke-width: 10;
-  transform: rotate(-45deg);
 
   &:hover {
-    color: ${theme.color.green};
+    transform: rotate(45deg) scale(1.1);
   }
 `;
 
 const StyledCopyright = styled.p`
+  display: flex;
+  align-items: end;
+  font-size: var(--font-s);
   a {
     font-size: var(--font-s);
     margin-left: var(--spacing-s);
@@ -151,5 +147,18 @@ const StyledCopyright = styled.p`
 `;
 
 const FlagWrapper = styled.div`
-  width: 80px;
+  margin-right: var(--spacing-xs);
+  width: 30px;
+`;
+
+const StyledBottomWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column-reverse;
+    gap: var(--spacing-xl);
+  }
 `;
