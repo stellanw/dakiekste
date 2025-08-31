@@ -91,6 +91,7 @@ import section13_TextBox01 from "/public/images/13_Textbox/behind-the-scenes-dak
 //12_TextBox
 import section12_TextBox01 from "/public/images/12_Textbox/dakiekste-team-stellan-maischa-02.jpg";
 import Video from "@/components/Video";
+import ProjectBox from "@/components/ProjectBox";
 
 export default function HomePage() {
   return (
@@ -565,6 +566,55 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         alt="Description of image"
         flexflow="row-reverse"
         mobileFlexflow="column-reverse"
+      />
+
+      <ProjectBox
+        topline="BILDERPOOL"
+        headline="Bildmaterial, das dich langfristig unterstützt"
+        text1="Wir erstellen Porträts, Details, Situationen und Momente, die deine Marke lebendig machen – und daraus entsteht dein persönlicher Bilderpool. So hast du nicht nur ein paar Fotos, sondern einen ganzen Pool an authentischem Bildmaterial.Egal ob für Social Media, Website oder andere Kanäle – du hast immer passende Bilder zur Hand."
+        text2=""
+        cards={[
+          {
+            image: section08_Studio05,
+            title: "Freie Parkplätze",
+            description: "Im Hamburger Osten befindet sich unser Studio mit vielen kostenlosen Parkplätzen direkt vor dem Gebäude.",
+          },
+          {
+            image: studioImage1,
+            title: "Hair & Makeup Bereich",
+            description: "Unser Stylingbereich ist mit großem Spiegel, Kleiderstange, Steamer und Ablagefläche ausgestattet – ideal zum Ankommen, Vorbereiten und Wohlfühlen.",
+          },
+          {
+            image: section11_Image01,
+            title: "Große Fotostudio-Fläche",
+            description: "80 m² flexibel nutzbare Studiofläche mit viel Tageslicht, mobilem Hintergrundsystem und Raum für große und kleine Produktionen.",
+          },
+          {
+            image: section08_Studio01,
+            title: "Lounge & Arbeitsbereich",
+            description: "Ein wandelbarer Bereich mit großer Bühne, Vorhang, Tisch, Stühlen und Sofa – ideal für Meetings, Pausen oder auch als Kulisse fürs nächste Set.",
+          },
+          {
+            image: section08_Studio02,
+            title: "Professionelle Lichttechnik",
+            description: "Ob Dauerlicht oder Blitz – unser Studio ist mit hochwertiger Technik ausgestattet. Alles, was du für eine starke Ausleuchtung und präzise Ergebnisse brauchst, ist vor Ort.",
+          },
+          {
+            image: section08_Studio04,
+            title: "Flexible Sets & Hintergründe",
+            description: "Unterschiedliche Papierhintergründe, Stoffe und mobile Setups ermöglichen dir abwechslungsreiche Looks – vom cleanen Portrait bis zur szenischen Inszenierung.",
+          },
+          {
+            image: studioImage13,
+            title: "Vielfältige Requisiten",
+            description: "Von Vorhängen über Möbel bis zu kleinen Details – im Studio findest du viele Elemente, um dein Set individuell zu gestalten und neue Looks zu schaffen.",
+          },
+          {
+            image: studioImage9,
+            title: "Kaffee, Tee & kalte Getränke",
+            description: "Für eine entspannte Arbeitsatmosphäre sorgen kleine Extras wie guter Kaffee aus der Siebträgermaschine und eine Auswahl an Getränken – inklusive im Studio-Angebot.",
+          },
+        ]}
       />
 
       <section id="faq">

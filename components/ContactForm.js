@@ -191,6 +191,12 @@ const StyledFormWrapper = styled.div`
     justify-content: center;
     align-items: center;
   }
+
+  &::selection,
+  & *::selection {
+    background: ${theme.color.beige};
+    color: ${theme.color.dark};
+  }
 `;
 
 const StyledTextContainer = styled.div`

@@ -106,8 +106,6 @@ export default function StudioBox({ topline, headline, text1, text2, cards }) {
   );
 }
 
-/* ---------- Styles ---------- */
-
 const StyledStudioBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -117,6 +115,12 @@ const StyledStudioBox = styled.div`
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     flex-direction: row;
+  }
+
+  &::selection,
+  & *::selection {
+    background: ${theme.color.beige};
+    color: ${theme.color.dark};
   }
 `;
 
