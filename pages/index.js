@@ -28,29 +28,26 @@ import studioImage9 from "/public/images/KLUBSTUDIO_13.jpg";
 import studioImage13 from "/public/images/KLUBSTUDIO_10.jpg";
 
 //02_Slider
-import section02_slider01 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-01.jpg";
-import section02_slider02 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-02.jpg";
-import section02_slider03 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-03.jpg";
-import section02_slider04 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-02.jpg";
-import section02_slider05 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-03.jpg";
-import section02_slider06 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-04.jpg";
+import slider_branding_01 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-01.jpg";
+import slider_branding_02 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-02.jpg";
+import slider_branding_03 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-03.jpg";
+import slider_branding_04 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-03.jpg";
+import slider_branding_05 from "/public/images/02_Slider/teamfotografie-pflege-platzhalter.jpg";
+import slider_branding_06 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
+import slider_branding_07 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-04.jpg";
+import slider_branding_08 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-02.jpg";
 
 //03_Service
-import section03_service01 from "/public/images/03_Service/behind-the-scenes-dakiekste-01.jpg";
-import section03_service02 from "/public/images/03_Service/behind-the-scenes-dakiekste-02.jpg";
-import section03_service03 from "/public/images/03_Service/behind-the-scenes-dakiekste-03.jpg";
-import section03_service04 from "/public/images/03_Service/behind-the-scenes-dakiekste-04.jpg";
-import section03_service05 from "/public/images/03_Service/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
-import section03_service06 from "/public/images/03_Service/branding-fotografie-finanzexperten-dakiekste-01.jpg";
-import section03_service07 from "/public/images/03_Service/eventfotografie-reeperbahnfestival-dakiekste-01.jpg";
-import section03_service08 from "/public/images/03_Service/social-media-content-dakiekste-01.jpg";
-import section03_service09 from "/public/images/03_Service/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
-import section03_service10 from "/public/images/03_Service/branding-fotografie-workshop-konzeption-dakiekste-01.jpg";
-import section03_service11 from "/public/images/03_Service/behind-the-scenes-dakiekste-01-variante_02.jpg";
-import section03_service12 from "/public/images/03_Service/behind-the-scenes-dakiekste-01-variante.jpg";
-import section03_service13 from "/public/images/03_Service/behind-the-scenes-dakiekste-02_variante.jpg";
-import section03_service14 from "/public/images/03_Service/produktfotografie-dakiekste-01.jpg";
-import section03_service15 from "/public/images/03_Service/produktfotografie-dakiekste-02.jpg";
+import service_socialmedia from "/public/images/03_Service/behind-the-scenes-dakiekste-01.jpg";
+import service_design from "/public/images/03_Service/behind-the-scenes-dakiekste-02.jpg";
+import service_webdev from "/public/images/03_Service/behind-the-scenes-dakiekste-03.jpg";
+import service_webdesign from "/public/images/03_Service/behind-the-scenes-dakiekste-04.jpg";
+import service_branding from "/public/images/03_Service/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
+import service_event from "/public/images/03_Service/eventfotografie-reeperbahnfestival-dakiekste-01.jpg";
+import service_businessportrait from "/public/images/03_Service/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
+import service_video from "/public/images/03_Service/behind-the-scenes-dakiekste-05.jpg";
+import service_produkt from "/public/images/03_Service/produktfotografie-dakiekste-02.jpg";
+import service_konzept from "/public/images/03_Service/behind-the-scenes-dakiekste-06.jpg";
 
 //04_Slider
 import section04_slider01 from "/public/images/04_Slider/business-portrait-fotografie-dakiekste-01.jpg";
@@ -85,13 +82,22 @@ import section10_Team03 from "/public/images/10_Team/dakiekste-team-stellan-mais
 //11_Image
 import section11_Image01 from "/public/images/11_Image/klub-studio-fläche-01.jpg";
 
-//13_TextBox
-import section13_TextBox01 from "/public/images/13_Textbox/behind-the-scenes-dakiekste-05.jpg";
+//11_Image
+import section12_Image01 from "/public/images/12_Image/erneuerbare-energie_brandshooting_photo-maischa-souaga.jpg";
 
+//12_ProjectBox
+import project_qucare_01 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-01.jpg";
+import project_qucare_02 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-02.jpg";
+import project_qucare_03 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-03.jpg";
+import project_qucare_04 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-04.jpg";
+import project_qucare_05 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-05.jpg";
 //12_TextBox
 import section12_TextBox01 from "/public/images/12_Textbox/dakiekste-team-stellan-maischa-02.jpg";
 import Video from "@/components/Video";
 import ProjectBox from "@/components/ProjectBox";
+
+//13_TextBox
+import section13_TextBox01 from "/public/images/13_Textbox/behind-the-scenes-dakiekste-05.jpg";
 
 export default function HomePage() {
   return (
@@ -107,37 +113,54 @@ export default function HomePage() {
         <meta name="description" content="Branding und Corporate Fotografie für dein Business" />
         <meta name="author" content="Dein Name" />
       </Head>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <Hero headline="Fotografie. Branding. Content Creation." text={<>Weil deine Marke mehr als schöne Bilder braucht – bieten wir ein Gesamtkonzept aus Fotografie, Design, Web und Content Creation. Mit vielseitiger Expertise, Erfahrung und Empathie begleiten wir dich, damit deine Botschaft nachhaltig wirkt.</>} />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <ImageSlider
         autoplay={true}
         projects={[
           {
             alt: "",
-            image: section02_slider01,
+            image: slider_branding_01,
           },
 
           {
             alt: "",
-            image: section02_slider04,
+            image: slider_branding_02,
           },
           {
             alt: "",
-            image: section02_slider03,
+            image: slider_branding_03,
           },
           {
             alt: "",
-            image: section02_slider05,
+            image: slider_branding_04,
           },
           {
             alt: "",
-            image: section02_slider06,
+            image: slider_branding_05,
           },
           {
             alt: "",
-            image: section02_slider02,
+            image: slider_branding_06,
+          },
+          {
+            alt: "",
+            image: slider_branding_07,
+          },
+          {
+            alt: "",
+            image: slider_branding_08,
           },
         ]}
       />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <section id="services">
         <ScrollBox
           autoplay={false}
@@ -145,69 +168,69 @@ export default function HomePage() {
           headline2={<>Strategisch durchdacht und visuell auf den Punkt. Kein Baukasten oder Stock-Foto, sondern Gesamtlösungen, die wirklich zu dir passen.</>}
           boxData={[
             {
-              image: section03_service05,
+              image: service_branding,
 
               title: "Branding Fotografie",
               mobileTitle: "Branding Fotos",
               text: "Bilder, die zeigen, wofür deine Marke steht. Deine Markenwerte übersetzen wir in eine visuelle Bildsprache die überzeugt. Deine Marke und Vision im Ganzen zu verstehen, ist uns dabei besonders wichtig.",
             },
             {
-              image: section03_service09,
+              image: service_businessportrait,
 
               title: "Businessportraits",
               mobileTitle: "Business-Portraits",
               text: "Ob CEO, Mitarbeiter*innen oder das ganze Team – wir fotografieren dich authentisch und stärken dabei dein Employer Branding. Im ganzen Shootig-Prozess begleiten wir dich, damit du dich vor der Kamera rundum wohl fühlen kannst.",
             },
             {
-              image: section03_service01,
+              image: service_video,
               title: "Imagefilm & Video-Content",
               mobileTitle: "Video Content",
               text: "Bewegte Bilder erzählen mehr als Worte. Mit unterschiedlichen Formaten wie Imagefilmen, Dokumentationen oder Interviews gibst du deiner Zielgruppe tiefere Einblicke in deine Marke.",
             },
             {
-              image: section03_service04,
+              image: service_webdesign,
 
               title: "Website Design (UI/UX)",
               mobileTitle: "Website Design",
               text: "Webdesign, das mitdenkt und Websites, die einfach funktionieren – visuell, strukturell und inhaltlich. Design, Nutzerführung und Inhalte greifen bei uns ineinander und werden zu einem stimmigen Gesamtbild, das User überzeugt.",
             },
             {
-              image: section03_service03,
+              image: service_webdev,
 
               title: "Website Entwicklung",
               mobileTitle: "Web Entwicklung",
               text: "Wir kümmern uns um die Umsetzung deiner Website – ohne Technikstress. Sie läuft, wächst und hält dir den Rücken frei. Ob CMS-System oder komplexere Anforderungen: Gemeinsam finden wir die passende Lösung für dich.",
             },
             {
-              image: section03_service02,
+              image: service_design,
 
               title: "Branding & Corporate Design",
               mobileTitle: "Corporate Design",
               text: "Mit einem Designsystem aus Logo, Farben und Typografie, entwickeln wir das visuelle Fundament deiner Marke. Klar, durchdacht und wiedererkennbar. So wirst du sichtbarer und bleibst im Kopf.",
             },
             {
-              image: section03_service07,
+              image: service_event,
 
               title: "Eventfotografie",
               mobileTitle: "Event Fotos",
               text: "Egal ob PR-Event, Produktlaunch, Networking, Keynote oder Teamoffsite – wir halten Atmosphäre und Highlights in starken Bildern fest: dezent im Hintergrund, präsent im richtigen Moment.",
             },
             {
-              image: section03_service15,
+              image: service_produkt,
 
               title: "Produktfotografie",
               mobileTitle: "Produktfotografie",
               text: "Dein Business hat Produkte? Ob Freisteller, Inszeniert oder am Model. Unsere Wurzeln liegen in der Produktfotografie – und das sieht man.",
             },
             {
-              image: section03_service08,
+              image: service_socialmedia,
 
               title: "Content Creation & Strategie",
               mobileTitle: "Content Creation",
               text: "Persönlicher Content statt Standard: Wir erstellen Foto- und Videoinhalte mit Qualität und einem hohen Anspruch an Ästhetik. Für Posts, Reels & Stories, die wirken.",
             },
             {
-              image: section03_service13,
+              image: service_konzept,
 
               title: "Konzeption & Workshop",
               mobileTitle: "Workshop",
@@ -216,6 +239,9 @@ export default function HomePage() {
           ]}
         />
       </section>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <ImageSliderLight
         autoplay={true}
         projects={[
@@ -245,6 +271,9 @@ export default function HomePage() {
           },
         ]}
       />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <DoubleTextBox
         topline1="Ein Look – viele Kanäle"
         headline1="Markenstrategie & Bildsprache"
@@ -255,6 +284,8 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         text2="Wir erstellen Bilder und Videos, die genau da ankommen, wo sie sollen – bei deiner Zielgruppe. Du bekommst Inhalte, die auffallen, hängen bleiben und Vertrauen schaffen. In ehrlicher Zusammenarbeit entstehen nahbare Bildwelten, in denen du dich gesehen fühlt. Du musst dich nicht um jedes Detail kümmern – wir denken mit und liefern Content, den du direkt einsetzen kannst."
       />
 
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <ImageTextBox
         topline="Menschen im Mittelpunkt"
         headline="Businessportraits mit Haltung"
@@ -264,6 +295,9 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         alt="Description of image"
         flexflow="row"
       />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <ImageTextBox
         topline="Starker Look. Klares Konzept."
         headline="Bildsprache die funktioniert"
@@ -273,7 +307,13 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         alt="Description of image"
         flexflow="row-reverse"
       />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <Video src="/videos/07_Video/Selections_Website_OSSARA_Workflow_V2_1.mp4" />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <section id="workflow">
         <ScrollBox
           showIcon={true}
@@ -307,6 +347,9 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           ]}
         />
       </section>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <section id="studio">
         <StudioBox
           topline="UNSER STUDIO"
@@ -358,7 +401,12 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         />
       </section>
 
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <ImageElement image={section09_Image01} alt="Bildbeschreibung" />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <section id="team">
         <TeamText
           topline="Zwei Perspektiven. Eine Haltung."
@@ -416,157 +464,155 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             },
           ]}
         />
-        <section id="pricing">
-          <Pricing
-            pricingData={[
-              {
-                key: "businessType",
-                category: "Dein Business",
-                options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
-              },
-              {
-                key: "projectType",
-                category: "Dein Projekt",
-                options: ["Fotografie", "Video", "Design", "Website"],
-              },
-            ]}
-            servicesData={[
-              {
-                title: (
-                  <>
-                    Mitarbeiter*innen & <wbr />
-                    CEO Portrait
-                  </>
-                ),
-                titlePlain: "Businessportraits",
-                category: "Fotografie",
-                isCountable: true,
-                unit: "pro Person",
-                description: "Dazu zählen Einzelaufnahmen von Mitarbeiter*innen und Führungskräften (z.B. CEO), Teamfotos in kleinen oder größeren Gruppen. Die Fotos entstehen vor Ort oder im Studio und beinhalten eine Bildauswahl sowie eine Basisretusche mit einheitlichem Look.",
-                price: 120,
-              },
-              {
-                title: "Personal Branding Fotografie",
-                titlePlain: "Personal Branding Fotografie",
-                category: "Fotografie",
-                description: "Ein Fotopaket, das dich, dein Team, eure Arbeit und euer Umfeld zeigt – abgestimmt auf deine Marke. Du bekommst einen vielseitigen Bilderpool mit hochwertigen Fotos, die einen stimmigen Gesamteindruck vermitteln. Inklusive Konzept, Planung, Shooting, gemeinsame Bildauswahl und Basisretusche.",
-                price: 3000,
-              },
-              {
-                title: "Produktfotografie",
-                titlePlain: "Produktfotografie",
-                category: "Fotografie",
-                isCountable: true,
-                unit: "pro Bild",
-                description:
-                  "Zeig deine Produkte so, wie sie gesehen werden sollen – hochwertig, ansprechend und markengerecht. Je nach Bedarf fotografieren wir Freisteller, inszenierte Aufnahmen oder Anwendungen am Modell. Du bekommst Bilder deiner Produkte, die deinen Verkauf stärken und vielseitig einsetzbar sind. Optional unterstützen wir mit einer erfahrenen Stylistin aus unserem Netzwerk, um deine Produkte perfekt in Szene zu setzen.",
-                price: 50,
-              },
-              {
-                title: "Eventfotografie",
-                titlePlain: "Eventfotografie",
-                category: "Fotografie",
-                description: "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die Bilder erhalten einen einheitlichen Look und werden in einer Onlinegalerie bereitgestellt.",
-                price: 850,
-              },
-              {
-                title: "Content Creation",
-                titlePlain: "Content Creation",
-                category: "Fotografie",
-                description: "Wir erstellen hochwertigen Foto- und Videocontent für Instagram & Co. – markengerecht, zielgruppennah und schnell einsetzbar. Du bekommst bearbeitete Inhalte mit einheitlichem Look, die direkt bereit sind für deine Social-Media-Kanäle, Website oder Kampagnen.",
-                price: 500,
-              },
-              {
-                title: "Konzeption",
-                titlePlain: "Konzeption",
-                category: "Fotografie",
-                description: "Ein Grundkonzept ist in vielen Paketen enthalten. Wenn du tiefer einsteigen willst, kannst du unsere Konzeptionsleistung auch separat buchen. Je nach Bedarf umfasst sie Beratung zu deiner Markenidentität, die Entwicklung einer Bildsprache und die Struktur deiner visuellen Kommunikation.",
-                price: 900,
-              },
-              {
-                title: "Postproduction",
-                titlePlain: "Postproduction",
-                category: "Fotografie",
-                description: "Standardkorrekturen sind inklusive. Aufwändige Retuschen können separat gebucht werden.",
-                isCountable: true,
-                unit: "pro Bild",
-                price: 50,
-              },
-              {
-                title: "Video-Content für Social Media",
-                titlePlain: "Video-Content für Social Media",
-                category: "Video",
-                description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
-                price: 800,
-              },
-              {
-                title: "Event-Videodokumentation",
-                titlePlain: "Event-Videodokumentation",
-                category: "Video",
-                description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
-                price: 1000,
-              },
-              {
-                title: "Imagefilm",
-                titlePlain: "Imagefilm",
-                category: "Video",
-                description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
-                price: 4000,
-              },
-              {
-                title: "Web Design (UI/UX)",
-                titlePlain: "Web Design (UI/UX)",
-                category: "Website",
-                description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
-                price: 3000,
-              },
-              {
-                title: "Web Entwicklung",
-                titlePlain: "Web Entwicklung",
-                category: "Website",
-                description: "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
-                price: 1500,
-              },
-              {
-                title: "CI Branding Design",
-                titlePlain: "CI Branding Design",
-                category: "Design",
-                description: "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
-                price: 4000,
-              },
-              {
-                title: "Logo Design",
-                titlePlain: "Logo Design",
-                category: "Design",
-                description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
-                price: 3000,
-              },
-              {
-                title: "Redesign",
-                titlePlain: "Redesign",
-                category: "Design",
-                description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
-                price: 1500,
-              },
-            ]}
-          />
-        </section>
-        <ImageElement image={section11_Image01} alt="Klub Studio Studiofläche" />
-        <section id="contact">
-          <ContactForm />
-        </section>
       </section>
-      <ImageTextBox
-        topline="Haltung zeigen. Sichtbar werden."
-        headline="Vertrauen entsteht im Miteinander"
-        text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können – ohne Klischees, ohne Schablonen, ohne Druck. Mit Respekt, Offenheit und dem Anspruch, einen echten Safe Space zu schaffen. In der Zusammenarbeit setzen wir auf echte Begegnung: ehrlich, aufmerksam und auf Augenhöhe.
-So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant und getragen von Haltung. Für Menschen und Unternehmen, die mehr zeigen wollen als nur Außenwirkung: Haltung, Miteinander und den Mut, sichtbar zu werden."
-        text2=""
-        image={section12_TextBox01}
-        alt="Description of image"
-        flexflow="row-reverse"
-        mobileFlexflow="column-reverse"
-      />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <Video src="/videos/07_Video/Selections_Website_OSSARA_Workflow_V2_1.mp4" />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <section id="pricing">
+        <Pricing
+          pricingData={[
+            {
+              key: "businessType",
+              category: "Dein Business",
+              options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
+            },
+            {
+              key: "projectType",
+              category: "Dein Projekt",
+              options: ["Fotografie", "Video", "Design", "Website"],
+            },
+          ]}
+          servicesData={[
+            {
+              title: (
+                <>
+                  Mitarbeiter*innen & <wbr />
+                  CEO Portrait
+                </>
+              ),
+              titlePlain: "Businessportraits",
+              category: "Fotografie",
+              isCountable: true,
+              unit: "pro Person",
+              description: "Dazu zählen Einzelaufnahmen von Mitarbeiter*innen und Führungskräften (z.B. CEO), Teamfotos in kleinen oder größeren Gruppen. Die Fotos entstehen vor Ort oder im Studio und beinhalten eine Bildauswahl sowie eine Basisretusche mit einheitlichem Look.",
+              price: 120,
+            },
+            {
+              title: "Personal Branding Fotografie",
+              titlePlain: "Personal Branding Fotografie",
+              category: "Fotografie",
+              description: "Ein Fotopaket, das dich, dein Team, eure Arbeit und euer Umfeld zeigt – abgestimmt auf deine Marke. Du bekommst einen vielseitigen Bilderpool mit hochwertigen Fotos, die einen stimmigen Gesamteindruck vermitteln. Inklusive Konzept, Planung, Shooting, gemeinsame Bildauswahl und Basisretusche.",
+              price: 3000,
+            },
+            {
+              title: "Produktfotografie",
+              titlePlain: "Produktfotografie",
+              category: "Fotografie",
+              isCountable: true,
+              unit: "pro Bild",
+              description:
+                "Zeig deine Produkte so, wie sie gesehen werden sollen – hochwertig, ansprechend und markengerecht. Je nach Bedarf fotografieren wir Freisteller, inszenierte Aufnahmen oder Anwendungen am Modell. Du bekommst Bilder deiner Produkte, die deinen Verkauf stärken und vielseitig einsetzbar sind. Optional unterstützen wir mit einer erfahrenen Stylistin aus unserem Netzwerk, um deine Produkte perfekt in Szene zu setzen.",
+              price: 50,
+            },
+            {
+              title: "Eventfotografie",
+              titlePlain: "Eventfotografie",
+              category: "Fotografie",
+              description: "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die Bilder erhalten einen einheitlichen Look und werden in einer Onlinegalerie bereitgestellt.",
+              price: 850,
+            },
+            {
+              title: "Content Creation",
+              titlePlain: "Content Creation",
+              category: "Fotografie",
+              description: "Wir erstellen hochwertigen Foto- und Videocontent für Instagram & Co. – markengerecht, zielgruppennah und schnell einsetzbar. Du bekommst bearbeitete Inhalte mit einheitlichem Look, die direkt bereit sind für deine Social-Media-Kanäle, Website oder Kampagnen.",
+              price: 500,
+            },
+            {
+              title: "Konzeption",
+              titlePlain: "Konzeption",
+              category: "Fotografie",
+              description: "Ein Grundkonzept ist in vielen Paketen enthalten. Wenn du tiefer einsteigen willst, kannst du unsere Konzeptionsleistung auch separat buchen. Je nach Bedarf umfasst sie Beratung zu deiner Markenidentität, die Entwicklung einer Bildsprache und die Struktur deiner visuellen Kommunikation.",
+              price: 900,
+            },
+            {
+              title: "Postproduction",
+              titlePlain: "Postproduction",
+              category: "Fotografie",
+              description: "Standardkorrekturen sind inklusive. Aufwändige Retuschen können separat gebucht werden.",
+              isCountable: true,
+              unit: "pro Bild",
+              price: 50,
+            },
+            {
+              title: "Video-Content für Social Media",
+              titlePlain: "Video-Content für Social Media",
+              category: "Video",
+              description: "Kurzformate mit Wirkung: Reels, Snippets & Clips, die deine Botschaft transportieren und auf Social Media performen.",
+              price: 800,
+            },
+            {
+              title: "Event-Videodokumentation",
+              titlePlain: "Event-Videodokumentation",
+              category: "Video",
+              description: "Wir halten dein Event filmisch fest – dezent im Hintergrund, präsent im richtigen Moment. Lieferung ohne Nachbearbeitung.",
+              price: 1000,
+            },
+            {
+              title: "Imagefilm",
+              titlePlain: "Imagefilm",
+              category: "Video",
+              description: "Ein kompakter Film über dein Unternehmen – mit Konzept, Dreh und Schnitt. Ideal für Web, Präsentationen oder Social Media.",
+              price: 4000,
+            },
+            {
+              title: "Web Design (UI/UX)",
+              titlePlain: "Web Design (UI/UX)",
+              category: "Website",
+              description: "Webdesign, das funktioniert. Wir gestalten deine Seite mit Fokus auf Struktur, Nutzerführung und einem stimmigen Look.",
+              price: 3000,
+            },
+            {
+              title: "Web Entwicklung",
+              titlePlain: "Web Entwicklung",
+              category: "Website",
+              description: "Technische Umsetzung deiner Website – zuverlässig, flexibel und passend zu deinen Anforderungen. Mit CMS oder als individuelle Lösung.",
+              price: 1500,
+            },
+            {
+              title: "CI Branding Design",
+              titlePlain: "CI Branding Design",
+              category: "Design",
+              description: "Logo, Typo & Farben – wir gestalten ein durchdachtes Corporate Design, das deine Marke sichtbar macht und Wiedererkennung schafft.",
+              price: 4000,
+            },
+            {
+              title: "Logo Design",
+              titlePlain: "Logo Design",
+              category: "Design",
+              description: "Wir entwickeln ein Logo, das zu dir passt – reduziert, wiedererkennbar und mit Substanz. Für einen starken ersten Eindruck.",
+              price: 3000,
+            },
+            {
+              title: "Redesign",
+              titlePlain: "Redesign",
+              category: "Design",
+              description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
+              price: 1500,
+            },
+          ]}
+        />
+      </section>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <ImageElement image={section11_Image01} alt="Klub Studio Studiofläche" />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <ProjectBox
         topline="BILDERPOOL"
@@ -575,47 +621,29 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         text2=""
         cards={[
           {
-            image: section08_Studio05,
-            title: "Freie Parkplätze",
-            description: "Im Hamburger Osten befindet sich unser Studio mit vielen kostenlosen Parkplätzen direkt vor dem Gebäude.",
+            image: project_qucare_01,
+            description: "",
           },
           {
-            image: studioImage1,
-            title: "Hair & Makeup Bereich",
-            description: "Unser Stylingbereich ist mit großem Spiegel, Kleiderstange, Steamer und Ablagefläche ausgestattet – ideal zum Ankommen, Vorbereiten und Wohlfühlen.",
+            image: project_qucare_02,
+            description: "",
           },
           {
-            image: section11_Image01,
-            title: "Große Fotostudio-Fläche",
-            description: "80 m² flexibel nutzbare Studiofläche mit viel Tageslicht, mobilem Hintergrundsystem und Raum für große und kleine Produktionen.",
+            image: project_qucare_03,
+            description: "",
           },
           {
-            image: section08_Studio01,
-            title: "Lounge & Arbeitsbereich",
-            description: "Ein wandelbarer Bereich mit großer Bühne, Vorhang, Tisch, Stühlen und Sofa – ideal für Meetings, Pausen oder auch als Kulisse fürs nächste Set.",
+            image: project_qucare_04,
+            description: "",
           },
           {
-            image: section08_Studio02,
-            title: "Professionelle Lichttechnik",
-            description: "Ob Dauerlicht oder Blitz – unser Studio ist mit hochwertiger Technik ausgestattet. Alles, was du für eine starke Ausleuchtung und präzise Ergebnisse brauchst, ist vor Ort.",
-          },
-          {
-            image: section08_Studio04,
-            title: "Flexible Sets & Hintergründe",
-            description: "Unterschiedliche Papierhintergründe, Stoffe und mobile Setups ermöglichen dir abwechslungsreiche Looks – vom cleanen Portrait bis zur szenischen Inszenierung.",
-          },
-          {
-            image: studioImage13,
-            title: "Vielfältige Requisiten",
-            description: "Von Vorhängen über Möbel bis zu kleinen Details – im Studio findest du viele Elemente, um dein Set individuell zu gestalten und neue Looks zu schaffen.",
-          },
-          {
-            image: studioImage9,
-            title: "Kaffee, Tee & kalte Getränke",
-            description: "Für eine entspannte Arbeitsatmosphäre sorgen kleine Extras wie guter Kaffee aus der Siebträgermaschine und eine Auswahl an Getränken – inklusive im Studio-Angebot.",
+            image: project_qucare_05,
+            description: "",
           },
         ]}
       />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <section id="faq">
         <FAQ
@@ -809,6 +837,27 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
           ]}
         />
       </section>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <ImageElement image={section12_Image01} alt="Bildbeschreibung" />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <ImageTextBox
+        topline="Haltung zeigen. Sichtbar werden."
+        headline="Vertrauen entsteht im Miteinander"
+        text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können – ohne Klischees, ohne Schablonen, ohne Druck. Mit Respekt, Offenheit und dem Anspruch, einen echten Safe Space zu schaffen. In der Zusammenarbeit setzen wir auf echte Begegnung: ehrlich, aufmerksam und auf Augenhöhe.
+So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant und getragen von Haltung. Für Menschen und Unternehmen, die mehr zeigen wollen als nur Außenwirkung: Haltung, Miteinander und den Mut, sichtbar zu werden."
+        text2=""
+        image={section12_TextBox01}
+        alt="Description of image"
+        flexflow="row"
+        mobileFlexflow="column-reverse"
+      />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <ImageTextBox
         topline="Gemeinsam für mehr"
         headline="Zusammen die Zukunft gestalten"
@@ -816,9 +865,21 @@ So entstehen Bildwelten, die verbinden – visuell stimmig, inhaltlich relevant 
         image={section13_TextBox01}
         alt="Description of image"
         flexflow="row-reverse"
+        mobileFlexflow="column-reverse"
       />
 
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <section id="contact">
+        <ContactForm />
+      </section>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <Footer />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
       <BackToTopButton />
     </>
   );

@@ -106,7 +106,7 @@ const Wrapper = styled.div`
   background-color: ${theme.color.beige};
   border-radius: calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius});
   padding: calc(0.5 * var(--spacing-xs)) 0;
-  outline: 1px solid ${theme.color.dark};
+  /* outline: 1px solid ${theme.color.dark}; */
 
   transition:
     border-radius 160ms cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -120,7 +120,7 @@ const Wrapper = styled.div`
   }
 
   &:active {
-    border-radius: calc(1.5 * ${theme.borderRadius}) 0 0 calc(1.5 * ${theme.borderRadius});
+    border-radius: calc(1.25 * ${theme.borderRadius}) 0 0 calc(1.25 * ${theme.borderRadius});
     transform: translateY(0);
     background-color: ${({ $isOpen }) => (!$isOpen ? theme.color.green : theme.color.beige)};
   }

@@ -84,7 +84,11 @@ const SliderWrapper = styled.div`
   height: 100%;
   background-color: ${theme.color.beige};
   z-index: 3;
-  padding: var(--spacing-xxl) 0 var(--spacing-xxl) 0;
+  padding: var(--spacing-xxl) 0;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: var(--spacing-xxxl) 0 var(--spacing-xxl) 0;
+  }
 `;
 
 const ArrowContainer = styled.div`
@@ -96,7 +100,10 @@ const ArrowContainer = styled.div`
   width: 120px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    display: none;
+    top: var(--spacing-xl);
+    right: var(--side-padding);
+    width: 100px;
+    z-index: 5;
   }
 
   svg {
@@ -104,6 +111,10 @@ const ArrowContainer = styled.div`
 
     font-size: 1.6rem;
     /* font-size: var(--font-xl); */
+
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: 1.2rem;
+    }
   }
 `;
 
@@ -128,6 +139,11 @@ const Arrow = styled.div`
     background-color: ${theme.color.green};
 
     transform: scale(1.05);
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 40px;
+    height: 40px;
   }
 `;
 

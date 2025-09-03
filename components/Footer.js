@@ -66,7 +66,6 @@ const StyledFooter = styled.footer`
   justify-content: start;
   align-items: end;
   gap: var(--spacing-s);
-  margin-top: var(--spacing-xl);
   width: 100%;
   padding: var(--spacing-xxl) var(--side-padding);
   background-color: ${theme.color.green};
@@ -95,6 +94,13 @@ const StyledPrideWrapper = styled.div`
     font-size: var(--font-xxxl);
     font-weight: ${theme.fontWeight.mediumBold};
   }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    justify-content: start;
+    p {
+      font-size: var(--font-m);
+    }
+  }
 `;
 
 const StyledLinkListWrapper = styled.div`
@@ -105,10 +111,6 @@ const StyledLinkListWrapper = styled.div`
   gap: var(--spacing-s);
   margin: var(--spacing-l) 0 var(--spacing-xxxl) 0;
   width: 100%;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    justify-content: space-between;
-  }
 `;
 
 const StyledLinkWrapper = styled.div`
@@ -138,11 +140,18 @@ const StyledIcon = styled(PiArrowUpRightLight)`
 
 const StyledCopyright = styled.p`
   display: flex;
+  flex-direction: row;
   align-items: end;
   font-size: var(--font-s);
   a {
     font-size: var(--font-s);
     margin-left: var(--spacing-s);
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    align-items: start;
+    padding-top: var(--spacing-l);
   }
 `;
 

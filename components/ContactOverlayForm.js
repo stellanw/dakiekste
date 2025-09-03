@@ -349,7 +349,7 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
                     </ListWrap>
                   )}
                 </SummaryMobil>
-                {showDownHint && (
+                {isMobile && showDownHint && (
                   <ScrollHint type="button" onClick={() => listRef.current?.scrollBy({ top: listRef.current.clientHeight * 0.8, behavior: "smooth" })}>
                     <PiArrowDownThin />
                   </ScrollHint>
@@ -667,7 +667,7 @@ const ScrollHint = styled.button`
   display: flex;
   align-items: end;
   justify-content: center;
-  height: 50px;
+  height: 40px;
   border: none;
   border-radius: 0;
   background: none;
@@ -698,7 +698,7 @@ const ScrollHint = styled.button`
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    height: 30px;
+    height: 1px;
     &::before {
       content: "";
       position: absolute;
