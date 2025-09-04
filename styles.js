@@ -156,6 +156,9 @@ export default createGlobalStyle`
     background-color: ${theme.color.beige};
     color: ${theme.color.dark};
     scroll-behavior: smooth;
+/* 
+    max-width: 1500px;
+    margin-inline: auto; */
   }
 
   a {

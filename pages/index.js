@@ -427,7 +427,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         <Team
           teamMembers={[
             {
-              name: "MAÏSCHA",
+              name: "ÜBER MAÏSCHA",
               image: section10_Team01,
               text: (
                 <>
@@ -438,7 +438,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               ),
             },
             {
-              name: "STELLAN",
+              name: "ÜBER STELLAN",
               image: section10_Team02,
 
               text: (
@@ -451,7 +451,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               ),
             },
             {
-              name: "UNSERE PHILOSOPHIE",
+              name: "ÜBER UNS",
               image: section10_Team03,
               text: (
                 <>
@@ -483,7 +483,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               key: "projectType",
               category: "Dein Projekt",
-              options: ["Fotografie", "Video", "Design", "Website"],
+              options: ["Fotografie", "Video", "Design", "Website", "Pakete"],
             },
           ]}
           servicesData={[
@@ -603,6 +603,97 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               category: "Design",
               description: "Deine Marke braucht ein Update? Wir überarbeiten dein bestehendes Design, ohne die Essenz zu verlieren – modern, klar und stimmig.",
               price: 1500,
+            },
+            {
+              title: "Starter Paket",
+              titlePlain: "Starter Paket",
+              category: "Pakete",
+              description: "Ideal für Gründer*innen und Solo-Selbstständige: Ein professionelles Logo als Basis für deine Marke, dazu Businessportraits für Website & Social Media. Du bekommst ein klares visuelles Fundament, um sofort sichtbar loszulegen.",
+              price: 2500,
+            },
+            {
+              title: "Branding Paket Light",
+              titlePlain: "Branding Paket Light",
+              category: "Pakete",
+              description: "Das kleine Komplettpaket für den Markenstart: Logo-Design inkl. Farb- und Typokonzept, dazu Personal Branding Fotografie, die dich und dein Business professionell in Szene setzt. Perfekt, wenn du deinem Auftritt gleich einen starken Look geben willst.",
+              price: 4500,
+            },
+            {
+              title: "Content Paket Social",
+              titlePlain: "Content Paket Social",
+              category: "Pakete",
+              description: "Regelmäßiger Content für deine Kanäle: Ein Shooting für vielseitige Foto-Inhalte, kombiniert mit kurzen Social-Media-Videos (Reels & Snippets). Damit hast du sofort einsetzbares Material für Instagram, LinkedIn & Co.",
+              price: 2000,
+            },
+            {
+              title: "Gründerpaket Komplett",
+              titlePlain: "Gründerpaket Komplett",
+              category: "Pakete",
+              description: "Das Rundum-Paket für einen professionellen Auftritt: Logo & Corporate Design, eine moderne Website (Design + technische Umsetzung) sowie Personal Branding Fotografie. Alles aus einer Hand – damit deine Marke von Anfang an stimmig und sichtbar ist.",
+              price: 8500,
+            },
+            {
+              title: "Event Paket",
+              titlePlain: "Event Paket",
+              category: "Pakete",
+              description: "Dein Event aus einer Hand festgehalten: Fotografische Begleitung für Bilder mit einheitlichem Look plus Videodokumentation für bewegte Eindrücke. So bleibt deine Veranstaltung nicht nur für die Teilnehmenden in Erinnerung.",
+              price: 1800,
+            },
+            {
+              title: "Website Paket Basic",
+              titlePlain: "Website Paket Basic",
+              category: "Pakete",
+              description: "Für alle, die eine solide Online-Präsenz brauchen: Gestaltung einer klaren Onepager-Website inkl. technischer Umsetzung. Kombiniert mit Businessportraits für den direkten Start deiner professionellen Sichtbarkeit.",
+              price: 4000,
+            },
+            {
+              title: "Relaunch Paket",
+              titlePlain: "Relaunch Paket",
+              category: "Pakete",
+              description: "Wenn dein Auftritt ein Update braucht: Redesign deines Logos oder Corporate Designs, frische Businessportraits und eine modernisierte Website. Alles abgestimmt auf deine bestehende Marke.",
+              price: 5500,
+            },
+            {
+              title: "Non-Profit Paket",
+              titlePlain: "Non-Profit Paket",
+              category: "Pakete",
+              description: "Speziell für Vereine & Organisationen: Basis-CI (Logo & Farbwelt), Team- oder Projektfotos und eine schlanke Website. Damit deine Mission sichtbar wird – fair, bedarfsorientiert und an euren Zielen ausgerichtet.",
+              price: 3000,
+            },
+            {
+              title: "Premium Branding Paket",
+              titlePlain: "Premium Branding Paket",
+              category: "Pakete",
+              description: "Das große Markenpaket: Vollständiges Corporate Design (CI Branding), umfangreiche Personal Branding Fotografie und ein Imagefilm. Ideal für Unternehmen, die ihre Marke groß und nachhaltig sichtbar machen wollen.",
+              price: 12_000,
+            },
+            {
+              title: "Logo Design Paket (Gründer)",
+              titlePlain: "Logo Design Paket",
+              category: "Pakete",
+              description: "Professionelles Logo inkl. Variante & Grundanwendung. Ideal als Startpunkt für Gründer*innen.",
+              price: 3000,
+            },
+            {
+              title: "Corporate Design Paket (CI)",
+              titlePlain: "Corporate Design Paket",
+              category: "Pakete",
+              description: "Logo, Farb- & Typosystem, Grundrichtlinien (Mini-Styleguide). Stimmiger Markenauftritt ab Tag 1.",
+              price: 4000,
+            },
+            {
+              title: "Website Paket Onepager (Basic)",
+              titlePlain: "Website Paket Onepager",
+              category: "Pakete",
+              description: "Onepager: Web Design (UI/UX) + Web Entwicklung. Kompakte Struktur, responsive, DSGVO-ready (Basis).",
+              price: 4500,
+            },
+            {
+              title: "Website Paket Business (Design + Entwicklung)",
+              titlePlain: "Website Paket Business",
+              category: "Pakete",
+              description: "Mehrseitige Website: Design (UX/UI) + Entwicklung. Erweiterbar um Blog/Mehrsprachen/SEO-Setup.",
+              price: 6000,
             },
           ]}
         />

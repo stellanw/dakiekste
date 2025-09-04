@@ -30,10 +30,10 @@ export default function ImageSlider({ projects, autoplay }) {
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 10,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3200,
     fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,

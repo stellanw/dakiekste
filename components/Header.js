@@ -16,16 +16,10 @@ export default function Header({ useImageBackground = false }) {
   return (
     <StyledHeadContainer>
       {useImageBackground ? (
-        <ImageBackground
-          src={section01_header_01}
-          alt="Branding Fotografie"
-          fill
-          quality={100}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
-        />
+        <ImageBackground src={section01_header_01} alt="Branding Fotografie" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
       ) : (
         <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture>
-          <source src="/videos/Test-02.mp4" type="video/mp4" />
+          <source src="/videos/Selections_Imagefilm Var 3_1.mp4" type="video/mp4" />
           Dein Browser unterstützt das Video-Tag nicht.
         </VideoBackground>
       )}

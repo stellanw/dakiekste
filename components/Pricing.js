@@ -587,6 +587,10 @@ const Services = styled.div`
   @media (min-width: ${theme.breakpoints.desktop}) {
     width: 50%;
   }
+
+  p {
+    padding-top: var(--spacing-m);
+  }
 `;
 
 const ServiceUL = styled.ul`
@@ -606,7 +610,7 @@ const TitleCheckboxContainer = styled.label`
   gap: var(--spacing-xs);
   cursor: pointer;
   user-select: none;
-
+  margin: 0;
   /* gemeinsames Hover – nur wenn NICHT checked */
   ${({ $checked }) =>
     !$checked &&
@@ -653,11 +657,14 @@ const ServiceTitle = styled.h2`
 const OverlayDescription = styled.div`
   display: flex;
   flex-direction: column;
-
   padding: var(--spacing-xs) var(--spacing-l) 0 var(--spacing-m);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding: var(--spacing-xs) var(--spacing-l) 0 calc(0.9 * var(--spacing-l));
+  }
+
+  p {
+    padding: 0;
   }
 `;
 
@@ -742,7 +749,7 @@ const StyledButton = styled.button`
 `;
 
 const ServicePrice = styled.p`
-  padding-top: var(--spacing-s);
+  padding-top: var(--spacing-xs) !important;
   text-transform: none;
   font-size: var(--font-m);
   span {

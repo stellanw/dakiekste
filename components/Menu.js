@@ -106,21 +106,15 @@ const Wrapper = styled.div`
   background-color: ${theme.color.beige};
   border-radius: calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius});
   padding: calc(0.5 * var(--spacing-xs)) 0;
-  /* outline: 1px solid ${theme.color.dark}; */
 
-  transition:
-    border-radius 160ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    background-color 120ms ease,
-    transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: background-color 120ms ease;
 
   &:hover {
-    border-radius: calc(1 * ${theme.borderRadius}) 0 0 calc(1 * ${theme.borderRadius});
     transform: translateY(-1px);
     background-color: ${({ $isOpen }) => (!$isOpen ? theme.color.green : theme.color.beige)};
   }
 
   &:active {
-    border-radius: calc(1.25 * ${theme.borderRadius}) 0 0 calc(1.25 * ${theme.borderRadius});
     transform: translateY(0);
     background-color: ${({ $isOpen }) => (!$isOpen ? theme.color.green : theme.color.beige)};
   }
@@ -133,11 +127,8 @@ const Wrapper = styled.div`
     padding: var(--spacing-xs);
     top: calc(1.8 * var(--spacing-s));
 
-    /* wichtig: kein Scale/Transform auf Mobile, damit Schließen sofort ist */
     transform: none;
-    transition:
-      border-radius 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
-      background-color 100ms ease;
+    transition: background-color 100ms ease;
 
     &:hover,
     &:active {
