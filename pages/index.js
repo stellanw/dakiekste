@@ -468,7 +468,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <Video src="/videos/07_Video/Selections_Website_OSSARA_Workflow_V2_1.mp4" />
+      <Video src="/videos/11_Video/Selections_Workflow_Beratung.mp4" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
