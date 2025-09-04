@@ -30,13 +30,12 @@ export default function ImageSliderLight({ projects, autoplay }) {
   }, []);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    // speed: 1000,
     fade: true,
     speed: 10,
     autoplay: autoplay,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3200,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoPlay: false,

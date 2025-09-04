@@ -15,8 +15,7 @@ const getSiteUrl = () => {
 const SITE_URL = getSiteUrl();
 
 const TITLE = "DAKIEKSTE | Branding, Fotografie, Design & Website aus Hamburg";
-const DESCRIPTION =
-  "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus  Fotografie, Branding, Design & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.";
+const DESCRIPTION = "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus  Fotografie, Branding, Design & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.";
 const OG_IMAGE = `${SITE_URL}/og.jpg?v=2`;
 
 export default class MyDocument extends Document {
