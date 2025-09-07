@@ -35,14 +35,16 @@ export default function ProjectBox({ topline, headline, text1, text2, cards }) {
   return (
     <StyledStudioBox>
       <StyledTextWrapper>
-        <h2>{topline}</h2>
-        <h3>{headline}</h3>
-        <p>
-          {text1}
-          <br />
-          <br />
-          {text2}
-        </p>
+        <TextInner>
+          <h2>{topline}</h2>
+          <h3>{headline}</h3>
+          <p>
+            {text1}
+            <br />
+            <br />
+            {text2}
+          </p>
+        </TextInner>
       </StyledTextWrapper>
 
       <CardContainer>
@@ -94,6 +96,14 @@ const StyledTextWrapper = styled.div`
   }
 `;
 
+const TextInner = styled.div`
+  width: 100%;
+  @media (min-width: ${theme.breakpoints.wide}) {
+    max-width: 800px;
+    margin-inline: auto;
+  }
+`;
+
 const CardContainer = styled.div`
   position: relative;
   flex: 1;
@@ -113,6 +123,9 @@ const CardWrapper = styled.div`
   -webkit-overflow-scrolling: touch;
   user-select: none;
   scroll-behavior: smooth;
+
+  padding-inline-end: var(--side-padding);
+  scroll-padding-inline-end: var(--side-padding);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding-right: var(--side-padding);
@@ -179,7 +192,7 @@ const Card = styled.div`
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
-  height: 400px; /* fix: alle Karten gleich hoch */
+  height: 400px;
   margin-bottom: var(--spacing-l);
   overflow: hidden;
   border-radius: ${theme.borderRadius};
@@ -188,7 +201,7 @@ const ImageWrapper = styled.div`
   backface-visibility: hidden;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    height: 540px; /* optional gleich lassen, sonst hier anpassen */
+    height: 540px;
     margin-bottom: var(--spacing-m);
   }
 `;

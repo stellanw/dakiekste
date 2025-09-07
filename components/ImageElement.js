@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { theme } from "@/styles";
 
 export default function ImageElement({ image, alt }) {
   return (
@@ -22,6 +23,10 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: var(--height-hero);
+
+  @media (min-width: ${theme.breakpoints.wide}) {
+    height: calc(1.5 * var(--height-hero));
+  }
 `;
 
 const StyledImage = styled(Image)`

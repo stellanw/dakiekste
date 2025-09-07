@@ -1,8 +1,12 @@
 import styled, { keyframes } from "styled-components";
+import { useState, useEffect } from "react";
 import { theme } from "@/styles";
 import { PiArrowDownLight } from "react-icons/pi";
 import Image from "next/image";
 import section01_header_01 from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
+import Link from "next/link";
+import DakieksteLogo from "@/Icons/DakieksteLogo";
+import Menu from "./Menu";
 
 const bounce = keyframes`
   0% { transform: translateY(0); }
@@ -13,8 +17,28 @@ const bounce = keyframes`
 `;
 
 export default function Header({ useImageBackground = false }) {
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+
+    setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 120;
+  const iconWidth = 45;
+
   return (
     <StyledHeadContainer>
+      <StyledLink href="/">
+        <DakieksteLogo color={theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
+      </StyledLink>
+      <StyledMenu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
       {useImageBackground ? (
         <ImageBackground src={section01_header_01} alt="Branding Fotografie" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
       ) : (
@@ -45,6 +69,10 @@ const StyledHeadContainer = styled.div`
   width: 100%;
   overflow: hidden;
   height: var(--height-header);
+
+  @media (min-width: ${theme.breakpoints.wide}) {
+    height: calc(1.5 * var(--height-hero));
+  }
 `;
 
 const VideoBackground = styled.video`
@@ -92,4 +120,18 @@ const StyledPiArrowDownLight = styled(PiArrowDownLight)`
   @media (max-width: ${theme.breakpoints.tablet}) {
     display: none;
   }
+`;
+
+const StyledLink = styled(Link)`
+  position: absolute;
+  top: calc(0.75 * var(--side-padding));
+  left: var(--side-padding);
+  z-index: 5;
+`;
+
+const StyledMenu = styled(Menu)`
+  position: fixed;
+  top: var(--side-padding);
+  right: var(--side-padding);
+  z-index: 5000;
 `;

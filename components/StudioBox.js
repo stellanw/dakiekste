@@ -48,14 +48,16 @@ export default function StudioBox({ topline, headline, text1, text2, cards }) {
   return (
     <StyledStudioBox>
       <StyledTextWrapper>
-        <h2>{topline}</h2>
-        <h3>{headline}</h3>
-        <p>
-          {text1}
-          <br />
-          <br />
-          {text2}
-        </p>
+        <TextInner>
+          <h2>{topline}</h2>
+          <h3>{headline}</h3>
+          <p>
+            {text1}
+            <br />
+            <br />
+            {text2}
+          </p>
+        </TextInner>
       </StyledTextWrapper>
 
       <CardContainer>
@@ -136,6 +138,19 @@ const StyledTextWrapper = styled.div`
   @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 50%;
   }
+
+  h3 {
+    word-break: keep-all !important;
+    hyphens: auto;
+  }
+`;
+
+const TextInner = styled.div`
+  width: 100%;
+  @media (min-width: ${theme.breakpoints.wide}) {
+    max-width: 800px;
+    margin-inline: auto;
+  }
 `;
 
 const CardContainer = styled.div`
@@ -161,6 +176,9 @@ const CardWrapper = styled.div`
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding-right: var(--side-padding);
   }
+
+  padding-inline-end: var(--side-padding);
+  scroll-padding-inline-end: var(--side-padding);
 
   & > * {
     flex: 0 0 auto;

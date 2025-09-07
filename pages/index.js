@@ -1,5 +1,4 @@
 import Head from "next/head";
-import NavBar from "@/components/NavBar";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ImageSlider from "@/components/ImageSlider";
@@ -7,7 +6,6 @@ import ScrollBox from "@/components/ScrollBox";
 import ImageSliderLight from "@/components/ImageSliderLight";
 import DoubleTextBox from "@/components/DoubleTextBox";
 import ImageTextBox from "@/components/ImageTextBox";
-import TextSlider from "@/components/TextSlider";
 import StudioBox from "@/components/StudioBox";
 import TeamText from "@/components/TeamText";
 import Team from "@/components/Team";
@@ -15,7 +13,6 @@ import ContactForm from "@/components/ContactForm";
 import ImageElement from "@/components/ImageElement";
 import FAQ from "@/components/FAQ";
 import Pricing from "@/components/Pricing";
-import { PiArrowRightLight } from "react-icons/pi";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 
@@ -103,7 +100,6 @@ export default function HomePage() {
   return (
     <>
       <header>
-        <NavBar />
         <Header useImageBackground={false} />
       </header>
       <Head>

@@ -11,23 +11,26 @@ export default function ImageSlider({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.intersectionRatio >= 0.7) {
-          setCurrentSlide(sliderRef.current?.innerSlider?.state.currentSlide || 0);
-        }
-      },
-      { threshold: 0.7 }
-    );
+  // kleiner Drag-Guard (Maus + Touch)
+  const downRef = useRef(false);
+  const startXRef = useRef(0);
+  const draggedRef = useRef(false);
+  const THRESH = 6;
 
-    const firstSlide = sliderRef.current?.innerSlider?.list?.firstChild;
-    if (firstSlide) observer.observe(firstSlide);
-
-    return () => {
-      if (firstSlide) observer.unobserve(firstSlide);
-    };
-  }, []);
+  const onDown = (e) => {
+    downRef.current = true;
+    draggedRef.current = false;
+    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    startXRef.current = x ?? 0;
+  };
+  const onMove = (e) => {
+    if (!downRef.current) return;
+    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    if (x != null && Math.abs(x - startXRef.current) > THRESH) draggedRef.current = true;
+  };
+  const onUp = () => {
+    downRef.current = false;
+  };
 
   const settings = {
     dots: false,
@@ -37,22 +40,15 @@ export default function ImageSlider({ projects, autoplay }) {
     fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: autoplay,
+    autoplay,
     arrows: false,
     swipe: true,
     afterChange: (index) => setCurrentSlide(index),
-    responsive: [
-      {
-        breakpoint: 600,
-        settings: {
-          dots: false,
-        },
-      },
-    ],
+    responsive: [{ breakpoint: 600, settings: { dots: false } }],
   };
 
-  const handlePrevClick = () => sliderRef.current?.slickPrev();
-  const handleNextClick = () => sliderRef.current?.slickNext();
+  const next = () => sliderRef.current?.slickNext();
+  const prev = () => sliderRef.current?.slickPrev();
 
   return (
     <SliderWrapper>
@@ -60,20 +56,63 @@ export default function ImageSlider({ projects, autoplay }) {
         {projects.map((project, index) => (
           <Slide key={index}>
             <StyledImage src={project.image} alt={project.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" quality={100} />
+            <ClickLayer
+              aria-label="Nächstes Bild"
+              onClick={() => {
+                if (!draggedRef.current) next();
+              }}
+              onMouseDown={onDown}
+              onMouseMove={onMove}
+              onMouseUp={onUp}
+              onMouseLeave={onUp}
+              onTouchStart={onDown}
+              onTouchMove={onMove}
+              onTouchEnd={onUp}
+            />
           </Slide>
         ))}
       </StyledSlider>
+
       <ArrowContainer>
-        <Arrow onClick={handlePrevClick}>
+        <Arrow onClick={prev}>
           <PiArrowLeftLight />
         </Arrow>
-        <Arrow onClick={handleNextClick}>
+        <Arrow onClick={next}>
           <PiArrowRightLight />
         </Arrow>
       </ArrowContainer>
     </SliderWrapper>
   );
 }
+
+const Slide = styled.div`
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: var(--height-hero);
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    max-height: var(--height-section);
+  }
+  @media (min-width: ${theme.breakpoints.wide}) {
+    height: calc(1.5 * var(--height-hero));
+  }
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: cover;
+  object-position: 50% 5%;
+`;
+
+const ClickLayer = styled.button`
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+`;
 
 const SliderWrapper = styled.div`
   position: relative;
@@ -144,23 +183,6 @@ const StyledSlider = styled(Slider)`
   .slick-dots li:last-child button {
     transform: scale(0.35);
   }
-`;
-
-const Slide = styled.div`
-  display: flex;
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: var(--height-hero);
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    max-height: var(--height-section);
-  }
-`;
-
-const StyledImage = styled(Image)`
-  object-fit: cover;
-  object-position: 50% 5%;
 `;
 
 const ArrowContainer = styled.div`
