@@ -134,7 +134,7 @@ const StyledIcon = styled(PiArrowUpRightLight)`
   stroke-width: 10;
 
   &:hover {
-    transform: rotate(45deg) scale(1.1);
+    transform: scale(1.1);
   }
 `;
 

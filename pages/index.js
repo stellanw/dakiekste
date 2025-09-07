@@ -112,7 +112,17 @@ export default function HomePage() {
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <Hero headline="Fotografie. Branding. Content Creation." text={<>Weil deine Marke mehr als schöne Bilder braucht – bieten wir ein Gesamtkonzept aus Fotografie, Design, Web und Content Creation. Mit vielseitiger Expertise, Erfahrung und Empathie begleiten wir dich, damit deine Botschaft nachhaltig wirkt.</>} />
+      <Hero
+        headline="Deine Marke – unser Gesamtpaket"
+        text={
+          <>
+            Weil deine Vision mehr als schöne Bilder braucht, kombinieren wir <br />
+            Fotografie, Video, Design & Website zu einem stimmigen Gesamtauftritt.
+            <br />
+            Mit vielseitiger Expertise, Erfahrung und Empathie.
+          </>
+        }
+      />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
@@ -161,7 +171,13 @@ export default function HomePage() {
         <ScrollBox
           autoplay={false}
           headline1="Leistungen aus einer Hand"
-          headline2={<>Strategisch durchdacht und visuell auf den Punkt. Kein Baukasten oder Stock-Foto, sondern Gesamtlösungen, die wirklich zu dir passen.</>}
+          headline2={
+            <>
+              Strategisch durchdacht und visuell auf den Punkt. <br />
+              Kein Baukasten oder Stock-Foto, sondern Gesamtlösungen, <br />
+              die wirklich zu dir passen.
+            </>
+          }
           boxData={[
             {
               image: service_branding,
