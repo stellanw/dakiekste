@@ -126,10 +126,8 @@ const ToggleIcon = styled.div`
   svg {
     width: 20px;
     height: 20px;
-
     stroke-width: 8px;
-    transition: color 0.25s ease;
-    color: ${({ $isExpanded }) => ($isExpanded ? theme.color.green : theme.color.dark)};
+    color: ${theme.color.dark};
   }
 `;
 
@@ -148,8 +146,7 @@ const NameIconContainer = styled.div`
 
   h6 {
     font-size: var(--font-l);
-    transition: color 0.25s ease;
-    color: ${({ $isExpanded }) => ($isExpanded ? theme.color.green : theme.color.dark)};
+    color: ${theme.color.dark};
     margin-bottom: 0;
   }
 
@@ -157,8 +154,7 @@ const NameIconContainer = styled.div`
     color: ${theme.color.green};
   }
   &:hover ${ToggleIcon} svg {
-    transform: scale(1.05);
+    transform: scale(1.25);
     color: ${theme.color.green};
-    transition: color 0.25s ease;
   }
 `;
