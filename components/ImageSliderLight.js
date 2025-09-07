@@ -11,6 +11,27 @@ export default function ImageSliderLight({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
+  // Drag-Guard (Maus + Touch)
+  const downRef = useRef(false);
+  const startXRef = useRef(0);
+  const draggedRef = useRef(false);
+  const THRESH = 6;
+
+  const onDown = (e) => {
+    downRef.current = true;
+    draggedRef.current = false;
+    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    startXRef.current = x ?? 0;
+  };
+  const onMove = (e) => {
+    if (!downRef.current) return;
+    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    if (x != null && Math.abs(x - startXRef.current) > THRESH) draggedRef.current = true;
+  };
+  const onUp = () => {
+    downRef.current = false;
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -34,7 +55,7 @@ export default function ImageSliderLight({ projects, autoplay }) {
     infinite: true,
     fade: true,
     speed: 10,
-    autoplay: autoplay,
+    autoplay,
     autoplaySpeed: 3200,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -44,21 +65,16 @@ export default function ImageSliderLight({ projects, autoplay }) {
     afterChange: (index) => setCurrentSlide(index),
   };
 
-  const handlePrevClick = () => {
-    sliderRef.current.slickPrev();
-  };
-
-  const handleNextClick = () => {
-    sliderRef.current.slickNext();
-  };
+  const next = () => sliderRef.current?.slickNext();
+  const prev = () => sliderRef.current?.slickPrev();
 
   return (
     <SliderWrapper>
       <ArrowContainer>
-        <Arrow onClick={handlePrevClick}>
+        <Arrow onClick={prev}>
           <PiArrowLeftLight />
         </Arrow>
-        <Arrow onClick={handleNextClick}>
+        <Arrow onClick={next}>
           <PiArrowRightLight />
         </Arrow>
       </ArrowContainer>
@@ -67,6 +83,19 @@ export default function ImageSliderLight({ projects, autoplay }) {
         {projects.map((project, index) => (
           <Slide key={index}>
             <StyledImage src={project.image} alt={project.alt} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" quality={100} priority={index === 0} />
+            <ClickLayer
+              aria-label="Nächstes Bild"
+              onClick={() => {
+                if (!draggedRef.current) next();
+              }}
+              onMouseDown={onDown}
+              onMouseMove={onMove}
+              onMouseUp={onUp}
+              onMouseLeave={onUp}
+              onTouchStart={onDown}
+              onTouchMove={onMove}
+              onTouchEnd={onUp}
+            />
           </Slide>
         ))}
       </StyledSlider>
@@ -97,19 +126,17 @@ const ArrowContainer = styled.div`
   top: var(--spacing-l);
   right: var(--side-padding);
   width: 120px;
+  z-index: 2; /* über ClickLayer */
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     top: var(--spacing-xl);
     right: var(--side-padding);
     width: 100px;
-    z-index: 5;
   }
 
   svg {
     stroke-width: 1px;
-
     font-size: 1.6rem;
-    /* font-size: var(--font-xl); */
 
     @media (max-width: ${theme.breakpoints.mobile}) {
       font-size: 1.2rem;
@@ -127,7 +154,6 @@ const Arrow = styled.div`
   border-radius: 50%;
   color: ${theme.color.beige};
   background-color: ${theme.color.dark};
-
   cursor: pointer;
   transition:
     background-color 0.1s ease,
@@ -136,7 +162,6 @@ const Arrow = styled.div`
   &:hover,
   &:active {
     background-color: ${theme.color.green};
-
     transform: scale(1.05);
   }
 
@@ -189,9 +214,7 @@ const StyledSlider = styled(Slider)`
     display: none;
   }
 
-  .slick-dots li:first-child button {
-    transform: scale(0.35);
-  }
+  .slick-dots li:first-child button,
   .slick-dots li:last-child button {
     transform: scale(0.35);
   }
@@ -207,9 +230,23 @@ const Slide = styled.div`
   @media (max-width: ${theme.breakpoints.tablet}) {
     max-height: var(--height-section);
   }
+  @media (min-width: ${theme.breakpoints.wide}) {
+    height: calc(1.5 * var(--height-hero));
+  }
 `;
 
 const StyledImage = styled(Image)`
   object-fit: cover;
   object-position: 50% 10%;
+`;
+
+/* full-slide Klickfläche fürs Weiterblättern */
+const ClickLayer = styled.button`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
 `;

@@ -167,6 +167,7 @@ const FAQList = styled.ul`
   position: relative;
   flex-direction: column;
   width: 100%;
+  max-width: 14500px;
   max-height: 300px;
   overflow-y: scroll;
   border-right: solid 1px ${theme.color.beige};

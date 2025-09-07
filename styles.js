@@ -48,6 +48,7 @@ export const theme = {
     mobile: "480px", // kleine bis mittlere Phones
     tablet: "768px", // iPads, große Phones quer
     desktop: "1200px", // Laptops & große Screens
+    wide: "2400px", // extrem große Screens
   },
 };
 
@@ -176,9 +177,12 @@ a:visited { color: inherit; }
   h1,h2,h3,h4,h5,h6 {
     white-space: normal;
       word-wrap: normal;
-    word-break: keep-all;
+    word-break: keep-all !important;
+      text-overflow: ellipsis;
+      overflow-wrap: normal;    
+    
     /* overflow-wrap: break-word; */
-    hyphens: auto;
+    /* hyphens: auto; */
   }
 
   h1 {
@@ -208,6 +212,7 @@ padding: 0;
   letter-spacing: 0.03rem;
   line-height: ${theme.lineHeight.l};
 word-wrap: normal !important;
+ max-width: 680px;
   @media (min-width: ${theme.breakpoints.tablet}) {
   }
 }
@@ -265,6 +270,7 @@ line-height: ${theme.lineHeight.l};
     font-weight: ${theme.fontWeight.regular};
   font-size: var(--font-l);
     line-height: ${theme.lineHeight.xl};
+    max-width: 680px;
   }
 
   label {

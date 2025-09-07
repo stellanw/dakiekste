@@ -18,9 +18,13 @@ const ImageElementContainer = styled.div`
   width: 100%;
 
   padding: 0;
-
+  height: var(--height-hero);
   @media (min-width: ${theme.breakpoints.tablet}) {
     padding: var(--side-padding) var(--side-padding);
+  }
+
+  @media (min-width: ${theme.breakpoints.wide}) {
+    height: calc(1.5 * var(--height-hero));
   }
 `;
 

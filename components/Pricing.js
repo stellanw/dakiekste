@@ -178,6 +178,10 @@ export default function Pricing({ pricingData, servicesData }) {
     };
   }, [selectedServices.length]);
 
+  // Monatlischer Preis + Zinsen
+  const MARKUP_PCT = 8; // Prozent Zinssatz
+  const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+
   return (
     <PricingContainer>
       {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
@@ -297,7 +301,7 @@ export default function Pricing({ pricingData, servicesData }) {
                     </ClearAllButton>
                   )}
                   <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
-
+                  <InstallmentPrice>Oder in 6 x {euroDash(installmentPriceWithMarkup(totalPrice, MARKUP_PCT))} monatlichen Raten</InstallmentPrice>
                   <OverlayInfo>*EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.</OverlayInfo>
                   <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                 </>
@@ -611,7 +615,6 @@ const TitleCheckboxContainer = styled.label`
   cursor: pointer;
   user-select: none;
   margin: 0;
-  /* gemeinsames Hover – nur wenn NICHT checked */
   ${({ $checked }) =>
     !$checked &&
     css`
@@ -690,6 +693,13 @@ const Description = styled.p`
 `;
 
 const Price = styled.h6`
+  /* margin-bottom: calc(0.5 * var(--spacing-xs)); */
+  margin: 0;
+`;
+
+const InstallmentPrice = styled.p`
+  text-transform: uppercase;
+  margin-top: calc(0.25 * var(--spacing-xs));
   margin-bottom: calc(0.5 * var(--spacing-xs));
 `;
 
