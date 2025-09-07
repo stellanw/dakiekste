@@ -841,12 +841,11 @@ const OutcomeList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 310px; /* ggf. anpassen */
+  max-height: 310px;
   overflow-y: auto;
   scroll-behavior: smooth;
   overscroll-behavior: contain;
 
-  /* dezente Scrollbar wie im Overlay */
   scrollbar-width: thin;
   scrollbar-color: ${theme.color.dark} ${theme.color.beige};
   &::-webkit-scrollbar {
