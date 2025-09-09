@@ -360,7 +360,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         headline="Bewegte Bilder – die verbinden"
         text1="Ein Imagefilm macht dein Unternehmen erlebbar. Er zeigt nicht nur Fakten, sondern vermittelt Atmosphäre und Persönlichkeit. So bekommen Kund*innen einen echten Eindruck davon, wie du arbeitest und was dein Unternehmen besonders macht. Durch bewegte Bilder entsteht Nähe – und aus Zuschauer*innen werden Interessierte, die sich mit deiner Marke verbinden."
         text2="Ein Imagefilm transportiert Gefühl, baut Vertrauen auf und lässt dein Unternehmen lebendig wirken."
-        videoSrc="/videos/Imagefilm-ossara.mp4"
+        videoSrc="/videos/Imagefilm-ossara.mov"
         flexflow="row"
       />
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
