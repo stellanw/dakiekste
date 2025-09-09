@@ -180,6 +180,13 @@ export default function HomePage() {
           }
           boxData={[
             {
+              image: service_konzept,
+
+              title: "Konzeption & Workshop",
+              mobileTitle: "Workshop",
+              text: "Corporate Identity, Branding und Bildsprache – wir teilen Wissen, beraten und strukturieren deine visuelle Kommunikation für mehr Klarheit und Wirkung.",
+            },
+            {
               image: service_branding,
 
               title: "Branding Fotografie",
@@ -240,13 +247,6 @@ export default function HomePage() {
               title: "Content Creation & Strategie",
               mobileTitle: "Content Creation",
               text: "Persönlicher Content statt Standard: Wir erstellen Foto- und Videoinhalte mit Qualität und einem hohen Anspruch an Ästhetik. Für Posts, Reels & Stories, die wirken.",
-            },
-            {
-              image: service_konzept,
-
-              title: "Konzeption & Workshop",
-              mobileTitle: "Workshop",
-              text: "Corporate Identity, Branding und Bildsprache – wir teilen Wissen, beraten und strukturieren deine visuelle Kommunikation für mehr Klarheit und Wirkung.",
             },
           ]}
         />
@@ -357,6 +357,10 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           }
           boxData={[
             {
+              title: "06 Langfristige Unterstützung",
+              text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
+            },
+            {
               title: "01 Erstgespräch & Analyse",
               text: "Im ersten Gespräch lernen wir dich, deine Marke und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das dein Branding stärkt und deine geschäftlichen Ziele voranbringt.",
             },
@@ -375,10 +379,6 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               title: "05 Postproduktion",
               text: "Du wählst deine Favoriten aus unserer Vorauswahl. Danach bereiten wir alles sortiert und markengerecht auf. Du bekommst einen vielseitigen Bild- oder Medienpool auf den du über eine Online-Galerie oder Cloud zugreifen kannst, mit einer Anleitung zur flexiblen Verwendung.",
-            },
-            {
-              title: "06 Langfristige Unterstützung",
-              text: "Auch nach dem Projekt sind wir für dich da. Ob kleine Anpassungen oder neue Ideen – wir reagieren schnell und entwickeln mit dir weiter. Weil wir deine Marke kennen, können wir gezielt unterstützen und so nachhaltiges Wachstum ermöglichen.",
             },
           ]}
         />

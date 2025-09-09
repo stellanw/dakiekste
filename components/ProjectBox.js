@@ -145,7 +145,7 @@ const CardWrapper = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background: ${theme.color.dark};
-    border-radius: 4px;
+    border-radius: 0;
   }
   &::-webkit-scrollbar-thumb:hover {
     background: ${theme.color.green};

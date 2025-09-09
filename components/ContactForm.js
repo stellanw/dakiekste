@@ -223,7 +223,7 @@ const InnerWrapper = styled.div`
 `;
 
 const StyledTextContainer = styled.div`
-  flex-basis: 50%;
+  max-width: var(--max-text);
   color: ${theme.color.beige};
   padding: var(--spacing-xxxl) var(--side-padding) 0 var(--side-padding);
 
