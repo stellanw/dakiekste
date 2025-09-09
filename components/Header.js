@@ -7,6 +7,7 @@ import section01_header_01 from "/public/images/01_Header/branding-fotografie-er
 import Link from "next/link";
 import DakieksteLogo from "@/Icons/DakieksteLogo";
 import Menu from "./Menu";
+import { FixedContainer } from "./FixedContainer";
 
 const bounce = keyframes`
   0% { transform: translateY(0); }
@@ -38,7 +39,9 @@ export default function Header({ useImageBackground = false }) {
       <StyledLink href="/">
         <DakieksteLogo color={theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
       </StyledLink>
-      <StyledMenu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
+      <FixedContainer>
+        <StyledMenu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
+      </FixedContainer>
       {useImageBackground ? (
         <ImageBackground src={section01_header_01} alt="Branding Fotografie" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
       ) : (

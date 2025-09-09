@@ -29,7 +29,7 @@ import slider_branding_01 from "/public/images/02_Slider/branding-fotografie-bil
 import slider_branding_02 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-02.jpg";
 import slider_branding_03 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-03.jpg";
 import slider_branding_04 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-03.jpg";
-import slider_branding_05 from "/public/images/02_Slider/teamfotografie-pflege-platzhalter.jpg";
+import slider_branding_05 from "/public/images/02_Slider/teamfotografie-pflege.jpg";
 import slider_branding_06 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
 import slider_branding_07 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-04.jpg";
 import slider_branding_08 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-02.jpg";
@@ -288,11 +288,20 @@ export default function HomePage() {
 
       <DoubleTextBox
         topline1="Ein Look – viele Kanäle"
-        headline1="Markenstrategie & Bildsprache"
+        headline1={
+          <>
+            Markenstrategie <br />& Bildsprache
+          </>
+        }
         text1="Wir entwickeln einen visuellen Auftritt, der auf allen digitalen Kanälen funktioniert. Statt losem Stückwerk bekommst du eine durchdachte Bildsprache, die deine Marke einheitlich und wiedererkennbar macht.
 Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen flexiblen Bild- und Videopool, der mit deiner Marke mitwächst: langfristig, konsistent und klar positioniert."
         topline2="Content, der wirkt"
-        headline2="Starke Bilder. Klare Botschaften."
+        headline2={
+          <>
+            Starke Bilder. <br />
+            Klare Botschaften.
+          </>
+        }
         text2="Wir erstellen Bilder und Videos, die genau da ankommen, wo sie sollen – bei deiner Zielgruppe. Du bekommst Inhalte, die auffallen, hängen bleiben und Vertrauen schaffen. In ehrlicher Zusammenarbeit entstehen nahbare Bildwelten, in denen du dich gesehen fühlt. Du musst dich nicht um jedes Detail kümmern – wir denken mit und liefern Content, den du direkt einsetzen kannst."
       />
 
@@ -300,7 +309,12 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       <ImageTextBox
         topline="Menschen im Mittelpunkt"
-        headline="Businessportraits mit Haltung"
+        headline={
+          <>
+            Businessportraits <br />
+            mit Haltung
+          </>
+        }
         text1="Wir zeigen dich und die Menschen hinter deinem Unternehmen. Mit Portraits und Einblicken in euren Arbeitsalltag machen wir sichtbar, was euch als Team ausmacht. Das schafft Nähe, spricht potenzielle Talente an und stärkt euer Employer Branding. Für alle, die mehr zeigen wollen als Leistung – nämlich Haltung, Miteinander und echtes Engagement."
         text2=""
         image={section05_TextBox01}
@@ -312,7 +326,12 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       <ImageTextBox
         topline="Starker Look. Klares Konzept."
-        headline="Bildsprache die funktioniert"
+        headline={
+          <>
+            Bildsprache <br />
+            die funktioniert
+          </>
+        }
         text1="Wir gestalten Bildwelten, die nicht nur gut aussehen – sondern deine Marke tragen. Jedes Motiv, jede Farbwahl, jedes Detail entsteht mit Blick auf deine Vision und deine Zielgruppe. Du musst nicht wissen, wie man Bildsprache entwickelt – du musst nur bereit sein, sie mitzugestalten. Wir denken mit, stellen die richtigen Fragen und führen dich durch den Prozess. Gemeinsam schaffen wir visuelle Lösungen, die funktionieren."
         text2=""
         image={section06_TextBox01}
@@ -330,7 +349,12 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         <ScrollBox
           showIcon={true}
           headline1="Workflow"
-          headline2={<>Du bringst die Vision, wir kümmern uns um den Weg. Mit einem strukturierten Ablauf halten wir dir den Rücken frei.</>}
+          headline2={
+            <>
+              Du bringst die Vision, wir kümmern uns um den Weg. <br />
+              Mit einem strukturierten Ablauf halten wir dir den Rücken frei.
+            </>
+          }
           boxData={[
             {
               title: "01 Erstgespräch & Analyse",
@@ -365,7 +389,12 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
       <section id="studio">
         <StudioBox
           topline="UNSER STUDIO"
-          headline="Viel Raum für deine Ideen"
+          headline={
+            <>
+              Viel Raum <br />
+              für deine Ideen
+            </>
+          }
           text1="Unser Studio bietet den Raum, den kreative Ideen brauchen: lichtdurchflutetes Tageslichtstudio und wandelbare Sets. Mit einer Auswahl an Hintergründen und Requisiten lassen sich unterschiedlichste Konzepte umsetzen. Für eine entspannte Atmosphäre sorgen kostenfreie Parkplätze, Kaffee und Tee – alles, was ein gutes Shooting braucht."
           text2=""
           cards={[
@@ -421,7 +450,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       <section id="team">
         <TeamText
-          topline="Zwei Perspektiven. Eine Haltung."
+          topline="Über uns"
           headline={
             <>
               Zwei Perspektiven.
@@ -719,7 +748,13 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       <ProjectBox
         topline="BILDERPOOL"
-        headline="Bildmaterial, das dich langfristig unterstützt"
+        headline={
+          <>
+            Bildmaterial, das dich
+            <br />
+            langfristig unterstützt
+          </>
+        }
         text1="Wir erstellen Porträts, Details, Situationen und Momente, die deine Marke lebendig machen – und daraus entsteht dein persönlicher Bilderpool. So hast du nicht nur ein paar Fotos, sondern einen ganzen Pool an authentischem Bildmaterial.Egal ob für Social Media, Website oder andere Kanäle – du hast immer passende Bilder zur Hand."
         text2=""
         cards={[

@@ -1,4 +1,3 @@
-// Team.js (no-scroll Variante)
 import { theme } from "@/styles";
 import styled from "styled-components";
 import Image from "next/image";
@@ -10,31 +9,46 @@ export default function Team({ teamMembers = [] }) {
   const toggleExpand = (index) => setExpandedIndex((i) => (i === index ? null : index));
 
   return (
-    <TeamContainer>
-      {teamMembers.map((member, index) => {
-        const isLast = index === teamMembers.length - 1;
-        const isExpanded = expandedIndex === index;
+    <OuterWrapper>
+      <InnerWrapper>
+        <TeamContainer>
+          {teamMembers.map((member, index) => {
+            const isLast = index === teamMembers.length - 1;
+            const isExpanded = expandedIndex === index;
 
-        return (
-          <TeamCard key={index} data-last={isLast ? "1" : "0"}>
-            <ImageWrapper>
-              <MemberImage src={member.image} alt={`Portrait von ${member.name}`} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-            </ImageWrapper>
+            return (
+              <TeamCard key={index} data-last={isLast ? "1" : "0"}>
+                <ImageWrapper>
+                  <MemberImage src={member.image} alt={`Portrait von ${member.name}`} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                </ImageWrapper>
 
-            <NameIconContainer role="button" tabIndex={0} onClick={() => toggleExpand(index)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleExpand(index)} $isExpanded={isExpanded}>
-              <h6>{member.name}</h6>
-              <ToggleIcon $isExpanded={isExpanded}>{isExpanded ? <PiMinus /> : <PiPlus />}</ToggleIcon>
-            </NameIconContainer>
+                <NameIconContainer role="button" tabIndex={0} onClick={() => toggleExpand(index)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleExpand(index)} $isExpanded={isExpanded}>
+                  <h6>{member.name}</h6>
+                  <ToggleIcon $isExpanded={isExpanded}>{isExpanded ? <PiMinus /> : <PiPlus />}</ToggleIcon>
+                </NameIconContainer>
 
-            <TextContainer $isExpanded={isExpanded}>
-              <Inner>{member.text}</Inner>
-            </TextContainer>
-          </TeamCard>
-        );
-      })}
-    </TeamContainer>
+                <TextContainer $isExpanded={isExpanded}>
+                  <Inner>{member.text}</Inner>
+                </TextContainer>
+              </TeamCard>
+            );
+          })}
+        </TeamContainer>
+      </InnerWrapper>
+    </OuterWrapper>
   );
 }
+
+const OuterWrapper = styled.section`
+  width: 100%;
+`;
+
+const InnerWrapper = styled.div`
+  width: 100%;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
+`;
 
 const TeamContainer = styled.div`
   --width-card-mobile: 310px;
@@ -43,14 +57,15 @@ const TeamContainer = styled.div`
   --height-card-desktop: 450px;
 
   width: 100%;
-  padding: 0 var(--side-padding);
-  margin-bottom: var(--spacing-xxl);
+  margin: 0 0 var(--spacing-xxl) 0;
 
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-xl);
-
   align-items: flex-start;
+
+  /* Optional: Karten mittig ausrichten, wenn Reihe nicht voll wird */
+  /* justify-content: center; */
 `;
 
 const TeamCard = styled.div`
@@ -60,7 +75,6 @@ const TeamCard = styled.div`
   text-align: start;
   min-width: var(--width-card-mobile);
   max-width: var(--width-card-mobile);
-  padding-bottom: var(--spacing-xs);
   flex: 0 0 var(--width-card-mobile);
 
   @media (min-width: ${theme.breakpoints.tablet}) {
@@ -136,13 +150,8 @@ const NameIconContainer = styled.div`
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
-  padding-top: var(--spacing-xs);
   cursor: pointer;
   user-select: none;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    padding-top: var(--spacing-s);
-  }
 
   h6 {
     font-size: var(--font-l);

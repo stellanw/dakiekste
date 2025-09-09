@@ -7,10 +7,10 @@ import "slick-carousel/slick/slick-theme.css";
 export default function LogoCarousel() {
   const logos = [
     { src: "/images/Ossara-Logo.png", alt: "Logo 5", width: 100, height: 75 },
-    { src: "/images/otto-logo.png", alt: "Logo 1", width: 100, height: 75 },
+    { src: "/images/otto-logo.png", alt: "Logo 1", width: 80, height: 75 },
     { src: "/images/averdung-logo.png", alt: "Logo 2", width: 100, height: 75 },
     { src: "/images/neuland_logo.png", alt: "Logo 3", width: 100, height: 75 },
-    { src: "/images/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 70, height: 75 },
+    { src: "/images/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 60, height: 75 },
     { src: "/images/Improova_Logo_small_black.png", alt: "Logo 5", width: 100, height: 75 },
     { src: "/images/Logo_QuCare_RGB.png", alt: "Logo 5", width: 100, height: 75 },
   ];
@@ -64,7 +64,7 @@ export default function LogoCarousel() {
 const CarouselWrapper = styled.div`
   margin: 0 auto;
   padding: 0;
-  width: 60%;
+  width: 40%;
 `;
 
 const Slide = styled.div`

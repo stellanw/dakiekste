@@ -111,7 +111,7 @@ const FAQHeader = styled.div`
   align-items: start;
   margin-bottom: var(--spacing-xl);
   width: 100%;
-
+  max-width: var(--max-content);
   h3 {
     font-weight: ${theme.fontWeight.bold};
   }
@@ -122,6 +122,7 @@ const FilterBar = styled.div`
   flex-wrap: wrap;
   gap: var(--spacing-xs);
   width: 100%;
+  max-width: var(--max-content);
   margin-bottom: var(--spacing-l);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -167,7 +168,7 @@ const FAQList = styled.ul`
   position: relative;
   flex-direction: column;
   width: 100%;
-  max-width: 14500px;
+  max-width: var(--max-content);
   max-height: 300px;
   overflow-y: scroll;
   border-right: solid 1px ${theme.color.beige};

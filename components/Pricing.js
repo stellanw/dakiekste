@@ -183,185 +183,206 @@ export default function Pricing({ pricingData, servicesData }) {
   const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
 
   return (
-    <PricingContainer>
-      {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
-      <HeadlineContainer>
-        <h2>BUDGETPLANUNG</h2>
-        {isMobile ? (
-          <h4>
-            Jedes Projekt ist individuell – genau wie dein Budget. <br />
-            Für eine erste Orientierung nutze unseren Preiskalkulator.
-          </h4>
-        ) : (
-          <h4>
-            Jedes Projekt ist individuell – genau wie dein Budget. <br />
-            Für eine erste Orientierung nutze unseren Preiskalkulator.
-          </h4>
-        )}
-      </HeadlineContainer>
-      <CalculatorContainer>
-        <CategoriesContainer>
-          {pricingData.map((category, categoryIndex) => {
-            const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
+    <OuterWrapper>
+      <InnerWrapper>
+        <PricingContainer>
+          {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
+          <HeadlineContainer>
+            <h2>Preiskalkulator</h2>
+            {isMobile ? (
+              <h4>
+                Jedes Projekt ist individuell – genau wie dein Budget. <br />
+                Für eine erste Orientierung nutze unseren Preiskalkulator.
+              </h4>
+            ) : (
+              <h4>
+                Jedes Projekt ist individuell – genau wie dein Budget. <br />
+                Für eine erste Orientierung nutze unseren Preiskalkulator.
+              </h4>
+            )}
+          </HeadlineContainer>
+          <CalculatorContainer>
+            <CategoriesContainer>
+              {pricingData.map((category, categoryIndex) => {
+                const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
 
-            return (
-              <CategoryContainer key={categoryIndex} $hide={hideThisCategory}>
-                <h6>{category.category}</h6>
-                <OptionContainer>
-                  {category.options.map((option, i) => {
-                    const checked = selectedCategory[category.key] === option;
-                    return (
-                      <Option key={i} $checked={checked}>
-                        <HiddenCheckbox checked={checked} onChange={() => handleCategorySelection(category.key, option)} />
-                        <Dot $checked={checked} />
-                        <OptionName>{option}</OptionName>
-                      </Option>
-                    );
-                  })}
-                </OptionContainer>
-              </CategoryContainer>
-            );
-          })}
-        </CategoriesContainer>
-        <ServiceContainer>
-          <OutcomeContainer>
-            <OutcomeContent>
-              {isOrg ? (
-                <>
-                  <h6>Deine Auswahl</h6>
-
-                  {isOrgSelected && (
-                    <ul>
-                      <li>
-                        <SelectedItem>
-                          <ItemWrapper>
-                            <PiPushPinLight />
-                            <span>Leistungen für Vereine & Organisationen</span>
-                          </ItemWrapper>
-                          <RemoveButton onClick={() => setSelectedServices([])}>
-                            <StyledRemoveIcon />
-                          </RemoveButton>
-                        </SelectedItem>
-                      </li>
-                    </ul>
-                  )}
-                  <OverlayInfo>Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und ein individuelles Angebot zu erstellen.</OverlayInfo>
-                  <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
-                </>
-              ) : (
-                <>
-                  <h6>Deine Auswahl</h6>
-                  <OutcomeListWrap>
-                    <OutcomeList ref={outcomeListRef}>
-                      {selectedServices.map((service, index) => {
-                        const isCountable = service.isCountable;
+                return (
+                  <CategoryContainer key={categoryIndex} $hide={hideThisCategory}>
+                    <h6>{category.category}</h6>
+                    <OptionContainer>
+                      {category.options.map((option, i) => {
+                        const checked = selectedCategory[category.key] === option;
                         return (
-                          <li key={index}>
+                          <Option key={i} $checked={checked}>
+                            <HiddenCheckbox checked={checked} onChange={() => handleCategorySelection(category.key, option)} />
+                            <Dot $checked={checked} />
+                            <OptionName>{option}</OptionName>
+                          </Option>
+                        );
+                      })}
+                    </OptionContainer>
+                  </CategoryContainer>
+                );
+              })}
+            </CategoriesContainer>
+            <ServiceContainer>
+              <OutcomeContainer>
+                <OutcomeContent>
+                  {isOrg ? (
+                    <>
+                      <h6>Deine Auswahl</h6>
+
+                      {isOrgSelected && (
+                        <ul>
+                          <li>
                             <SelectedItem>
                               <ItemWrapper>
                                 <PiPushPinLight />
-                                <span>{service.title}</span>
-                                {isCountable && (
-                                  <Counter>
-                                    <button onClick={() => handleCountChange(service.title, -1)}>-</button>
-                                    <span>{serviceCounts[service.title]}</span>
-                                    <button onClick={() => handleCountChange(service.title, 1)}>+</button>
-                                  </Counter>
-                                )}
+                                <span>Leistungen für Vereine & Organisationen</span>
                               </ItemWrapper>
-                              <RemoveButton onClick={() => removeService(service)}>
+                              <RemoveButton onClick={() => setSelectedServices([])}>
                                 <StyledRemoveIcon />
                               </RemoveButton>
                             </SelectedItem>
                           </li>
-                        );
-                      })}
-                      {showOutcomeHint && (
-                        <OutcomeScrollHint
-                          type="button"
-                          aria-label="Weiter nach unten"
-                          title="Weiter nach unten"
-                          onClick={() =>
-                            outcomeListRef.current?.scrollBy({
-                              top: outcomeListRef.current.clientHeight * 0.8,
-                              behavior: "smooth",
-                            })
-                          }
-                        >
-                          <PiArrowDownThin />
-                        </OutcomeScrollHint>
+                        </ul>
                       )}
-                    </OutcomeList>
-                  </OutcomeListWrap>
+                      <OverlayInfo>Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und ein individuelles Angebot zu erstellen.</OverlayInfo>
+                      <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+                    </>
+                  ) : (
+                    <>
+                      <h6>Deine Auswahl</h6>
+                      <OutcomeListWrap>
+                        <OutcomeList ref={outcomeListRef}>
+                          {selectedServices.map((service, index) => {
+                            const isCountable = service.isCountable;
+                            return (
+                              <li key={index}>
+                                <SelectedItem>
+                                  <ItemWrapper>
+                                    <PiPushPinLight />
+                                    <span>{service.title}</span>
+                                    {isCountable && (
+                                      <Counter>
+                                        <button onClick={() => handleCountChange(service.title, -1)}>-</button>
+                                        <span>{serviceCounts[service.title]}</span>
+                                        <button onClick={() => handleCountChange(service.title, 1)}>+</button>
+                                      </Counter>
+                                    )}
+                                  </ItemWrapper>
+                                  <RemoveButton onClick={() => removeService(service)}>
+                                    <StyledRemoveIcon />
+                                  </RemoveButton>
+                                </SelectedItem>
+                              </li>
+                            );
+                          })}
+                          {showOutcomeHint && (
+                            <OutcomeScrollHint
+                              type="button"
+                              aria-label="Weiter nach unten"
+                              title="Weiter nach unten"
+                              onClick={() =>
+                                outcomeListRef.current?.scrollBy({
+                                  top: outcomeListRef.current.clientHeight * 0.8,
+                                  behavior: "smooth",
+                                })
+                              }
+                            >
+                              <PiArrowDownThin />
+                            </OutcomeScrollHint>
+                          )}
+                        </OutcomeList>
+                      </OutcomeListWrap>
 
-                  {selectedServices.length > 0 && (
-                    <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Auswahl leeren">
-                      <PiTrashLight />
-                      <span>Gesamte Auswahl leeren</span>
-                    </ClearAllButton>
+                      {selectedServices.length > 0 && (
+                        <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Auswahl leeren">
+                          <PiTrashLight />
+                          <span>Gesamte Auswahl leeren</span>
+                        </ClearAllButton>
+                      )}
+                      <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
+                      <InstallmentPrice>Oder in 6 x {euroDash(installmentPriceWithMarkup(totalPrice, MARKUP_PCT))} monatlichen Raten</InstallmentPrice>
+                      <OverlayInfo>*EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.</OverlayInfo>
+                      <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+                    </>
                   )}
-                  <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
-                  <InstallmentPrice>Oder in 6 x {euroDash(installmentPriceWithMarkup(totalPrice, MARKUP_PCT))} monatlichen Raten</InstallmentPrice>
-                  <OverlayInfo>*EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.</OverlayInfo>
-                  <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
-                </>
-              )}
-            </OutcomeContent>
-          </OutcomeContainer>
-          <Services>
-            {Array.isArray(filteredServices) && filteredServices.length > 0 ? (
-              filteredServices.map((service) => {
-                const key = service.id || service.title;
-                const isOpen = openKey === key;
-                const isSelected = selectedServices.some((s) => s.title === service.title);
+                </OutcomeContent>
+              </OutcomeContainer>
+              <Services>
+                {Array.isArray(filteredServices) && filteredServices.length > 0 ? (
+                  filteredServices.map((service) => {
+                    const key = service.id || service.title;
+                    const isOpen = openKey === key;
+                    const isSelected = selectedServices.some((s) => s.title === service.title);
 
-                return (
-                  <ServiceUL key={key} className={isOpen ? "open" : ""}>
-                    <Service>
-                      <ServiceTitleGroup>
-                        <TitleCheckboxContainer $checked={isSelected}>
-                          <HiddenServiceCheckbox checked={isSelected} onChange={() => handleServiceSelection(service)} />
-                          <ServiceDot $checked={isSelected} />
-                          <ServiceTitle>{service.title}</ServiceTitle>
-                        </TitleCheckboxContainer>
+                    return (
+                      <ServiceUL key={key} className={isOpen ? "open" : ""}>
+                        <Service>
+                          <ServiceTitleGroup>
+                            <TitleCheckboxContainer $checked={isSelected}>
+                              <HiddenServiceCheckbox checked={isSelected} onChange={() => handleServiceSelection(service)} />
+                              <ServiceDot $checked={isSelected} />
+                              <ServiceTitle>{service.title}</ServiceTitle>
+                            </TitleCheckboxContainer>
 
-                        <ToggleIcon onClick={() => toggleOverlay(key)}>{isOpen ? <PiMinus /> : <PiPlus />}</ToggleIcon>
-                      </ServiceTitleGroup>
+                            <ToggleIcon onClick={() => toggleOverlay(key)}>{isOpen ? <PiMinus /> : <PiPlus />}</ToggleIcon>
+                          </ServiceTitleGroup>
 
-                      {isOpen && (
-                        <OverlayDescription>
-                          <Description>
-                            {service.description}
-                            {service.price > 0 && (
-                              <ServicePrice>
-                                Preis ab <span>{applyDiscount(service.price)}</span>,-
-                                {service.isCountable && <span> {service.unit}</span>}
-                              </ServicePrice>
-                            )}
-                          </Description>
-                        </OverlayDescription>
-                      )}
-                    </Service>
-                  </ServiceUL>
-                );
-              })
-            ) : (
-              <p>Keine Services verfügbar</p>
-            )}
-          </Services>
-        </ServiceContainer>
-      </CalculatorContainer>
-    </PricingContainer>
+                          {isOpen && (
+                            <OverlayDescription>
+                              <Description>
+                                {service.description}
+                                {service.price > 0 && (
+                                  <ServicePrice>
+                                    Preis ab <span>{applyDiscount(service.price)}</span>,-
+                                    {service.isCountable && <span> {service.unit}</span>}
+                                  </ServicePrice>
+                                )}
+                              </Description>
+                            </OverlayDescription>
+                          )}
+                        </Service>
+                      </ServiceUL>
+                    );
+                  })
+                ) : (
+                  <p>Keine Services verfügbar</p>
+                )}
+              </Services>
+            </ServiceContainer>
+          </CalculatorContainer>
+        </PricingContainer>
+      </InnerWrapper>
+    </OuterWrapper>
   );
 }
 
+/* NEU */
+const OuterWrapper = styled.section`
+  width: 100%;
+  background-color: ${theme.color.beige}; /* volle Breite */
+  padding: var(--spacing-xxxl) 0; /* vertikales Spacing wie vorher */
+`;
+
+/* NEU */
+const InnerWrapper = styled.div`
+  width: 100%;
+  max-width: var(--max-content); /* deine zentrale Breite */
+  margin: 0 auto; /* x-achsige Zentrierung */
+  padding: 0 var(--side-padding); /* einheitlicher Seitenabstand */
+`;
+
+/* ANGEPASST: horizontales Padding raus (liegt jetzt im InnerWrapper) */
 const PricingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: var(--spacing-xxxl) 0;
-  background-color: ${theme.color.beige};
+
+  /* HINWEIS: kein background + kein vertikales Padding mehr hier */
+  /* background liegt im OuterWrapper, vertikales Padding ebenfalls */
 
   input {
     background-color: ${theme.color.beige};
@@ -375,13 +396,13 @@ const PricingContainer = styled.div`
     &:active {
       background-color: none !important;
     }
-
     &:focus {
       background-color: none !important;
     }
   }
 `;
 
+/* ANGEPASST: horizontales Padding raus (steht im InnerWrapper) */
 const HeadlineContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -389,19 +410,67 @@ const HeadlineContainer = styled.div`
   justify-content: center;
   margin-bottom: var(--spacing-xl);
   width: 100%;
-  padding: 0 var(--spacing-xl);
+
   h4 {
     text-align: center;
     max-width: 1000px;
   }
 `;
 
+/* ANGEPASST: horizontales Padding raus */
 const CalculatorContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 var(--spacing-xl);
 `;
+
+// const PricingContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+//   padding: var(--spacing-xxxl) 0;
+//   background-color: ${theme.color.beige};
+
+//   input {
+//     background-color: ${theme.color.beige};
+//     border: solid 3px ${theme.color.dark};
+//     min-width: 30px;
+//     min-height: 30px;
+
+//     &:checked {
+//       background-color: ${theme.color.green};
+//     }
+//     &:active {
+//       background-color: none !important;
+//     }
+
+//     &:focus {
+//       background-color: none !important;
+//     }
+//   }
+// `;
+
+// const HeadlineContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   margin-bottom: var(--spacing-xl);
+//   width: 100%;
+//   padding: 0 var(--spacing-xl);
+//   h4 {
+//     text-align: center;
+//     max-width: 1000px;
+//   }
+// `;
+
+// const CalculatorContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   width: 100%;
+//   padding: 0 var(--spacing-xl);
+// `;
 
 const CategoriesContainer = styled.div`
   display: flex;

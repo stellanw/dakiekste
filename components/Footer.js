@@ -11,12 +11,14 @@ export default function Footer() {
   const createMailToLink = () => `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 
   return (
+    // <OuterWrapper>
+    //   <InnerWrapper>
     <StyledFooter>
       <h3>
-        Headline finden <br />
-        Ideen sammeln
+        Lass uns <br />
+        deine Marke
         <br />
-        Oder so
+        sichtbar machen
       </h3>
       <StyledLinkListWrapper>
         <StyledLinkWrapper>
@@ -56,8 +58,22 @@ export default function Footer() {
         </StyledPrideWrapper>
       </StyledBottomWrapper>
     </StyledFooter>
+    //</InnerWrapper>
+    //   </OuterWrapper>
   );
 }
+
+// const OuterWrapper = styled.div`
+//   width: 100%;
+//   background-color: ${theme.color.green};
+// `;
+
+// const InnerWrapper = styled.div`
+//   width: 100%;
+//   max-width: var(--max-content);
+//   margin: 0 auto;
+//   padding: var(--spacing-xxl) var(--side-padding);
+// `;
 
 const StyledFooter = styled.footer`
   display: flex;

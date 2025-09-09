@@ -44,6 +44,9 @@ export const theme = {
     xxxl: "6rem", // 48px
   },
 
+  maxContent: "2000px",
+  maxText: "800px",
+
   breakpoints: {
     mobile: "480px", // kleine bis mittlere Phones
     tablet: "768px", // iPads, große Phones quer
@@ -94,6 +97,9 @@ export default createGlobalStyle`
   /* Side Padding */
   --side-padding: 1.7rem;
   --nav-height: 3.4rem;
+
+  --max-content: ${theme.maxContent};
+  --max-text: ${theme.maxText};
 
   /* Height variables */
   --height-header: ${theme.height.header};
@@ -157,9 +163,9 @@ export default createGlobalStyle`
     background-color: ${theme.color.beige};
     color: ${theme.color.dark};
     scroll-behavior: smooth;
-/* 
-    max-width: 1500px;
-    margin-inline: auto; */
+
+    max-width: var(--max-content);
+    margin-inline: auto;
   }
 
   a {
@@ -212,7 +218,6 @@ padding: 0;
   letter-spacing: 0.03rem;
   line-height: ${theme.lineHeight.l};
 word-wrap: normal !important;
- max-width: 680px;
   @media (min-width: ${theme.breakpoints.tablet}) {
   }
 }
@@ -270,7 +275,7 @@ line-height: ${theme.lineHeight.l};
     font-weight: ${theme.fontWeight.regular};
   font-size: var(--font-l);
     line-height: ${theme.lineHeight.xl};
-    max-width: 680px;
+
   }
 
   label {
