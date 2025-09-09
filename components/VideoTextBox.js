@@ -1,33 +1,31 @@
 import { theme } from "@/styles";
-import Image from "next/image";
 import styled from "styled-components";
-import { PiArrowUpRightLight } from "react-icons/pi";
-import Link from "next/link";
+import { PiArrowRightLight } from "react-icons/pi";
 
-export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow, link, url }) {
+export default function VideoTextBox({ topline, headline, text1, text2, videoSrc, flexflow }) {
   return (
     <OuterWrapper>
       <InnerWrapper>
-        <StyledImageTextBox $flexflow={flexflow}>
-          <StyledImageContainer $flexflow={flexflow}>
-            <ImageBox>
-              <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
-            </ImageBox>
-          </StyledImageContainer>
+        <StyledVideoTextBox $flexflow={flexflow}>
+          <StyledVideoContainer $flexflow={flexflow}>
+            <VideoBox>
+              <StyledVideo src={videoSrc} controls playsInline preload="metadata" />
+            </VideoBox>
+          </StyledVideoContainer>
 
           <StyledTextWrapper>
-            <h2>{topline}</h2>
-            <h3>{headline}</h3>
+            {topline && <h2>{topline}</h2>}
+            {headline && <h3>{headline}</h3>}
             {text1 && <p>{text1}</p>}
-            {text2 && <p>{text2}</p>}
-            {link && (
-              <Link href={url}>
-                {link}
-                <StyledPiArrowUpRightLight />
-              </Link>
+            {text2 && (
+              <p>
+                <StyledPiArrowRightLight />
+
+                {text2}
+              </p>
             )}
           </StyledTextWrapper>
-        </StyledImageTextBox>
+        </StyledVideoTextBox>
       </InnerWrapper>
     </OuterWrapper>
   );
@@ -49,7 +47,7 @@ const InnerWrapper = styled.div`
   }
 `;
 
-const StyledImageTextBox = styled.div`
+const StyledVideoTextBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -68,38 +66,32 @@ const StyledTextWrapper = styled.div`
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    min-width: 50%;
-    max-width: 50%;
-    padding: var(--side-padding);
+    min-width: 30%;
+    max-width: 30%;
+    padding: var(--side-padding) var(--side-padding) var(--side-padding) 0;
   }
 
   p {
     max-width: var(--max-text);
     padding-bottom: var(--spacing-s);
   }
-
-  a {
-    font-size: var(--font-l);
-    /* font-weight: ${theme.fontWeight.bold}; */
-  }
 `;
 
-const StyledImageContainer = styled.div`
+const StyledVideoContainer = styled.div`
   display: grid;
   place-items: ${({ $flexflow }) => ($flexflow === "row-reverse" ? "end" : "start")};
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
     margin: var(--side-padding);
-    width: 50%;
+    width: 60%;
   }
 `;
 
-const ImageBox = styled.div`
+const VideoBox = styled.div`
   position: relative;
   width: 100%;
-  /* max-width: 684px; */
-  aspect-ratio: 684 / 598;
+  aspect-ratio: 16 / 9;
   border-radius: ${theme.borderRadius};
   overflow: hidden;
 
@@ -108,21 +100,16 @@ const ImageBox = styled.div`
   }
 `;
 
-const StyledImage = styled(Image)`
+const StyledVideo = styled.video`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: center;
+  display: block;
 `;
 
-const StyledPiArrowUpRightLight = styled(PiArrowUpRightLight)`
-  margin-left: calc(0.25 * var(--spacing-xs));
-  margin-bottom: -3px;
-  stroke-width: 10px;
+const StyledPiArrowRightLight = styled(PiArrowRightLight)`
+  margin-right: calc(0.25 * var(--spacing-xs));
+  margin-bottom: -2px;
 
-  &:hover {
-    transform: scale(1.2);
-    color: ${theme.color.green};
-    transition:
-      color ease 0.3s,
-      transform ease 0.2s;
-  }
+  stroke-width: 8px;
 `;

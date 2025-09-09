@@ -45,7 +45,7 @@ export const theme = {
   },
 
   maxContent: "2000px",
-  maxText: "800px",
+  maxText: "700px",
 
   breakpoints: {
     mobile: "480px", // kleine bis mittlere Phones

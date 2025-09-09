@@ -15,6 +15,7 @@ import FAQ from "@/components/FAQ";
 import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
+import VideoTextBox from "@/components/VideoTextBox";
 
 import studioImage1 from "/public/images/KLUBSTUDIO_3.jpg";
 import studioImage4 from "/public/images/KLUBSTUDIO_6.jpg";
@@ -56,7 +57,6 @@ import section04_slider06 from "/public/images/04_Slider/business-portrait-fotog
 
 //05_TextBox
 import section05_TextBox01 from "/public/images/05_TextBox/business-portrait-fotografie-dakiekste-02.jpg";
-import section05_TextBox02 from "/public/images/05_TextBox/business-portrait-fotografie-dakiekste-03.jpg";
 
 //06_TextBox
 import section06_TextBox01 from "/public/images/06_TextBox/branding-fotografie-bildung-integration-verein-dakiekste-04.jpg";
@@ -286,7 +286,7 @@ export default function HomePage() {
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <DoubleTextBox
+      {/* <DoubleTextBox
         topline1="Ein Look – viele Kanäle"
         headline1={
           <>
@@ -303,18 +303,30 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           </>
         }
         text2="Wir erstellen Bilder und Videos, die genau da ankommen, wo sie sollen – bei deiner Zielgruppe. Du bekommst Inhalte, die auffallen, hängen bleiben und Vertrauen schaffen. In ehrlicher Zusammenarbeit entstehen nahbare Bildwelten, in denen du dich gesehen fühlt. Du musst dich nicht um jedes Detail kümmern – wir denken mit und liefern Content, den du direkt einsetzen kannst."
+      /> */}
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <ImageTextBox
+        topline="Sichtbarkeit & guter Content"
+        headline={
+          <>
+            Mehr Wirkung <br />
+            für deine Marke
+          </>
+        }
+        text1="Bilder und Videos sind mehr als schmückendes Beiwerk – sie sind der Schlüssel, um Vertrauen aufzubauen und im Gedächtnis zu bleiben. Wir produzieren Inhalte, die deine Botschaften klar transportieren, Emotionen wecken und deiner Marke Profil geben. Gemeinsam schaffen wir visuelle Lösungen, die funktionieren."
+        text2="So entsteht Mehrwert: Dein Auftritt gewinnt an Tiefe, wirkt professionell und macht dich für die Menschen sichtbar, die du erreichen willst."
+        image={section12_Image01}
+        alt="Description of image"
+        flexflow="row-reverse"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <ImageTextBox
-        topline="Menschen im Mittelpunkt"
-        headline={
-          <>
-            Businessportraits <br />
-            mit Haltung
-          </>
-        }
+        topline="Businessportraits"
+        headline={<>Menschen im Mittelpunkt</>}
         text1="Wir zeigen dich und die Menschen hinter deinem Unternehmen. Mit Portraits und Einblicken in euren Arbeitsalltag machen wir sichtbar, was euch als Team ausmacht. Das schafft Nähe, spricht potenzielle Talente an und stärkt euer Employer Branding. Für alle, die mehr zeigen wollen als Leistung – nämlich Haltung, Miteinander und echtes Engagement."
         text2=""
         image={section05_TextBox01}
@@ -325,20 +337,32 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <ImageTextBox
-        topline="Starker Look. Klares Konzept."
+        topline="Bildsprache entwickeln"
         headline={
           <>
-            Bildsprache <br />
-            die funktioniert
+            Ein Look –<br />
+            Viel Flexibilität
           </>
         }
-        text1="Wir gestalten Bildwelten, die nicht nur gut aussehen – sondern deine Marke tragen. Jedes Motiv, jede Farbwahl, jedes Detail entsteht mit Blick auf deine Vision und deine Zielgruppe. Du musst nicht wissen, wie man Bildsprache entwickelt – du musst nur bereit sein, sie mitzugestalten. Wir denken mit, stellen die richtigen Fragen und führen dich durch den Prozess. Gemeinsam schaffen wir visuelle Lösungen, die funktionieren."
-        text2=""
+        text1="Wir entwickeln mit dir eine Bildsprache, die deine Marke trägt und auf allen Kanälen funktioniert. Jedes Motiv, jede Farbwahl und jedes Detail entsteht mit Blick auf deine Vision und deine Zielgruppe. So bekommst du keinen Flickenteppich, sondern einen durchdachten visuellen Auftritt, der einheitlich, wiedererkennbar und flexibel ist."
+        text2="Für die Umsetzung erhältst du von uns einen individuellen Bilderpool, den du auf allen Plattformen einsetzen kannst. "
+        link="Mehr zum Bilderpool"
+        url="/#pool"
         image={section06_TextBox01}
         alt="Description of image"
         flexflow="row-reverse"
       />
 
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <VideoTextBox
+        topline="Imagefilm"
+        headline="Bewegte Bilder – die verbinden"
+        text1="Ein Imagefilm macht dein Unternehmen erlebbar. Er zeigt nicht nur Fakten, sondern vermittelt Atmosphäre und Persönlichkeit. So bekommen Kund*innen einen echten Eindruck davon, wie du arbeitest und was dein Unternehmen besonders macht. Durch bewegte Bilder entsteht Nähe – und aus Zuschauer*innen werden Interessierte, die sich mit deiner Marke verbinden."
+        text2="Ein Imagefilm transportiert Gefühl, baut Vertrauen auf und lässt dein Unternehmen lebendig wirken."
+        videoSrc="/videos/Imagefilm-ossara.mp4"
+        flexflow="row"
+      />
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <Video src="/videos/07_Video/Selections_Website_OSSARA_Workflow_V2_1.mp4" />
@@ -745,41 +769,42 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
       <ImageElement image={section11_Image01} alt="Klub Studio Studiofläche" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
-
-      <ProjectBox
-        topline="BILDERPOOL"
-        headline={
-          <>
-            Bildmaterial, das dich
-            <br />
-            langfristig unterstützt
-          </>
-        }
-        text1="Wir erstellen Porträts, Details, Situationen und Momente, die deine Marke lebendig machen – und daraus entsteht dein persönlicher Bilderpool. So hast du nicht nur ein paar Fotos, sondern einen ganzen Pool an authentischem Bildmaterial.Egal ob für Social Media, Website oder andere Kanäle – du hast immer passende Bilder zur Hand."
-        text2=""
-        cards={[
-          {
-            image: project_qucare_01,
-            description: "",
-          },
-          {
-            image: project_qucare_02,
-            description: "",
-          },
-          {
-            image: project_qucare_03,
-            description: "",
-          },
-          {
-            image: project_qucare_04,
-            description: "",
-          },
-          {
-            image: project_qucare_05,
-            description: "",
-          },
-        ]}
-      />
+      <section id="pool">
+        <ProjectBox
+          topline="BILDERPOOL"
+          headline={
+            <>
+              Bildmaterial, das dich
+              <br />
+              langfristig unterstützt
+            </>
+          }
+          text1="Wir erstellen Porträts, Details, Situationen und Momente, die deine Marke lebendig machen – und bündeln sie zu deinem persönlichen Bilderpool. Statt nur ein paar Fotos bekommst du eine vielseitige Sammlung, die deine Bildsprache trägt und über alle Kanäle hinweg funktioniert."
+          text2="Egal ob für Social Media, Website, Präsentationen oder Jobportale – du hast immer passende Bilder zur Hand, die zu deinem Auftritt passen und konsistent wirken. Dein Bilderpool wächst mit deinem Unternehmen mit und gibt dir die Sicherheit, jederzeit hochwertiges Material nutzen zu können – flexibel, wiedererkennbar und langfristig einsetzbar."
+          cards={[
+            {
+              image: project_qucare_01,
+              description: "",
+            },
+            {
+              image: project_qucare_02,
+              description: "",
+            },
+            {
+              image: project_qucare_03,
+              description: "",
+            },
+            {
+              image: project_qucare_04,
+              description: "",
+            },
+            {
+              image: project_qucare_05,
+              description: "",
+            },
+          ]}
+        />
+      </section>
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
