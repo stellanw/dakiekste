@@ -94,14 +94,14 @@ const StyledTextWrapper = styled.div`
   @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 50%;
   }
+
+  p {
+    max-width: var(--max-text);
+  }
 `;
 
 const TextInner = styled.div`
   width: 100%;
-  @media (min-width: ${theme.breakpoints.wide}) {
-    max-width: 800px;
-    margin-inline: auto;
-  }
 `;
 
 const CardContainer = styled.div`

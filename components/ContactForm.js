@@ -84,93 +84,95 @@ export default function ContactForm() {
 
   return (
     <StyledFormWrapper>
-      <StyledTextContainer>
-        <h2>LASS UNS REDEN</h2>
-        <h4>Schreib uns eine Nachricht und lass uns gemeinsam deine Marke voranbringen.</h4>
-      </StyledTextContainer>
+      <InnerWrapper>
+        <StyledTextContainer>
+          <h2>LASS UNS REDEN</h2>
+          <h4>Schreib uns eine Nachricht und lass uns gemeinsam deine Marke voranbringen.</h4>
+        </StyledTextContainer>
 
-      {isSuccess ? (
-        <StyledSuccessMessage>
-          <h3>Danke für deine Nachricht!</h3>
-          <p>{responseMessage}</p>
-          <StyledButton
-            onClick={() => {
-              setResponseMessage("");
-              setIsSuccess(false);
-            }}
-          >
-            Neue Nachricht senden
-          </StyledButton>
-        </StyledSuccessMessage>
-      ) : (
-        <StyledForm onSubmit={handleSubmit}>
-          <SideBySideWrapper>
-            <Wrapper>
-              <PronounRow>
-                <PronounCol>
-                  <PronounLabel htmlFor="pronouns">Pronomen</PronounLabel>
-                  <StyledSelect
-                    id="pronouns"
-                    name="pronouns"
-                    value={formData.pronouns ?? ""}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setFormData((p) => ({
-                        ...p,
-                        pronouns: value,
-                        customPronouns: value === "andere" ? p.customPronouns : "",
-                      }));
-                    }}
-                  >
-                    <option value="" disabled>
-                      Bitte wählen
-                    </option>
-                    <option value="sie/ihr">sie/ihr</option>
-                    <option value="er/ihm">er/ihm</option>
-                    <option value="they/them">they/them</option>
-                    <option value="keine Angabe">keine Angabe</option>
-                    <option value="andere">andere…</option>
-                  </StyledSelect>
-                </PronounCol>
-
-                {formData.pronouns === "andere" && (
+        {isSuccess ? (
+          <StyledSuccessMessage>
+            <h3>Danke für deine Nachricht!</h3>
+            <p>{responseMessage}</p>
+            <StyledButton
+              onClick={() => {
+                setResponseMessage("");
+                setIsSuccess(false);
+              }}
+            >
+              Neue Nachricht senden
+            </StyledButton>
+          </StyledSuccessMessage>
+        ) : (
+          <StyledForm onSubmit={handleSubmit}>
+            <SideBySideWrapper>
+              <Wrapper>
+                <PronounRow>
                   <PronounCol>
-                    <PronounLabel htmlFor="customPronouns">Eigene</PronounLabel>
-                    <StyledInput id="customPronouns" name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z.B. dey/deren" />
+                    <PronounLabel htmlFor="pronouns">Pronomen</PronounLabel>
+                    <StyledSelect
+                      id="pronouns"
+                      name="pronouns"
+                      value={formData.pronouns ?? ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setFormData((p) => ({
+                          ...p,
+                          pronouns: value,
+                          customPronouns: value === "andere" ? p.customPronouns : "",
+                        }));
+                      }}
+                    >
+                      <option value="" disabled>
+                        Bitte wählen
+                      </option>
+                      <option value="sie/ihr">sie/ihr</option>
+                      <option value="er/ihm">er/ihm</option>
+                      <option value="they/them">they/them</option>
+                      <option value="keine Angabe">keine Angabe</option>
+                      <option value="andere">andere…</option>
+                    </StyledSelect>
                   </PronounCol>
-                )}
-              </PronounRow>
-            </Wrapper>
 
-            <Wrapper>
-              <label htmlFor="fullName">Vor und Nachname</label>
-              <StyledInput name="fullName" value={formData.fullName} onChange={handleChange} required />
-            </Wrapper>
-          </SideBySideWrapper>
+                  {formData.pronouns === "andere" && (
+                    <PronounCol>
+                      <PronounLabel htmlFor="customPronouns">Eigene</PronounLabel>
+                      <StyledInput id="customPronouns" name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z.B. dey/deren" />
+                    </PronounCol>
+                  )}
+                </PronounRow>
+              </Wrapper>
 
-          <SideBySideWrapper>
-            <Wrapper>
-              <label htmlFor="email">Email</label>
-              <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
-            </Wrapper>
-          </SideBySideWrapper>
+              <Wrapper>
+                <label htmlFor="fullName">Vor und Nachname</label>
+                <StyledInput name="fullName" value={formData.fullName} onChange={handleChange} required />
+              </Wrapper>
+            </SideBySideWrapper>
 
-          <label htmlFor="message">Deine Nachricht</label>
-          <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
+            <SideBySideWrapper>
+              <Wrapper>
+                <label htmlFor="email">Email</label>
+                <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
+              </Wrapper>
+            </SideBySideWrapper>
 
-          <StyledCheckboxGroup>
-            <StyledLabel htmlFor="acceptedTerms">
-              <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
-              Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
-            </StyledLabel>
-          </StyledCheckboxGroup>
+            <label htmlFor="message">Deine Nachricht</label>
+            <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
 
-          <StyledButton type="submit" disabled={loading}>
-            {loading ? "Senden..." : "Senden"}
-          </StyledButton>
-          {responseMessage && <p>{responseMessage}</p>}
-        </StyledForm>
-      )}
+            <StyledCheckboxGroup>
+              <StyledLabel htmlFor="acceptedTerms">
+                <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
+                Ich akzeptiere die <StyledLink href="/impressum">AGB & Datenschutzerklärung</StyledLink>
+              </StyledLabel>
+            </StyledCheckboxGroup>
+
+            <StyledButton type="submit" disabled={loading}>
+              {loading ? "Senden..." : "Senden"}
+            </StyledButton>
+            {responseMessage && <p>{responseMessage}</p>}
+          </StyledForm>
+        )}
+      </InnerWrapper>
     </StyledFormWrapper>
   );
 }
@@ -209,6 +211,15 @@ const StyledFormWrapper = styled.div`
     background: ${theme.color.beige};
     color: ${theme.color.dark};
   }
+`;
+
+const InnerWrapper = styled.div`
+  width: 100%;
+  max-width: var(--max-content); /* zentrale Begrenzung */
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const StyledTextContainer = styled.div`

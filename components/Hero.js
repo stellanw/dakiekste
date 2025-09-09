@@ -29,5 +29,5 @@ const StyledTopTextWrapper = styled.div`
   text-align: center;
   overflow: hidden;
   padding-bottom: var(--spacing-xl);
-  max-width: 1100px;
+  max-width: 1200px;
 `;

@@ -139,6 +139,10 @@ const StyledTextWrapper = styled.div`
     max-width: 50%;
   }
 
+  p {
+    max-width: var(--max-text);
+  }
+
   h3 {
     word-break: keep-all !important;
     hyphens: auto;
@@ -147,10 +151,6 @@ const StyledTextWrapper = styled.div`
 
 const TextInner = styled.div`
   width: 100%;
-  @media (min-width: ${theme.breakpoints.wide}) {
-    max-width: 800px;
-    margin-inline: auto;
-  }
 `;
 
 const CardContainer = styled.div`

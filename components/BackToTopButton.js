@@ -1,87 +1,66 @@
+// BackToTopButton.jsx
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { theme } from "@/styles";
 import { PiArrowUpLight } from "react-icons/pi";
-import AugeIcon from "@/Icons/AugeIcon";
+import { theme } from "@/styles";
 
 export default function BackToTopButton() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 600);
-    };
-
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
+    const onScroll = () => setVisible(window.scrollY > 600);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   if (!visible) return null;
 
   return (
-    <BackToTopContainer>
-      <StyledButton onClick={scrollToTop} className="hover-cursor">
-        <StyledPiArrowUpLight />
-      </StyledButton>
-    </BackToTopContainer>
+    <Fixed>
+      <Btn onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Nach oben">
+        <PiArrowUpLight />
+      </Btn>
+    </Fixed>
   );
 }
-const BackToTopContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacing.s};
-  align-items: center;
+
+const Fixed = styled.div`
   position: fixed;
-  bottom: ${theme.spacing.l};
-  right: ${theme.spacing.l};
-  z-index: 100;
-  p {
-    font-size: var(--font-xs);
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 10000;
+  right: calc((100vw - min(100vw, var(--max-content))) / 2 + 0.5 * var(--side-padding) + env(safe-area-inset-right));
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    right: calc(0.5 * var(--side-padding) + env(safe-area-inset-right));
+    bottom: calc(16px + env(safe-area-inset-bottom));
   }
 `;
 
-const StyledButton = styled.button`
+const Btn = styled.button`
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
+  border: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
   background: ${theme.color.dark};
   color: ${theme.color.green};
-  border: none;
-  border-radius: 100%;
-  width: 2.8rem;
-  height: 2.8rem;
-  padding: ${theme.spacing.xs};
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    opacity: 1;
-  }
+  opacity: 0.5;
+  transition:
+    opacity 0.2s,
+    transform 0.15s;
 
   svg {
-    width: 2rem;
-    height: 2rem;
+    width: 1.6rem;
+    height: 1.6rem;
   }
-
-  @media (max-width: 600px) {
-    bottom: 20px;
-    right: 20px;
-    padding: 8px 12px;
+  &:hover {
+    opacity: 1;
+    transform: translateY(-2px);
   }
-`;
-
-const StyledPiArrowUpLight = styled(PiArrowUpLight)`
-  transform: scale(0.9);
+  &:active {
+    transform: translateY(0);
+  }
 `;

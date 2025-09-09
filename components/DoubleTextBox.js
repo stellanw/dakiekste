@@ -3,67 +3,68 @@ import styled from "styled-components";
 
 export default function DoubleTextBox({ topline1, headline1, text1, topline2, headline2, text2 }) {
   return (
-    <Section>
-      <Inner>
-        <Col>
-          <TextWrap>
+    <OuterWrapper>
+      <InnerWrapper>
+        <StyledDoubleTextBox>
+          <StyledTextWrapper>
             <h2>{topline1}</h2>
             <h3>{headline1}</h3>
             <p>{text1}</p>
-          </TextWrap>
-        </Col>
-
-        <Col>
-          <TextWrap>
+          </StyledTextWrapper>
+          <StyledTextWrapper>
             <h2>{topline2}</h2>
             <h3>{headline2}</h3>
             <p>{text2}</p>
-          </TextWrap>
-        </Col>
-      </Inner>
-    </Section>
+          </StyledTextWrapper>
+        </StyledDoubleTextBox>
+      </InnerWrapper>
+    </OuterWrapper>
   );
 }
 
-/* Außen: full-bleed Hintergrund */
-const Section = styled.section`
-  background-color: ${theme.color.beige};
+const OuterWrapper = styled.div`
   width: 100%;
+  background-color: ${theme.color.beige};
 `;
 
-/* Innen: zentriert + begrenzt */
-const Inner = styled.div`
-  --content-max: 1500px;
-
-  display: flex;
-  flex-direction: column;
-  gap: var(--side-padding);
+const InnerWrapper = styled.div`
   width: 100%;
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: var(--spacing-xxxl) var(--side-padding);
+  max-width: var(--max-content);
+  margin: 0 auto; /* x-achse zentriert */
+  padding: var(--spacing-xxl) 0;
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    flex-direction: row; /* ab Tablet zwei Spalten */
-    align-items: stretch;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: var(--spacing-xxxl) 0;
   }
 `;
 
-/* Spalte: 50% auf Tablet+, 100% mobil */
-const Col = styled.div`
-  flex: 1 1 50%;
-  min-width: 0;
-  display: flex; /* damit TextWrap vertikal ausgerichtet werden kann */
-  align-items: flex-start; /* wenn mittig gewünscht: center */
-`;
-
-const TextWrap = styled.div`
-  width: 100%;
-  max-width: 680px; /* angenehme Zeilenlänge */
-  margin: 0 auto; /* zentriert die Textsäule in ihrer Hälfte */
+const StyledDoubleTextBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: var(--spacing-xxl);
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    flex-direction: row;
+    gap: 0;
+  }
+`;
+
+const StyledTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: var(--side-padding);
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    width: 50%;
+  }
+
+  p {
+    max-width: var(--max-text);
+  }
 `;
 
 // import { theme } from "@/styles";
