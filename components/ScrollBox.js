@@ -571,12 +571,16 @@ const StyledTextBox = styled.div`
 const StyledScrollBoxInner = styled.div`
   will-change: transform;
   backface-visibility: hidden;
-  transform: ${({ $focused }) => ($focused ? "translateZ(0) scale(1.105)" : "translateZ(0) scale(1)")};
+  transform: ${({ $focused }) => ($focused ? "translateZ(0) scale(1.05)" : "translateZ(0) scale(1)")};
   transition: transform ${({ $focused }) => ($focused ? "50ms" : "55ms")} cubic-bezier(0.22, 0.61, 0.36, 1);
   transform-origin: center center;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
+  }
+
+  &:hover {
+    transform: scale(1.05);
   }
 `;
 

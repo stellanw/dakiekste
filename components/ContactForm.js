@@ -86,8 +86,8 @@ export default function ContactForm() {
     <StyledFormWrapper>
       <InnerWrapper>
         <StyledTextContainer>
-          <h2>LASS UNS REDEN</h2>
-          <h4>Schreib uns eine Nachricht und lass uns gemeinsam deine Marke voranbringen.</h4>
+          <h2>Kontakt</h2>
+          <h4>Egal ob Frage oder Projektidee – wir freuen uns auf deine Nachricht.</h4>
         </StyledTextContainer>
 
         {isSuccess ? (
