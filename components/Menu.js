@@ -55,11 +55,12 @@ export default function Menu({ iconWidth = 45, color }) {
 
   const menuItems = [
     { label: "Home", href: "/" },
-    { label: "Preise", href: "/#pricing" },
     { label: "Leistungen", href: "/#services" },
     { label: "Workflow", href: "/#workflow" },
-    { label: "Team", href: "/#team" },
     { label: "Studio", href: "/#studio" },
+    { label: "Team", href: "/#team" },
+    { label: "Preise", href: "/#pricing" },
+    { label: "FAQ", href: "/#faq" },
     { label: "Kontakt", href: "/#contact" },
   ];
 

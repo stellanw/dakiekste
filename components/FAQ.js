@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { PiPlus, PiMinus } from "react-icons/pi";
 
 export default function FAQ({ faqData = [] }) {
-  const [activeCaption, setActiveCaption] = useState("Allgemein");
+  const [activeCaption, setActiveCaption] = useState("Alle");
   const [openIndex, setOpenIndex] = useState(null);
 
   const listRef = useRef(null);
@@ -75,7 +75,9 @@ export default function FAQ({ faqData = [] }) {
               <h2>{faq.caption}</h2>
               <FAQItemDetails>
                 <FAQQuestionWrapper>
-                  <FAQQuestion isOpen={openIndex === index}>{faq.question}</FAQQuestion>
+                  <FAQQuestion isOpen={openIndex === index} onClick={() => toggleOverlay(index)}>
+                    {faq.question}
+                  </FAQQuestion>
                   <ToggleIcon isOpen={openIndex === index} onClick={() => toggleOverlay(index)}>
                     {openIndex === index ? <PiMinus /> : <PiPlus />}
                   </ToggleIcon>
@@ -222,6 +224,8 @@ const FAQQuestion = styled.span`
     font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
     font-size: var(--font-l);
   }
+
+  cursor: pointer;
 `;
 
 const FAQItemContent = styled.div`
@@ -245,11 +249,13 @@ const FAQQuestionWrapper = styled.div`
 const AnswerOverlay = styled.p`
   animation: slide-animation 1s ease;
   margin-top: var(--spacing-s);
+  padding-right: var(--spacing-m);
   overflow: hidden;
   font-weight: ${theme.fontWeight.light};
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     font-size: var(--font-s);
+    padding: 0;
   }
 
   @keyframes slide-animation {

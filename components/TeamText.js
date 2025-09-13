@@ -34,6 +34,6 @@ const StyledTextWrapper = styled.div`
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.desktop}) {
-    max-width: 60%;
+    max-width: 50%;
   }
 `;

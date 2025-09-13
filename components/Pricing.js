@@ -122,10 +122,15 @@ export default function Pricing({ pricingData, servicesData }) {
   const removeService = (serviceToRemove) => {
     setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
   };
+
   const applyDiscount = (price) => {
-    if (selectedCategory.businessType === "Soloselbstständig") return price * 0.7;
-    return price;
+    const p = Number(price) || 0;
+    if (selectedCategory.businessType === "Soloselbstständig") {
+      return Math.round((p * 0.7 + Number.EPSILON) * 100) / 100;
+    }
+    return p;
   };
+
   const handleCountChange = (title, delta) => {
     setServiceCounts((prevCounts) => {
       const current = prevCounts[title] || 1;
@@ -139,17 +144,23 @@ export default function Pricing({ pricingData, servicesData }) {
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
   const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
-  const totalPrice = selectedServices.reduce((total, service) => {
+  const totalPriceCents = selectedServices.reduce((sum, service) => {
     const price = Number(service.price) || 0;
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
-    const discountedPrice = applyDiscount(price);
-    return total + discountedPrice * count;
+    const discounted = applyDiscount(price);
+    return sum + Math.round(discounted * 100) * count;
   }, 0);
+  const totalPrice = totalPriceCents / 100;
 
   const clearAllSelections = () => {
     setSelectedServices([]);
     setServiceCounts({});
     setOpenKey(null);
+  };
+
+  const formatCeil = (value) => {
+    const num = Math.ceil(Number(value) || 0); // immer aufrunden
+    return DEC0.format(num); // ohne Nachkommastellen, deutsche Schreibweise
   };
 
   // ScrollHint für OutcomeContent
@@ -303,7 +314,7 @@ export default function Pricing({ pricingData, servicesData }) {
                         </ClearAllButton>
                       )}
                       <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
-                      <InstallmentPrice>Oder in 6 x {euroDash(installmentPriceWithMarkup(totalPrice, MARKUP_PCT))} monatlichen Raten</InstallmentPrice>
+                      <InstallmentPrice>Oder in 6 Raten: {euroDash(installmentPriceWithMarkup(totalPrice, MARKUP_PCT))}</InstallmentPrice>
                       <OverlayInfo>*EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.</OverlayInfo>
                       <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                     </>
@@ -336,7 +347,7 @@ export default function Pricing({ pricingData, servicesData }) {
                                 {service.description}
                                 {service.price > 0 && (
                                   <ServicePrice>
-                                    Preis ab <span>{applyDiscount(service.price)}</span>,-
+                                    Preis ab <span>{formatCeil(applyDiscount(service.price))}</span>,-
                                     {service.isCountable && <span> {service.unit}</span>}
                                   </ServicePrice>
                                 )}

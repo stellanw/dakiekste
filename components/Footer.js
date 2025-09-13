@@ -11,14 +11,13 @@ export default function Footer() {
   const createMailToLink = () => `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 
   return (
-    // <OuterWrapper>
-    //   <InnerWrapper>
     <StyledFooter>
       <h3>
-        Lass uns <br />
-        deine Marke
+        Lass uns gemeinsam starten
         <br />
-        sichtbar machen
+        denn wer gesehen wird
+        <br />
+        gestaltet mit
       </h3>
       <StyledLinkListWrapper>
         <StyledLinkWrapper>
@@ -35,7 +34,7 @@ export default function Footer() {
         </StyledLinkWrapper>
         <StyledLinkWrapper>
           <p>LinkedIn</p>
-          <Link href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
+          <Link href="https://www.linkedin.com/company/dakiekste" target="_blank" rel="noopener noreferrer">
             <StyledIcon />
           </Link>
         </StyledLinkWrapper>
@@ -58,22 +57,8 @@ export default function Footer() {
         </StyledPrideWrapper>
       </StyledBottomWrapper>
     </StyledFooter>
-    //</InnerWrapper>
-    //   </OuterWrapper>
   );
 }
-
-// const OuterWrapper = styled.div`
-//   width: 100%;
-//   background-color: ${theme.color.green};
-// `;
-
-// const InnerWrapper = styled.div`
-//   width: 100%;
-//   max-width: var(--max-content);
-//   margin: 0 auto;
-//   padding: var(--spacing-xxl) var(--side-padding);
-// `;
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -151,6 +136,7 @@ const StyledIcon = styled(PiArrowUpRightLight)`
 
   &:hover {
     transform: scale(1.1);
+    color: ${theme.color.beige};
   }
 `;
 
@@ -162,6 +148,9 @@ const StyledCopyright = styled.p`
   a {
     font-size: var(--font-s);
     margin-left: var(--spacing-s);
+    &:hover {
+      color: ${theme.color.beige};
+    }
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
