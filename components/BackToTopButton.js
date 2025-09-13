@@ -28,7 +28,7 @@ export default function BackToTopButton() {
 const Fixed = styled.div`
   position: fixed;
   bottom: calc(24px + env(safe-area-inset-bottom));
-  z-index: 10000;
+  z-index: var(--index-menu);
   right: calc((100vw - min(100vw, var(--max-content))) / 2 + 0.5 * var(--side-padding) + env(safe-area-inset-right));
 
   @media (max-width: ${theme.breakpoints.mobile}) {

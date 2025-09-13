@@ -194,9 +194,13 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
     html.style.overflow = "hidden";
     body.style.overflow = "hidden";
 
+    html.classList.add("overlay-open");
+
     return () => {
       html.style.overflow = prevHtmlOverflow;
       body.style.overflow = prevBodyOverflow;
+
+      html.classList.remove("overlay-open");
     };
   }, []);
 
@@ -383,7 +387,7 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
 const OverlayWrapper = styled.div`
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: var(--index-overlay-backdrop);
   background-color: rgba(10, 10, 10, 0.85);
   display: flex;
   justify-content: center;
@@ -548,14 +552,19 @@ const CloseButton = styled.button`
   border: none;
   font-size: var(--font-l);
   color: ${theme.color.dark};
-  z-index: 100;
+  z-index: var(--index-overlay-content);
   cursor: pointer;
 
   &:hover {
     color: ${theme.color.green};
     svg {
-      stroke-width: 10px;
+      stroke-width: 8px;
+      transform: scale(1.15);
     }
+  }
+
+  svg {
+    stroke-width: 4px;
   }
 
   @media (min-width: ${theme.breakpoints.tablet}) {
@@ -671,7 +680,7 @@ const ScrollHint = styled.button`
   border: none;
   border-radius: 0;
   background: none;
-  z-index: 1;
+  z-index: var(--index-overlay-backdrop);
   color: ${theme.color.dark};
   cursor: pointer;
 
