@@ -4,11 +4,11 @@ import styled from "styled-components";
 import { PiArrowUpRightLight } from "react-icons/pi";
 import Link from "next/link";
 
-export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow, link, url }) {
+export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow, flexflowMobile, link, url }) {
   return (
     <OuterWrapper>
       <InnerWrapper>
-        <StyledImageTextBox $flexflow={flexflow}>
+        <StyledImageTextBox $flexflow={flexflow} $flexflowMobile={flexflowMobile}>
           <StyledImageContainer $flexflow={flexflow}>
             <ImageBox>
               <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
@@ -51,7 +51,7 @@ const InnerWrapper = styled.div`
 
 const StyledImageTextBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ $flexflowMobile }) => $flexflowMobile || "column"};
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.tablet}) {

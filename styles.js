@@ -66,6 +66,12 @@ export default createGlobalStyle`
 
    :root {
 
+    //z-index
+    --index-menu: 120;
+    --index-menu-content: 130;
+    --index-overlay-backdrop: 2000;
+    --index-overlay-content: 2010;
+
 //--font-xxxl: clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);     //56px → h1 
 //--font-xxl:  clamp(1.75rem, 1.45rem + 1.2vw, 2.875rem);    // 46px → h3 / h4 
 //--font-xl:   clamp(1.25rem, 1.05rem + 1vw, 2.25rem);       // 36px → gestyltes p 

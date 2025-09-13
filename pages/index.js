@@ -206,6 +206,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         image={section12_Image01}
         alt="Description of image"
         flexflow="row-reverse"
+        flexflowMobile="column-reverse"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
@@ -218,6 +219,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         image={section05_TextBox01}
         alt="Description of image"
         flexflow="row"
+        flexflowMobile="column-reverse"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
@@ -1009,7 +1011,7 @@ Egal ob für Social Media, Website, Präsentationen oder Jobportale. Dein Bildma
         image={section12_TextBox01}
         alt="Description of image"
         flexflow="row"
-        mobileFlexflow="column-reverse"
+        flexflowMobile="column-reverse"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
@@ -1021,7 +1023,7 @@ Egal ob für Social Media, Website, Präsentationen oder Jobportale. Dein Bildma
         image={section13_TextBox01}
         alt="Description of image"
         flexflow="row-reverse"
-        mobileFlexflow="column-reverse"
+        flexflowMobile="column-reverse"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}

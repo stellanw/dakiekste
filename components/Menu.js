@@ -107,7 +107,7 @@ const Wrapper = styled.nav`
   background-color: ${theme.color.beige};
   border-radius: calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius});
   padding: calc(0.5 * var(--spacing-xs)) 0;
-  z-index: 9998;
+  z-index: var(--index-menu);
   transition: background-color 120ms ease;
 
   &:hover {
@@ -118,6 +118,12 @@ const Wrapper = styled.nav`
   &:active {
     transform: translateY(0);
     background-color: ${({ $isOpen }) => (!$isOpen ? theme.color.green : theme.color.beige)};
+  }
+
+  :root.overlay-open & {
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -218,14 +224,13 @@ const LinkList = styled.ul`
 const CloseButton = styled.button`
   position: absolute;
   display: none;
-
+  z-index: var(--index-menu-content);
   @media (max-width: ${theme.breakpoints.mobile}) {
     display: inline-flex;
   }
 
   top: 10px;
   right: 10px;
-  z-index: 9999;
 
   width: 32px;
   height: 32px;
@@ -256,6 +261,7 @@ const CloseButton = styled.button`
   }
 
   svg {
+    stroke-width: 4px;
     width: 18px;
     height: 18px;
   }
