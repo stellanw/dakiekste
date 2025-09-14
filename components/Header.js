@@ -43,7 +43,7 @@ export default function Header({ useImageBackground = false }) {
         <StyledMenu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
       </FixedContainer>
       {useImageBackground ? (
-        <ImageBackground src={section01_header_01} alt="Branding Fotografie" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
+        <ImageBackground src={section01_header_01} alt="Branding Fotografie" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1900px) 100vw, 80vw" priority />
       ) : (
         <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture>
           <source src="/videos/Selections_Imagefilm.mp4" type="video/mp4" />

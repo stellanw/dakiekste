@@ -270,13 +270,6 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           }
           boxData={[
             {
-              image: service_konzept,
-
-              title: "Konzeption & Workshop",
-              mobileTitle: "Workshop",
-              text: "Ob Corporate Identity, Branding oder Bildsprache – wir unterstützen dich dabei, deine visuelle Kommunikation zu ordnen und klarer zu gestalten. In Workshops teilen wir unser Wissen, beraten dich zu Strategie, Gestaltung und entwickeln gemeinsam Ideen.",
-            },
-            {
               image: service_branding,
 
               title: "Branding Fotografie",
@@ -319,13 +312,19 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             },
             {
               image: service_socialmedia,
-              title: "Content Produktion & Strategie",
+              title: "Content Produktion",
               text: "Wir produzieren die passenden Foto- und Videoinhalte. Ob Posts, Reels oder Stories: Mit einem klaren Plan entstehen Inhalte, die sichtbar machen, wofür du stehst und die inhaltlich wie visuell überzeugen. So wächst deine Reichweite, deine Kommunikation bleibt konsistent und du sparst Zeit in der Umsetzung mit einem passenden Bilderpool.",
             },
             {
               image: service_erklaervideo,
               title: "Erklärvideo",
               text: "Ein Erklärvideo bringt komplexe Inhalte auf den Punkt – anschaulich, verständlich und einprägsam. Mit animierten Illustrationen werden Abläufe, Produkte oder Dienstleistungen so erklärt, dass sie leicht zu erfassen sind. Gemeinsam mit erfahrenen Partner*innen aus unserem Netzwerk entwickeln wir Storyboard, Look und Animation, damit dein Thema klar und wirkungsvoll vermittelt wird.",
+            },
+            {
+              image: service_konzept,
+              title: "Konzeption & Workshop",
+              mobileTitle: "Workshop",
+              text: "Ob Corporate Identity, Branding oder Bildsprache – wir unterstützen dich dabei, deine visuelle Kommunikation zu ordnen und klarer zu gestalten. In Workshops teilen wir unser Wissen, beraten dich zu Strategie, Gestaltung und entwickeln gemeinsam Ideen.",
             },
           ]}
         />
@@ -380,10 +379,6 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           }
           boxData={[
             {
-              title: "06 Langfristige Unterstützung",
-              text: "Auch nach dem Projekt begleiten wir dich weiter. Ob kleine Anpassungen, neue Inhalte oder die Weiterentwicklung deiner Marke – wir stehen dir als verlässlicher Partner zur Seite. Weil wir deine Marke bereits kennen, können wir effizient reagieren und gezielt unterstützen – projektweise oder im Rahmen einer laufenden Betreuung.",
-            },
-            {
               title: "01 Erstgespräch & Analyse",
               text: "Im ersten Gespräch lernen wir dich und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das deine Kommunikation stärkt und dich in deiner Sichtbarkeit weiterbringt. So entsteht eine Grundlage, auf der sich Inhalte und eine Strategie sinnvoll aufbauen lassen.",
             },
@@ -402,6 +397,10 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               title: "05 Postproduktion",
               text: "Nach jedem Shooting erhältst du von uns eine sorgfältig getroffene Vorauswahl. Daraus wählst du deine Favoriten, die wir anschließend bearbeiten. Deine finale Auswahl bekommst du in einer Online-Galerie – übersichtlich sortiert und jederzeit erneut downloadbar, damit du flexibel darauf zugreifen kannst. Die Galerie steht dir für einen bestimmten Zeitraum zur Verfügung oder auf Wunsch auch dauerhaft als wachsender Bildpool.",
+            },
+            {
+              title: "06 Langfristige Unterstützung",
+              text: "Auch nach dem Projekt begleiten wir dich weiter. Ob kleine Anpassungen, neue Inhalte oder die Weiterentwicklung deiner Marke – wir stehen dir als verlässlicher Partner zur Seite. Weil wir deine Marke bereits kennen, können wir effizient reagieren und gezielt unterstützen – projektweise oder im Rahmen einer laufenden Betreuung.",
             },
           ]}
         />

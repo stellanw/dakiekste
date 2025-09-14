@@ -34,7 +34,7 @@ export default function LogoCarousel() {
       {
         breakpoint: 750,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
         },
       },
       {

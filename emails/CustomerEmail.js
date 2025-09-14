@@ -217,22 +217,6 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
       <Preview>Danke für deine Anfrage{name ? `, ${name}` : ""}!</Preview>
 
       <Body className="frame" style={{ margin: 0, padding: 0, fontFamily: "Figtree, Helvetica, Arial, sans-serif" }}>
-        <div
-          aria-hidden="true"
-          style={{
-            fontSize: "1px",
-            lineHeight: "1px",
-            opacity: 0,
-            color: "transparent",
-            maxHeight: 0,
-            maxWidth: 0,
-            overflow: "hidden",
-            msoHide: "all", // Outlook
-          }}
-        >
-          {`Moin${name ? ` ${name}` : ""}, danke für deine Anfrage – wir melden uns in Kürze.`}
-          {"\u200B\u00A0".repeat(200)}
-        </div>
         <div className="body">
           <CenteredWrapper>
             <Inner />
