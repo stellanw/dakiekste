@@ -361,6 +361,9 @@ cursor: pointer;
  user-select: none;
   -webkit-user-select: none; 
   -ms-user-select: none; 
+
+    &:hover {
+    transform: translateY(-1px);}
 }
 
 .yarl__root{

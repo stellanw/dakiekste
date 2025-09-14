@@ -81,6 +81,11 @@ const StyledTextWrapper = styled.div`
   a {
     font-size: var(--font-l);
     /* font-weight: ${theme.fontWeight.bold}; */
+
+    &:hover {
+      color: ${theme.color.green};
+      transition: color ease 0.3s;
+    }
   }
 `;
 
