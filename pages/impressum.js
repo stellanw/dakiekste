@@ -20,6 +20,8 @@ export default function Impressum() {
     router.push("/");
   };
 
+  const email = "info" + "@" + "dakiekste" + ".com";
+
   return (
     <>
       <Header useImageBackground={false} />
@@ -34,7 +36,7 @@ export default function Impressum() {
         <p>[Adresse]</p>
         <p>[Postleitzahl und Ort]</p>
         <p>[Telefonnummer]</p>
-        <p>[E-Mail-Adresse]</p>
+        <p>{email}</p>
 
         <h6>Vertreten durch</h6>
         <p>[Name der vertretungsberechtigten Personen]</p>

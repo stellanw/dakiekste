@@ -590,6 +590,13 @@ const StyledScrollBoxInner = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    transform: none;
+    &:hover {
+      transform: none;
+    }
+  }
 `;
 
 const StyledScrollBox = styled.div`

@@ -19,7 +19,7 @@ export default function Team({ teamMembers = [] }) {
             return (
               <TeamCard key={index} data-last={isLast ? "1" : "0"}>
                 <ImageWrapper onClick={() => toggleExpand(index)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleExpand(index)} $isExpanded={isExpanded}>
-                  <MemberImage src={member.image} alt={`Portrait von ${member.name}`} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                  <MemberImage src={member.image} alt={`Portrait von ${member.name}`} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority />
                 </ImageWrapper>
 
                 <NameIconContainer role="button" tabIndex={0} onClick={() => toggleExpand(index)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleExpand(index)} $isExpanded={isExpanded}>
