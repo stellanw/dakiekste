@@ -67,8 +67,8 @@ export default function ContactForm() {
 
       const data = await res.json();
       if (!res.ok) {
-        console.log("API error:", data);
-        throw new Error(data.error || "Fehler beim Senden");
+        console.error("API error:", data);
+        throw new Error(data.message || data.error || "Fehler beim Senden");
       }
 
       setIsSuccess(true);
@@ -180,10 +180,14 @@ export default function ContactForm() {
 const FIELD_TRANSITION = "border-color 160ms ease, background-color 160ms ease, color 160ms ease";
 const fieldBase = css`
   border: 1px solid ${theme.color.beige};
+  background-color: ${theme.color.dark};
+  color: ${theme.color.beige};
   transition: ${FIELD_TRANSITION};
   &:hover {
     border-color: ${theme.color.green};
+    color: ${theme.color.green};
   }
+
   &:is(:focus, :active) {
     outline: none;
     border-color: ${theme.color.green};
@@ -321,12 +325,20 @@ const StyledInput = styled.input`
   }
 
   &:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px ${theme.color.green} inset;
+    -webkit-box-shadow: 0 0 0px 1000px ${theme.color.dark} inset;
     -webkit-text-fill-color: ${theme.color.beige};
   }
   &:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0px 1000px ${theme.color.green} inset;
     -webkit-text-fill-color: ${theme.color.dark};
+  }
+
+  &:-webkit-autofill:hover {
+    -webkit-text-fill-color: ${theme.color.green};
+  }
+
+  &:-webkit-autofill:focus:hover {
+    -webkit-text-fill-color: ${theme.color.dark} !important;
   }
 `;
 
@@ -426,6 +438,7 @@ const StyledSelect = styled.select`
 
   &:hover {
     border-color: ${theme.color.green};
+    color: ${theme.color.green};
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polyline points='5 7 10 12 15 7' fill='none' stroke='${theme.color.green.replace("#", "%23")}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
   }
 

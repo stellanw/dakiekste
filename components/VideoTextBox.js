@@ -2,14 +2,14 @@ import { theme } from "@/styles";
 import styled from "styled-components";
 import { PiArrowRightLight } from "react-icons/pi";
 
-export default function VideoTextBox({ topline, headline, text1, text2, videoSrc, flexflow }) {
+export default function VideoTextBox({ topline, headline, text1, text2, videoSrc, flexflow, posterSrc }) {
   return (
     <OuterWrapper>
       <InnerWrapper>
         <StyledVideoTextBox $flexflow={flexflow}>
           <StyledVideoContainer $flexflow={flexflow}>
             <VideoBox>
-              <StyledVideo src={videoSrc} controls playsInline preload="metadata" />
+              <StyledVideo src={videoSrc} controls playsInline preload="metadata" poster={posterSrc} />
             </VideoBox>
           </StyledVideoContainer>
 
