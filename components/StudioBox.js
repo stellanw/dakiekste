@@ -193,11 +193,11 @@ const CardWrapper = styled.div`
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: ${theme.color.dark};
+    background-color: ${theme.color.dark};
     border-radius: 0;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: ${theme.color.green};
+    background-color: ${theme.color.green};
   }
 `;
 

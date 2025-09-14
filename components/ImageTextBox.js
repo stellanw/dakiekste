@@ -11,7 +11,7 @@ export default function ImageTextBox({ topline, headline, text1, text2, image, a
         <StyledImageTextBox $flexflow={flexflow} $flexflowMobile={flexflowMobile}>
           <StyledImageContainer $flexflow={flexflow}>
             <ImageBox>
-              <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" />
+              <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
             </ImageBox>
           </StyledImageContainer>
 
