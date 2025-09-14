@@ -64,6 +64,12 @@ export default async function handler(req, res) {
       servicesHtml = String(servicesHtmlRaw);
     }
 
+    const cleanServices = servicesHtml
+      ? sanitizeHtml(servicesHtml, {
+          allowedTags: ["ul", "li", "strong", "em", "u", "br", "span"],
+        })
+      : "";
+
     // --- Hilfsfunktionen ---
     const stripServicesFromHtml = (html) => {
       if (!html) return "";
@@ -92,27 +98,32 @@ export default async function handler(req, res) {
         }))
       : [];
 
+    const itemsForAdmin = Array.isArray(selectedServices)
+      ? selectedServices.map((s) => ({
+          qty: s.count ?? 1,
+          title: s.title,
+          price: typeof s.price === "number" ? fmtEuroDash(s.price) : req.body?.priceDisplay || "auf Anfrage",
+        }))
+      : [];
+
+    const totalPriceDisplayAdmin = typeof totalPriceRaw === "number" ? fmtEuroDash(totalPriceRaw) : req.body?.priceDisplay || "auf Anfrage";
+
     // Customer: Total
     const totalPriceDisplay = typeof totalPriceRaw === "number" ? fmtEuroDash(totalPriceRaw) : req.body?.priceDisplay || "auf Anfrage";
 
-    // Message ohne Services für Admin
-    const messageWithoutServices = formattedMessage.replace(/<p><strong>Ausgewählte Leistungen:[\s\S]*$/i, "");
+    //Admin
+    const messageForAdmin = formattedMessage;
 
     // Sanitizen
-    const cleanMessageForAdmin = sanitizeHtml(messageWithoutServices, {
+    const cleanMessageForAdmin = sanitizeHtml(messageForAdmin, {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
     });
-    const cleanServices = servicesHtml
-      ? sanitizeHtml(servicesHtml, {
-          allowedTags: ["ul", "li", "strong", "em", "u", "br", "span"],
-        })
-      : "";
 
     // Quelle & Betreff
     const s = (source || "").toLowerCase();
     const isOverlay = s === "overlay" || Boolean(cleanServices) || Boolean(totalPriceRaw);
-    const adminSubject = isOverlay ? "Neue Anfrage über das Preiskalkulator" : "Neue Nachricht über das Kontaktformular";
-    const sourceLabel = isOverlay ? "eingegangen über das Preiskalkulator" : "eingegangen über das Kontaktformular";
+    const adminSubject = isOverlay ? "Neue Anfrage über den Preiskalkulator" : "Neue Nachricht über das Kontaktformular";
+    const sourceLabel = isOverlay ? "eingegangen über den Preiskalkulator" : "eingegangen über das Kontaktformular";
 
     // SMTP verify im Dev
     if (process.env.NODE_ENV !== "production") {
@@ -131,18 +142,20 @@ export default async function handler(req, res) {
           pronouns={pronouns || null}
           email={email}
           company={company}
-          messageHtml={cleanMessageForAdmin}
-          servicesHtml={cleanServices || null}
-          totalPrice={totalPriceRaw || null}
+          messageHtml={sanitizeHtml(messageForAdmin, {
+            allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
+          })}
+          items={itemsForAdmin}
+          totalPrice={totalPriceDisplayAdmin}
           roles={roles || null}
           otherRole={otherRole || null}
           budget={budget || null}
           acceptedTerms={typeof acceptedTerms === "boolean" ? acceptedTerms : null}
           businessType={businessType || null}
-          selectedServices={Array.isArray(selectedServices) ? selectedServices : null}
           sourceLabel={sourceLabel}
           previewText={adminSubject}
           logoCid={hasLogo ? LOGO_CID : undefined}
+          servicesHtml={cleanServices || null}
         />
       ),
       render(
@@ -151,6 +164,7 @@ export default async function handler(req, res) {
           messageHtml={sanitizeHtml(messageWithoutServicesForCustomer, {
             allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "strong", "em", "u", "span"]),
           })}
+          servicesHtml={cleanServices || null}
           items={itemsForCustomer}
           totalPrice={totalPriceDisplay}
           year={new Date().getFullYear()}

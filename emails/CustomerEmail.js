@@ -1,7 +1,7 @@
 // emails/CustomerEmail.js
 import { Html, Head, Preview, Body, Container, Section, Text, Heading } from "@react-email/components";
 
-export default function CustomerEmail({ name, messageHtml, items, totalPrice, year, logoCid, preview = false }) {
+export default function CustomerEmail({ name, messageHtml, servicesHtml, items, totalPrice, year = new Date().getFullYear(), logoCid, preview = false }) {
   // Spacing
   const SP = { xs: 5, s: 20, m: 35, l: 60, xl: 90, xxl: 180, xxxl: 360 };
 
@@ -12,7 +12,8 @@ export default function CustomerEmail({ name, messageHtml, items, totalPrice, ye
 
   const LAYOUT_WIDTH = 900;
 
-  const hasServices = Array.isArray(items) && items.length > 0; // ⬅️ Gate
+  const hasServices = Array.isArray(items) && items.length > 0;
+  const hasServicesHtml = !!servicesHtml;
 
   const ArrowIcon = ({ size = 14 }) => (
     <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 4, verticalAlign: "middle" }}>
@@ -89,7 +90,7 @@ export default function CustomerEmail({ name, messageHtml, items, totalPrice, ye
   const ItemsTable = () => (
     <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" className="itemtable" style={{ width: "100%", borderCollapse: "separate" }}>
       <tbody>
-        {items.map((it, i) => (
+        {(items || []).map((it, i) => (
           <tr key={i} className="itemrow">
             <td className="qty" style={{ paddingTop: i ? SP.m : 0, width: 24, verticalAlign: "top", fontSize: 20 }}>
               {it.qty}
@@ -133,15 +134,13 @@ export default function CustomerEmail({ name, messageHtml, items, totalPrice, ye
       </Container>
 
       {/* Card 2 – Ausgewählte Leistungen */}
-      {hasServices && (
+      {(hasServices || hasServicesHtml) && (
         <Container className="card" style={{ minWidth: "100%", marginBottom: SP.l }}>
           <Text className="caps" style={{ margin: 0, opacity: 0.85, fontWeight: 600, fontSize: 20 }}>
             Ausgewählte Leistungen
           </Text>
 
-          <div style={{ marginTop: SP.s, marginBottom: SP.xl }}>
-            <ItemsTable />
-          </div>
+          <div style={{ marginTop: SP.s, marginBottom: SP.xl }}>{hasServices ? <ItemsTable /> : <div style={{ fontSize: 18, lineHeight: 1.6 }} dangerouslySetInnerHTML={{ __html: servicesHtml }} />}</div>
 
           {typeof totalPrice !== "undefined" && totalPrice !== null && (
             <table role="presentation" width="100%">
@@ -218,6 +217,22 @@ export default function CustomerEmail({ name, messageHtml, items, totalPrice, ye
       <Preview>Danke für deine Anfrage{name ? `, ${name}` : ""}!</Preview>
 
       <Body className="frame" style={{ margin: 0, padding: 0, fontFamily: "Figtree, Helvetica, Arial, sans-serif" }}>
+        <div
+          aria-hidden="true"
+          style={{
+            fontSize: "1px",
+            lineHeight: "1px",
+            opacity: 0,
+            color: "transparent",
+            maxHeight: 0,
+            maxWidth: 0,
+            overflow: "hidden",
+            msoHide: "all", // Outlook
+          }}
+        >
+          {`Moin${name ? ` ${name}` : ""}, danke für deine Anfrage – wir melden uns in Kürze.`}
+          {"\u200B\u00A0".repeat(200)}
+        </div>
         <div className="body">
           <CenteredWrapper>
             <Inner />

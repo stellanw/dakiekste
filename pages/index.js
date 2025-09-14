@@ -344,6 +344,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         }
         text1="Ein Imagefilm macht dein Unternehmen erlebbar. Er zeigt nicht nur Fakten, sondern vermittelt Atmosphäre und Persönlichkeit. So bekommen Kund*innen einen echten Eindruck davon, wie du arbeitest und was dein Unternehmen besonders macht. Durch bewegte Bilder entsteht Nähe – und aus Zuschauer*innen werden Interessierte, die sich mit deiner Marke verbinden."
         videoSrc="/videos/Imagefilm-ossara.mov"
+        posterSrc="/videos/imagefilm-poster.png"
         flexflow="row"
       />
 
@@ -784,8 +785,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               langfristig unterstützt
             </>
           }
-          text1="Wir erstellen Porträts, Details, Situationen und Momente – und bündeln sie zu deinem persönlichen Bilderpool. Statt nur ein paar Fotos bekommst du eine vielseitige Sammlung, die deine Bildsprache trägt und über alle Kanäle hinweg funktioniert.
-Egal ob für Social Media, Website, Präsentationen oder Jobportale. Dein Bildmaterial wächst mit deinem Unternehmen mit – so steht dir jederzeit hochwertiges Material zur Verfügung, das du flexibel einsetzen kannst."
+          text1="Wir fotografieren Portraits, Details, Situationen und echte Momente – und bündeln sie zu deinem persönlichen Bilderpool, der kein loses Stückwerk ist. Statt einzelner Aufnahmen erhältst du eine vielseitige Sammlung, die deine Bildsprache trägt und über alle Kanäle hinweg funktioniert. Ob Social Media, Website, Präsentationen oder Jobportale – du hast immer passendes Material zur Hand. Dein Bilderpool wächst mit deinem Unternehmen – so stehen dir jederzeit hochwertige Inhalte zur Verfügung, die du flexibel einsetzen kannst."
           text2=""
           cards={[
             {
