@@ -477,8 +477,12 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
           data-touch={isTouch ? "1" : "0"}
         >
           <StyledTrack ref={trackRef}>
-            {data.map(({ title, text, image }, i) => {
+            {data.map(({ title, text, image, showIcon: itemShowIcon }, i) => {
               const focused = focusedIndex === i;
+
+              // Item-Flag > Prop (Prop default false). Strings "true"/"false" werden auch unterstützt.
+              const showIconEffective = typeof itemShowIcon === "boolean" ? itemShowIcon : showIcon === true || showIcon === "true";
+
               return (
                 <StyledScrollBox key={i} data-card-idx={i} style={{ zIndex: focused ? 5 : 0 }}>
                   <StyledScrollBoxInner $focused={focused && !isTouch}>
@@ -487,14 +491,16 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
                         <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
                       </ImageWrapper>
                     )}
+
                     <StyledTitle>
-                      {(showIcon === true || showIcon === "true") && (
+                      {showIconEffective && (
                         <StyledIcon>
                           <PiArrowBendDownRightLight />
                         </StyledIcon>
                       )}
                       {title}
                     </StyledTitle>
+
                     <p>{text}</p>
                   </StyledScrollBoxInner>
                 </StyledScrollBox>

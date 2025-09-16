@@ -6,9 +6,11 @@ import { useRef } from "react";
 export default function ProjectBox({ topline, headline, text1, text2, cards }) {
   const scrollRef = useRef(null);
   const dragRef = useRef({ down: false, startX: 0, scrollLeft: 0 });
+  const didDragRef = useRef(false);
 
   const handleMouseDown = (e) => {
     dragRef.current.down = true;
+    didDragRef.current = false;
     scrollRef.current.classList.add("active");
     dragRef.current.startX = e.pageX - scrollRef.current.offsetLeft;
     dragRef.current.scrollLeft = scrollRef.current.scrollLeft;
@@ -29,7 +31,21 @@ export default function ProjectBox({ topline, headline, text1, text2, cards }) {
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = (x - dragRef.current.startX) * 1.5;
+    if (Math.abs(x - dragRef.current.startX) > 6) didDragRef.current = true;
     scrollRef.current.scrollLeft = dragRef.current.scrollLeft - walk;
+  };
+
+  const snapToCard = (idx) => {
+    const wrapper = scrollRef.current;
+    if (!wrapper) return;
+    const cardEl = wrapper.children[idx];
+    if (!cardEl) return;
+
+    const wrapperCenter = wrapper.clientWidth / 2;
+    const cardCenter = cardEl.offsetLeft + cardEl.offsetWidth / 2;
+    const target = cardCenter - wrapperCenter;
+
+    wrapper.scrollTo({ left: target, behavior: "smooth" });
   };
 
   return (
@@ -51,11 +67,22 @@ export default function ProjectBox({ topline, headline, text1, text2, cards }) {
         <CardWrapper ref={scrollRef} onMouseDown={handleMouseDown} onMouseLeave={handleMouseLeave} onMouseUp={handleMouseUp} onMouseMove={handleMouseMove}>
           {cards.map((card, index) => (
             <Card key={index} data-last={index === cards.length - 1 ? "1" : "0"}>
-              <ImageWrapper>
+              <ImageWrapper
+                role="button"
+                tabIndex={0}
+                onClick={() => {
+                  if (didDragRef.current) return;
+                  snapToCard(index);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " " || e.code === "Space") {
+                    e.preventDefault();
+                    snapToCard(index);
+                  }
+                }}
+              >
                 <StyledImage src={card.image} alt={card.title} fill draggable={false} />
               </ImageWrapper>
-              {/* {card.title && <h6>{card.title}</h6>}
-              {card.description && <p>{card.description}</p>} */}
             </Card>
           ))}
         </CardWrapper>

@@ -203,12 +203,12 @@ export default function Pricing({ pricingData, servicesData }) {
             {isMobile ? (
               <h4>
                 Jedes Projekt ist individuell – genau wie dein Budget. <br />
-                Für eine erste Orientierung nutze unseren Preiskalkulator.
+                Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.
               </h4>
             ) : (
               <h4>
                 Jedes Projekt ist individuell – genau wie dein Budget. <br />
-                Für eine erste Orientierung nutze unseren Preiskalkulator.
+                Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.
               </h4>
             )}
           </HeadlineContainer>

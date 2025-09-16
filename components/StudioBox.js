@@ -7,7 +7,6 @@ import { PiPlus, PiMinus } from "react-icons/pi";
 export default function StudioBox({ topline, headline, text1, text2, cards }) {
   const scrollRef = useRef(null);
 
-  // Drag-Handling + Guard gegen Click nach Drag
   const dragRef = useRef({ down: false, startX: 0, scrollLeft: 0 });
   const didDragRef = useRef(false);
 
@@ -33,16 +32,30 @@ export default function StudioBox({ topline, headline, text1, text2, cards }) {
     if (!dragRef.current.down) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - dragRef.current.startX) * 1.5; // „Gewicht“ beim Ziehen
+    const walk = (x - dragRef.current.startX) * 1.5;
     if (Math.abs(x - dragRef.current.startX) > 6) didDragRef.current = true;
     scrollRef.current.scrollLeft = dragRef.current.scrollLeft - walk;
   };
 
-  // Nur eine Card gleichzeitig offen
   const [openIndex, setOpenIndex] = useState(null);
+
+  const snapToCard = (idx) => {
+    const wrapper = scrollRef.current;
+    if (!wrapper) return;
+    const cardEl = wrapper.children[idx];
+    if (!cardEl) return;
+
+    const wrapperCenter = wrapper.clientWidth / 2;
+    const cardCenter = cardEl.offsetLeft + cardEl.offsetWidth / 2;
+    const target = cardCenter - wrapperCenter;
+
+    wrapper.scrollTo({ left: target, behavior: "smooth" });
+  };
+
   const toggleCard = (idx) => {
-    if (didDragRef.current) return; // nicht togglen, wenn gerade gescrolled wurde
+    if (didDragRef.current) return;
     setOpenIndex((prev) => (prev === idx ? null : idx));
+    snapToCard(idx);
   };
 
   return (
@@ -87,7 +100,7 @@ export default function StudioBox({ topline, headline, text1, text2, cards }) {
                     aria-pressed={isOpen}
                     $open={isOpen}
                     onClick={(e) => {
-                      e.stopPropagation(); // sonst doppelt togglen
+                      e.stopPropagation();
                       toggleCard(index);
                     }}
                   >
@@ -263,7 +276,6 @@ const StyledImage = styled(Image)`
   -webkit-user-drag: none;
 `;
 
-/* Overlay mit diagonaler Einblend-Animation von links-unten */
 const StyledTextOverlay = styled.div`
   position: absolute;
   inset: 0;
@@ -292,12 +304,11 @@ const StyledTextOverlay = styled.div`
   }
 `;
 
-/* Grüner Toggle-Kasten (+/−), bleibt immer sichtbar */
 const ToggleBadge = styled.button`
   position: absolute;
   left: 0;
   bottom: 0;
-  z-index: 3; /* über dem Overlay bleiben */
+  z-index: 3;
   width: 60px;
   height: 60px;
   border: 0;

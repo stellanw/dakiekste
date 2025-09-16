@@ -200,7 +200,7 @@ a:visited { color: inherit; }
   h1 {
     font-weight: ${theme.fontWeight.extraBold};
     font-size: var(--font-xxxl);
-    line-height: ${theme.lineHeight.l};
+    line-height: 1.15;
   }
 
   h2 {
