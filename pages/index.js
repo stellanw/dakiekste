@@ -46,8 +46,8 @@ import service_event from "/public/images/03_Service/eventfotografie-reeperbahnf
 import service_businessportrait from "/public/images/03_Service/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
 import service_video from "/public/images/03_Service/behind-the-scenes-dakiekste-05.jpg";
 // import service_produkt from "/public/images/03_Service/produktfotografie-dakiekste-02.jpg";
-// import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_Detail_1.jpg";
-import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_Detail_2.jpg";
+import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_Detail_1.jpg";
+// import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_Detail_2.jpg";
 // import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_1.jpg";
 import service_konzept from "/public/images/03_Service/behind-the-scenes-dakiekste-06.jpg";
 import service_erklaervideo from "/public/images/03_Service/behind-the-scenes-dakiekste-07.jpg";
@@ -83,9 +83,11 @@ import section10_Team03 from "/public/images/10_Team/dakiekste-team-stellan-mais
 
 //11_Image
 import section11_Image01 from "/public/images/11_Image/klub-studio-fläche-01.jpg";
+import section11_Image02 from "/public/images/11_Image/klub-studio-fläche-02.jpg";
 
 //11_Image
 import section12_Image01 from "/public/images/12_Image/erneuerbare-energie_brandshooting_photo-maischa-souaga.jpg";
+import section12_Image02 from "/public/images/Head_Image.jpg";
 
 //12_ProjectBox
 import project_qucare_01 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-01.jpg";
@@ -93,6 +95,7 @@ import project_qucare_02 from "/public/images/12_ProjectBox/projekt-teamfotograf
 import project_qucare_03 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-03.jpg";
 import project_qucare_04 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-04.jpg";
 import project_qucare_05 from "/public/images/12_ProjectBox/projekt-teamfotografie-pflege-05.jpg";
+
 //12_TextBox
 import section12_TextBox01 from "/public/images/12_Textbox/dakiekste-team-stellan-maischa-02.jpg";
 import Video from "@/components/Video";
@@ -203,7 +206,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         }
         text1="Bilder und Videos sind heute die Grundlage, um mit Kund*innen in Kontakt zu treten – vor allem auf Social Media. Wir erstellen Content, der zu deiner Marke passt und sich vielseitig einsetzen lässt: von kurzen Clips und Reels über Fotostrecken bis hin zu Material für Website oder Kampagnen. So entsteht echter Mehrwert: Dein Auftritt gewinnt an Tiefe, wirkt professionell und macht dich für die Menschen sichtbar, die du erreichen willst."
         text2=""
-        image={section12_Image01}
+        image={section12_Image02}
         alt="Description of image"
         flexflow="row-reverse"
         flexflowMobile="column-reverse"
@@ -233,7 +236,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           },
           {
             alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
-            image: section04_slider02,
+            image: section04_slider03,
           },
           {
             alt: "Business Portrait im Klub Studio",
@@ -249,14 +252,14 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           },
           {
             alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
-            image: section04_slider03,
+            image: section04_slider02,
           },
         ]}
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <section id="services">
+      <section id="leistungen">
         <ScrollBox
           autoplay={false}
           headline1="Leistungen aus einer Hand"
@@ -326,6 +329,12 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               mobileTitle: "Workshop",
               text: "Ob Corporate Identity, Branding oder Bildsprache – wir unterstützen dich dabei, deine visuelle Kommunikation zu ordnen und klarer zu gestalten. In Workshops teilen wir unser Wissen, beraten dich zu Strategie, Gestaltung und entwickeln gemeinsam Ideen.",
             },
+            {
+              image: "",
+              title: "",
+              mobileTitle: "",
+              text: "",
+            },
           ]}
         />
       </section>
@@ -354,8 +363,8 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         headline={<>Deine visuelle Identität</>}
         text1="Eine starke Marke lebt von einer klaren Bildsprache. Gemeinsam mit dir entwickeln wir Motive, Farben und Details, die genau zu deiner Vision und Zielgruppe passen. So entsteht ein visueller Auftritt, der stimmig ist und Wiedererkennung schafft – egal, ob auf Website, Social Media oder in Printmaterialien. Bei einem Brandshooting erhältst du einen vielseitigen Bilderpool, mit dem du flexibel und konsistent kommunizieren kannst."
         text2=""
-        link="Mehr zum Bilderpool"
-        url="/#pool"
+        // link="Mehr zum Bilderpool"
+        // url="/#pool"
         image={section06_TextBox01}
         alt="Description of image"
         flexflow="row-reverse"
@@ -369,7 +378,6 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       <section id="workflow">
         <ScrollBox
-          showIcon={true}
           headline1="Unser Workflow"
           headline2={
             <>
@@ -381,26 +389,37 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               title: "01 Erstgespräch & Analyse",
               text: "Im ersten Gespräch lernen wir dich und deine Ziele kennen. Wir hören zu, stellen die richtigen Fragen und analysieren deine Ausgangslage. Darauf aufbauend entwickeln wir ein Konzept, das deine Kommunikation stärkt und dich in deiner Sichtbarkeit weiterbringt. So entsteht eine Grundlage, auf der sich Inhalte und eine Strategie sinnvoll aufbauen lassen.",
+              showIcon: true,
             },
             {
               title: "02 Konzeption & Workshop",
               text: "Auf Basis des Erstgesprächs entwickeln wir ein Konzept, das zu deinen Zielen und deinem Budget passt. Zusätzlich bieten wir Workshops an, um gemeinsam die besten Lösungen zu erarbeiten. Du bleibst dabei immer eingebunden und siehst alle Zwischenstände. So stellen wir sicher, dass das Ergebnis nicht nur gut aussieht, sondern dir im Geschäftsalltag wirklich weiterhilft.",
+              showIcon: true,
             },
             {
               title: "03 Organisation",
               text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis zur Buchung von Styling und Hair & Make-up. Auf Wunsch organisieren wir auch Snacks und Getränke am Shooting-Tag. Durch unser Netzwerk und strukturierte Zeitpläne läuft alles reibungslos ab. Wir übernehmen die Koordination mit allen Beteiligten, damit du dich entspannt zurücklehnen und voll auf das Wesentliche konzentrieren kannst.",
+              showIcon: true,
             },
             {
               title: "04 Umsetzung",
               text: "Als eingespieltes Team greifen Fotografie, Design und Web bei uns ineinander – ohne Reibungsverluste und doppelte Abstimmungen. Shootings und Drehs laufen nach einem klaren Plan, sodass Raum für Kreativität bleibt. Design- und Webprojekte setzen wir parallel und in enger Abstimmung mit der zuvor entwickelten Strategie um. So entsteht ein flüssiger Prozess, bei dem alle Elemente ineinandergreifen.",
+              showIcon: true,
             },
             {
               title: "05 Postproduktion",
               text: "Nach jedem Shooting erhältst du von uns eine sorgfältig getroffene Vorauswahl. Daraus wählst du deine Favoriten, die wir anschließend bearbeiten. Deine finale Auswahl bekommst du in einer Online-Galerie – übersichtlich sortiert und jederzeit erneut downloadbar, damit du flexibel darauf zugreifen kannst. Die Galerie steht dir für einen bestimmten Zeitraum zur Verfügung oder auf Wunsch auch dauerhaft als wachsender Bildpool.",
+              showIcon: true,
             },
             {
               title: "06 Langfristige Unterstützung",
               text: "Auch nach dem Projekt begleiten wir dich weiter. Ob kleine Anpassungen, neue Inhalte oder die Weiterentwicklung deiner Marke – wir stehen dir als verlässlicher Partner zur Seite. Weil wir deine Marke bereits kennen, können wir effizient reagieren und gezielt unterstützen – projektweise oder im Rahmen einer laufenden Betreuung.",
+              showIcon: true,
+            },
+            {
+              title: "",
+              text: "",
+              showIcon: false,
             },
           ]}
         />
@@ -543,7 +562,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <section id="pricing">
+      <section id="preise">
         <Pricing
           pricingData={[
             {
@@ -554,7 +573,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               key: "projectType",
               category: "Dein Projekt",
-              options: ["Fotografie", "Video", "Design", "Website", "Pakete"],
+              options: ["Fotografie", "Video", "Design", "Website", "Abo"],
             },
           ]}
           servicesData={[
@@ -575,19 +594,29 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               price: 130,
             },
             {
+              title: "Branding Fotografie Gründer*innen",
+              category: "Fotografie",
+              isCountable: false,
+              unit: "",
+              description:
+                "Ein halber Shooting-Tag. Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich, dein Team, deine Arbeit und dein Umfeld zeigt – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 20 finale Bilder auswählen kannst. Zusätzlich erstellen wir parallel immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
+              price: 2714.285714,
+            },
+            {
               title: "Branding Fotografie",
               category: "Fotografie",
               isCountable: false,
               unit: "",
-              description: "Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich und dein Team, deine Arbeit und Umfeld zeigt – abgestimmt auf deine Marke. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 30 finale Bilder auswählen kannst.",
-              price: 2100,
+              description:
+                "Ein ganzer Shooting-Tag. Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich, dein Team, deine Arbeit und dein Umfeld zeigt – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 30 finale Bilder auswählen kannst. Zusätzlich erstellen wir parallel immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
+              price: 3600,
             },
             {
               title: "Produktfotografie",
               category: "Fotografie",
               isCountable: true,
-              unit: "pro Produkt",
-              description: "Je nach Bedarf fotografieren wir Freisteller oder inszenierte Aufnahmen. Die Fotos entstehen vor Ort oder im Studio. Du erhälst eine Bildauswahl, aus der du deine finale Bilder auswählen kannst. Ein professionelles Styling ist optional zubuchbar. Der Preis gilt ab 10 Produkten.",
+              unit: "pro Foto",
+              description: "Je nach Bedarf fotografieren wir Freisteller oder inszenierte Aufnahmen. Die Fotos entstehen vor Ort oder im Studio. Du erhälst eine Bildauswahl, aus der du deine finale Bilder auswählen kannst. Ein professionelles Styling ist optional zubuchbar.",
               price: 45,
             },
             {
@@ -605,15 +634,15 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               isCountable: true,
               unit: "pro Bild",
               description: "Dies ist eine Zusatzoption für aufwändigere Retuschen oder besondere Bildanpassungen. Grundlegende Bildretuschen sind bei allen Leistungen immer enthalten",
-              price: 40,
+              price: 50,
             },
             {
               title: "Video-Content für Social Media",
               category: "Video",
               isCountable: true,
-              unit: "pro Clip",
-              description: "Wir erstellen kurze, markenkonforme Videos, die für Instagram und Co. optimiert sind. Dreh, Schnitt und Formatanpassung sind inklusive. Fertige Clips liefern wir direkt einsatzbereit. Preis gilt ab 4 Clips.",
-              price: 350,
+              unit: "pro Drehtag",
+              description: "Wir produzieren kurze, markenkonforme Videos, die für Instagram, LinkedIn und Co. zugeschnitten sind. Von der Planung über den Dreh bis zum Schnitt und zur Formatanpassung – alles ist inklusive. Du erhältst mindesten 5 einsatzbereite Clips.",
+              price: 2300,
             },
             {
               title: "Event-Videodokumentation",
@@ -621,7 +650,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               isCountable: false,
               unit: "",
               description: "Du erhältst einen fertig geschnittenen Eventfilm (ca. 1–3 Minuten) sowie auf Wunsch kurze Clips oder Snippets für Social Media. Interviews, O-Töne, ergänzende Formate sowie weitere Videograf*innen für mehr Perspetkiven und Videomaterial, können optional gebucht werden.",
-              price: 2000,
+              price: 2800,
             },
             {
               title: "Imagefilm",
@@ -637,7 +666,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               isCountable: true,
               unit: "pro Stunde",
               description: "Webdesign, das funktioniert. Wir gestalten deine Website mit Fokus auf Struktur, Nutzerführung und einem stimmigen Gesamtbild - die Basis für die Webentwicklung. Ein Webdesign-Projekt beginnt bei 5 Stunden.",
-              price: 130,
+              price: 100,
             },
             {
               title: "Web Entwicklung",
@@ -645,49 +674,34 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
               isCountable: true,
               unit: "pro Stunde",
               description: "Wir setzen deine Website technisch um – zuverlässig, flexibel und passend zu deinen Anforderungen. Ob mit CMS oder als individuelle Lösung: von der einfachen Landingpage bis zum komplexen Webprojekt ist alles möglich. Eine Website Entwicklung beginnt bei 8 Stunden.",
-              price: 130,
+              price: 100,
             },
             {
-              title: "Website Paket Starter (Entwicklung)",
+              title: "Website Paket Starter",
               category: "Website",
               isCountable: false,
               unit: "",
               description:
-                "Onepager oder bis zu 3 Seiten mit WordPress – umgesetzt auf Basis eines Templates, das wir an dein Logo und deine Farben anpassen. Die Seite ist responsiv und enthält ein Kontaktformular sowie die Einbindung von Impressum & Datenschutz. Inhalte wie Texte bringst du mit, und wir kümmern uns darum, dass alles sauber eingebunden wird. Der Vorteil: Kein Baukasten, sondern eine flexible Lösung mit WordPress, die jederzeit erweitert und weiterentwickelt werden kann.",
-              price: 1300,
+                "Ein Onepager auf Basis eines Templates, das wir an dein Logo und deine Farben anpassen. Die Seite ist responsiv und enthält ein Kontaktformular sowie die Einbindung von Impressum & Datenschutz. Inhalte wie Texte bringst du mit, und wir kümmern uns darum, dass alles sauber eingebunden wird. Der Vorteil: Kein Baukasten, sondern eine flexible Lösung mit WordPress, die jederzeit erweitert und weiterentwickelt werden kann.",
+              price: 3600,
             },
             {
-              title: "Website Paket Plus (Design + Entwicklung)",
+              title: "Website Paket Plus",
               category: "Website",
               isCountable: false,
               unit: "",
               description:
-                "Eine Website, die über das Standard-Template hinausgeht: Wir entwickeln ein individuelles UX/UI-Design, das perfekt auf deine Marke zugeschnitten ist, und setzen es technisch in WordPress um. Ideal für 4–6 Seiten, z. B. Startseite, Leistungen, Über uns und Kontakt. Enthalten sind responsives Design, ein durchdachtes Seitenkonzept, Impressum & Datenschutz, ein Kontaktformular sowie eine SEO-freundliche Grundstruktur. Damit erhältst du einen maßgeschneiderten Webauftritt, der deine Marke einzigartig präsentiert.",
-              price: 3500,
+                "Eine Website, die über das Standard-Template hinausgeht: Wir entwickeln ein individuelles UX/UI-Design, das perfekt auf deine Marke zugeschnitten ist, und setzen es technisch in WordPress um. Ideal für mehrere Seiten, z. B. Startseite, Leistungen, Über uns und Kontakt. Enthalten sind responsives Design, ein durchdachtes Seitenkonzept, Impressum & Datenschutz, ein Kontaktformular sowie eine SEO-freundliche Grundstruktur. Damit erhältst du einen maßgeschneiderten Webauftritt.",
+              price: 5500,
             },
             {
-              title: "Website Service Technik",
+              title: "Website Paket Plus & Brandingfotografie",
               category: "Website",
-              isCountable: true,
-              unit: "pro Monat",
-              description: "Hosting, Sicherheitsupdates, Backups und technische Betreuung deiner Website. Ideal, wenn du dich nicht selbst um die Technik kümmern möchtest.",
-              price: 49,
-            },
-            {
-              title: "Website Service Content",
-              category: "Website",
-              isCountable: true,
-              unit: "pro Monat",
-              description: "Technische Betreuung plus ein monatliches Kontingent von 3 Arbeitsstunden für Inhaltsanpassungen oder kleinere Erweiterungen.",
-              price: 149,
-            },
-            {
-              title: "Website Service All-in",
-              category: "Website",
-              isCountable: true,
-              unit: "pro Monat",
-              description: "Komplettpaket aus Technik, Content-Pflege und Erweiterungen. Enthält 6 Arbeitsstunden pro Monat und priorisierten Support.",
-              price: 299,
+              isCountable: false,
+              unit: "",
+              description:
+                "Wir verbinden ein individuelles Website mit einem ganztägigen Branding-Shooting – für einen Auftritt aus einem Guss. Wir entwickeln ein klares Seitenkonzept (z. B. Startseite, Leistungen, Über uns, Kontakt), responsives Design, Impressum & Datenschutz, ein funktionsstarkes Kontaktformular sowie eine SEO-freundliche Grundstruktur. Parallel entsteht beim Shooting ein vielseitiger Bilderpool aus Portraits, Details und Arbeitssituationen – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du erhältst eine große Bildauswahl und wählst 35 finale Motive. Zusätzlich produzieren wir immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
+              price: 8800,
             },
             {
               title: "CI Branding Design",
@@ -731,39 +745,47 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
                 "In ca. 2 - 3 Stunden legen wir das Fundament für deine Marke. Gemeinsam analysieren wir Positionierung, Werte und Zielgruppen, prüfen die aktuelle Ausrichtung und entwickeln erste Ansätze für Bildsprache, Kommunikation und Design. Am Ende erhältst du eine strukturierte Zusammenfassung mit klaren Empfehlungen, die dir Orientierung geben und als Grundlage für Fotografie, Video und Webprojekte dienen. Ein Basis-Workshop ist in vielen Leistungen enthalten – wer tiefer einsteigen will oder bei einer Gründung den ersten Grundstein legen möchte, kann diesen umfassenden Workshop separat buchen.",
               price: 950,
             },
+
             {
-              title: "Branding Paket Starter",
-              category: "Pakete",
-              isCountable: false,
-              unit: "",
+              title: "Content Abo Starter",
+              category: "Abo",
+              isCountable: true,
+              unit: "pro Monat",
+              description: "Mit unserem Starter-Abo bekommst du jeden Monat frisches Foto- oder Videomaterial. Ob Social Media Clips, Mitarbeiterportraits oder Produktfotos – du entscheidest, was gerade wichtig ist. Wir kommen einmal im Monat für einen halben Tag zu dir und produzieren den Content, den du gerade brauchst.",
+              price: 1800,
+            },
+            {
+              title: "Content Abo Plus",
+              category: "Abo",
+              isCountable: true,
+              unit: "pro Monat",
               description:
-                "Das Komplettpaket für alle, die ganz am Anfang stehen und ein solides Fundament für ihre Marke schaffen wollen. Enthalten sind ein Logo-Design inkl. Farb- und Typokonzept sowie ein Personal Branding Fotoshooting von 2 Stunden, das vor Ort oder im Studio stattfinden kann. Du erhältst 5 bearbeitete Bilder. In enger Abstimmung entwickeln wir vorab ein Konzept. So erhältst du die wichtigsten Basics für einen stimmigen ersten Auftritt. Hair & Make-up sowie Styling ist optional zubuchbar.",
+                "Im Plus-Abo sind wir jeden Monat einen ganzen Tag bei dir. Wir produzieren Fotos und kurze Videos (Reels & Snippets) – von Mitarbeiterportraits über Produkt- und Eventfotos bis hin zu Social-Media-Clips oder Interviews. Du bestimmst, worauf der Fokus liegt. So entsteht mit der Zeit ein vielseitiger Content-Pool, den du flexibel für Instagram, LinkedIn & Co. einsetzen kannst.",
               price: 2800,
             },
             {
-              title: "Branding Paket Komplett",
-              category: "Pakete",
-              isCountable: false,
-              unit: "",
-              description:
-                "Das Rundum-Paket für alle, die ihre Marke von Beginn an professionell aufstellen wollen. Enthalten sind ein umfassendes Corporate Design mit Logo, Farbwelt, Typografie und Designmanual, eine moderne Website (individuelles Design und technische Umsetzung in WordPress) sowie ein Personal Branding Shooting mit ca. 30 bearbeiteten Bildern. Von der visuellen Identität über den digitalen Auftritt bis zu hochwertigen Fotos deckt dieses Paket alle zentralen Elemente ab, die du für einen stimmigen Markenauftritt brauchst. Alles greift ineinander – so entsteht vom ersten Konzept bis zur Online-Präsenz ein Gesamtbild, das deine Marke sichtbar macht und langfristig trägt.",
-              price: 7500,
-            },
-            {
-              title: "Content Paket",
-              category: "Pakete",
-              isCountable: false,
-              unit: "pro Tag",
-              description: "Ein Content-Paket mit 15 bearbeiteten Fotos und 5 kurzen Clips – für Social Media. Die Inhalte sind direkt einsatzbereit für deine Kanäle, Website oder Kampagnen. Inklusive Konzept, Planung, Shooting und Postproduktion.",
-              price: 1500,
-            },
-            {
-              title: "Social Media Content Abo Paket",
-              category: "Pakete",
+              title: "Website Service Technik",
+              category: "Abo",
               isCountable: true,
               unit: "pro Monat",
-              description: "Regelmäßiger Content für deine Kanäle: Wir kommen einmal im Monat zu euch ins Unternehmen und produzieren Fotos und kurze Videos (Reels & Snippets). So entsteht ein stetig wachsender Pool an Inhalten, die ihr direkt auf Instagram, LinkedIn & Co. einsetzen könnt. Das Abo-Modell sorgt dafür, dass ihr immer frisches Material habt.",
-              price: 1200,
+              description: "Hosting, Sicherheitsupdates, Backups und technische Betreuung deiner Website. Ideal, wenn du dich nicht selbst um die Technik kümmern möchtest.",
+              price: 50,
+            },
+            {
+              title: "Website Service Content",
+              category: "Abo",
+              isCountable: true,
+              unit: "pro Monat",
+              description: "Technische Betreuung plus ein monatliches Kontingent von 3 Arbeitsstunden für Inhaltsanpassungen oder kleinere Erweiterungen.",
+              price: 150,
+            },
+            {
+              title: "Website Service Komplett",
+              category: "Abo",
+              isCountable: true,
+              unit: "pro Monat",
+              description: "Komplettpaket aus Technik, Content-Pflege und Erweiterungen. Enthält 6 Arbeitsstunden pro Monat und priorisierten Support.",
+              price: 280,
             },
           ]}
         />
@@ -771,10 +793,10 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <ImageElement image={section11_Image01} alt="Klub Studio Studiofläche" />
+      <ImageElement image={section11_Image02} alt="Klub Studio Studiofläche" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
-      <section id="pool">
+      <section id="bilderpool">
         <ProjectBox
           topline="BILDERPOOL"
           headline={
@@ -948,9 +970,15 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             },
             {
               caption: "Website",
+              question: "Welche zusätzlichen Kosten können anfallen?",
+              answer: "Die laufenden monatlichen Kosten für Hosting und Domain laufen immer über dich. Das sind jedoch meist Beträge im einstelligen Bereich. Zusätzliche Kosten können dazukommen, wenn z. B. benötigte externe Lizenzen nötig sind oder sich weitere Zusatzleistungen im Projekt ergeben. Das sprechen wir vorher immer transparent mit dir ab.",
+            },
+            {
+              caption: "Website",
               question: "Was ist der Unterschied zwischen Webentwicklung und Webdesign?",
               answer: "Bei der Entwicklung setzen wir die Website technisch um. Das Webdesign hingegen sorgt dafür, dass deine Seite visuell und inhaltlich zu deiner Marke passt – einzigartig, durchdacht und mit klarer Nutzerführung. Beides zusammen macht deine Website stark.",
             },
+
             {
               caption: "Website",
               question: "Kann ich nur die technische Entwicklung der Website buchen?",

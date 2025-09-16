@@ -52,11 +52,11 @@ export default function Header({ useImageBackground = false }) {
       )}
 
       <StyledHeadlineContainer>
-        <h2>VISUAL CONTENT DER SICHTBAR MACHT</h2>
+        <h2>WER GESEHEN WIRD – GESTALTET MIT</h2>
         <h1>
-          WER GESEHEN WIRD
+          Branding, Foto und Website
           <br />
-          GESTALTET MIT
+          Für Gründer*innen & Unternehmen
         </h1>
       </StyledHeadlineContainer>
       {/* <StyledPiArrowDownLight /> */}
