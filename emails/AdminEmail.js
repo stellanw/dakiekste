@@ -1,6 +1,6 @@
 import { Html, Head, Preview, Body, Container, Section, Text, Heading } from "@react-email/components";
 
-export default function AdminEmail({ name, pronouns, email, company, businessType, acceptedTerms, servicesHtml, messageHtml, items, totalPrice, year = new Date().getFullYear(), logoCid, preview = false, previewText: adminPreviewText = "" }) {
+export default function AdminEmail({ name, pronouns, email, company, businessType, acceptedTerms, servicesHtml, messageHtml, items, totalPrice, year = new Date().getFullYear(), logoCid, preview = false, previewText: adminPreviewText = "", sourceLabel = "" }) {
   const SP = { xs: 5, s: 20, m: 35, l: 60, xl: 90, xxl: 180, xxxl: 360 };
   const DARK = "#252422";
   const BRIGHT = "#F9F8F3";
