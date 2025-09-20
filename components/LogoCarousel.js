@@ -6,13 +6,13 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function LogoCarousel() {
   const logos = [
-    { src: "/images/Ossara-Logo.png", alt: "Logo 5", width: 100, height: 75 },
-    { src: "/images/otto-logo.png", alt: "Logo 1", width: 80, height: 75 },
-    { src: "/images/averdung-logo.png", alt: "Logo 2", width: 100, height: 75 },
-    { src: "/images/neuland_logo.png", alt: "Logo 3", width: 100, height: 75 },
-    { src: "/images/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 60, height: 75 },
-    { src: "/images/Improova_Logo_small_black.png", alt: "Logo 5", width: 100, height: 75 },
-    { src: "/images/Logo_QuCare_RGB.png", alt: "Logo 5", width: 100, height: 75 },
+    { src: "/images/Logos/Ossara-Logo.png", alt: "Logo 5", width: 100, height: 75 },
+    { src: "/images/Logos/otto-logo.png", alt: "Logo 1", width: 80, height: 75 },
+    { src: "/images/Logos/averdung-logo.png", alt: "Logo 2", width: 100, height: 75 },
+    { src: "/images/Logos/neuland_logo.png", alt: "Logo 3", width: 100, height: 75 },
+    { src: "/images/Logos/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 60, height: 75 },
+    { src: "/images/Logos/Improova_Logo_small_black.png", alt: "Logo 5", width: 100, height: 75 },
+    { src: "/images/Logos/Logo_QuCare_RGB.png", alt: "Logo 5", width: 100, height: 75 },
   ];
 
   const settings = {
