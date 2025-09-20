@@ -4,7 +4,6 @@ import Hero from "@/components/Hero";
 import ImageSlider from "@/components/ImageSlider";
 import ScrollBox from "@/components/ScrollBox";
 import ImageSliderLight from "@/components/ImageSliderLight";
-import DoubleTextBox from "@/components/DoubleTextBox";
 import ImageTextBox from "@/components/ImageTextBox";
 import StudioBox from "@/components/StudioBox";
 import TeamText from "@/components/TeamText";
@@ -16,14 +15,6 @@ import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import VideoTextBox from "@/components/VideoTextBox";
-
-import studioImage1 from "/public/images/KLUBSTUDIO_3.jpg";
-import studioImage4 from "/public/images/KLUBSTUDIO_6.jpg";
-import studioImage5 from "/public/images/KLUBSTUDIO_7.jpg";
-import studioImage6 from "/public/images/KLUBSTUDIO_8.jpg";
-import studioImage7 from "/public/images/KLUBSTUDIO_9.jpg";
-import studioImage9 from "/public/images/KLUBSTUDIO_13.jpg";
-import studioImage13 from "/public/images/KLUBSTUDIO_10.jpg";
 
 //02_Slider
 import slider_branding_01 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-01.jpg";
@@ -41,15 +32,11 @@ import service_design from "/public/images/03_Service/behind-the-scenes-dakiekst
 import service_webdev from "/public/images/03_Service/behind-the-scenes-dakiekste-03.jpg";
 import service_webdesign from "/public/images/03_Service/behind-the-scenes-dakiekste-04.jpg";
 import service_branding from "/public/images/03_Service/branding-fotografie-erneuerbare-energie-dakiekste-06.jpg";
-// import service_event from "/public/images/03_Service/eventfotografie-reeperbahnfestival-dakiekste-01.jpg";
 import service_event from "/public/images/03_Service/eventfotografie-reeperbahnfestival-dakiekste-02.jpg";
 import service_businessportrait from "/public/images/03_Service/team-portrait-foto-erneuerbare-energie-dakiekste-02.jpg";
 import service_video from "/public/images/03_Service/behind-the-scenes-dakiekste-05.jpg";
-// import service_produkt from "/public/images/03_Service/produktfotografie-dakiekste-02.jpg";
 import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_Detail_1.jpg";
-// import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_Detail_2.jpg";
-// import service_produkt from "/public/images/03_Service/produktfoto-dakiekste-ebike_1.jpg";
-import service_konzept from "/public/images/03_Service/behind-the-scenes-dakiekste-06.jpg";
+import service_konzept from "/public/images/03_Service/behind-the-scenes-dakiekste-konzeption.jpg";
 import service_erklaervideo from "/public/images/03_Service/behind-the-scenes-dakiekste-07.jpg";
 
 //04_Slider
@@ -72,6 +59,8 @@ import section08_Studio02 from "/public/images/08_Studio/klub-studio-equipment.j
 import section08_Studio03 from "/public/images/08_Studio/klub-studio-hair-and-makeup.jpg";
 import section08_Studio04 from "/public/images/08_Studio/klub-studio-hintergruende.jpg";
 import section08_Studio05 from "/public/images/08_Studio/klub-studio-parkplatz.jpg";
+import section08_Studio06 from "/public/images/08_Studio/klub-studio-requisiten.jpg";
+import section08_Studio07 from "/public/images/08_Studio/klub-studio-kaffee.jpg";
 
 //09_Image
 import section09_Image01 from "/public/images/09_Image/behind-the-scenes-dakiekste-04.jpg";
@@ -83,7 +72,7 @@ import section10_Team03 from "/public/images/10_Team/dakiekste-team-stellan-mais
 
 //11_Image
 import section11_Image01 from "/public/images/11_Image/klub-studio-fläche-01.jpg";
-import section11_Image02 from "/public/images/11_Image/klub-studio-fläche-02.jpg";
+import section11_Image02 from "/public/images/11_Image/klub-studio-bar-2.jpg";
 
 //11_Image
 import section12_Image01 from "/public/images/12_Image/erneuerbare-energie_brandshooting_photo-maischa-souaga.jpg";
@@ -138,61 +127,40 @@ export default function HomePage() {
         autoplay={true}
         projects={[
           {
-            alt: "",
+            alt: "Brandingfoto – Verein für Integration und Bildung – Beratungssituation mit zwei Personen",
             image: slider_branding_01,
           },
 
           {
-            alt: "",
+            alt: "Brandingfoto – Verein für Integration und Bildung – Gesprächssituation",
             image: slider_branding_02,
           },
           {
-            alt: "",
+            alt: "Brandingfoto – Erneuerbare Energien – Zwei Mitarbeiter vor Windrad draußen",
             image: slider_branding_03,
           },
           {
-            alt: "",
+            alt: "Brandingfoto – Erneuerbare Energien – Freies Foto einer Mitarbeiterin in Arbeitsumgebung",
             image: slider_branding_04,
           },
           {
-            alt: "",
+            alt: "Brandingfoto – Verein für Integration und Bildung – Beratungssituation mit zwei Personen",
             image: slider_branding_05,
           },
           {
-            alt: "",
+            alt: "Brandingfotografie – Gesundheit Bereich Pflege Sanitaetshaus – Teamfoto",
             image: slider_branding_06,
           },
           {
-            alt: "",
+            alt: "Brandingfoto – Erneuerbare Energien – Außenanlage Weitblick in der Natur mit zwei Mitarbeitern",
             image: slider_branding_07,
           },
           {
-            alt: "",
+            alt: "Brandingfoto – Erneuerbare Energien – Meeting Situation an Glaswand mit Notizen",
             image: slider_branding_08,
           },
         ]}
       />
-
-      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
-
-      {/* <DoubleTextBox
-        topline1="Ein Look – viele Kanäle"
-        headline1={
-          <>
-            Markenstrategie <br />& Bildsprache
-          </>
-        }
-        text1="Wir entwickeln einen visuellen Auftritt, der auf allen digitalen Kanälen funktioniert. Statt losem Stückwerk bekommst du eine durchdachte Bildsprache, die deine Marke einheitlich und wiedererkennbar macht.
-Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen flexiblen Bild- und Videopool, der mit deiner Marke mitwächst: langfristig, konsistent und klar positioniert."
-        topline2="Content, der wirkt"
-        headline2={
-          <>
-            Starke Bilder. <br />
-            Klare Botschaften.
-          </>
-        }
-        text2="Wir erstellen Bilder und Videos, die genau da ankommen, wo sie sollen – bei deiner Zielgruppe. Du bekommst Inhalte, die auffallen, hängen bleiben und Vertrauen schaffen. In ehrlicher Zusammenarbeit entstehen nahbare Bildwelten, in denen du dich gesehen fühlt. Du musst dich nicht um jedes Detail kümmern – wir denken mit und liefern Content, den du direkt einsetzen kannst."
-      /> */}
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
@@ -207,7 +175,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         text1="Bilder und Videos sind heute die Grundlage, um mit Kund*innen in Kontakt zu treten – vor allem auf Social Media. Wir erstellen Content, der zu deiner Marke passt und sich vielseitig einsetzen lässt: von kurzen Clips und Reels über Fotostrecken bis hin zu Material für Website oder Kampagnen. So entsteht echter Mehrwert: Dein Auftritt gewinnt an Tiefe, wirkt professionell und macht dich für die Menschen sichtbar, die du erreichen willst."
         text2=""
         image={section12_Image02}
-        alt="Description of image"
+        alt="Brandingfoto – Erneuerbare Energien – drei Mitarbeitende in Gesprächssituation draußen"
         flexflow="row-reverse"
         flexflowMobile="column-reverse"
       />
@@ -220,7 +188,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         text1="Menschen prägen Marken. Deshalb rücken wir sie in den Mittelpunkt – mit Portraits und Einblicken, die Nähe schaffen und deinem Unternehmen ein Gesicht geben. Branding- und Businessfotografie verbinden zwei Ebenen: Sie machen zum einen sichtbar, wofür dein Unternehmen steht und zum anderen zeigen sie die Menschen, die es prägen. Neben Portraits entstehen Eindrücke von Arbeitsweisen, Teamkultur und der Atmosphäre im Alltag. Das macht dein Unternehmen nahbar, spricht potenzielle Mitarbeitende an und zeigt, wie Zusammenarbeit, Haltung und Werte gelebt werden."
         text2=""
         image={section05_TextBox01}
-        alt="Description of image"
+        alt="Portrait – Business – Businessportrait"
         flexflow="row"
         flexflowMobile="column-reverse"
       />
@@ -247,7 +215,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             image: section04_slider04,
           },
           {
-            alt: "Business Portrait Studio vor braunem Hintergrund",
+            alt: "Business Portrait Outdoor",
             image: section04_slider01,
           },
           {
@@ -274,58 +242,68 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           boxData={[
             {
               image: service_branding,
-
+              alt: "Brandingfoto – Erneuerbare Energien – drei Mitarbeitende in Gesprächssituation outdoor vor Windrädern",
               title: "Branding Fotografie",
               text: "Das Besondere an Branding Fotografie ist der ganzheitliche Blick auf deine Marke. Wir zeigen dich und dein Team in Aktion, porträtieren Menschen, fangen Details ein und vermitteln die Stimmung, die hinter deinem Unternehmen steckt. So entsteht ein visueller Rundumblick. Gemeinsam entwickeln wir eine Bildsprache, die zu deinen Werten passt.",
             },
             {
               image: service_businessportrait,
+              alt: "Businessportrait – Erneuerbare Energien – Mitarbeiterin natuerlich vor weißen Hintergrund Tageslicht Look",
               title: "Businessportraits",
               text: "Business-Portraits zeigen die Menschen hinter deinem Unternehmen – ob CEO, Mitarbeitende oder das gesamte Team. Wir schaffen Bilder, die Persönlichkeit transportieren und dein Employer Branding stärken. Dabei begleiten wir dich durch den gesamten Prozess, vom Briefing bis zum Shooting, damit du dich vor der Kamera rundum wohlfühlst. So entstehen Portraits, die deinem Unternehmen ein klares und nahbares Gesicht geben.",
             },
             {
               image: service_video,
+              alt: "Behind the Scenes – Dakiekste – Stellan mit Kamera beim Filmen im Studio",
               title: "Imagefilm & Video-Content",
               text: "Mit unterschiedlichen Formaten wie Imagefilmen, Dokumentationen oder Interviews gibst du deiner Zielgruppe tiefere Einblicke. Videos entstehen in enger Zusammenarbeit – von der ersten Idee bis zum finalen Schnitt. Gemeinsam entwickeln wir ein Konzept und planen den Ablauf. Am Drehtag sorgen wir für eine entspannte Atmosphäre, in der authentische Aufnahmen entstehen können.",
             },
             {
               image: service_webdesign,
+              alt: "Behind the Scenes – Dakiekste – Maischa am Laptop webdesign ui ux design",
               title: "Website Design (UI/UX)",
               text: "Webdesign ist das Fundament jeder Website – es entscheidet darüber, wie verständlich Inhalte sind, wie sich Nutzer*innen orientieren und ob sie gerne bleiben. Eine gute Gestaltung macht Informationen leicht zugänglich. Deshalb denken wir Design nicht nur visuell, sondern auch strukturell und inhaltlich: Navigation, Layout, Typografie und Bildsprache greifen ineinander und machen deine Website zu einem Ort, an dem Menschen sich zurechtfinden.",
             },
             {
               image: service_webdev,
+              alt: "Behind the Scenes – Dakiekste – Stellan am Laptop coding coden",
               title: "Website Entwicklung",
               text: "Wir kümmern uns um die Umsetzung deiner Website – ohne Technikstress. Sie läuft, wächst und hält dir den Rücken frei. Ob CMS-System oder komplexere Anforderungen: Gemeinsam finden wir die passende Lösung für dich. Auf Wunsch richten wir die Seite so ein, dass du Inhalte selbst pflegen kannst – oder wir übernehmen die Betreuung im Abo-Modell, je nachdem, was am besten zu dir passt.",
             },
             {
               image: service_design,
+              alt: "Behind the Scenes – Dakiekste – Maischa beim kreativen Prozess",
               title: "Branding & Corporate Design",
               text: "Ein Corporate Design mit einem System aus Logo, Farben, Typografie und Gestaltungsrichtlinien schafft Klarheit und Wiedererkennung. Wir entwickeln ein Design, das konsistent wirkt und flexibel einsetzbar ist – von Logo bis zu Präsentationsvorlagen. Damit du es langfristig anwenden kannst, erhältst du ein Designmanual, in dem alle Elemente erklärt und die wichtigsten Regeln für den Einsatz festgehalten sind.",
             },
             {
               image: service_event,
+              alt: "Eventfotografie – Reeperbahn Festival – Rede zum Opening",
               title: "Eventfotografie",
               text: "Ob PR-Event, Produktlaunch, Networking, Keynote oder Teamoffsite – wir fangen die besonderen Momente ein, die in Erinnerung bleiben. Dabei bewegen wir uns dezent im Hintergrund und sind doch im richtigen Augenblick präsent, um Stimmung, Emotionen und Details festzuhalten. So entsteht eine umfangreiche Bilddokumentation deines Events.",
             },
             {
               image: service_produkt,
+              alt: "Produktfotografie – Ebike – Detailaufnahme eines Ebikes",
               title: "Produktfotografie",
               text: "Deine Produkte verdienen Bilder, die überzeugen. Wir setzen sie so in Szene, dass Qualität, Funktion und Design sichtbar werden. Durch unsere Erfahrung in der Produktfotografie könnt ihr euch darauf verlassen, dass eure Produkte optimal inszeniert werden – für Shops, Kataloge und Kampagnen gleichermaßen.",
             },
             {
               image: service_socialmedia,
+              alt: "Behind the scenes – Dakiekste – Vorbereitung der Kamera für Videoaufnahmen zur Content Produktion",
               title: "Content Produktion",
               text: "Wir produzieren die passenden Foto- und Videoinhalte. Ob Posts, Reels oder Stories: Mit einem klaren Plan entstehen Inhalte, die sichtbar machen, wofür du stehst und die inhaltlich wie visuell überzeugen. So wächst deine Reichweite, deine Kommunikation bleibt konsistent und du sparst Zeit in der Umsetzung mit einem passenden Bilderpool.",
             },
             {
               image: service_erklaervideo,
+              alt: "Behind the scenes – Dakiekste – Laptop mit einem Erklärvideo",
               title: "Erklärvideo",
               text: "Ein Erklärvideo bringt komplexe Inhalte auf den Punkt – anschaulich, verständlich und einprägsam. Mit animierten Illustrationen werden Abläufe, Produkte oder Dienstleistungen so erklärt, dass sie leicht zu erfassen sind. Gemeinsam mit erfahrenen Partner*innen aus unserem Netzwerk entwickeln wir Storyboard, Look und Animation, damit dein Thema klar und wirkungsvoll vermittelt wird.",
             },
             {
               image: service_konzept,
               title: "Konzeption & Workshop",
+              alt: "Behind the Scenes – Dakiekste – Maischa im Kreativprozess",
               mobileTitle: "Workshop",
               text: "Ob Corporate Identity, Branding oder Bildsprache – wir unterstützen dich dabei, deine visuelle Kommunikation zu ordnen und klarer zu gestalten. In Workshops teilen wir unser Wissen, beraten dich zu Strategie, Gestaltung und entwickeln gemeinsam Ideen.",
             },
@@ -366,7 +344,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         // link="Mehr zum Bilderpool"
         // url="/#pool"
         image={section06_TextBox01}
-        alt="Description of image"
+        alt="Brandingfotografie – Verein für Integration und Bildung – Person schreibt auf Flipchart"
         flexflow="row-reverse"
       />
 
@@ -441,41 +419,49 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           cards={[
             {
               image: section08_Studio05,
+              alt: "Foto der Parkplaetze vor dem Klub Studio",
               title: "Freie Parkplätze",
               description: "Im Hamburger Osten befindet sich unser Studio mit kostenlosen Parkplätzen direkt vor dem Gebäude.",
             },
             {
-              image: studioImage1,
+              image: section08_Studio03,
+              alt: "Foto des Hair & Makeup Bereiches im Klub Studio",
               title: "Hair & Makeup Bereich",
               description: "Unser Stylingbereich ist mit großem Spiegel, Kleiderstange, Steamer und Ablagefläche ausgestattet – ideal zum Ankommen, Vorbereiten und Wohlfühlen.",
             },
             {
               image: section11_Image01,
+              alt: "Foto der Fotostudio Fläche im Klub Studio",
               title: "Große Fotostudio-Fläche",
               description: "80 m² flexibel nutzbare Studiofläche mit Tageslicht und viel Raum für große und kleine Produktionen.",
             },
             {
               image: section08_Studio01,
+              alt: "Foto des Lounge & Arbeitsbereichs im Klub Studio",
               title: "Lounge & Arbeitsbereich",
               description: "Ein wandelbarer Bereich – ideal für Meetings, Pausen oder auch als Kulisse fürs nächste Set.",
             },
             {
               image: section08_Studio02,
+              alt: "Foto der Lichttechnik im Klub Studio",
               title: "Professionelle Lichttechnik",
               description: "Unser Studio ist mit hochwertiger Technik ausgestattet. Fast alles, was ein gutes Shooting braucht, ist vor Ort.",
             },
             {
               image: section08_Studio04,
+              alt: "Foto der Papierhintergründe im Klub Studio",
               title: "Flexible Sets & Hintergründe",
               description: "Unterschiedliche Papierhintergründe, Stoffe und mobile Setups ermöglichen abwechslungsreiche Looks – vom cleanen Portrait bis zur szenischen Inszenierung.",
             },
             {
-              image: studioImage13,
+              image: section08_Studio06,
+              alt: "Foto der Stühle im Klub Studio",
               title: "Vielfältige Requisiten",
               description: "Von Vorhängen über Möbel bis zu kleinen Details – im Studio haben wir viele Elemente, um dein Set individuell zu gestalten.",
             },
             {
-              image: studioImage9,
+              image: section08_Studio07,
+              alt: "Foto der Kaffeemaschine im Klub Studio",
               title: "Kaffee, Tee & kalte Getränke",
               description: "Für eine entspannte Arbeitsatmosphäre sorgen kleine Extras wie guter Kaffee aus der Siebträgermaschine und eine Auswahl an Getränken.",
             },
@@ -485,7 +471,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <ImageElement image={section09_Image01} alt="Bildbeschreibung" />
+      <ImageElement image={section09_Image01} alt="Behind the scenes – Dakiekste – Stellan in Arbeitssituation am Set im Studio" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
@@ -515,6 +501,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               name: "ÜBER MAÏSCHA",
               image: section10_Team01,
+              alt: "Portrait – Dakiekste – Portrait von Maischa im Studio",
               text: (
                 <>
                   <p>
@@ -527,6 +514,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               name: "ÜBER STELLAN",
               image: section10_Team02,
+              alt: "Portrait – Dakiekste – Portrait von Stellan im Studio",
 
               text: (
                 <>
@@ -540,6 +528,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
             {
               name: "Unsere Mission",
               image: section10_Team03,
+              alt: "Portrait – Dakiekste – Teamportrait von Dakiekste mit Maischa und Stellan im Studio",
               text: (
                 <>
                   <p>
@@ -793,7 +782,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <ImageElement image={section11_Image02} alt="Klub Studio Studiofläche" />
+      <ImageElement image={section11_Image02} alt="Still Foto des Lounge- und Arbeitsbereichs im  Klub Studio" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
       <section id="bilderpool">
@@ -811,23 +800,23 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
           cards={[
             {
               image: project_qucare_01,
-              description: "",
+              alt: "Portrait - Gesundheit und Pflege Sanitaetshaus - Mitarbeiter*innen Einzelportrait",
             },
             {
               image: project_qucare_02,
-              description: "",
+              alt: "Branding - Gesundheit und Pflege Sanitaetshaus - Detailaufnahme sterile Hanschuhe anziehen",
             },
             {
               image: project_qucare_03,
-              description: "",
+              alt: "Portrait - Gesundheit und Pflege Sanitaetshaus - Mitarbeiter*innen Einzelportrait",
             },
             {
               image: project_qucare_04,
-              description: "",
+              alt: "Branding - Gesundheit und Pflege Sanitaetshaus - Detailaufnahme Kompresse mit Pinzette aufnehmen",
             },
             {
               image: project_qucare_05,
-              description: "",
+              alt: "Portrait - Gesundheit und Pflege Sanitaetshaus - Teamportrait von zwei Personen",
             },
           ]}
         />
@@ -1026,7 +1015,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <ImageElement image={section12_Image01} alt="Bildbeschreibung" />
+      <ImageElement image={section12_Image01} alt="Brandingfotografie - Erneuerbare Energien - Portrait zweier Mitarbeitenden on Location outdoor vor Energieanlage" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
@@ -1036,7 +1025,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können – ohne Klischees, ohne Schablonen, ohne Druck. Mit Respekt, Offenheit und dem Anspruch, einen echten Saferspace zu schaffen. In der Zusammenarbeit setzen wir auf echte Begegnung: Ehrlich, aufmerksam und auf Augenhöhe. So entstehen Bildwelten, die verbinden."
         text2=""
         image={section12_TextBox01}
-        alt="Description of image"
+        alt="Behind the scenes - Dakiekste - Maischa und Stellan im Gesrpäch"
         flexflow="row"
         flexflowMobile="column-reverse"
       />
@@ -1048,7 +1037,7 @@ Ob Website, LinkedIn, Instagram oder Jobportale – du erhältst von uns einen f
         headline="Zusammen die Zukunft gestalten"
         text1="Einmal im Jahr unterstützen wir ein gemeinnütziges Projekt mit einer Fotokampagne. So rücken wir Themen und Menschen ins Licht, die sonst oft übersehen werden – und leisten einen kleinen Beitrag zu mehr Teilhabe. Du kennst ein passendes Projekt? Dann meld dich gerne bei uns – wir freuen uns auf eure Ideen."
         image={section13_TextBox01}
-        alt="Description of image"
+        alt="Behind the scenes - Dakiekste - Stellan am Laptop sitzend"
         flexflow="row-reverse"
         flexflowMobile="column-reverse"
       />

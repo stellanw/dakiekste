@@ -477,7 +477,7 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
           data-touch={isTouch ? "1" : "0"}
         >
           <StyledTrack ref={trackRef}>
-            {data.map(({ title, text, image, showIcon: itemShowIcon }, i) => {
+            {data.map(({ title, text, image, alt, showIcon: itemShowIcon }, i) => {
               const focused = focusedIndex === i;
 
               // Item-Flag > Prop (Prop default false). Strings "true"/"false" werden auch unterstützt.
@@ -488,7 +488,7 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
                   <StyledScrollBoxInner $focused={focused && !isTouch}>
                     {image && (
                       <ImageWrapper>
-                        <StyledImage src={image} alt={title} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
+                        <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
                       </ImageWrapper>
                     )}
 

@@ -1,4 +1,3 @@
-// pages/api/contact.js
 import nodemailer from "nodemailer";
 import { render, toPlainText } from "@react-email/render";
 import sanitizeHtml from "sanitize-html";
@@ -26,7 +25,6 @@ export default async function handler(req, res) {
     return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
-  // Logo laden
   let logoBuffer = null;
   try {
     if (fs.existsSync(logoPath)) logoBuffer = fs.readFileSync(logoPath);
@@ -34,31 +32,14 @@ export default async function handler(req, res) {
   const hasLogo = !!logoBuffer;
 
   try {
-    const {
-      email,
-      name,
-      company,
-      message,
-      roles,
-      otherRole,
-      budget,
-      acceptedTerms,
-      servicesHtml: servicesHtmlRaw, // vom Overlay
-      totalPrice: totalPriceRaw, // vom Overlay
-      businessType,
-      source,
-      selectedServices, // [{title,count,unitPrice,price}]
-      pronouns,
-    } = req.body || {};
+    const { email, name, company, message, roles, otherRole, budget, acceptedTerms, servicesHtml: servicesHtmlRaw, totalPrice: totalPriceRaw, businessType, source, selectedServices, pronouns } = req.body || {};
 
     if (!email || !name || !message) {
       return res.status(400).json({ error: "Missing fields" });
     }
 
-    // Nachricht vorbereiten
     const formattedMessage = message.replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>");
 
-    // Services ggf. aus Raw übernehmen
     let servicesHtml = "";
     if (servicesHtmlRaw) {
       servicesHtml = String(servicesHtmlRaw);
@@ -70,7 +51,6 @@ export default async function handler(req, res) {
         })
       : "";
 
-    // --- Hilfsfunktionen ---
     const stripServicesFromHtml = (html) => {
       if (!html) return "";
       return String(html)
@@ -86,10 +66,8 @@ export default async function handler(req, res) {
       return new Intl.NumberFormat("de-DE", { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(rounded) + " ,-";
     };
 
-    // Customer: Nachricht nur ohne Services
     const messageWithoutServicesForCustomer = stripServicesFromHtml(formattedMessage);
 
-    // Customer: Items aus selectedServices
     const itemsForCustomer = Array.isArray(selectedServices)
       ? selectedServices.map((s) => ({
           qty: s.count ?? 1,
@@ -108,24 +86,19 @@ export default async function handler(req, res) {
 
     const totalPriceDisplayAdmin = typeof totalPriceRaw === "number" ? fmtEuroDash(totalPriceRaw) : req.body?.priceDisplay || "auf Anfrage";
 
-    // Customer: Total
     const totalPriceDisplay = typeof totalPriceRaw === "number" ? fmtEuroDash(totalPriceRaw) : req.body?.priceDisplay || "auf Anfrage";
 
-    //Admin
     const messageForAdmin = formattedMessage;
 
-    // Sanitizen
     const cleanMessageForAdmin = sanitizeHtml(messageForAdmin, {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat(["br", "p", "ul", "li", "strong", "em", "u", "span"]),
     });
 
-    // Quelle & Betreff
     const s = (source || "").toLowerCase();
     const isOverlay = s === "overlay" || Boolean(cleanServices) || Boolean(totalPriceRaw);
     const adminSubject = isOverlay ? "Neue Anfrage über den Preiskalkulator" : "Neue Nachricht über das Kontaktformular";
     const sourceLabel = isOverlay ? "eingegangen über den Preiskalkulator" : "eingegangen über das Kontaktformular";
 
-    // SMTP verify im Dev
     if (process.env.NODE_ENV !== "production") {
       try {
         await transporter.verify();
@@ -134,7 +107,6 @@ export default async function handler(req, res) {
       }
     }
 
-    // --- Rendern ---
     const [adminHtml, customerHtml] = await Promise.all([
       render(
         <AdminEmail
@@ -197,7 +169,6 @@ export default async function handler(req, res) {
         : [],
     });
 
-    // Kunden-Mail
     await transporter.sendMail({
       from: `"DAKIEKSTE" <${process.env.EMAIL_USER}>`,
       to: email,

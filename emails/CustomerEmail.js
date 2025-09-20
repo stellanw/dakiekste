@@ -1,11 +1,8 @@
-// emails/CustomerEmail.js
 import { Html, Head, Preview, Body, Container, Section, Text, Heading } from "@react-email/components";
 
 export default function CustomerEmail({ name, messageHtml, servicesHtml, items, totalPrice, year = new Date().getFullYear(), logoCid, preview = false }) {
-  // Spacing
   const SP = { xs: 5, s: 20, m: 35, l: 60, xl: 90, xxl: 180, xxxl: 360 };
 
-  // Brand
   const DARK = "#252422";
   const BRIGHT = "#F9F8F3";
   const ACCENT = "#A3FFB7";
@@ -22,11 +19,26 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
     </svg>
   );
 
-  // ---------- Styles ----------
   const Styles = () => (
     <style>{`
       :root { color-scheme: light dark; supported-color-schemes: light dark; }
       body, .body, .card { font-family: Figtree, Helvetica, Arial, sans-serif; }
+
+/* Font utilities (Desktop default) */
+.fs-12 { font-size:12px !important; }
+.fs-14 { font-size:14px !important; }
+.fs-18 { font-size:18px !important; }
+.fs-20 { font-size:20px !important; }
+.fs-22 { font-size:22px !important; }
+
+/* Mobile override */
+@media only screen and (max-width:480px) {
+  .fs-12 { font-size:11px !important; }
+  .fs-14 { font-size:12px !important; }
+  .fs-18 { font-size:16px !important; }
+  .fs-20 { font-size:17px !important; }
+  .fs-22 { font-size:19px !important; }
+}
 
       /* Light default */
       .frame { background:${BRIGHT}; }
@@ -34,7 +46,7 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
   margin: 0 auto; }
 
       .card  { background:${ACCENT}; color:${DARK}; border-radius:12px; }
-      .caps  { text-transform:uppercase; letter-spacing:.06em; }
+      .caps  { text-transform:uppercase; letter-spacing:.06em; font-weight: 200; margin: 0 !important; }
       .small { font-size:12px; opacity:.75; }
 
       /* Dark override */
@@ -72,10 +84,13 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
 @media only screen and (max-width:480px) {
   .logo-section { margin: 40px 0 100px 0 !important; }
 }
+
+@media only screen and (max-width:480px) {
+  .fs-22, .fs-20, .fs-18, .fs-14, .fs-12 { line-height:1.5 !important; }
+}
     `}</style>
   );
 
-  // ---------- 900px Wrapper (für Mail-Clients verlässlich) ----------
   const CenteredWrapper = ({ children }) => (
     <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" className="itemtable" style={{ width: "100%", borderCollapse: "separate", maxWidth: LAYOUT_WIDTH, margin: "auto" }}>
       <tbody>
@@ -86,21 +101,18 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
     </table>
   );
 
-  // ---------- Tabelle für Leistungszeilen ----------
   const ItemsTable = () => (
     <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" className="itemtable" style={{ width: "100%", borderCollapse: "separate" }}>
       <tbody>
         {(items || []).map((it, i) => (
           <tr key={i} className="itemrow">
-            <td className="qty" style={{ paddingTop: i ? SP.m : 0, width: 24, verticalAlign: "top", fontSize: 20 }}>
+            <td className="qty fs-20" style={{ paddingTop: i ? SP.s : 0, width: 24, verticalAlign: "top" }}>
               {it.qty}
             </td>
-
-            <td className="title" style={{ paddingTop: i ? SP.m : 0, verticalAlign: "top", fontSize: 20 }}>
+            <td className="title fs-20" style={{ paddingTop: i ? SP.s : 0, verticalAlign: "top" }}>
               {it.title}
             </td>
-
-            <td className="price" style={{ paddingTop: i ? SP.m : 0, textAlign: "right", verticalAlign: "top", whiteSpace: "nowrap", fontSize: 20 }}>
+            <td className="price fs-20" style={{ paddingTop: i ? SP.s : 0, textAlign: "right", verticalAlign: "top", whiteSpace: "nowrap" }}>
               {it.price}
             </td>
           </tr>
@@ -109,45 +121,44 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
     </table>
   );
 
-  // ---------- Gemeinsamer Inhalt ----------
   const Inner = () => (
     <>
-      {/* Logo */}
       <Section className="logo-section" style={{ margin: `${SP.xl}px 0 ${SP.xxl}px 0`, textAlign: "left" }}>
         <img src={logoCid ? `cid:${logoCid}` : "https://vercel.dakiekste.app/emails/logo.png"} width="200" alt="Dakiekste Logo" style={{ display: "block", width: "200px", height: "auto", border: 0, margin: 0 }} />
       </Section>
 
-      {/* Name + Intro */}
-      <Section style={{ marginBottom: SP.xl }}>
-        <Heading as="h2" style={{ margin: 0, fontWeight: 800, textTransform: "uppercase", letterSpacing: ".04em", fontSize: 20 }}>
+      <Section style={{ marginBottom: SP.l }}>
+        <Heading as="h2" className="fs-20" style={{ margin: 0, fontWeight: 800, textTransform: "uppercase", letterSpacing: ".04em" }}>
           Moin {name},
         </Heading>
-        <Text style={{ margin: `${SP.xs}px 0 0 0`, lineHeight: 1.6, fontSize: 20 }}>Danke für deine Nachricht. Wir haben deine Anfrage erhalten und melden uns schnellstmöglich bei dir.</Text>
+        <Text className="fs-18" style={{ margin: `${SP.xs}px 0 0 0`, lineHeight: 1.6, fontWeight: 200 }}>
+          Danke für deine Nachricht. Wir haben deine Anfrage erhalten und melden uns schnellstmöglich bei dir.
+        </Text>
       </Section>
 
-      {/* Card 1 – Deine Nachricht */}
       <Container className="card" style={{ minWidth: "100%", marginBottom: SP.l }}>
-        <Text className="caps" style={{ margin: 0, opacity: 0.85, fontWeight: 600, fontSize: 20 }}>
-          Deine Nachricht
-        </Text>
-        <div style={{ marginTop: SP.s, lineHeight: 1.6, fontSize: 20 }} dangerouslySetInnerHTML={{ __html: messageHtml }} />
+        <Text className="caps fs-20">Deine Nachricht</Text>
+        <div className="fs-20" style={{ marginTop: SP.s, lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: messageHtml }} />
       </Container>
 
-      {/* Card 2 – Ausgewählte Leistungen */}
       {(hasServices || hasServicesHtml) && (
         <Container className="card" style={{ minWidth: "100%", marginBottom: SP.l }}>
-          <Text className="caps" style={{ margin: 0, opacity: 0.85, fontWeight: 600, fontSize: 20 }}>
-            Ausgewählte Leistungen
-          </Text>
+          <Text className="caps fs-20">Ausgewählte Leistungen</Text>
 
-          <div style={{ marginTop: SP.s, marginBottom: SP.xl }}>{hasServices ? <ItemsTable /> : <div style={{ fontSize: 18, lineHeight: 1.6 }} dangerouslySetInnerHTML={{ __html: servicesHtml }} />}</div>
+          <div className="fs-18" style={{ marginTop: SP.s, marginBottom: SP.l }}>
+            {hasServices ? <ItemsTable /> : <div className="fs-18" style={{ lineHeight: 1.7 }} dangerouslySetInnerHTML={{ __html: servicesHtml }} />}
+          </div>
 
           {typeof totalPrice !== "undefined" && totalPrice !== null && (
             <table role="presentation" width="100%">
               <tbody>
                 <tr>
-                  <td style={{ fontWeight: 700, fontSize: 20 }}>Gesamt zzgl. MwSt.</td>
-                  <td style={{ textAlign: "right", fontWeight: 800, fontSize: 20 }}>{totalPrice}</td>
+                  <td className="fs-20" style={{ fontWeight: 700 }}>
+                    Gesamt zzgl. MwSt.
+                  </td>
+                  <td className="fs-20" style={{ textAlign: "right", fontWeight: 800 }}>
+                    {totalPrice}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -155,27 +166,29 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
         </Container>
       )}
 
-      {/* Grüße + Social + Copyright */}
       <Section style={{ marginBottom: SP.xxxl }}>
-        <Text style={{ margin: 0, lineHeight: 1.6, fontSize: 20 }}>Herzliche Grüße</Text>
-        <Text style={{ margin: `0 0 ${SP.xl}px 0`, lineHeight: 1.6, fontSize: 20 }}>Dein DAKIEKSTE Team</Text>
+        <Text className="fs-18" style={{ margin: 0, lineHeight: 1.6 }}>
+          Herzliche Grüße
+        </Text>
+        <Text className="fs-18" style={{ margin: `0 0 ${SP.xl}px 0`, lineHeight: 1.6 }}>
+          Dein DAKIEKSTE Team
+        </Text>
 
-        {/* Social-Links im Footer */}
         <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" style={{ textAlign: "left" }}>
           <tbody>
             <tr>
               <td style={{ paddingRight: "16px" }}>
-                <a href="https://www.instagram.com/dakiekste_/" style={{ fontSize: 14, textDecoration: "none", color: "inherit" }}>
+                <a className="fs-14" href="https://www.instagram.com/dakiekste_/" style={{ textDecoration: "none", color: "inherit" }}>
                   Instagram <ArrowIcon />
                 </a>
               </td>
               <td style={{ paddingRight: "16px" }}>
-                <a href="https://www.instagram.com/dakiekste_/" style={{ fontSize: 14, textDecoration: "none", color: "inherit" }}>
+                <a className="fs-14" href="https://www.linkedin.com/company/dakiekste" style={{ textDecoration: "none", color: "inherit" }}>
                   LinkedIn <ArrowIcon />
                 </a>
               </td>
               <td>
-                <a href="https://maps.app.goo.gl/iZ7HtKwumP9fSiov9" style={{ fontSize: 14, textDecoration: "none", color: "inherit" }}>
+                <a className="fs-14" href="https://maps.app.goo.gl/iZ7HtKwumP9fSiov9" style={{ textDecoration: "none", color: "inherit" }}>
                   Standort <ArrowIcon />
                 </a>
               </td>
@@ -183,14 +196,13 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
           </tbody>
         </table>
 
-        <Text className="small" style={{ marginTop: SP.s, fontSize: 12 }}>
+        <Text className="small fs-12" style={{ marginTop: SP.s }}>
           © {year} | Dakiekste. Alle Rechte vorbehalten.
         </Text>
       </Section>
     </>
   );
 
-  // ---------- Preview ----------
   if (preview) {
     return (
       <div className="frame">
@@ -204,7 +216,6 @@ export default function CustomerEmail({ name, messageHtml, servicesHtml, items, 
     );
   }
 
-  // ---------- Versand ----------
   return (
     <Html>
       <Head>

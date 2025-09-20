@@ -167,7 +167,7 @@ export default function ContactForm() {
             </StyledCheckboxGroup>
 
             <StyledButton type="submit" disabled={loading}>
-              {loading ? "Senden..." : "Senden"}
+              {loading ? "SENDEN..." : "SENDEN"}
             </StyledButton>
             {responseMessage && <p>{responseMessage}</p>}
           </StyledForm>

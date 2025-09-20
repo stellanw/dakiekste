@@ -4,7 +4,7 @@ import { useMemo, useState, useEffect, useRef } from "react";
 import { PiPlus, PiMinus } from "react-icons/pi";
 
 export default function FAQ({ faqData = [] }) {
-  const [activeCaption, setActiveCaption] = useState("Alle");
+  const [activeCaption, setActiveCaption] = useState("Allgemein");
   const [openIndex, setOpenIndex] = useState(null);
 
   const listRef = useRef(null);
@@ -29,7 +29,7 @@ export default function FAQ({ faqData = [] }) {
   }, [faqData]);
 
   const filteredFaqs = useMemo(() => {
-    return faqData.filter((f) => activeCaption === "Alle" || f.caption === activeCaption);
+    return faqData.filter((f) => activeCaption === "Allgemein" || f.caption === activeCaption);
   }, [faqData, activeCaption]);
 
   useEffect(() => {
