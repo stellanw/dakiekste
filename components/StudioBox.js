@@ -93,7 +93,7 @@ export default function StudioBox({ topline, headline, text1, text2, cards }) {
                     }
                   }}
                 >
-                  <StyledImage src={card.image} alt={card.alt} layout="fill" draggable={false} />
+                  <StyledImage src={card.image} alt={card.alt} fill draggable={false} />
                   <ToggleBadge
                     type="button"
                     aria-label={isOpen ? "Details schließen" : "Mehr Infos anzeigen"}

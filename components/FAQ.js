@@ -70,15 +70,15 @@ export default function FAQ({ faqData = [] }) {
 
       <FAQList ref={listRef}>
         {filteredFaqs.map((faq, index) => (
-          <FAQItem key={`${faq.caption}-${faq.question}`} isOpen={openIndex === index} ref={(el) => (itemRefs.current[index] = el)}>
-            <FAQItemContent isOpen={openIndex === index}>
+          <FAQItem key={`${faq.caption}-${faq.question}`} $isOpen={openIndex === index} ref={(el) => (itemRefs.current[index] = el)}>
+            <FAQItemContent $isOpen={openIndex === index}>
               <h2>{faq.caption}</h2>
               <FAQItemDetails>
                 <FAQQuestionWrapper>
-                  <FAQQuestion isOpen={openIndex === index} onClick={() => toggleOverlay(index)}>
+                  <FAQQuestion $isOpen={openIndex === index} onClick={() => toggleOverlay(index)}>
                     {faq.question}
                   </FAQQuestion>
-                  <ToggleIcon isOpen={openIndex === index} onClick={() => toggleOverlay(index)}>
+                  <ToggleIcon $isOpen={openIndex === index} onClick={() => toggleOverlay(index)}>
                     {openIndex === index ? <PiMinus /> : <PiPlus />}
                   </ToggleIcon>
                 </FAQQuestionWrapper>
@@ -204,13 +204,13 @@ const EmptyState = styled.p`
 const FAQItem = styled.li`
   display: flex;
   flex-direction: column;
-  background-color: ${({ isOpen }) => (isOpen ? theme.color.green : "transparent")};
-  color: ${({ isOpen }) => (isOpen ? theme.color.dark : "inherit")};
-  border-radius: ${({ isOpen }) => (isOpen ? theme.borderRadius : "0")};
+  background-color: ${({ $isOpen }) => ($isOpen ? theme.color.green : "transparent")};
+  color: ${({ $isOpen }) => ($isOpen ? theme.color.dark : "inherit")};
+  border-radius: ${({ $isOpen }) => ($isOpen ? theme.borderRadius : "0")};
   h2 {
     min-width: 200px;
     margin: 0;
-    padding: ${({ isOpen }) => (isOpen ? "var(--spacing-m) 0 var(--spacing-m) var(--spacing-m)" : "var(--spacing-m) 0")};
+    padding: ${({ $isOpen }) => ($isOpen ? "var(--spacing-m) 0 var(--spacing-m) var(--spacing-m)" : "var(--spacing-m) 0")};
     @media (max-width: ${theme.breakpoints.tablet}) {
       display: none;
     }
@@ -219,9 +219,9 @@ const FAQItem = styled.li`
 
 const FAQQuestion = styled.span`
   font-size: var(--font-m);
-  font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
+  font-weight: ${({ $isOpen }) => ($isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
   @media (min-width: ${theme.breakpoints.tablet}) {
-    font-weight: ${({ isOpen }) => (isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
+    font-weight: ${({ $isOpen }) => ($isOpen ? theme.fontWeight.bold : theme.fontWeight.light)};
     font-size: var(--font-l);
   }
 
@@ -277,11 +277,11 @@ const ToggleIcon = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: ${({ isOpen }) => (isOpen ? theme.color.dark : theme.color.beige)};
+  color: ${({ $isOpen }) => ($isOpen ? theme.color.dark : theme.color.beige)};
   transition: color 0.3s ease;
-  align-self: ${({ isOpen }) => (isOpen ? "flex-start" : "center")};
+  align-self: ${({ $isOpen }) => ($isOpen ? "flex-start" : "center")};
   &:hover {
-    color: ${({ isOpen }) => (isOpen ? theme.color.dark : theme.color.green)};
+    color: ${({ $isOpen }) => ($isOpen ? theme.color.dark : theme.color.green)};
     svg {
       stroke-width: 1.5;
       scale: 1.1;
