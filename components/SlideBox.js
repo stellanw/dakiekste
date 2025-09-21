@@ -46,7 +46,6 @@ export default function SlideBox({ boxData = [], headline1, headline2, autoplay 
     ref: sliderRef,
   };
 
-  // Gehe zu einem bestimmten Slide
   const goToSlide = (index) => {
     sliderRef.current.slickGoTo(index);
   };
@@ -92,7 +91,6 @@ const StyledSlider = styled(Slider)`
   position: relative;
   padding: ${theme.spacing.xxl} 0;
 
-  /* transform: translateX(${theme.spacing.mobile.side}); */
   @media (min-width: 750px) {
     padding: ${theme.spacing.xxl} 0;
     transform: translateX(+8rem);

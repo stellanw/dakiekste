@@ -36,7 +36,6 @@ export const euroDash = (value, { star = false } = {}) => {
 };
 
 export default function Pricing({ pricingData, servicesData }) {
-  // States
   const [selectedCategory, setSelectedCategory] = useState({
     businessType: "Soloselbstständig",
     projectType: "Fotografie",
@@ -48,12 +47,10 @@ export default function Pricing({ pricingData, servicesData }) {
   const [isMobile, setIsMobile] = useState(false);
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
 
-  // Refs
   const stashRef = useRef({ services: [], counts: {} });
   const selRef = useRef([]);
   const countsRef = useRef({});
 
-  // Effects
   useEffect(() => {
     selRef.current = selectedServices;
   }, [selectedServices]);
@@ -92,7 +89,6 @@ export default function Pricing({ pricingData, servicesData }) {
     setOpenKey(null);
   }, [selectedCategory.businessType]);
 
-  // Handler
   const handleCategorySelection = (key, option) => {
     setSelectedCategory((prev) => ({ ...prev, [key]: option }));
   };
@@ -139,7 +135,6 @@ export default function Pricing({ pricingData, servicesData }) {
     });
   };
 
-  // Derived Values
   const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
@@ -159,11 +154,10 @@ export default function Pricing({ pricingData, servicesData }) {
   };
 
   const formatCeil = (value) => {
-    const num = Math.ceil(Number(value) || 0); // immer aufrunden
-    return DEC0.format(num); // ohne Nachkommastellen, deutsche Schreibweise
+    const num = Math.ceil(Number(value) || 0);
+    return DEC0.format(num);
   };
 
-  // ScrollHint für OutcomeContent
   const outcomeListRef = useRef(null);
   const [showOutcomeHint, setShowOutcomeHint] = useState(false);
 
@@ -189,8 +183,7 @@ export default function Pricing({ pricingData, servicesData }) {
     };
   }, [selectedServices.length]);
 
-  // Monatlischer Preis + Zinsen
-  const MARKUP_PCT = 8; // Prozent Zinssatz
+  const MARKUP_PCT = 8;
   const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
 
   return (
@@ -370,30 +363,24 @@ export default function Pricing({ pricingData, servicesData }) {
   );
 }
 
-/* NEU */
 const OuterWrapper = styled.section`
   width: 100%;
-  background-color: ${theme.color.beige}; /* volle Breite */
-  padding: var(--spacing-xxxl) 0; /* vertikales Spacing wie vorher */
+  background-color: ${theme.color.beige};
+  padding: var(--spacing-xxxl) 0;
 `;
 
-/* NEU */
 const InnerWrapper = styled.div`
   width: 100%;
-  max-width: var(--max-content); /* deine zentrale Breite */
-  margin: 0 auto; /* x-achsige Zentrierung */
-  padding: 0 var(--side-padding); /* einheitlicher Seitenabstand */
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
 `;
 
-/* ANGEPASST: horizontales Padding raus (liegt jetzt im InnerWrapper) */
 const PricingContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-
-  /* HINWEIS: kein background + kein vertikales Padding mehr hier */
-  /* background liegt im OuterWrapper, vertikales Padding ebenfalls */
 
   input {
     background-color: ${theme.color.beige};
@@ -413,7 +400,6 @@ const PricingContainer = styled.div`
   }
 `;
 
-/* ANGEPASST: horizontales Padding raus (steht im InnerWrapper) */
 const HeadlineContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -428,60 +414,11 @@ const HeadlineContainer = styled.div`
   }
 `;
 
-/* ANGEPASST: horizontales Padding raus */
 const CalculatorContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
-
-// const PricingContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-//   padding: var(--spacing-xxxl) 0;
-//   background-color: ${theme.color.beige};
-
-//   input {
-//     background-color: ${theme.color.beige};
-//     border: solid 3px ${theme.color.dark};
-//     min-width: 30px;
-//     min-height: 30px;
-
-//     &:checked {
-//       background-color: ${theme.color.green};
-//     }
-//     &:active {
-//       background-color: none !important;
-//     }
-
-//     &:focus {
-//       background-color: none !important;
-//     }
-//   }
-// `;
-
-// const HeadlineContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   margin-bottom: var(--spacing-xl);
-//   width: 100%;
-//   padding: 0 var(--spacing-xl);
-//   h4 {
-//     text-align: center;
-//     max-width: 1000px;
-//   }
-// `;
-
-// const CalculatorContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   padding: 0 var(--spacing-xl);
-// `;
 
 const CategoriesContainer = styled.div`
   display: flex;
@@ -527,7 +464,6 @@ const Option = styled.label`
   user-select: none;
   padding: var(--spacing-xxs) var(--spacing-xs);
 
-  /* Hover-Einheit: Kreis + Text gemeinsam */
   ${({ $checked }) =>
     !$checked &&
     css`
@@ -773,7 +709,6 @@ const Description = styled.p`
 `;
 
 const Price = styled.h6`
-  /* margin-bottom: calc(0.5 * var(--spacing-xs)); */
   margin: 0;
 `;
 
@@ -956,7 +891,6 @@ const OutcomeScrollHint = styled.button`
   color: ${theme.color.dark};
   z-index: 2;
 
-  /* dezenter Fade-Overlay am unteren Rand */
   &::before {
     content: "";
     position: absolute;

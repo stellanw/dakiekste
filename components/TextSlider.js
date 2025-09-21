@@ -30,7 +30,6 @@ export default function TextSlider({ reviews, autoplay }) {
     autoplay,
     autoplaySpeed: 6000,
     arrows: false,
-    // fade: isMobile,
     fade: false,
     swipe: true,
     beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex),
@@ -169,29 +168,3 @@ const ProgressSegment = styled.div`
     background-color: ${theme.color.beige};
   }
 `;
-
-{
-  /* <TextSlider
-        autoplay={true}
-        reviews={[
-          {
-            client: "Maximilian T. - Marketing Director",
-            text: "»Die Zusammenarbeit war effizient und das Ergebnis übertrifft unsere Erwartungen!«",
-            link: "Click here",
-            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-          },
-          {
-            client: "MiERGEBNISSEriam L. - HR Manager",
-            text: "»Die Mitarbeiterfotos von Dakiekste haben unseren Recruiting-Prozess enorm verbessert. «",
-            link: "Click here",
-            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-          },
-          {
-            client: "Jana F - CEO",
-            text: "»Dank Dakiekste konnten wir unsere Markenidentität visuell perfekt inszenieren. «",
-            link: "Click here",
-            url: "https://developer.mozilla.org/de/docs/Web/CSS/object-fit",
-          },
-        ]}
-      /> */
-}

@@ -2,7 +2,6 @@ import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
 import { theme } from "@/styles";
-import AugenIcon from "@/Icons/AugenIcon";
 
 export default function Custom404() {
   return (
@@ -17,14 +16,6 @@ export default function Custom404() {
           <Title>Seite nicht gefunden</Title>
           <Lead>Der Link könnte veraltet sein – oder die Seite wurde verschoben. Schau dich gern weiter um.</Lead>
           <Actions>
-            {/* <EyeWrapper>
-              <AugenIconWrapper>
-                <AugenIcon width={100} height={100} color={theme.color.dark} />
-              </AugenIconWrapper>
-              <AugenIconWrapper>
-                <AugenIcon width={100} height={100} color={theme.color.dark} />
-              </AugenIconWrapper>
-            </EyeWrapper> */}
             <Btn href="/">Zur Startseite</Btn>
             <Btn href="/#services">Leistungen</Btn>
             <Btn href="/#contact">Kontakt</Btn>
@@ -85,17 +76,4 @@ const Btn = styled(Link)`
     transform: translateY(-1px);
     background: ${theme.color.green};
   }
-`;
-
-const EyeWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 33px;
-  svg {
-    margin: -100px -50px -45px -100px;
-  }
-`;
-
-const AugenIconWrapper = styled.div`
-  transform: rotate(-20deg);
 `;

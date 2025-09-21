@@ -2,7 +2,6 @@ import { ThemeProvider, StyleSheetManager } from "styled-components";
 import GlobalStyle from "../styles";
 import { theme } from "../styles";
 import { useEffect } from "react";
-// import CustomCursor from "@/components/CustomCursor";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -23,7 +22,6 @@ export default function App({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
-          {/* <CustomCursor /> */}
           <Component {...pageProps} />
         </>
       </ThemeProvider>

@@ -7,19 +7,6 @@ import BackToTopButton from "@/components/BackToTopButton";
 export default function Impressum() {
   const router = useRouter();
 
-  const handleBack = () => {
-    if (typeof document !== "undefined" && document.referrer) {
-      const refUrl = new URL(document.referrer);
-      if (refUrl.origin === window.location.origin) {
-        // Zurück auf die exakte Seite inkl. Hash
-        router.push(refUrl.pathname + refUrl.search + refUrl.hash);
-        return;
-      }
-    }
-    // Fallback: Startseite
-    router.push("/");
-  };
-
   const email = "info" + "@" + "dakiekste" + ".com";
 
   return (
@@ -162,15 +149,4 @@ const StyledImpressumContainer = styled.div`
   ul {
     margin-bottom: var(--spacing-m);
   }
-`;
-
-const Styledh2normal = styled.h2`
-  margin-bottom: 0 !important;
-`;
-const Styledh2 = styled.h2`
-  font-weight: ${theme.fontWeight.mediumBold};
-`;
-
-const Styledh3normal = styled.h3`
-  margin-top: 0 !important;
 `;

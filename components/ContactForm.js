@@ -219,7 +219,7 @@ const StyledFormWrapper = styled.div`
 
 const InnerWrapper = styled.div`
   width: 100%;
-  max-width: var(--max-content); /* zentrale Begrenzung */
+  max-width: var(--max-content);
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
