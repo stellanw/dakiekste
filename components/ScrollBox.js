@@ -49,14 +49,12 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
 
   const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // --- Variante A: letztes zuerst ---
   const baseArr = useMemo(() => (Array.isArray(boxData) ? boxData : []), [boxData]);
   const rotated = useMemo(() => {
     if (baseArr.length <= 1) return baseArr;
     return [baseArr[baseArr.length - 1], ...baseArr.slice(0, -1)];
   }, [baseArr]);
 
-  // Data: mobil 1×, Desktop 3×
   const data = useMemo(() => (isTouch ? baseArr : [...rotated, ...rotated, ...rotated]), [isTouch, baseArr, rotated]);
 
   const clampOrWrapLeft = useCallback(
@@ -480,7 +478,6 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
             {data.map(({ title, text, image, alt, showIcon: itemShowIcon }, i) => {
               const focused = focusedIndex === i;
 
-              // Item-Flag > Prop (Prop default false). Strings "true"/"false" werden auch unterstützt.
               const showIconEffective = typeof itemShowIcon === "boolean" ? itemShowIcon : showIcon === true || showIcon === "true";
 
               return (

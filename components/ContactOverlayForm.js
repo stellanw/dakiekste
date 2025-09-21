@@ -1,4 +1,3 @@
-// ContactOverlayForm.js
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { theme } from "@/styles";
@@ -71,11 +70,9 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
 
   const total = structured.reduce((sum, x) => sum + x.price, 0);
 
-  // ContactOverlayForm.js – NUR diese Funktion ersetzen
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // strukturierte Auswahl liegt schon in `structured`
     const selectedSummaryHTML = structured
       .map((s) => {
         const countStr = s.count > 1 ? ` (${s.count}x)` : "";
@@ -84,30 +81,27 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
       })
       .join("");
 
-    const totalStr = showOnRequest ? undefined : Number(total.toFixed(2)); // als Zahl schicken
+    const totalStr = showOnRequest ? undefined : Number(total.toFixed(2));
     const pronouns = data.pronouns === "andere" ? (data.customPronouns || "").trim() : data.pronouns;
 
-    // ⬇️ WICHTIG: Nachricht jetzt **ohne** Services/Total/Business-Typ
-    // Rohtext senden; das API formatiert \n → <p>/<br>
     const payload = {
       name: data.fullName || undefined,
       company: data.company || undefined,
       email: data.email,
-      message: data.message || "", // <-- nur freie Nachricht
+      message: data.message || "",
       source: "overlay",
       businessType: businessType || undefined,
       acceptedTerms: data.acceptedTerms || false,
 
-      // Leistungen separat
       servicesHtml: `<ul>${selectedSummaryHTML}</ul>`,
-      totalPrice: totalStr, // Zahl (oder undefined bei "auf Anfrage")
+      totalPrice: totalStr,
       selectedServices: structured.map((s) => ({
         title: s.title,
         count: s.count,
         unitPrice: showOnRequest ? undefined : s.unitPrice,
         price: showOnRequest ? undefined : s.price,
       })),
-      // optionaler Anzeige-String fürs Fallback
+
       priceDisplay: showOnRequest ? "auf Anfrage" : `${total.toFixed(2)} €`,
 
       pronouns: pronouns || undefined,
@@ -122,7 +116,6 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || json.error || "Fehler beim Senden");
 
-      // Reset
       if (isControlled) setFormData(initialForm);
       else setLocalForm(initialForm);
 
@@ -144,8 +137,6 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
     const rounded = Math.round(Number(value) || 0);
     return `${DEC0.format(rounded)} ,-` + (star ? "*" : "");
   };
-
-  /// Down Button
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -183,7 +174,6 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
     };
   }, [isMobile, structured.length]);
 
-  //fix body to prevent scrolling
   useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
@@ -274,15 +264,6 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
               </CloseButton>
               <h3>Danke für deine Nachricht!</h3>
               <p>{responseMessage}</p>
-              {/* <StyledButton
-                type="button"
-                onClick={() => {
-                  setResponseMessage("");
-                  setIsSuccess(false);
-                }}
-              >
-                Neue Nachricht senden
-              </StyledButton> */}
             </StyledSuccessMessage>
           ) : isError ? (
             <StyledSuccessMessage>
@@ -497,9 +478,8 @@ const OverlaySelect = styled.select`
   -moz-appearance: none;
   appearance: none;
   background-repeat: no-repeat;
-  background-position: right 10px center; /* Abstand vom Rand */
+  background-position: right 10px center;
   background-size: 1rem;
-  /* Standard: Pfeil grün */
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polyline points='5 7 10 12 15 7' fill='none' stroke='${theme.color.dark.replace("#", "%23")}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
 
   &:focus,
@@ -579,10 +559,7 @@ const OverlayTwoCol = styled.div`
   gap: var(--spacing-l);
   width: 100%;
   max-width: 1000px;
-
   height: calc(100dvh - 2 * var(--overlay-pad));
-
-  /* overflow: hidden; */
 `;
 
 const SummaryCol = styled.div`
@@ -625,10 +602,9 @@ const SummaryTop = styled.div`
   flex-direction: column;
 
   flex: 1 1 auto;
-  min-height: 0; /* wichtig, damit die List innen scrollen darf */
+  min-height: 0;
 `;
 
-/* Unterer Block: Summe + Button nach unten */
 const SummaryBottom = styled.div`
   display: flex;
   flex-direction: column;
@@ -866,8 +842,6 @@ const StyledSuccessMessage = styled.div`
   }
 
   p {
-    /* margin-bottom: var(--spacing-m); */
-
     line-height: ${theme.lineHeight.xxl};
   }
 `;
@@ -897,7 +871,7 @@ const MobileChangeButton = styled.button`
   border: 1px solid ${theme.color.dark};
   text-transform: uppercase;
   cursor: pointer;
-  display: none; /* default: ausgeblendet */
+  display: none;
 
   &:hover {
     background: ${theme.color.green};
@@ -923,5 +897,5 @@ const PronounCol = styled.div`
 `;
 
 const MobileListBox = styled.div`
-  position: relative; /* Anker fürs Overlay */
+  position: relative;
 `;

@@ -11,7 +11,6 @@ export default function ImageSliderLight({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
-  // Drag-Guard (Maus + Touch)
   const downRef = useRef(false);
   const startXRef = useRef(0);
   const draggedRef = useRef(false);
@@ -126,7 +125,7 @@ const ArrowContainer = styled.div`
   top: var(--spacing-l);
   right: var(--side-padding);
   width: 120px;
-  z-index: 2; /* über ClickLayer */
+  z-index: 2;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     top: var(--spacing-xl);
@@ -240,7 +239,6 @@ const StyledImage = styled(Image)`
   object-position: 50% 10%;
 `;
 
-/* full-slide Klickfläche fürs Weiterblättern */
 const ClickLayer = styled.button`
   position: absolute;
   inset: 0;

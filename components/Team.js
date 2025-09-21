@@ -63,9 +63,6 @@ const TeamContainer = styled.div`
   flex-wrap: wrap;
   gap: var(--spacing-xl);
   align-items: flex-start;
-
-  /* Optional: Karten mittig ausrichten, wenn Reihe nicht voll wird */
-  /* justify-content: center; */
 `;
 
 const TeamCard = styled.div`

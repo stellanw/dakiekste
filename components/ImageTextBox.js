@@ -80,7 +80,6 @@ const StyledTextWrapper = styled.div`
 
   a {
     font-size: var(--font-l);
-    /* font-weight: ${theme.fontWeight.bold}; */
 
     &:hover {
       color: ${theme.color.green};
@@ -103,7 +102,6 @@ const StyledImageContainer = styled.div`
 const ImageBox = styled.div`
   position: relative;
   width: 100%;
-  /* max-width: 684px; */
   aspect-ratio: 684 / 598;
   border-radius: ${theme.borderRadius};
   overflow: hidden;

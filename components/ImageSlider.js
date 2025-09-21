@@ -11,7 +11,6 @@ export default function ImageSlider({ projects, autoplay }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
 
-  // kleiner Drag-Guard (Maus + Touch)
   const downRef = useRef(false);
   const startXRef = useRef(0);
   const draggedRef = useRef(false);
@@ -194,7 +193,6 @@ const ArrowContainer = styled.div`
   width: 100px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    /* display: none; */
     width: 65px;
   }
 `;
