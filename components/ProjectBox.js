@@ -81,7 +81,16 @@ export default function ProjectBox({ topline, headline, text1, text2, cards }) {
                   }
                 }}
               >
-                <StyledImage src={card.image} alt={card.title} fill draggable={false} />
+                <StyledImage
+                  src={card.image}
+                  alt={card.alt}
+                  fill
+                  draggable={false}
+                  sizes="(max-width: 768px) 100vw,
+         (max-width: 1200px) 100vw,
+         80vw"
+                  quality="80"
+                />
               </ImageWrapper>
             </Card>
           ))}

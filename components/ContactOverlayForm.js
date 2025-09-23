@@ -21,7 +21,12 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
   const [responseMessage, setResponseMessage] = useState("");
 
   const isControlled = !!formData && !!setFormData;
-  const data = isControlled ? formData : localForm;
+  const rawData = isControlled ? (formData ?? {}) : localForm;
+
+  const data = { ...initialForm, ...rawData };
+
+  // const isControlled = !!formData && !!setFormData;
+  // const data = isControlled ? formData : localForm;
   const setData = isControlled ? setFormData : setLocalForm;
 
   const showOnRequest = !!priceOnRequest;
@@ -345,11 +350,9 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
               <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
 
               <StyledCheckboxGroup>
-                <label>
-                  <label htmlFor="acceptedTerms">
-                    <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} onInvalid={(e) => e.target.setCustomValidity("Bitte akzeptiere die AGBs & Datenschutz, um fortzufahren.")} onInput={(e) => e.target.setCustomValidity("")} required />
-                    Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
-                  </label>
+                <label htmlFor="acceptedTerms">
+                  <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={data.acceptedTerms} onChange={handleChange} onInvalid={(e) => e.target.setCustomValidity("Bitte akzeptiere die AGBs & Datenschutz, um fortzufahren.")} onInput={(e) => e.target.setCustomValidity("")} required />
+                  Ich akzeptiere <StyledLink href="/impressum">AGB & Datenschutz</StyledLink>
                 </label>
               </StyledCheckboxGroup>
 
@@ -450,6 +453,15 @@ const controlBase = `
     caret-color: ${theme.color.dark};
     transition: background-color 0s;
     }
+
+      &::selection { 
+    background: ${theme.color.beige}; 
+    color: ${theme.color.dark}; 
+  }
+  &::-moz-selection { 
+    background: ${theme.color.beige}; 
+    color: ${theme.color.dark}; 
+  }
 `;
 
 const OverlayInput = styled.input`

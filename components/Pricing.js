@@ -422,16 +422,17 @@ const CalculatorContainer = styled.div`
 
 const CategoriesContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-m);
-  padding: var(--spacing-m) 0;
+
+  flex-direction: row;
+  gap: 0;
+  padding: 0;
 
   border-bottom: 1px solid ${theme.color.dark};
 
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    flex-direction: row;
-    gap: 0;
-    padding: 0;
+  @media (max-width: ${theme.breakpoints.desktop}) {
+    flex-direction: column;
+    gap: var(--spacing-m);
+    padding: var(--spacing-m) 0;
   }
 `;
 
@@ -446,6 +447,7 @@ const CategoryContainer = styled.div`
 
 const OptionContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   padding-bottom: var(--spacing-xs);
   @media (min-width: ${theme.breakpoints.tablet}) {
@@ -463,6 +465,12 @@ const Option = styled.label`
   cursor: pointer;
   user-select: none;
   padding: var(--spacing-xxs) var(--spacing-xs);
+
+  margin-right: var(--spacing-s);
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    margin-right: 0;
+  }
 
   ${({ $checked }) =>
     !$checked &&
@@ -486,6 +494,7 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
 
 const Dot = styled.span`
   width: 15px;
+  min-width: 15px;
   height: 15px;
   border-radius: 50%;
   border: 1px solid ${theme.color.dark};
