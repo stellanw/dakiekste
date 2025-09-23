@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: { appDir: false },
+  images: {
+    qualities: [75, 80, 85, 100],
+  },
   async headers() {
     return [
       {
@@ -35,11 +39,6 @@ const nextConfig = {
     });
 
     return config;
-  },
-
-  env: {
-    EMAIL_USER: process.env.EMAIL_USER,
-    EMAIL_PASS: process.env.EMAIL_PASS,
   },
 };
 
