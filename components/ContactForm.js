@@ -301,6 +301,11 @@ const StyledButton = styled.button`
     color 100ms ease,
     border-color 100ms ease;
 
+  height: calc(2.4 * var(--spacing-m));
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    height: auto;
+  }
+
   &:is(:hover, :active) {
     border-color: ${theme.color.green};
   }
@@ -318,10 +323,10 @@ const StyledInput = styled.input`
   ${fieldBase};
   margin-bottom: var(--spacing-xs);
   padding: var(--spacing-xs);
-  height: var(--spacing-m);
+  height: calc(2.4 * var(--spacing-m));
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    height: calc(2.4 * var(--spacing-m));
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    height: var(--spacing-m);
   }
 
   &:-webkit-autofill {
@@ -418,14 +423,14 @@ const StyledSelect = styled.select`
   box-sizing: border-box;
   width: 100%;
   margin-bottom: var(--spacing-xs);
-  height: calc(1.063 * var(--spacing-m));
+  height: calc(2.4 * var(--spacing-m));
   padding: 0 var(--spacing-xs);
   color: ${theme.color.beige};
   background-color: ${theme.color.dark};
   border-radius: calc(0.5 * ${theme.borderRadius});
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    height: calc(2.4 * var(--spacing-m));
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    height: calc(1.063 * var(--spacing-m));
   }
 
   -webkit-appearance: none;

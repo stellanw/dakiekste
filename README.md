@@ -46,7 +46,7 @@ Studio-Website für **Branding, Fotografie, Video & Web**. Ziel ist ein klarer A
 ## Drittkomponenten (Auszug)
 
 - Next.js, Styled Components, React Email, Nodemailer, sanitize-html, React Icons
-- **Figtree (Google Font):** SIL Open Font License 1.1
+- **Figtree (Google Font) - © [Autor: Erik Kennedy]:** SIL Open Font License 1.1,
 - Alle genannten Marken und Logos sind Eigentum der jeweiligen Rechteinhaber
 
 ## Beiträge & Support

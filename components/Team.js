@@ -139,6 +139,7 @@ const ToggleIcon = styled.div`
     height: 20px;
     stroke-width: 8px;
     color: ${theme.color.dark};
+    transform: scale(0.85);
   }
 `;
 
@@ -160,7 +161,7 @@ const NameIconContainer = styled.div`
     color: ${theme.color.green};
   }
   &:hover ${ToggleIcon} svg {
-    transform: scale(1.25);
+    transform: scale(1);
     color: ${theme.color.green};
   }
 `;

@@ -522,8 +522,12 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
 
 const ScrollBoxContainer = styled.div`
   background-color: ${theme.color.dark};
-  padding: var(--spacing-xxxl) 0;
+  padding: var(--spacing-xxxl) 0 var(--spacing-xl) 0;
   overflow: hidden;
+  margin: 0;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    padding: var(--spacing-xxxl) 0;
+  }
 `;
 
 const Viewport = styled.div`
@@ -574,7 +578,8 @@ const StyledTextBox = styled.div`
   color: ${theme.color.beige};
   max-width: 100%;
   padding: 0 var(--side-padding);
-  @media (min-width: ${theme.breakpoints.tablet}) {
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 70%;
   }
 `;

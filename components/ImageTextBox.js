@@ -42,7 +42,7 @@ const InnerWrapper = styled.div`
   width: 100%;
   max-width: var(--max-content);
   margin: 0 auto;
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-xxxl) 0;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     padding: 0;
@@ -90,24 +90,32 @@ const StyledTextWrapper = styled.div`
 
 const StyledImageContainer = styled.div`
   display: grid;
-  place-items: ${({ $flexflow }) => ($flexflow === "row-reverse" ? "end" : "start")};
+  place-items: center;
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
     margin: var(--side-padding);
     width: 50%;
   }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    place-items: ${({ $flexflow }) => ($flexflow === "row-reverse" ? "end" : "start")};
+  }
 `;
 
 const ImageBox = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 684 / 598;
-  border-radius: ${theme.borderRadius};
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  border-radius: 0;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    border-radius: 0;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    border-radius: ${theme.borderRadius};
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    aspect-ratio: 684 / 598;
   }
 `;
 

@@ -3,6 +3,7 @@ import Image from "next/legacy/image";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { theme } from "@/styles";
 
 export default function LogoCarousel() {
   const logos = [
@@ -12,7 +13,7 @@ export default function LogoCarousel() {
     { src: "/images/Logos/neuland_logo.png", alt: "Logo 3", width: 100, height: 75 },
     { src: "/images/Logos/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 60, height: 75 },
     { src: "/images/Logos/Improova_Logo_small_black.png", alt: "Logo 5", width: 100, height: 75 },
-    { src: "/images/Logos/Logo_QuCare_RGB.png", alt: "Logo 5", width: 100, height: 75 },
+    { src: "/images/Logo_QuCare_RGB.png", alt: "Logo 5", width: 100, height: 75 },
   ];
 
   const settings = {
@@ -25,24 +26,10 @@ export default function LogoCarousel() {
     autoplaySpeed: 5000,
     arrows: false,
     responsive: [
-      {
-        breakpoint: 1100,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 750,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
+      { breakpoint: 1100, settings: { slidesToShow: 4 } },
+      { breakpoint: 900, settings: { slidesToShow: 3 } },
+      { breakpoint: 600, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
     ],
   };
 
@@ -64,7 +51,11 @@ export default function LogoCarousel() {
 const CarouselWrapper = styled.div`
   margin: 0 auto;
   padding: 0;
-  width: 40%;
+  width: 60%;
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    width: 40%;
+  }
 `;
 
 const Slide = styled.div`

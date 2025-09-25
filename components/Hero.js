@@ -1,13 +1,27 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
 import LogoCarousel from "./LogoCarousel";
+import { useState, useEffect } from "react";
 
-export default function Hero({ headline, text }) {
+export default function Hero({ headline, text, textMobile }) {
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const desktopBp = parseInt(theme.breakpoints.desktop, 10);
+
+  const isMobile = windowWidth < desktopBp;
+
   return (
     <StyledHeadBoxContainer>
       <StyledTopTextWrapper>
         <h2>{headline}</h2>
-        <h4>{text}</h4>
+        <h4>{isMobile ? textMobile || text : text}</h4>
       </StyledTopTextWrapper>
       <LogoCarousel />
     </StyledHeadBoxContainer>
@@ -29,5 +43,9 @@ const StyledTopTextWrapper = styled.div`
   text-align: center;
   overflow: hidden;
   padding-bottom: var(--spacing-xl);
-  max-width: 1200px;
+
+  max-width: 600px;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    max-width: 1200px;
+  }
 `;

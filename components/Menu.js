@@ -85,11 +85,11 @@ export default function Menu({ iconWidth = 45, color }) {
       </MenuContainer>
 
       <EyesToggle $isOpen={menuOpen} onClick={toggleMenu} aria-expanded={menuOpen}>
-        <EyesAnchor ref={eyesRef}>
-          <StyledIconWrapper $rotation={rotation}>
+        <EyesAnchor ref={eyesRef} style={{ "--rot": `${rotation}deg` }}>
+          <StyledIconWrapper>
             <AugenIcon color={color} width={iconWidth} height={iconWidth} />
           </StyledIconWrapper>
-          <StyledIconWrapper $rotation={rotation}>
+          <StyledIconWrapper>
             <AugenIcon color={color} width={iconWidth} height={iconWidth} />
           </StyledIconWrapper>
         </EyesAnchor>
@@ -185,7 +185,7 @@ const EyesToggle = styled.div`
 
 const StyledIconWrapper = styled.div`
   display: flex;
-  transform: rotate(${({ $rotation }) => $rotation}deg);
+  transform: rotate(var(--rot, 0deg));
   transition: transform 120ms ease;
   margin: 0 -0.9rem;
 `;

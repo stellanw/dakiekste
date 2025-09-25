@@ -2,6 +2,15 @@ import { ThemeProvider, StyleSheetManager } from "styled-components";
 import GlobalStyle from "../styles";
 import { theme } from "../styles";
 import { useEffect } from "react";
+import { Figtree } from "next/font/google";
+
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700", "800"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-figtree",
+});
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -20,10 +29,10 @@ export default function App({ Component, pageProps }) {
   return (
     <StyleSheetManager onContextMenu={(e) => e.preventDefault()}>
       <ThemeProvider theme={theme}>
-        <>
+        <div className={figtree.className}>
           <GlobalStyle />
           <Component {...pageProps} />
-        </>
+        </div>
       </ThemeProvider>
     </StyleSheetManager>
   );

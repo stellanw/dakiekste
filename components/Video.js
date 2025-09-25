@@ -17,7 +17,7 @@ const StyledContainer = styled.div`
   width: 100%;
   height: var(--height-hero);
   overflow: hidden;
-
+  margin: -2px 0;
   @media (min-width: ${theme.breakpoints.wide}) {
     height: calc(1.5 * var(--height-hero));
   }
