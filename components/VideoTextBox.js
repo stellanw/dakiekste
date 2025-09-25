@@ -19,7 +19,7 @@ export default function VideoTextBox({ topline, headline, text1, text2, videoSrc
             {text1 && <p>{text1}</p>}
             {text2 && (
               <p>
-                <StyledPiArrowRightLight />
+                {/* <StyledPiArrowRightLight /> */}
 
                 {text2}
               </p>
@@ -34,16 +34,17 @@ export default function VideoTextBox({ topline, headline, text1, text2, videoSrc
 const OuterWrapper = styled.div`
   width: 100%;
   background-color: ${theme.color.beige};
+  margin: -2px 0;
 `;
 
 const InnerWrapper = styled.div`
   width: 100%;
   max-width: var(--max-content);
   margin: 0 auto;
-  padding: var(--spacing-xl) 0;
+  padding: 0;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: 0;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    padding: var(--spacing-xl) 0;
   }
 `;
 
@@ -52,7 +53,7 @@ const StyledVideoTextBox = styled.div`
   flex-direction: column;
   width: 100%;
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
     flex-direction: ${({ $flexflow }) => $flexflow || "row"};
   }
 `;
@@ -65,10 +66,8 @@ const StyledTextWrapper = styled.div`
   padding: var(--spacing-xxxl) var(--side-padding);
   width: 100%;
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    min-width: 30%;
-    max-width: 30%;
-    padding: var(--side-padding) var(--side-padding) var(--side-padding) 0;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    padding: var(--side-padding);
   }
 
   p {
@@ -81,22 +80,22 @@ const StyledVideoContainer = styled.div`
   display: grid;
   place-items: ${({ $flexflow }) => ($flexflow === "row-reverse" ? "end" : "start")};
   width: 100%;
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  margin: 0;
+  @media (min-width: ${theme.breakpoints.desktop}) {
     margin: var(--side-padding);
-    width: 60%;
   }
 `;
 
 const VideoBox = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: ${theme.borderRadius};
+  aspect-ratio: 4 / 3;
   overflow: hidden;
+  border-radius: 0;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    border-radius: 0;
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    border-radius: ${theme.borderRadius};
+    aspect-ratio: 16 / 9;
   }
 `;
 

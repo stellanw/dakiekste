@@ -122,15 +122,21 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: var(--spacing-l);
+  top: var(--spacing-xl);
   right: var(--side-padding);
-  width: 120px;
+  width: 100px;
   z-index: 2;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    top: var(--spacing-xl);
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    top: var(--spacing-xs);
     right: var(--side-padding);
-    width: 100px;
+    width: 120px;
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    top: var(--spacing-l);
+    right: var(--side-padding);
+    width: 120px;
   }
 
   svg {

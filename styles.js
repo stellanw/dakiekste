@@ -16,12 +16,13 @@ export const theme = {
     s: "0.8",
     m: "0.9",
     l: "1",
-    xl: "1.25",
-    xxl: "1.4",
+    xl: "1.45",
+    xxl: "1.6",
+    xxxl: "2",
   },
 
   fontWeight: {
-    light: 100,
+    light: 300,
     regular: 400,
     bold: 600,
     mediumBold: 700,
@@ -50,6 +51,7 @@ export const theme = {
   breakpoints: {
     mobile: "480px", // kleine bis mittlere Phones
     tablet: "768px", // iPads, große Phones quer
+    //tablet: "900px", // iPads, große Phones quer
     desktop: "1200px", // Laptops & große Screens
     wide: "2400px", // extrem große Screens
   },
@@ -209,6 +211,7 @@ a:visited { color: inherit; }
     letter-spacing: 0.09rem;
     font-size: var(--font-m);
 line-height: ${theme.lineHeight.l};
+
 margin-bottom: calc(0.35 * var(--spacing-xs));
     @media (min-width: ${theme.breakpoints.tablet}) {
 

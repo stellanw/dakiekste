@@ -34,6 +34,15 @@ export default function Header({ useImageBackground = false }) {
   const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 120;
   const iconWidth = 45;
 
+  const tabletBp = parseInt(theme.breakpoints.tablet, 10); // z.B. "768px" -> 768
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isMobile = mounted && windowWidth <= tabletBp;
+
   return (
     <StyledHeadContainer>
       <StyledLink href="/">
@@ -54,9 +63,15 @@ export default function Header({ useImageBackground = false }) {
       <StyledHeadlineContainer>
         <h2>WER GESEHEN WIRD – GESTALTET MIT</h2>
         <h1>
-          Branding, Foto und Website
-          <br />
-          Für Gründer*innen & Unternehmen
+          {isMobile ? (
+            "Branding, Foto und Website Für Gründer*innen & Unternehmen"
+          ) : (
+            <>
+              Branding, Foto und Website
+              <br />
+              Für Gründer*innen & Unternehmen
+            </>
+          )}
         </h1>
       </StyledHeadlineContainer>
       {/* <StyledPiArrowDownLight /> */}
@@ -103,9 +118,14 @@ const StyledHeadlineContainer = styled.div`
   z-index: 2;
   bottom: var(--side-padding);
   left: var(--side-padding);
-
+  padding-right: var(--side-padding);
   h1,
   h2 {
+    @media (max-width: ${theme.breakpoints.tablet}) {
+      br {
+        display: none;
+      }
+    }
     margin: 0;
     color: ${theme.color.beige};
     text-transform: uppercase;

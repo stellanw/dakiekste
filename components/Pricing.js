@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect, useRef } from "react";
-import { PiPushPinLight, PiPlus, PiMinus, PiTrashLight, PiArrowDownThin } from "react-icons/pi";
+import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin } from "react-icons/pi";
 import { RxCross1 } from "react-icons/rx";
 import ContactOverlayForm from "./ContactOverlayForm";
 
@@ -46,6 +46,7 @@ export default function Pricing({ pricingData, servicesData }) {
   const [openKey, setOpenKey] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
+  const [hoverKey, setHoverKey] = useState(null);
 
   const stashRef = useRef({ services: [], counts: {} });
   const selRef = useRef([]);
@@ -122,7 +123,7 @@ export default function Pricing({ pricingData, servicesData }) {
   const applyDiscount = (price) => {
     const p = Number(price) || 0;
     if (selectedCategory.businessType === "Soloselbstständig") {
-      return Math.round((p * 0.7 + Number.EPSILON) * 100) / 100;
+      return Math.round((p * 0.85 + Number.EPSILON) * 100) / 100;
     }
     return p;
   };
@@ -185,6 +186,28 @@ export default function Pricing({ pricingData, servicesData }) {
 
   const MARKUP_PCT = 8;
   const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+
+  const MONTHS = 6;
+  const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
+  const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
+
+  const allowedInstallmentsTotalCents = selectedServices.reduce((sum, s) => {
+    if (s.allowInstallments === false) return sum;
+    const price = Number(s.price) || 0;
+    const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
+    return sum + Math.round(applyDiscount(price) * 100) * count;
+  }, 0);
+
+  const allowedInstallmentsTotal = allowedInstallmentsTotalCents / 100;
+
+  const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
+
+  // Dynamische Texte:
+  const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
+
+  const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
+
+  const showInstallmentBadges = anyInstallmentsAllowed && anyInstallmentsForbidden;
 
   return (
     <OuterWrapper>
@@ -265,8 +288,12 @@ export default function Pricing({ pricingData, servicesData }) {
                               <li key={index}>
                                 <SelectedItem>
                                   <ItemWrapper>
-                                    <PiPushPinLight />
+                                    {/* <PiPushPinLight /> */}
+                                    <RemoveButton onClick={() => removeService(service)}>
+                                      <StyledRemoveIcon />
+                                    </RemoveButton>
                                     <span>{service.title}</span>
+
                                     {isCountable && (
                                       <Counter>
                                         <button onClick={() => handleCountChange(service.title, -1)}>-</button>
@@ -275,9 +302,9 @@ export default function Pricing({ pricingData, servicesData }) {
                                       </Counter>
                                     )}
                                   </ItemWrapper>
-                                  <RemoveButton onClick={() => removeService(service)}>
+                                  {/* <RemoveButton onClick={() => removeService(service)}>
                                     <StyledRemoveIcon />
-                                  </RemoveButton>
+                                  </RemoveButton> */}
                                 </SelectedItem>
                               </li>
                             );
@@ -302,13 +329,24 @@ export default function Pricing({ pricingData, servicesData }) {
 
                       {selectedServices.length > 0 && (
                         <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Auswahl leeren">
-                          <PiTrashLight />
+                          <PiTrash />
                           <span>Gesamte Auswahl leeren</span>
                         </ClearAllButton>
                       )}
                       <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
-                      <InstallmentPrice>Oder in 6 Raten: {euroDash(installmentPriceWithMarkup(totalPrice, MARKUP_PCT))}</InstallmentPrice>
-                      <OverlayInfo>*EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen.</OverlayInfo>
+                      {!hideInstallments && (
+                        <>
+                          <InstallmentPrice>
+                            Oder in {MONTHS} Raten: {euroDash(installmentPriceWithMarkup(allowedInstallmentsTotal, MARKUP_PCT))} &nbsp;<span>{scopeInline}</span>
+                          </InstallmentPrice>
+                        </>
+                      )}
+                      <OverlayInfo>
+                        *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen. {/* Optionaler Hinweis-Text unter der Rate */}
+                        <br />
+                        <br />
+                        <span>{scopeHint}</span>
+                      </OverlayInfo>
                       <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                     </>
                   )}
@@ -324,14 +362,19 @@ export default function Pricing({ pricingData, servicesData }) {
                     return (
                       <ServiceUL key={key} className={isOpen ? "open" : ""}>
                         <Service>
-                          <ServiceTitleGroup>
+                          <ServiceTitleGroup $hovered={hoverKey === key}>
                             <TitleCheckboxContainer $checked={isSelected}>
-                              <HiddenServiceCheckbox checked={isSelected} onChange={() => handleServiceSelection(service)} />
-                              <ServiceDot $checked={isSelected} />
-                              <ServiceTitle>{service.title}</ServiceTitle>
+                              <HiddenServiceCheckbox checked={isSelected} readOnly />
+                              <ServiceDot $checked={isSelected} role="checkbox" aria-checked={isSelected} tabIndex={0} onClick={() => handleServiceSelection(service)} onKeyDown={(e) => (e.key === " " || e.key === "Enter") && handleServiceSelection(service)} />
+
+                              <ServiceTitle role="button" aria-expanded={isOpen} onClick={() => toggleOverlay(key)} onMouseEnter={() => setHoverKey(key)} onMouseLeave={() => setHoverKey(null)} onFocus={() => setHoverKey(key)} onBlur={() => setHoverKey(null)}>
+                                {service.title}
+                              </ServiceTitle>
                             </TitleCheckboxContainer>
 
-                            <ToggleIcon onClick={() => toggleOverlay(key)}>{isOpen ? <PiMinus /> : <PiPlus />}</ToggleIcon>
+                            <ToggleIcon onClick={() => toggleOverlay(key)} onMouseEnter={() => setHoverKey(key)} onMouseLeave={() => setHoverKey(null)} onFocus={() => setHoverKey(key)} onBlur={() => setHoverKey(null)}>
+                              {isOpen ? <PiMinus /> : <PiPlus />}
+                            </ToggleIcon>
                           </ServiceTitleGroup>
 
                           {isOpen && (
@@ -343,6 +386,11 @@ export default function Pricing({ pricingData, servicesData }) {
                                     Preis ab <span>{formatCeil(applyDiscount(service.price))}</span>,-
                                     {service.isCountable && <span> {service.unit}</span>}
                                   </ServicePrice>
+                                )}
+                                {service.allowInstallments === false && (
+                                  <Badge aria-label="Nicht ratenfähig" title="Nicht ratenfähig – nicht in der Ratenberechnung enthalten">
+                                    Hinweis: Bei dieser Leistung ist keine Ratenzahlung möglich.
+                                  </Badge>
                                 )}
                               </Description>
                             </OverlayDescription>
@@ -534,7 +582,7 @@ const OutcomeContent = styled.div`
   ul {
     margin-bottom: var(--spacing-m);
     li {
-      padding: var(--spacing-xs) 0;
+      padding: calc(0.75 * var(--spacing-xs)) 0;
     }
   }
   p {
@@ -544,11 +592,11 @@ const OutcomeContent = styled.div`
 
 const SelectedItem = styled.div`
   display: flex;
-  gap: var(--spacing-s);
+  gap: var(--spacing-xs);
   align-items: center;
   justify-content: space-between;
   width: auto;
-  padding-right: var(--spacing-xs);
+  /* padding-right: var(--spacing-xs); */
   @media (min-width: ${theme.breakpoints.tablet}) {
     max-width: 310px;
   }
@@ -579,9 +627,8 @@ const RemoveButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  font-size: var(--font-xs);
-  text-transform: uppercase;
-  margin-left: var(--spacing-xs);
+
+  /* margin-left: var(--spacing-xs); */
 `;
 
 const StyledRemoveIcon = styled(RxCross1)`
@@ -592,6 +639,7 @@ const StyledRemoveIcon = styled(RxCross1)`
   &:hover {
     transform: scale(1.05);
     stroke-width: 1px;
+    color: ${theme.color.green};
   }
 `;
 
@@ -627,29 +675,13 @@ const ServiceUL = styled.ul`
   flex-direction: column;
 `;
 
-const ServiceTitleGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TitleCheckboxContainer = styled.label`
+const TitleCheckboxContainer = styled.div`
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
   cursor: pointer;
   user-select: none;
   margin: 0;
-  ${({ $checked }) =>
-    !$checked &&
-    css`
-      &:hover ${ServiceDot} {
-        border-color: ${theme.color.green};
-      }
-      &:hover ${ServiceTitle} {
-        color: ${theme.color.green};
-      }
-    `}
 `;
 
 const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
@@ -668,6 +700,19 @@ const ServiceDot = styled.span`
   border-radius: 50%;
   border: 1px solid ${theme.color.dark};
   background: ${({ $checked }) => ($checked ? theme.color.green : "transparent")};
+  cursor: pointer;
+
+  ${({ $checked }) =>
+    !$checked &&
+    css`
+      &:hover {
+        border-color: ${theme.color.green};
+      }
+      &:focus-visible {
+        outline: 2px solid ${theme.color.green};
+        outline-offset: 2px;
+      }
+    `}
 `;
 
 const ServiceTitle = styled.h2`
@@ -696,7 +741,7 @@ const OverlayDescription = styled.div`
   }
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   animation: slide-animation 0.5s ease;
   font-weight: ${theme.fontWeight.light};
 
@@ -725,6 +770,10 @@ const InstallmentPrice = styled.p`
   text-transform: uppercase;
   margin-top: calc(0.25 * var(--spacing-xs));
   margin-bottom: calc(0.5 * var(--spacing-xs));
+
+  span {
+    text-transform: none;
+  }
 `;
 
 const Counter = styled.div`
@@ -746,15 +795,18 @@ const Counter = styled.div`
     justify-content: center;
     font-size: var(--font-s);
     padding: 0;
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     border-radius: 5px;
     line-height: 0.2;
     border: 1px solid ${theme.color.dark};
     cursor: pointer;
     background-color: transparent;
+
     &:hover {
       background-color: ${theme.color.green};
+      color: ${theme.color.dark};
+      border-color: ${theme.color.dark};
     }
 
     @media (max-width: ${theme.breakpoints.mobile}) {
@@ -777,12 +829,21 @@ const StyledButton = styled.button`
   border: 1px solid ${theme.color.dark};
   text-transform: uppercase;
 
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: 3.5rem;
+  }
+
   &:hover {
     background-color: ${theme.color.green};
   }
+  &:active {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark};
+    border-color: ${theme.color.dark};
+  }
 `;
 
-const ServicePrice = styled.p`
+const ServicePrice = styled.div`
   padding-top: var(--spacing-xs) !important;
   text-transform: none;
   font-size: var(--font-m);
@@ -823,6 +884,25 @@ const ToggleIcon = styled.div`
   }
 `;
 
+const ServiceTitleGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  ${ServiceTitle}, ${ToggleIcon} {
+    color: ${theme.color.dark};
+    transition: color 0.2s ease;
+  }
+
+  ${({ $hovered }) =>
+    $hovered &&
+    css`
+      ${ServiceTitle}, ${ToggleIcon} {
+        color: ${theme.color.green};
+      }
+    `}
+`;
+
 const ClearAllButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -837,16 +917,17 @@ const ClearAllButton = styled.button`
   text-transform: uppercase;
 
   svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
   }
 
   &:hover {
     svg {
       transform: scale(1.05);
-      stroke-width: 6px;
+      stroke-width: 3px;
     }
+    color: ${theme.color.green};
   }
 
   &:focus-visible {
@@ -920,4 +1001,16 @@ const OutcomeScrollHint = styled.button`
       stroke-width: 10px;
     }
   }
+`;
+
+const Badge = styled.span`
+  margin-left: var(--spacing-xxs);
+
+  font-size: calc(1 * var(--font-xs));
+  line-height: 1;
+
+  opacity: 0.7;
+  white-space: nowrap;
+
+  opacity: 0.85;
 `;

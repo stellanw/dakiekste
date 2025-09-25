@@ -3,6 +3,7 @@ import { theme } from "@/styles";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import BackToTopButton from "@/components/BackToTopButton";
+import Footer from "@/components/Footer";
 
 export default function Impressum() {
   const router = useRouter();
@@ -18,18 +19,17 @@ export default function Impressum() {
         <h3>Impressum und Datenschutzerklärung</h3>
         <h6>Angaben gemäß § 5 TMG</h6>
         <p>
-          <strong>[Name der GbR]</strong>
+          <strong>Dakiekste GbR</strong>
         </p>
-        <p>[Adresse]</p>
-        <p>[Postleitzahl und Ort]</p>
-        <p>[Telefonnummer]</p>
+        <p>Lienaustraße 32</p>
+        <p>22159 Hamburg</p>
         <p>{email}</p>
 
         <h6>Vertreten durch</h6>
-        <p>[Name der vertretungsberechtigten Personen]</p>
+        <p>Stellan Wetzig & Maischa Souaga</p>
 
         <h6>Umsatzsteuer-Identifikationsnummer</h6>
-        <p>[falls vorhanden]</p>
+        <p>-- beantragt --</p>
 
         <h6>Haftungsausschluss</h6>
         <p>
@@ -37,8 +37,8 @@ export default function Impressum() {
           Dienstanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
         </p>
 
-        <h6>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h6>
-        <p>[Name und Adresse der verantwortlichen Person, falls abweichend von oben]</p>
+        <h6>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h6>
+        <p>Dakiekste GbR</p>
 
         <h6>Haftung für Links</h6>
         <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Daher können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
@@ -106,7 +106,37 @@ export default function Impressum() {
         <p>Sie haben das Recht, auf Antrag unentgeltlich Auskunft darüber zu erhalten, welche personenbezogenen Daten über Sie gespeichert sind. Sie haben außerdem das Recht auf Berichtigung falscher Daten, Sperrung und Löschung Ihrer personenbezogenen Daten, sofern dem keine gesetzliche Aufbewahrungspflicht entgegensteht.</p>
 
         <p>Bei weiteren Fragen zum Thema Datenschutz wenden Sie sich bitte an uns.</p>
+
+        <h6>Hosting</h6>
+        <p>
+          Unsere Website wird bei Vercel gehostet. Wenn Sie unsere Website besuchen, erfasst Vercel Inc. verschiedene Logfiles inklusive Ihrer IP-Adressen. Der Einsatz erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO, da wir ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung unserer Website haben. Mit dem Anbieter wurde ein Vertrag
+          zur Auftragsverarbeitung (AVV) geschlossen.
+        </p>
+
+        <h6>Google Fonts (lokal)</h6>
+        <p>
+          Wir verwenden die Schriftart „Figtree“. Die Einbindung erfolgt ausschließlich lokal von unserem Server. Eine Verbindung zu Servern von Google findet dabei nicht statt; es werden insoweit keine personenbezogenen Daten an Google übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer einheitlichen Darstellung).
+        </p>
+
+        <h6>Datenübermittlung in Drittländer</h6>
+        <p>
+          Unser Hosting-Anbieter Vercel Inc. hat seinen Sitz in den USA. Die Datenverarbeitung kann daher auch in einem Drittland erfolgen. Mit Vercel besteht ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO. Die Übermittlung erfolgt auf Grundlage der Standardvertragsklauseln (SCC) der EU-Kommission, die ein angemessenes Datenschutzniveau
+          gewährleisten sollen.
+        </p>
+
+        <h6>Beschwerderecht bei der zuständigen Aufsichtsbehörde</h6>
+        <p>
+          Im Falle datenschutzrechtlicher Verstöße steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher
+          Rechtsbehelfe.
+        </p>
+
+        <h6>Speicherdauer</h6>
+        <p>
+          Sofern innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben personenbezogene Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen
+          rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen).
+        </p>
       </StyledImpressumContainer>
+      <Footer />
     </>
   );
 }

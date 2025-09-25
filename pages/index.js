@@ -119,6 +119,7 @@ export default function HomePage() {
             Mit vielseitiger Expertise, Erfahrung und Empathie.
           </>
         }
+        textMobile="Weil deine Vision mehr als schöne Bilder braucht, kombinieren wir Fotografie, Video, Design & Website zu einem stimmigen Gesamtauftritt. Mit vielseitiger Expertise, Erfahrung und Empathie."
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
@@ -256,7 +257,7 @@ export default function HomePage() {
               image: service_video,
               alt: "Behind the Scenes – Dakiekste – Stellan mit Kamera beim Filmen im Studio",
               title: "Imagefilm & Video-Content",
-              text: "Mit unterschiedlichen Formaten wie Imagefilmen, Dokumentationen oder Interviews gibst du deiner Zielgruppe tiefere Einblicke. Videos entstehen in enger Zusammenarbeit – von der ersten Idee bis zum finalen Schnitt. Gemeinsam entwickeln wir ein Konzept und planen den Ablauf. Am Drehtag sorgen wir für eine entspannte Atmosphäre, in der authentische Aufnahmen entstehen können.",
+              text: "Mit unterschiedlichen Formaten wie Imagefilmen, Reportagen, Interviews oder Event-Dokumentationen gibst du deiner Zielgruppe tiefere Einblicke. Videos entstehen in enger Zusammenarbeit – von der ersten Idee bis zum finalen Schnitt. Gemeinsam entwickeln wir ein Konzept und planen den Ablauf. Am Drehtag sorgen wir für eine entspannte Atmosphäre, in der authentische Aufnahmen entstehen können. Im Schnitt fügen wir Bilder, Ton und Musik so zusammen, dass ein stimmiges Gesamtbild entsteht.",
             },
             {
               image: service_webdesign,
@@ -307,12 +308,6 @@ export default function HomePage() {
               mobileTitle: "Workshop",
               text: "Ob Corporate Identity, Branding oder Bildsprache – wir unterstützen dich dabei, deine visuelle Kommunikation zu ordnen und klarer zu gestalten. In Workshops teilen wir unser Wissen, beraten dich zu Strategie, Gestaltung und entwickeln gemeinsam Ideen.",
             },
-            {
-              image: "",
-              title: "",
-              mobileTitle: "",
-              text: "",
-            },
           ]}
         />
       </section>
@@ -329,6 +324,7 @@ export default function HomePage() {
           </>
         }
         text1="Ein Imagefilm macht dein Unternehmen erlebbar. Er zeigt nicht nur Fakten, sondern vermittelt Atmosphäre und Persönlichkeit. So bekommen Kund*innen einen echten Eindruck davon, wie du arbeitest und was dein Unternehmen besonders macht. Durch bewegte Bilder entsteht Nähe – und aus Zuschauer*innen werden Interessierte, die sich mit deiner Marke verbinden."
+        text2="Videoaufnahmen lassen sich an einem Shooting-Tag gut zwischen Fotoaufnahmen integrieren – so lassen sich dieselben Momente lebendig einfangen."
         videoSrc="/videos/Imagefilm-ossara.mov"
         posterSrc="/videos/imagefilm-poster.png"
         flexflow="row"
@@ -376,7 +372,7 @@ export default function HomePage() {
             },
             {
               title: "03 Organisation",
-              text: "Wir kümmern uns um alle Details – von der Projektplanung über die Location bis zur Buchung von Styling und Hair & Make-up. Auf Wunsch organisieren wir auch Snacks und Getränke am Shooting-Tag. Durch unser Netzwerk und strukturierte Zeitpläne läuft alles reibungslos ab. Wir übernehmen die Koordination mit allen Beteiligten, damit du dich entspannt zurücklehnen und voll auf das Wesentliche konzentrieren kannst.",
+              text: "Wir übernehmen die Projektplanung und kümmern uns um Details wie Location, Styling oder technische Infrastruktur. Auch die Abstimmung mit externen Partner*innen liegt bei uns. Mit klaren Zeitplänen und guter Kommunikation sorgen wir für einen reibungslosen Ablauf, damit du dich aud dein Business und voll auf das Wesentliche konzentrieren kannst.",
               showIcon: true,
             },
             {
@@ -385,19 +381,19 @@ export default function HomePage() {
               showIcon: true,
             },
             {
-              title: "05 Postproduktion",
-              text: "Nach jedem Shooting erhältst du von uns eine sorgfältig getroffene Vorauswahl. Daraus wählst du deine Favoriten, die wir anschließend bearbeiten. Deine finale Auswahl bekommst du in einer Online-Galerie – übersichtlich sortiert und jederzeit erneut downloadbar, damit du flexibel darauf zugreifen kannst. Die Galerie steht dir für einen bestimmten Zeitraum zur Verfügung oder auf Wunsch auch dauerhaft als wachsender Bildpool.",
+              title: "05 Feedbackschleife",
+              text: "Deine Rückmeldung ist ein zentraler Teil des Prozesses. In klar definierten Feedbackschleifen prüfen wir gemeinsam Zwischenergebnisse und nehmen Anpassungen vor. Bei Fotografieprojekten erhältst du eine Vorauswahl, aus der du deine Favoriten bestimmst, die wir anschließend final bearbeiten. Bei Web- und Designprojekten geben wir dir Zwischenstände wie Layouts, Prototypen oder Entwürfe zur Ansicht. So kannst du Feedback geben, bevor es in die nächste Phase geht, und bist aktiv am Entstehungsprozess beteiligt.",
               showIcon: true,
             },
             {
-              title: "06 Langfristige Unterstützung",
-              text: "Auch nach dem Projekt begleiten wir dich weiter. Ob kleine Anpassungen, neue Inhalte oder die Weiterentwicklung deiner Marke – wir stehen dir als verlässlicher Partner zur Seite. Weil wir deine Marke bereits kennen, können wir effizient reagieren und gezielt unterstützen – projektweise oder im Rahmen einer laufenden Betreuung.",
+              title: "06 Fertigstellung & Übergabe",
+              text: "Ob Bilder, Videos, Design oder Website – du erhältst das finale Ergebnis in strukturierter Form. Deine finale Bildauswahl stellen wir dir für einen bestimmten Zeitraum in einer Online-Galerie bereit: übersichtlich sortiert, jederzeit abrufbar und auf Wunsch auch dauerhaft, als wachsender Bildpool. Bei Designprojekten bekommst du ein Designmanual, das dir zeigt, wie du Farben, Schriften oder Vorlagen einsetzen kannst. Bei Websites erhältst du eine kurze Dokumentation sowie die nötigen Zugänge, damit du Inhalte eigenständig pflegen und anpassen kannst.",
               showIcon: true,
             },
             {
-              title: "",
-              text: "",
-              showIcon: false,
+              title: "07 Langfristige Unterstützung",
+              text: "Auch nach dem Projekt begleiten wir dich weiter. Ob kleine Anpassungen, neue Inhalte oder die Weiterentwicklung deiner Marke – wir stehen dir als verlässlicher Partner zur Seite. Weil wir deine Marke bereits kennen, können wir effizient reagieren und gezielt unterstützen – projektweise oder mit einem laufenden Abo, das dich kontinuierlich unterstützt.",
+              showIcon: true,
             },
           ]}
         />
@@ -573,6 +569,7 @@ export default function HomePage() {
               unit: "",
               description: "Aufwendige Portraits für Einzelpersonen (z. B. CEO, Soloselbstständige). Die Shootingzeit beträgt 2 Stunden vor Ort oder im Studio inkl. Outfitwechsel und 5 bearbeitete Bilder. Hair & Make-up optional zubuchbar.",
               price: 650,
+              allowInstallments: false,
             },
             {
               title: "Mitarbeiter*innen Portraits",
@@ -581,15 +578,6 @@ export default function HomePage() {
               unit: "pro Person",
               description: "Einzelaufnahmen von Mitarbeiter*innen, CEOs und Teamfotos. Die Shootingzeit beträgt 15min pro Person vor Ort oder im Studio inkl. Outfitwechsel, eine gemeinsame Bildauswahl und ein bearbeitetes Foto pro Person. Hair & Make-up optional zubuchbar. Info: Es fällt zusätzlich eine Grundgebühr pro Shooting-Tag von 300,- an.",
               price: 130,
-            },
-            {
-              title: "Branding Fotografie Gründer*innen",
-              category: "Fotografie",
-              isCountable: false,
-              unit: "",
-              description:
-                "Ein halber Shooting-Tag. Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich, dein Team, deine Arbeit und dein Umfeld zeigt – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 20 finale Bilder auswählen kannst. Zusätzlich erstellen wir parallel immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
-              price: 2714.285714,
             },
             {
               title: "Branding Fotografie",
@@ -601,22 +589,44 @@ export default function HomePage() {
               price: 3600,
             },
             {
+              title: "Branding Fotografie Gründer*innen",
+              category: "Fotografie",
+              isCountable: false,
+              unit: "",
+              description:
+                "Ein halber Shooting-Tag. Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich, dein Team, deine Arbeit und dein Umfeld zeigt – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 20 finale Bilder auswählen kannst. Zusätzlich erstellen wir parallel immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
+              price: 2700,
+            },
+
+            {
+              title: "Website Paket Plus & Brandingfotografie",
+              category: "Fotografie",
+              isCountable: false,
+              unit: "",
+              description:
+                "Wir verbinden ein individuelles Website mit einem ganztägigen Branding-Shooting – für einen Auftritt aus einem Guss. Wir entwickeln ein klares Seitenkonzept (z. B. Startseite, Leistungen, Über uns, Kontakt), responsives Design, Impressum & Datenschutz, ein funktionsstarkes Kontaktformular sowie eine SEO-freundliche Grundstruktur. Parallel entsteht beim Shooting ein vielseitiger Bilderpool aus Portraits, Details und Arbeitssituationen – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du erhältst eine große Bildauswahl und wählst 35 finale Motive. Zusätzlich produzieren wir immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
+              price: 8800,
+            },
+            {
+              title: "Eventfotografie",
+              category: "Fotografie",
+              isCountable: true,
+              unit: "pro halber Tag",
+              description:
+                "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking-Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die von uns getroffene Bildauswahl wird in einem einheitlichen Look bearbeitet und werden in einer Onlinegalerie bereitgestellt. Optional kann zusätzlich ein Video-Paket gebucht werden sowie weitere Fotografi*innen, um das Event aus mehreren Perspektiven und noch mehr Momente festzuhalten.",
+              price: 1200,
+              allowInstallments: false,
+            },
+            {
               title: "Produktfotografie",
               category: "Fotografie",
               isCountable: true,
               unit: "pro Foto",
               description: "Je nach Bedarf fotografieren wir Freisteller oder inszenierte Aufnahmen. Die Fotos entstehen vor Ort oder im Studio. Du erhälst eine Bildauswahl, aus der du deine finale Bilder auswählen kannst. Ein professionelles Styling ist optional zubuchbar.",
               price: 45,
+              allowInstallments: false,
             },
-            {
-              title: "Eventfotografie",
-              category: "Fotografie",
-              isCountable: false,
-              unit: "pro Tag",
-              description:
-                "Umfasst die fotografische Dokumentation von Veranstaltungen wie PR-Events, Produktlaunches, Networking-Formaten, Vorträgen, Speaker-Events oder Teamveranstaltungen. Die von uns getroffene Bildauswahl wird in einem einheitlichen Look bearbeitet und werden in einer Onlinegalerie bereitgestellt. Optional kann zusätzlich ein Video-Paket gebucht werden sowie weitere Fotografi*innen, um das Event aus mehreren Perspektiven und noch mehr Momente festzuhalten.",
-              price: 1800,
-            },
+
             {
               title: "Bildretusche",
               category: "Fotografie",
@@ -624,30 +634,24 @@ export default function HomePage() {
               unit: "pro Bild",
               description: "Dies ist eine Zusatzoption für aufwändigere Retuschen oder besondere Bildanpassungen. Grundlegende Bildretuschen sind bei allen Leistungen immer enthalten",
               price: 50,
+              allowInstallments: false,
             },
             {
               title: "Video-Content für Social Media",
               category: "Video",
-              isCountable: true,
-              unit: "pro Drehtag",
-              description: "Wir produzieren kurze, markenkonforme Videos, die für Instagram, LinkedIn und Co. zugeschnitten sind. Von der Planung über den Dreh bis zum Schnitt und zur Formatanpassung – alles ist inklusive. Du erhältst mindesten 5 einsatzbereite Clips.",
-              price: 2300,
-            },
-            {
-              title: "Event-Videodokumentation",
-              category: "Video",
               isCountable: false,
               unit: "",
-              description: "Du erhältst einen fertig geschnittenen Eventfilm (ca. 1–3 Minuten) sowie auf Wunsch kurze Clips oder Snippets für Social Media. Interviews, O-Töne, ergänzende Formate sowie weitere Videograf*innen für mehr Perspetkiven und Videomaterial, können optional gebucht werden.",
-              price: 2800,
+              description: "Wir produzieren kurze, markenkonforme Videos, die für Instagram, LinkedIn und Co. zugeschnitten sind. Von der Planung über den Dreh bis zum Schnitt und zur Formatanpassung – alles ist inklusive.",
+              price: 1200,
             },
+
             {
               title: "Imagefilm",
               category: "Video",
               isCountable: false,
               unit: "",
               description: "Dabei kümmern wir uns um Dreh, Schnitt sowie Bild- und Tonbearbeitung. Dein Branding, passende Musik und Grafiken werden integriert. Das finale Video erhältst du in allen relevanten Formaten für Website, Präsentationen und Social Media. Auf Wunsch ergänzen wir kurze Snippets für deine Social-Media-Kanäle.",
-              price: 3500,
+              price: 2100,
             },
             {
               title: "Web Design (UI/UX)",
@@ -671,7 +675,16 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description:
-                "Ein Onepager auf Basis eines Templates, das wir an dein Logo und deine Farben anpassen. Die Seite ist responsiv und enthält ein Kontaktformular sowie die Einbindung von Impressum & Datenschutz. Inhalte wie Texte bringst du mit, und wir kümmern uns darum, dass alles sauber eingebunden wird. Der Vorteil: Kein Baukasten, sondern eine flexible Lösung mit WordPress, die jederzeit erweitert und weiterentwickelt werden kann.",
+                "Eine einfache Landingpage als schlanker Einstieg: Wir setzen deine Seite in WordPress um, nutzen dafür ein bestehendes Template (kein individuelles Layout) und passen es an dein Logo und deine Farben an. Enthalten sind kurze Textabschnitte, Kontaktinformationen, sowie die Einbindung von Impressum & Datenschutz. Keine Unterseiten, kein individuelles UX/UI-Design – dafür ein schneller Webauftritt, der kein Baukasten ist und später jederzeit ausgebaut werden kann.",
+              price: 1800,
+            },
+            {
+              title: "Website Paket Compact",
+              category: "Website",
+              isCountable: false,
+              unit: "",
+              description:
+                "Dein professioneller Onepager – individuell gestaltet auf Basis von WordPress. Wir entwickeln ein stimmiges Layout für dich. Dein Logo, deine Farben und deine Inhalte werden auf einer Seite in eine klare Struktur eingebunden, wie z. B. Leistungen, Über-uns-Teil und Kontaktformular. Hinzu kommen Impressum & Datenschutz als eigene Pflichtseite. Der Vorteil: Eine umfangreiche, auf dich abgestimmte Website ohne Unterseiten – die jederzeit flexibel weiterentwickelt werden kann.",
               price: 3600,
             },
             {
@@ -680,7 +693,7 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description:
-                "Eine Website, die über das Standard-Template hinausgeht: Wir entwickeln ein individuelles UX/UI-Design, das perfekt auf deine Marke zugeschnitten ist, und setzen es technisch in WordPress um. Ideal für mehrere Seiten, z. B. Startseite, Leistungen, Über uns und Kontakt. Enthalten sind responsives Design, ein durchdachtes Seitenkonzept, Impressum & Datenschutz, ein Kontaktformular sowie eine SEO-freundliche Grundstruktur. Damit erhältst du einen maßgeschneiderten Webauftritt.",
+                "Eine Website, die über den Onepager hinausgeht: Wir entwickeln ein individuelles UX/UI-Design, das wir mit WordPress umsetzen. Anders als beim Compact-Paket bist du hier nicht auf eine Seite beschränkt, sondern kannst mehrere umfangreiche Unterseiten integrieren – z. B. Startseite, Leistungen, Über uns und Kontakt. Enthalten sind responsives Design, ein durchdachtes Seitenkonzept, Impressum & Datenschutz, ein Kontaktformular sowie eine SEO-freundliche Grundstruktur. Damit erhältst du einen maßgeschneiderten Webauftritt.",
               price: 5500,
             },
             {
@@ -692,13 +705,14 @@ export default function HomePage() {
                 "Wir verbinden ein individuelles Website mit einem ganztägigen Branding-Shooting – für einen Auftritt aus einem Guss. Wir entwickeln ein klares Seitenkonzept (z. B. Startseite, Leistungen, Über uns, Kontakt), responsives Design, Impressum & Datenschutz, ein funktionsstarkes Kontaktformular sowie eine SEO-freundliche Grundstruktur. Parallel entsteht beim Shooting ein vielseitiger Bilderpool aus Portraits, Details und Arbeitssituationen – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du erhältst eine große Bildauswahl und wählst 35 finale Motive. Zusätzlich produzieren wir immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
               price: 8800,
             },
+
             {
               title: "CI Branding Design",
               category: "Design",
               isCountable: false,
               unit: "",
               description: "Logo, Typografie und Farben – wir entwickeln ein Corporate Design, das die zentralen Gestaltungselemente deiner Marke definiert und ein einheitliches Erscheinungsbild schafft. Alle Regeln und Anwendungen halten wir in einem Designmanual fest, das dir als klare Grundlage für alle weiteren Kommunikationsmittel dient.",
-              price: 3000,
+              price: 3600,
             },
             {
               title: "Logo Design",
@@ -706,7 +720,7 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description: "Von den ersten Entwürfen bis zur finalen Version entwickeln wir ein Logo, das sich in allen Medien einsetzen lässt. In engem Austausch erstellen wir ein Konzept und ein kleines Manual für die korrekte Anwendung.",
-              price: 1500,
+              price: 1800,
             },
             {
               title: "Redesign",
@@ -714,25 +728,18 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description: "Beim Redesign modernisieren wir dein Logo, Farbwelt und Typografie und bringen das Erscheinungsbild deiner Marke auf den neuesten Stand. Das Ergebnis: ein moder, klares und zeitgemäßes Design mit Wiedererkennungswert das neue Impulse setzt.",
-              price: 3500,
+              price: 2800,
             },
+
             {
-              title: "Rebranding",
+              title: "Konzeption & Workshop",
               category: "Design",
               isCountable: false,
               unit: "",
               description:
-                "Deine Marke braucht ein umfassendes Update? Beim Rebranding entwickeln wir eine Marke in der Tiefe weiter – visuell und inhaltlich. Wir analysieren Logo, Farben, Typografie und Bildsprache, prüfen die strategische Ausrichtung und definieren zentrale Elemente neu. So entsteht ein konsistentes Designsystem, das zur aktuellen Positionierung passt und langfristig trägt.",
-              price: 7500,
-            },
-            {
-              title: "Strategie & Workshop",
-              category: "Design",
-              isCountable: false,
-              unit: "",
-              description:
-                "In ca. 2 - 3 Stunden legen wir das Fundament für deine Marke. Gemeinsam analysieren wir Positionierung, Werte und Zielgruppen, prüfen die aktuelle Ausrichtung und entwickeln erste Ansätze für Bildsprache, Kommunikation und Design. Am Ende erhältst du eine strukturierte Zusammenfassung mit klaren Empfehlungen, die dir Orientierung geben und als Grundlage für Fotografie, Video und Webprojekte dienen. Ein Basis-Workshop ist in vielen Leistungen enthalten – wer tiefer einsteigen will oder bei einer Gründung den ersten Grundstein legen möchte, kann diesen umfassenden Workshop separat buchen.",
-              price: 950,
+                "Ein Basis-Workshop ist in vielen Leistungen enthalten – wer tiefer einsteigen will oder bei einer Gründung den ersten Grundstein legen möchte, kann diesen umfassenden Workshop separat buchen. Wir entwickeln das Fundament für deine Marke und analysieren gemeinsam Werte, Zielgruppen und Positionierung, prüfen die aktuelle Ausrichtung und entwickeln erste Ansätze für Bildsprache, Kommunikation und Design. Später erhältst du eine strukturierte Zusammenfassung mit klaren Empfehlungen, die dir Orientierung geben und als Grundlage für Fotografie, Video und Webprojekte dienen.",
+              price: 450,
+              allowInstallments: false,
             },
 
             {
@@ -742,6 +749,7 @@ export default function HomePage() {
               unit: "pro Monat",
               description: "Mit unserem Starter-Abo bekommst du jeden Monat frisches Foto- oder Videomaterial. Ob Social Media Clips, Mitarbeiterportraits oder Produktfotos – du entscheidest, was gerade wichtig ist. Wir kommen einmal im Monat für einen halben Tag zu dir und produzieren den Content, den du gerade brauchst.",
               price: 1800,
+              allowInstallments: false,
             },
             {
               title: "Content Abo Plus",
@@ -751,6 +759,7 @@ export default function HomePage() {
               description:
                 "Im Plus-Abo sind wir jeden Monat einen ganzen Tag bei dir. Wir produzieren Fotos und kurze Videos (Reels & Snippets) – von Mitarbeiterportraits über Produkt- und Eventfotos bis hin zu Social-Media-Clips oder Interviews. Du bestimmst, worauf der Fokus liegt. So entsteht mit der Zeit ein vielseitiger Content-Pool, den du flexibel für Instagram, LinkedIn & Co. einsetzen kannst.",
               price: 2800,
+              allowInstallments: false,
             },
             {
               title: "Website Service Technik",
@@ -759,6 +768,7 @@ export default function HomePage() {
               unit: "pro Monat",
               description: "Hosting, Sicherheitsupdates, Backups und technische Betreuung deiner Website. Ideal, wenn du dich nicht selbst um die Technik kümmern möchtest.",
               price: 50,
+              allowInstallments: false,
             },
             {
               title: "Website Service Content",
@@ -767,6 +777,7 @@ export default function HomePage() {
               unit: "pro Monat",
               description: "Technische Betreuung plus ein monatliches Kontingent von 3 Arbeitsstunden für Inhaltsanpassungen oder kleinere Erweiterungen.",
               price: 150,
+              allowInstallments: false,
             },
             {
               title: "Website Service Komplett",
@@ -775,6 +786,7 @@ export default function HomePage() {
               unit: "pro Monat",
               description: "Komplettpaket aus Technik, Content-Pflege und Erweiterungen. Enthält 6 Arbeitsstunden pro Monat und priorisierten Support.",
               price: 280,
+              allowInstallments: false,
             },
           ]}
         />
@@ -935,7 +947,11 @@ export default function HomePage() {
               question: "Wie lange dauert die Nachbearbeitung?",
               answer: "Nach dem Shooting stellen wir dir innerhalb von 5–7 Werktagen eine erste Vorauswahl zur Verfügung. Sobald du deine Favoriten ausgewählt hast, bearbeiten wir sie final – in der Regel bekommst du deine fertigen Bilder innerhalb von weiteren 5–10 Werktagen. Je nach Projektumfang kann das leicht variieren.",
             },
-
+            {
+              caption: "Fotografie",
+              question: "Welche Rechte erhalte ich an den Bildern oder Inhalten?",
+              answer: "Die Nutzung ist im Angebot geregelt. Standardmäßig sind alle vereinbarten Kanäle wie Website, Social Media oder interne Kommunikation abgedeckt. Für großflächige Kampagnen oder Printanzeigen sprechen wir die Nutzungsrechte gesondert ab.",
+            },
             {
               caption: "Video",
               question: "Welche Art von Videos bietet ihr an?",
@@ -975,6 +991,24 @@ export default function HomePage() {
             },
             {
               caption: "Website",
+              question: "Was ist der Unterschied zwischen einem Onepager und einer Landingpage?",
+              answer:
+                "Eine Landingpage ist eine einzelne Seite, die sich auf ein klares Ziel konzentriert – zum Beispiel eine Aktion, ein Produkt oder die Kontaktaufnahme. Sie ist meist kurz und sehr fokussiert. Ein Onepager ist ebenfalls eine Website ohne Unterseiten, aber umfassender: Alle wichtigen Inhalte wie Leistungen, Über uns, Kontakt etc. sind auf einer Seite strukturiert angeordnet. So entsteht ein kompletter Auftritt, auch ohne zusätzliche Unterseiten.",
+            },
+            {
+              caption: "Website",
+              question: "Was ist WordPress?",
+              answer:
+                "WordPress ist eines der am weitesten verbreiteten Content-Management-Systeme (CMS), also ein System, mit dem sich Websites erstellen und verwalten lassen. Damit können Inhalte wie Texte und Bilder einfach gepflegt werden, ohne technisches Vorwissen. Zusätzlich lässt sich WordPress durch eine große Auswahl an Erweiterungen (Plugins) fast beliebig ausbauen – zum Beispiel mit einem Onlineshop, mehrsprachigen Inhalten oder speziellen Formularen. Während man bei klassischen Baukastensystemen irgendwann an Grenzen stößt, wächst WordPress flexibel mit den Anforderungen deines Unternehmens mit.",
+            },
+            {
+              caption: "Website",
+              question: "Bietet ihr auch komplexere Websites an, die individuell programmiert sind?",
+              answer:
+                "Ja. Neben WordPress entwickeln wir auch Websites, die wir mit modernen Webtechnologien programmieren – zum Beispiel mit React und Next.js (Frameworks auf Basis von JavaScript). Diese Tools erlauben es uns individuelle Funktionen und besonders flexible Lösungen zu entwickeln. Für solche Projekte erstellen wir dir gerne ein Angebot, das genau zu deine Anforderungen passt.",
+            },
+            {
+              caption: "Website",
               question: "Welche Informationen oder Materialien benötigt ihr, um mit einer Website starten zu können?",
               answer: "Damit wir starten können, brauchen wir von dir ein paar Grundlagen: Infos zu deinem Unternehmen, deiner Zielgruppe und deinem Angebot – sowie Materialien wie Texte, Bilder oder dein Logo, falls vorhanden. Wenn dir noch etwas fehlt, entwickeln wir die Bausteine gemeinsam.",
             },
@@ -989,25 +1023,40 @@ export default function HomePage() {
               question: "Was gehört alles zu einem Design-Projekt bei euch?",
               answer: "Zum Beispiel: Logoentwicklung, Farbwelt, Typografie, Bildsprache, Icons, Templates für Social Media oder Präsentationen – je nach Bedarf schnüren wir ein passendes Paket.",
             },
+
             {
               caption: "Design",
               question: "Entwickelt ihr auch komplette Brandings?",
-              answer: "Ja – vom Logo über Look & Feel bis zur Bildsprache und Anwendung auf verschiedenen Kanälen. Wir begleiten dich von der ersten Idee bis zum fertigen Auftritt.",
+              answer:
+                "Ja – vom Logo über Farben, Schriften und Bildsprache bis hin zur Anwendung auf allen Kanälen. Wir berücksichtigen dabei deine Markenwerte und Zielgruppe, damit dein Auftritt stimmig ist. Mit einem Styleguide zeigen wir dir, wie dein Branding digital und analog konsistent umgesetzt werden kann. So begleiten wir dich von der ersten Idee bis zum fertigen Markenauftritt.",
             },
             {
               caption: "Design",
               question: "Was, wenn ich schon ein Logo habe?",
               answer: "Kein Problem! Wir bauen auf dem Bestehenden auf – und entwickeln z. B. ein stimmiges Gesamtkonzept oder ergänzen dein vorhandenes Designsystem.",
             },
+
             {
               caption: "Design",
-              question: "Wie läuft ein Design-Prozess bei euch ab?",
-              answer: "Wir starten mit einem Konzept und entwickeln daraus erste Ansätze. In mehreren Feedbackrunden schärfen wir Schritt für Schritt dein Design – bis alles für dich stimmig ist. Am Ende erstellen wir dir einen Guide – damit du und dein Team euer Design sicher anwenden könnt.",
+              question: "Wie läuft ein Logo-Design-Prozess bei euch ab?",
+              answer:
+                "Wir starten mit einem Gespräch, in dem wir deine Ziele, Wünsche und dein Business kennenlernen. Das Briefing ist dabei besonders wichtig: Je genauer du schon weißt, was du möchtest und welche Werte dein Logo transportieren soll, desto klarer können wir passende Ideen entwickeln. Eine gute Vorbereitung hilft, den Prozess effizient zu gestalten. Auf Basis des Briefings entwickeln wir erste Logo-Ideen. Diese schauen wir uns gemeinsam mit dir an und wählen die vielversprechendsten Ansätze aus. In Feedbackrunden verfeinern wir Schritt für Schritt dein Design, bis es für dich stimmig ist. Die Anzahl der Runden kann sich auf den Preis auswirken, deshalb arbeiten wir eng mit dir zusammen, damit Anpassungen effizient umgesetzt werden. Am Ende erhältst du dein finales Logo zusammen mit einem Styleguide, der Farben, Schriften und Anwendungshinweise enthält – so kannst du und dein Team das Design sicher einsetzen.",
             },
             {
               caption: "Design",
               question: "Wie viel Mitgestaltung ist möglich?",
               answer: "So viel wie du willst – oder brauchst. Du bist in den Prozess eingebunden, gibst Feedback und hast jederzeit Einblick in den Zwischenstand.",
+            },
+            {
+              caption: "Design",
+              question: "Wie lange dauert es, ein Logo zu entwickeln?",
+              answer: "Das hängt ein bisschen davon ab, wie klar deine Vorstellungen schon sind und wie viele Feedbackrunden wir einplanen. Im Durchschnitt dauert es vom Briefing bis zum fertigen Logo ein paar Wochen. So haben wir genug Zeit, Ideen zu entwickeln, gemeinsam zu verfeinern und das Design wirklich stimmig zu machen.",
+            },
+            {
+              caption: "Design",
+              question: "Wie lange dauert es, ein Branding zu entwickeln?",
+              answer:
+                "Wir starten mit einem Briefing, entwickeln darauf ein erstes Konzept und verfeinern es gemeinsam Schritt für Schritt in Feedbackrunden. Je nachdem, wie umfangreich das Branding ist und wie klar deine Vorstellungen schon sind, dauert der Prozess bei uns in der Regel etwa 4 bis 8 Wochen. So haben wir genug Zeit, ein stimmiges und rundum passendes Branding zu gestalten.",
             },
           ]}
         />

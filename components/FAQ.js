@@ -29,7 +29,7 @@ export default function FAQ({ faqData = [] }) {
   }, [faqData]);
 
   const filteredFaqs = useMemo(() => {
-    return faqData.filter((f) => activeCaption === "Allgemein" || f.caption === activeCaption);
+    return faqData.filter((f) => activeCaption === "Alle" || f.caption === activeCaption);
   }, [faqData, activeCaption]);
 
   useEffect(() => {
@@ -177,6 +177,7 @@ const FAQList = styled.ul`
   padding-right: var(--spacing-m);
   scroll-behavior: auto;
   overscroll-behavior: contain;
+
   @media (min-width: ${theme.breakpoints.tablet}) {
     padding-right: var(--spacing-xl);
     max-height: 350px;
