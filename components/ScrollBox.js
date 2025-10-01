@@ -6,7 +6,7 @@ import { PiArrowRightLight, PiArrowLeftLight, PiArrowBendDownRightLight } from "
 
 const MOBILE_CYCLIC = false;
 
-export default function ScrollBox({ boxData = [], headline1, headline2, introText, showIcon = false }) {
+export default function ScrollBox({ boxData = [], headline1, headline2, headline2mobile, introText, showIcon = false }) {
   const scrollRef = useRef(null);
   const trackRef = useRef(null);
   const mobileAnimatingRef = useRef(false);
@@ -15,6 +15,16 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
   const [isHovering, setIsHovering] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia(`(max-width: ${theme.breakpoints.tablet})`);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const [isTouch, setIsTouch] = useState(false);
   useEffect(() => {
@@ -449,7 +459,7 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
     <ScrollBoxContainer>
       <StyledTextBox>
         <h2>{headline1}</h2>
-        <h4>{headline2}</h4>
+        <h4>{isMobile ? headline2mobile || headline2 : headline2}</h4>
         <p>{introText}</p>
       </StyledTextBox>
 
@@ -489,14 +499,14 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
                       </ImageWrapper>
                     )}
 
-                    <StyledTitle>
+                    <h5>
                       {showIconEffective && (
                         <StyledIcon>
                           <PiArrowBendDownRightLight />
                         </StyledIcon>
                       )}
                       {title}
-                    </StyledTitle>
+                    </h5>
 
                     <p>{text}</p>
                   </StyledScrollBoxInner>
@@ -522,12 +532,9 @@ export default function ScrollBox({ boxData = [], headline1, headline2, introTex
 
 const ScrollBoxContainer = styled.div`
   background-color: ${theme.color.dark};
-  padding: var(--spacing-xxxl) 0 var(--spacing-xl) 0;
+  padding: var(--spacing-xxxl) 0;
   overflow: hidden;
   margin: 0;
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    padding: var(--spacing-xxxl) 0;
-  }
 `;
 
 const Viewport = styled.div`
@@ -539,7 +546,7 @@ const StyledScrollBoxWrapper = styled.div`
   background-color: transparent;
   min-width: 250px;
   margin-left: var(--side-padding);
-  padding: var(--spacing-xxl) 0 0 0;
+  padding: calc(1.5 * var(--spacing-xxl)) 0 0 0;
   display: flex;
   overflow-x: scroll;
   cursor: grab;
@@ -613,7 +620,7 @@ const StyledScrollBox = styled.div`
   flex-direction: column;
   align-items: start;
   color: ${theme.color.beige};
-  padding: 0 var(--spacing-xl) var(--spacing-xxl) 0;
+  padding: 0 var(--spacing-xl) 0 0;
   min-width: 600px;
   flex: 0 0 1;
 
@@ -627,10 +634,10 @@ const StyledScrollBox = styled.div`
     scroll-snap-stop: always;
   }
 
-  p {
+  /* p {
     line-height: ${theme.lineHeight.xxl};
     font-weight: ${theme.fontWeight.light};
-  }
+  } */
 `;
 
 const StyledIcon = styled.span`
@@ -641,16 +648,16 @@ const StyledIcon = styled.span`
   font-size: 1.3rem;
 `;
 
-const StyledTitle = styled.h5`
-  margin-bottom: var(--spacing-xs);
-`;
-
 const ImageWrapper = styled.div`
   position: relative;
   margin-bottom: var(--spacing-m);
   aspect-ratio: 3 / 2;
   width: 100%;
   overflow: hidden;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin-bottom: var(--spacing-xl);
+  }
 `;
 
 const StyledImage = styled(Image)`
@@ -669,7 +676,7 @@ const ArrowsLayer = styled.div`
 const MobileArrowBase = styled.button`
   pointer-events: auto;
   position: absolute;
-  top: var(--spacing-l);
+  top: calc(1.25 * var(--spacing-xl));
   width: 40px;
   height: 40px;
   border: none;
@@ -682,6 +689,10 @@ const MobileArrowBase = styled.button`
   transition:
     transform 0.12s ease,
     opacity 0.2s ease;
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    top: calc(1.75 * var(--spacing-xl));
+  }
 
   &:active:hover {
     transform: scale(1.1);
@@ -710,7 +721,7 @@ const MobileArrowBase = styled.button`
 const MobileArrowLeft = styled(MobileArrowBase)`
   right: calc(2.2 * var(--side-padding));
   @media (max-width: ${theme.breakpoints.mobile}) {
-    right: calc(2.5 * var(--side-padding));
+    right: calc(3 * var(--side-padding));
   }
 `;
 

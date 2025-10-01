@@ -35,7 +35,7 @@ const StyledHeadBoxContainer = styled.div`
   width: 100%;
   background-color: ${theme.color.beige};
   overflow: hidden;
-  padding: var(--spacing-xxxl) var(--side-padding);
+  padding: calc(1.25 * var(--spacing-xxxl)) var(--side-padding);
 `;
 
 const StyledTopTextWrapper = styled.div`
@@ -47,5 +47,9 @@ const StyledTopTextWrapper = styled.div`
   max-width: 600px;
   @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 1200px;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding-bottom: var(--spacing-xxl);
   }
 `;

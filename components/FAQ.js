@@ -101,10 +101,6 @@ const FAQContainer = styled.section`
   background-color: ${theme.color.dark};
   color: ${theme.color.beige};
   padding: var(--spacing-xxxl) var(--side-padding);
-
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    padding: var(--spacing-xxl) var(--side-padding);
-  }
 `;
 
 const FAQHeader = styled.div`
@@ -117,6 +113,10 @@ const FAQHeader = styled.div`
   h3 {
     font-weight: ${theme.fontWeight.bold};
   }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin-bottom: calc(1.5 * var(--spacing-xl));
+  }
 `;
 
 const FilterBar = styled.div`
@@ -125,10 +125,11 @@ const FilterBar = styled.div`
   gap: var(--spacing-xs);
   width: 100%;
   max-width: var(--max-content);
-  margin-bottom: var(--spacing-l);
+  margin-bottom: var(--spacing-s);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     justify-content: space-between;
+    margin-bottom: var(--spacing-l);
   }
 `;
 
@@ -145,6 +146,7 @@ const FilterChip = styled.button`
   cursor: pointer;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: calc(0.85 * var(--spacing-s)) var(--spacing-s);
     width: 48%;
   }
 
@@ -173,7 +175,7 @@ const FAQList = styled.ul`
   max-width: var(--max-content);
   max-height: 300px;
   overflow-y: scroll;
-  border-right: solid 1px ${theme.color.beige};
+
   padding-right: var(--spacing-m);
   scroll-behavior: auto;
   overscroll-behavior: contain;

@@ -143,12 +143,13 @@ const TextInner = styled.div`
 const CardContainer = styled.div`
   position: relative;
   flex: 1;
-  padding: var(--spacing-xxl) 0 var(--spacing-xxl) var(--side-padding);
+  padding: var(--spacing-xxxl) 0 calc(0.85 * var(--spacing-xxxl)) var(--side-padding);
   overflow-x: hidden;
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 50%;
+    padding: calc(1.3 * var(--spacing-xxl)) 0 var(--spacing-xxl) var(--side-padding);
   }
 `;
 
@@ -174,7 +175,7 @@ const CardWrapper = styled.div`
   }
 
   &::-webkit-scrollbar {
-    height: 6px;
+    height: 2px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
@@ -195,7 +196,6 @@ const Card = styled.div`
   text-align: start;
   min-width: 310px;
   max-width: 310px;
-  padding-bottom: var(--spacing-xs);
 
   @media (min-width: ${theme.breakpoints.tablet}) {
     min-width: 430px;
@@ -210,18 +210,6 @@ const Card = styled.div`
       max-width: calc(430px * 1.5);
       min-width: calc(430px * 1.5);
     }
-  }
-
-  h6 {
-    width: 100%;
-    line-height: 1.2;
-    margin: 0 0 var(--spacing-xs) 0;
-  }
-
-  p {
-    margin: 0;
-    line-height: ${theme.lineHeight.xxl};
-    font-weight: ${theme.fontWeight.light};
   }
 `;
 

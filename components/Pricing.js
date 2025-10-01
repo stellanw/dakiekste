@@ -1,8 +1,7 @@
 import styled, { css } from "styled-components";
 import { theme } from "@/styles";
 import { useState, useEffect, useRef } from "react";
-import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin } from "react-icons/pi";
-import { RxCross1 } from "react-icons/rx";
+import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX } from "react-icons/pi";
 import ContactOverlayForm from "./ContactOverlayForm";
 
 const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
@@ -217,10 +216,7 @@ export default function Pricing({ pricingData, servicesData }) {
           <HeadlineContainer>
             <h2>Preiskalkulator</h2>
             {isMobile ? (
-              <h4>
-                Jedes Projekt ist individuell – genau wie dein Budget. <br />
-                Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.
-              </h4>
+              <h4>Jedes Projekt ist individuell – genau wie dein Budget. Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.</h4>
             ) : (
               <h4>
                 Jedes Projekt ist individuell – genau wie dein Budget. <br />
@@ -453,7 +449,7 @@ const HeadlineContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-xxl);
   width: 100%;
 
   h4 {
@@ -480,7 +476,7 @@ const CategoriesContainer = styled.div`
   @media (max-width: ${theme.breakpoints.desktop}) {
     flex-direction: column;
     gap: var(--spacing-m);
-    padding: var(--spacing-m) 0;
+    padding: var(--spacing-m) 0 var(--spacing-l) 0;
   }
 `;
 
@@ -497,6 +493,7 @@ const OptionContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  gap: calc(0.5 * var(--spacing-xs));
   padding-bottom: var(--spacing-xs);
   @media (min-width: ${theme.breakpoints.tablet}) {
     flex-direction: row;
@@ -557,6 +554,12 @@ const OptionName = styled.span`
   font-size: var(--font-xs);
   color: ${({ $checked }) => ($checked ? theme.color.dark : theme.color.dark)};
   transition: color 0.2s ease;
+  font-weight: 500;
+  letter-spacing: 0.03rem;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-weight: 600;
+  }
 `;
 
 const OutcomeContainer = styled.div`
@@ -572,16 +575,18 @@ const OutcomeContent = styled.div`
   flex-direction: column;
   height: 100%;
   justify-content: end;
-  padding-top: var(--spacing-m);
   width: 100%;
+  padding-top: var(--spacing-m);
 
-  h6 {
-    font-weight: ${theme.fontWeight.bold};
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding-top: calc(1.5 * var(--spacing-xl));
   }
 
   ul {
-    margin-bottom: var(--spacing-m);
+    margin-bottom: calc(0.75 * var(--spacing-s));
     li {
+      letter-spacing: 0.02rem;
+      font-weight: 400;
       padding: calc(0.75 * var(--spacing-xs)) 0;
     }
   }
@@ -627,14 +632,10 @@ const RemoveButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-
-  /* margin-left: var(--spacing-xs); */
 `;
 
-const StyledRemoveIcon = styled(RxCross1)`
-  fill: none;
-  stroke: currentColor;
-  color: inherit;
+const StyledRemoveIcon = styled(PiX)`
+  stroke-width: 1px;
 
   &:hover {
     transform: scale(1.05);
@@ -656,6 +657,10 @@ const Service = styled.li`
   flex-direction: column;
   padding: var(--spacing-m) 0;
   border-bottom: 1px solid ${theme.color.dark};
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    padding: var(--spacing-l) 0;
+  }
 `;
 
 const Services = styled.div`
@@ -720,10 +725,12 @@ const ServiceTitle = styled.h2`
   font-weight: ${theme.fontWeight.mediumBold};
   margin: 0;
   color: ${theme.color.dark};
-  padding-top: 2px;
   font-size: var(--font-m);
-
+  padding-top: 2px;
+  line-height: 1.25;
+  letter-spacing: 0.05rem;
   @media (max-width: ${theme.breakpoints.mobile}) {
+    padding-top: 1px;
   }
 `;
 
@@ -746,7 +753,7 @@ const Description = styled.div`
   font-weight: ${theme.fontWeight.light};
 
   font-size: var(--font-m);
-
+  line-height: 1.5;
   @media (min-width: ${theme.breakpoints.tablet}) {
   }
 
@@ -784,6 +791,10 @@ const Counter = styled.div`
 
   background-color: transparent;
   transition: background-color 0.2s ease;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    gap: calc(0.85 * var(--spacing-xs));
+  }
 
   span {
     font-size: var(--font-s);
@@ -897,7 +908,7 @@ const ServiceTitleGroup = styled.div`
   ${({ $hovered }) =>
     $hovered &&
     css`
-      ${ServiceTitle}, ${ToggleIcon} {
+      ${ToggleIcon} {
         color: ${theme.color.green};
       }
     `}
@@ -907,7 +918,6 @@ const ClearAllButton = styled.button`
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
-  margin: calc(0.5 * var(--spacing-xs)) 0 var(--spacing-s);
   padding: 0;
   background: none;
   border: none;
@@ -915,19 +925,25 @@ const ClearAllButton = styled.button`
   cursor: pointer;
   font-size: var(--font-xs);
   text-transform: uppercase;
+  margin: 0 0 calc(1.25 * var(--spacing-xl)) 0;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin: 0 0 calc(1.5 * var(--spacing-xl)) 0;
+  }
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     flex-shrink: 0;
+    stroke-width: 1px;
   }
 
   &:hover {
+    transform: none;
     svg {
       transform: scale(1.05);
       stroke-width: 3px;
+      color: ${theme.color.green};
     }
-    color: ${theme.color.green};
   }
 
   &:focus-visible {
