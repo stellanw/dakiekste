@@ -415,8 +415,14 @@ const OverlayLabel = styled.label`
   display: flex;
   align-items: center;
   color: ${theme.color.dark};
-  font-size: var(--font-s);
-  margin-bottom: calc(0.5 * var(--spacing-xs));
+  font-size: var(--font-xs);
+  margin-bottom: calc(0.25 * var(--spacing-xs));
+  letter-spacing: 0.03rem;
+  font-weight: ${theme.fontWeight.regular} !important;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: var(--font-s);
+    font-weight: ${theme.fontWeight.mediumBold} !important;
+  }
 `;
 
 const controlBase = `
@@ -538,8 +544,8 @@ const OverlaySubmitButton = styled.button`
 
 const CloseButton = styled.button`
   position: absolute;
-  top: var(--spacing-m);
-  right: var(--spacing-m);
+  top: var(--spacing-l);
+  right: var(--spacing-l);
   background: none;
   border: none;
   font-size: var(--font-l);

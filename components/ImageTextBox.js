@@ -42,11 +42,7 @@ const InnerWrapper = styled.div`
   width: 100%;
   max-width: var(--max-content);
   margin: 0 auto;
-  padding: var(--spacing-xxxl) 0;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: 0;
-  }
+  padding: 0;
 `;
 
 const StyledImageTextBox = styled.div`
@@ -106,7 +102,7 @@ const StyledImageContainer = styled.div`
 const ImageBox = styled.div`
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: auto;
   overflow: hidden;
   border-radius: 0;
 
@@ -114,8 +110,15 @@ const ImageBox = styled.div`
     border-radius: ${theme.borderRadius};
   }
 
+  @media (max-width: ${theme.breakpoints.tablet}) {
+  }
+
   @media (min-width: ${theme.breakpoints.desktop}) {
     aspect-ratio: 684 / 598;
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    height: var(--height-section);
   }
 `;
 

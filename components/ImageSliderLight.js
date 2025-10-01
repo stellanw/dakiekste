@@ -114,7 +114,7 @@ const SliderWrapper = styled.div`
   padding: var(--spacing-xxl) 0;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: var(--spacing-xxxl) 0 var(--spacing-xxl) 0;
+    padding: calc(1.5 * var(--spacing-xxxl)) 0 var(--spacing-xxxl) 0;
   }
 `;
 
@@ -122,9 +122,9 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: var(--spacing-xl);
+  top: calc(1.25 * var(--spacing-xxl));
   right: var(--side-padding);
-  width: 100px;
+  width: 110px;
   z-index: 2;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
@@ -230,10 +230,10 @@ const Slide = styled.div`
   overflow: hidden;
   border-radius: ${theme.borderRadius};
   width: 100%;
-  height: var(--height-hero);
+  height: calc(0.85 * var(--height-hero));
 
   @media (max-width: ${theme.breakpoints.tablet}) {
-    max-height: var(--height-section);
+    height: calc(0.75 * var(--height-hero));
   }
   @media (min-width: ${theme.breakpoints.wide}) {
     height: calc(1.5 * var(--height-hero));

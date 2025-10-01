@@ -16,7 +16,7 @@ export const theme = {
     s: "0.8",
     m: "0.9",
     l: "1",
-    xl: "1.45",
+    xl: "1.3",
     xxl: "1.6",
     xxxl: "2",
   },
@@ -31,8 +31,8 @@ export const theme = {
 
   height: {
     header: "40rem",
-    hero: "37rem",
-    section: "25rem",
+    hero: "42rem",
+    section: "30rem",
   },
 
   spacing: {
@@ -212,9 +212,12 @@ a:visited { color: inherit; }
     font-size: var(--font-m);
 line-height: ${theme.lineHeight.l};
 
-margin-bottom: calc(0.35 * var(--spacing-xs));
-    @media (min-width: ${theme.breakpoints.tablet}) {
+margin-bottom: calc(0.15 * var(--spacing-xs));
 
+    @media (max-width: ${theme.breakpoints.mobile}) {
+   font-size: calc(0.95*var(--font-s));
+//font-size: var(--font-s);
+margin-bottom: calc(0.35 * var(--spacing-xs));
     }
   }
 
@@ -225,34 +228,35 @@ h3 {
 margin-bottom: var(--spacing-s);
 padding: 0;
   letter-spacing: 0.03rem;
-  line-height: ${theme.lineHeight.l};
+  line-height: 1.2;
 word-wrap: normal !important;
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
+margin-bottom:calc(0.5*var(--spacing-s));
   }
 }
 
   h4 {
     font-size: var(--font-xl);
-    font-weight: ${theme.fontWeight.regular};
+    font-weight: ${theme.fontWeight.light};
     text-transform: none;
     line-height: ${theme.lineHeight.xl};
-    letter-spacing: 0.06rem;
+    letter-spacing: normal;
 
-    @media (min-width: ${theme.breakpoints.tablet}) {
-
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: var(--font-xl);
+      line-height: ${theme.lineHeight.xl};
+      padding-top: calc(0.25*var(--spacing-xs));
     }
   }
 
   h5 {
     text-transform: uppercase;
-    font-weight: ${theme.fontWeight.bold};
+    font-weight: ${theme.fontWeight.mediumBold};
   font-size: var(--font-l);
 line-height: ${theme.lineHeight.m};
-    letter-spacing: 0.07rem;
-margin-bottom: var(--spacing-s);
-    @media (min-width: ${theme.breakpoints.tablet}) {
+    letter-spacing: 0.03rem;
+margin-bottom: var(--spacing-m);
 
-    }
   }
 
   
@@ -281,9 +285,10 @@ line-height: ${theme.lineHeight.l};
   }
 
   p {
-    font-weight: ${theme.fontWeight.regular};
+    font-weight: ${theme.fontWeight.light};
   font-size: var(--font-l);
-    line-height: ${theme.lineHeight.xl};
+    line-height: 1.4;
+
 
   }
 

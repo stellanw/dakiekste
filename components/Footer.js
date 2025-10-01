@@ -79,6 +79,12 @@ const StyledFooter = styled.footer`
     background: ${theme.color.beige};
     color: ${theme.color.dark};
   }
+
+  h3 {
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: var(--font-xl) !important;
+    }
+  }
 `;
 
 const StyledPrideWrapper = styled.div`
@@ -109,9 +115,14 @@ const StyledLinkListWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: start;
   align-items: center;
-  gap: var(--spacing-s);
-  margin: var(--spacing-l) 0 var(--spacing-xxxl) 0;
+  gap: var(--spacing-l);
+  margin: var(--spacing-m) 0 var(--spacing-xxxl) 0;
   width: 100%;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    flex-direction: column;
+    align-items: start;
+  }
 `;
 
 const StyledLinkWrapper = styled.div`
@@ -128,14 +139,18 @@ const StyledLinkWrapper = styled.div`
     font-weight: ${theme.fontWeight.light};
     margin-right: calc(0.4 * var(--spacing-xs));
   }
+
+  a {
+    line-height: 0;
+  }
 `;
 
 const StyledIcon = styled(PiArrowUpRightLight)`
-  font-size: calc(1.5 * var(--font-m));
+  font-size: calc(1.1 * var(--font-m));
   stroke-width: 10;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
     color: ${theme.color.beige};
   }
 `;
@@ -173,6 +188,6 @@ const StyledBottomWrapper = styled.div`
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column-reverse;
-    gap: var(--spacing-xl);
+    gap: 0;
   }
 `;

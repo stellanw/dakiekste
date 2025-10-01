@@ -94,6 +94,7 @@ const Slide = styled.div`
   @media (max-width: ${theme.breakpoints.tablet}) {
     max-height: var(--height-section);
   }
+
   @media (min-width: ${theme.breakpoints.wide}) {
     height: calc(1.5 * var(--height-hero));
   }
@@ -188,12 +189,12 @@ const ArrowContainer = styled.div`
   display: flex;
   position: absolute;
   justify-content: space-between;
-  top: var(--spacing-m);
+  top: var(--spacing-l);
   right: var(--side-padding);
   width: 100px;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    width: 65px;
+    width: 85px;
   }
 `;
 

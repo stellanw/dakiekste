@@ -114,12 +114,12 @@ export default function HomePage() {
         text={
           <>
             Weil deine Vision mehr als schöne Bilder braucht, kombinieren wir <br />
-            Fotografie, Video, Design & Website zu einem stimmigen Gesamtauftritt.
+            Fotografie, Video, Design & Website zu einem stimmigen Gesamtauftritt –
             <br />
-            Mit vielseitiger Expertise, Erfahrung und Empathie.
+            mit vielseitiger Expertise, Erfahrung und Empathie.
           </>
         }
-        textMobile="Weil deine Vision mehr als schöne Bilder braucht, kombinieren wir Fotografie, Video, Design & Website zu einem stimmigen Gesamtauftritt. Mit vielseitiger Expertise, Erfahrung und Empathie."
+        textMobile="Weil deine Vision mehr als schöne Bilder braucht, kombinieren wir Fotografie, Video, Design & Website zu einem stimmigen Gesamtauftritt – mit vielseitiger Expertise, Erfahrung und Empathie."
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
@@ -323,8 +323,8 @@ export default function HomePage() {
             die verbinden
           </>
         }
-        text1="Ein Imagefilm macht dein Unternehmen erlebbar. Er zeigt nicht nur Fakten, sondern vermittelt Atmosphäre und Persönlichkeit. So bekommen Kund*innen einen echten Eindruck davon, wie du arbeitest und was dein Unternehmen besonders macht. Durch bewegte Bilder entsteht Nähe – und aus Zuschauer*innen werden Interessierte, die sich mit deiner Marke verbinden."
-        text2="Videoaufnahmen lassen sich an einem Shooting-Tag gut zwischen Fotoaufnahmen integrieren – so lassen sich dieselben Momente lebendig einfangen."
+        text1="Ein Imagefilm macht dein Unternehmen erlebbar. Er zeigt nicht nur Fakten, sondern vermittelt Atmosphäre und Persönlichkeit. So bekommen Kund*innen einen echten Eindruck davon, wie du arbeitest und was dein Unternehmen besonders macht. Durch bewegte Bilder entsteht Nähe – und aus Zuschauer*innen werden Interessierte, die sich mit deiner Marke verbinden. Videoaufnahmen lassen sich an einem Shooting-Tag gut zwischen Fotoaufnahmen integrieren – so lassen sich dieselben Momente lebendig einfangen."
+        // text2="Videoaufnahmen lassen sich an einem Shooting-Tag gut zwischen Fotoaufnahmen integrieren – so lassen sich dieselben Momente lebendig einfangen."
         videoSrc="/videos/Imagefilm-ossara.mov"
         posterSrc="/videos/imagefilm-poster.png"
         flexflow="row"
@@ -355,10 +355,11 @@ export default function HomePage() {
           headline1="Unser Workflow"
           headline2={
             <>
-              Du bringst die Vision, wir kümmern uns um den Weg. <br />
-              Mit einem strukturierten Ablauf halten wir dir den Rücken frei.
+              Du bringst die Vision, wir kümmern uns um den Weg.
+              <br /> Mit einem strukturierten Ablauf halten wir dir den Rücken frei.
             </>
           }
+          headline2mobile="Du bringst die Vision, wir kümmern uns um den Weg. Mit einem strukturierten Ablauf halten wir dir den Rücken frei."
           boxData={[
             {
               title: "01 Erstgespräch & Analyse",
@@ -501,8 +502,8 @@ export default function HomePage() {
               text: (
                 <>
                   <p>
-                    Ich arbeite visuell und konzeptionell – mit einem Blick für Zusammenhänge, Inhalte und klare Gestaltung. Mein Schwerpunkt liegt in Fotografie und Video, verbunden mit Erfahrung in visueller Kommunikation und digitalen Interfaces. Als kreative Allrounderin entwickle ich Gestaltungslösungen, die den Kern einer Vision treffen. Ich höre zu,
-                    sehe genau hin und finde visuelle Antworten, die Orientierung geben.
+                    Ich arbeite visuell und konzeptionell – mit einem Blick für Zusammenhänge, Inhalte und klare Gestaltung. Mein Schwerpunkt liegt in Fotografie, Video und Design, kombiniert mit dem Gestalten von digitalen Interfaces in Verbindung mit digitalem Userelebnis – UI/UX. Als kreative Allrounderin entwickle ich Gestaltungslösungen, die den Kern
+                    einer Vision treffen. Ich höre zu, sehe genau hin und finde visuelle Antworten, die Orientierung geben.
                   </p>
                 </>
               ),
@@ -528,8 +529,8 @@ export default function HomePage() {
               text: (
                 <>
                   <p>
-                    Wir arbeiten mit Menschen und Unternehmen, die gestalten und bewegen wollen. Sichtbarkeit verstehen wir dabei nicht nur als Mittel zum Zweck, sondern als Chance, präsent zu sein, Beziehungen zu stärken und neue Möglichkeiten zu eröffnen. Unsere Perspektiven entstehen aus Erfahrungen, die oft unsichtbar bleiben – und prägen, wie wir
-                    zuhören, gestalten und begleiten. Darum fühlen wir uns besonders Vorhaben verbunden, die für Teilhabe, Miteinander und Fairness stehen.
+                    Wir arbeiten mit Menschen und Unternehmen, die gestalten und bewegen wollen. Digitale Sichtbarkeit verstehen wir als Chance, präsent zu sein, Beziehungen zu stärken und neue Möglichkeiten zu eröffnen. Unsere Perspektiven entstehen aus Erfahrungen, die oft unsichtbar bleiben – und prägen, wie wir zuhören, gestalten und begleiten. Darum
+                    fühlen wir uns besonders Vorhaben verbunden, die für Teilhabe, Miteinander und Fairness stehen.
                     <br />
                     <br />
                     Denn: Wer gesehen wird, gestaltet mit.

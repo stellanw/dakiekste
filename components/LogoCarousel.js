@@ -7,13 +7,13 @@ import { theme } from "@/styles";
 
 export default function LogoCarousel() {
   const logos = [
-    { src: "/images/Logos/Ossara-Logo.png", alt: "Logo 5", width: 100, height: 75 },
-    { src: "/images/Logos/otto-logo.png", alt: "Logo 1", width: 80, height: 75 },
-    { src: "/images/Logos/averdung-logo.png", alt: "Logo 2", width: 100, height: 75 },
-    { src: "/images/Logos/neuland_logo.png", alt: "Logo 3", width: 100, height: 75 },
-    { src: "/images/Logos/Logo_Elbesolar_CMYK-1.png", alt: "Logo 5", width: 60, height: 75 },
-    { src: "/images/Logos/Improova_Logo_small_black.png", alt: "Logo 5", width: 100, height: 75 },
-    { src: "/images/Logo_QuCare_RGB.png", alt: "Logo 5", width: 100, height: 75 },
+    { src: "/images/Logos/Ossara-Logo.png", alt: "Logo Ossara", width: 100, height: 75 },
+    { src: "/images/Logos/otto-logo.png", alt: "Logo Otto", width: 80, height: 75 },
+    { src: "/images/Logos/averdung-logo.png", alt: "Logo Averdung", width: 100, height: 75 },
+    { src: "/images/Logos/neuland_logo.png", alt: "Logo Neuland", width: 100, height: 75 },
+    { src: "/images/Logos/Logo_Elbesolar_CMYK-1.png", alt: "Logo Elbesolar", width: 60, height: 75 },
+    { src: "/images/Logos/Improova_Logo_small_black.png", alt: "Logo Improova", width: 100, height: 75 },
+    { src: "/images/Logo_QuCare_RGB.png", alt: "Logo QuCare", width: 100, height: 75 },
   ];
 
   const settings = {
@@ -29,7 +29,7 @@ export default function LogoCarousel() {
       { breakpoint: 1100, settings: { slidesToShow: 4 } },
       { breakpoint: 900, settings: { slidesToShow: 3 } },
       { breakpoint: 600, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
+      { breakpoint: 480, settings: { slidesToShow: 2 } },
     ],
   };
 
@@ -51,7 +51,7 @@ export default function LogoCarousel() {
 const CarouselWrapper = styled.div`
   margin: 0 auto;
   padding: 0;
-  width: 60%;
+  width: 100%;
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     width: 40%;

@@ -91,7 +91,7 @@ const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
   height: var(--height-card-mobile);
-  margin-bottom: var(--spacing-l);
+  margin-bottom: var(--spacing-s);
   overflow: hidden;
   border-radius: ${theme.borderRadius};
   contain: paint;
@@ -100,7 +100,7 @@ const ImageWrapper = styled.div`
 
   @media (min-width: ${theme.breakpoints.tablet}) {
     height: var(--height-card-desktop);
-    margin-bottom: var(--spacing-m);
+    margin-bottom: var(--spacing-xs);
   }
 `;
 
@@ -157,9 +157,6 @@ const NameIconContainer = styled.div`
     margin-bottom: 0;
   }
 
-  &:hover h6 {
-    color: ${theme.color.green};
-  }
   &:hover ${ToggleIcon} svg {
     transform: scale(1);
     color: ${theme.color.green};

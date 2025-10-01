@@ -64,10 +64,10 @@ export default function Header({ useImageBackground = false }) {
         <h2>WER GESEHEN WIRD – GESTALTET MIT</h2>
         <h1>
           {isMobile ? (
-            "Branding, Foto und Website Für Gründer*innen & Unternehmen"
+            "Branding, Fotografie und Website Für Gründer*innen & Unternehmen"
           ) : (
             <>
-              Branding, Foto und Website
+              Branding, Fotografie und Website
               <br />
               Für Gründer*innen & Unternehmen
             </>

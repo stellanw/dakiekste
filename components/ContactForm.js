@@ -258,6 +258,13 @@ const StyledForm = styled.form`
     font-weight: ${theme.fontWeight.bold};
     letter-spacing: 0.035rem;
     color: ${theme.color.beige};
+    padding-top: calc(0.5 * var(--spacing-xs));
+    margin-bottom: calc(0.75 * var(--spacing-xs)) !important;
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      font-size: var(--font-xs) !important;
+      font-weight: ${theme.fontWeight.regular};
+      padding-top: var(--spacing-s);
+    }
   }
 
   input[type="checkbox"] {
@@ -288,6 +295,7 @@ const StyledForm = styled.form`
 
 const StyledButton = styled.button`
   padding: var(--spacing-xs) var(--spacing-m);
+
   color: ${theme.color.beige};
   background-color: ${theme.color.dark};
   font-size: var(--font-m);
@@ -301,9 +309,14 @@ const StyledButton = styled.button`
     color 100ms ease,
     border-color 100ms ease;
 
-  height: calc(2.4 * var(--spacing-m));
+  height: calc(2.8 * var(--spacing-m));
   @media (min-width: ${theme.breakpoints.desktop}) {
     height: auto;
+    width: 48%;
+  }
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 100%;
   }
 
   &:is(:hover, :active) {
@@ -323,10 +336,10 @@ const StyledInput = styled.input`
   ${fieldBase};
   margin-bottom: var(--spacing-xs);
   padding: var(--spacing-xs);
-  height: calc(2.4 * var(--spacing-m));
+  height: calc(2.8 * var(--spacing-m));
 
   @media (min-width: ${theme.breakpoints.desktop}) {
-    height: var(--spacing-m);
+    height: var(--spacing-l);
   }
 
   &:-webkit-autofill {
@@ -362,16 +375,20 @@ const StyledLabel = styled.label`
   flex-wrap: wrap;
   justify-content: start;
   align-items: center;
-  font-size: var(--font-s);
+
   margin-bottom: var(--spacing-xs);
   color: ${theme.color.beige};
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    font-size: var(--font-xs);
+  }
 `;
 
 const StyledCheckboxGroup = styled.div`
   display: flex;
   flex-wrap: wrap;
   column-gap: var(--spacing-xs);
-  padding-bottom: var(--spacing-xs);
+  padding-bottom: var(--spacing-l);
   font-size: var(--font-xs);
 
   label {
@@ -423,14 +440,15 @@ const StyledSelect = styled.select`
   box-sizing: border-box;
   width: 100%;
   margin-bottom: var(--spacing-xs);
-  height: calc(2.4 * var(--spacing-m));
+  height: calc(2.8 * var(--spacing-m));
   padding: 0 var(--spacing-xs);
   color: ${theme.color.beige};
   background-color: ${theme.color.dark};
   border-radius: calc(0.5 * ${theme.borderRadius});
 
   @media (min-width: ${theme.breakpoints.desktop}) {
-    height: calc(1.063 * var(--spacing-m));
+    /* height: calc(1.063 * var(--spacing-m)); */
+    height: var(--spacing-l);
   }
 
   -webkit-appearance: none;
