@@ -117,8 +117,8 @@ const TextContainer = styled.div`
   display: grid;
   grid-template-rows: ${({ $isExpanded }) => ($isExpanded ? "1fr" : "0fr")};
   transition:
-    grid-template-rows 350ms ease,
-    opacity 300ms ease;
+    grid-template-rows 250ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
   opacity: ${({ $isExpanded }) => ($isExpanded ? 1 : 0)};
 `;
 

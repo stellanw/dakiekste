@@ -372,25 +372,26 @@ export default function Pricing({ pricingData, servicesData }) {
                               {isOpen ? <PiMinus /> : <PiPlus />}
                             </ToggleIcon>
                           </ServiceTitleGroup>
-
-                          {isOpen && (
+                          {/* {isOpen && (
                             <OverlayDescription>
-                              <Description>
-                                {service.description}
-                                {service.price > 0 && (
-                                  <ServicePrice>
-                                    Preis ab <span>{formatCeil(applyDiscount(service.price))}</span>,-
-                                    {service.isCountable && <span> {service.unit}</span>}
-                                  </ServicePrice>
-                                )}
-                                {service.allowInstallments === false && (
-                                  <Badge aria-label="Nicht ratenfähig" title="Nicht ratenfähig – nicht in der Ratenberechnung enthalten">
-                                    Hinweis: Bei dieser Leistung ist keine Ratenzahlung möglich.
-                                  </Badge>
-                                )}
-                              </Description>
-                            </OverlayDescription>
-                          )}
+                              <Description> */}
+                          <OverlayDescription $open={isOpen} aria-hidden={!isOpen}>
+                            <Description>
+                              {service.description}
+                              {service.price > 0 && (
+                                <ServicePrice>
+                                  Preis ab <span>{formatCeil(applyDiscount(service.price))}</span>,-
+                                  {service.isCountable && <span> {service.unit}</span>}
+                                </ServicePrice>
+                              )}
+                              {service.allowInstallments === false && (
+                                <Badge aria-label="Nicht ratenfähig" title="Nicht ratenfähig – nicht in der Ratenberechnung enthalten">
+                                  Hinweis: Bei dieser Leistung ist keine Ratenzahlung möglich.
+                                </Badge>
+                              )}
+                            </Description>
+                          </OverlayDescription>
+                          {/* )} */}
                         </Service>
                       </ServiceUL>
                     );
@@ -734,38 +735,38 @@ const ServiceTitle = styled.h2`
   }
 `;
 
+const ROWS_DUR = "250ms";
+const OPACITY_DUR = "200ms";
+const EASE = "cubic-bezier(0.16,1,0.3,1)";
+
 const OverlayDescription = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: var(--spacing-xs) var(--spacing-l) 0 var(--spacing-m);
+  display: grid;
+  grid-template-rows: ${({ $open }) => ($open ? "1fr" : "0fr")};
+  opacity: ${({ $open }) => ($open ? 1 : 0)};
+  overflow: hidden;
+  pointer-events: ${({ $open }) => ($open ? "auto" : "none")};
+  will-change: grid-template-rows, opacity, padding;
+
+  transition:
+    grid-template-rows ${ROWS_DUR} ${EASE},
+    opacity ${OPACITY_DUR} ${EASE},
+    padding ${OPACITY_DUR} ${EASE};
+
+  padding: ${({ $open }) => ($open ? "var(--spacing-xs) var(--spacing-l) 0 var(--spacing-m)" : "0 var(--spacing-l) 0 var(--spacing-m)")};
 
   @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: var(--spacing-xs) var(--spacing-l) 0 calc(0.9 * var(--spacing-l));
-  }
-
-  p {
-    padding: 0;
+    padding: ${({ $open }) => ($open ? "var(--spacing-xs) var(--spacing-l) 0 calc(0.9 * var(--spacing-l))" : "0 var(--spacing-l) 0 calc(0.9 * var(--spacing-l))")};
   }
 `;
 
 const Description = styled.div`
-  animation: slide-animation 0.5s ease;
-  font-weight: ${theme.fontWeight.light};
+  overflow: hidden;
 
-  font-size: var(--font-m);
-  line-height: 1.5;
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  & > :first-child {
+    margin-top: 0;
   }
-
-  @keyframes slide-animation {
-    0% {
-      height: 0;
-      opacity: 0;
-    }
-    100% {
-      height: fit-content;
-      opacity: 1;
-    }
+  & > :last-child {
+    margin-bottom: 0;
   }
 `;
 

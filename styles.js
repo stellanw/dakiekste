@@ -311,6 +311,11 @@ line-height: ${theme.lineHeight.l};
     color: ${theme.color.beige};
 background-color: transparent;
  border-radius: calc(0.5 * (${theme.borderRadius}));
+
+    @media (max-width: ${theme.breakpoints.mobile}) {
+font-size: 16px;
+    }
+
   }
 
       input:-webkit-autofill,

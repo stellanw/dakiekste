@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { appDir: false },
   images: {
     qualities: [75, 80, 85, 100],
   },

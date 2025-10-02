@@ -860,7 +860,7 @@ const StyledSuccessMessage = styled.div`
   }
 
   p {
-    line-height: ${theme.lineHeight.xxl};
+    line-height: ${theme.lineHeight.xl};
   }
 `;
 

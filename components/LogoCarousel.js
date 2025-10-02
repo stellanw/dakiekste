@@ -13,7 +13,7 @@ export default function LogoCarousel() {
     { src: "/images/Logos/neuland_logo.png", alt: "Logo Neuland", width: 100, height: 75 },
     { src: "/images/Logos/Logo_Elbesolar_CMYK-1.png", alt: "Logo Elbesolar", width: 60, height: 75 },
     { src: "/images/Logos/Improova_Logo_small_black.png", alt: "Logo Improova", width: 100, height: 75 },
-    { src: "/images/Logo_QuCare_RGB.png", alt: "Logo QuCare", width: 100, height: 75 },
+    { src: "/images/Logos/Logo_QuCare.png", alt: "Logo QuCare", width: 100, height: 75 },
   ];
 
   const settings = {
