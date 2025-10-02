@@ -579,6 +579,7 @@ export default function HomePage() {
               unit: "pro Person",
               description: "Einzelaufnahmen von Mitarbeiter*innen, CEOs und Teamfotos. Die Shootingzeit beträgt 15min pro Person vor Ort oder im Studio inkl. Outfitwechsel, eine gemeinsame Bildauswahl und ein bearbeitetes Foto pro Person. Hair & Make-up optional zubuchbar. Info: Es fällt zusätzlich eine Grundgebühr pro Shooting-Tag von 300,- an.",
               price: 130,
+              allowInstallments: false,
             },
             {
               title: "Branding Fotografie",
@@ -661,6 +662,7 @@ export default function HomePage() {
               unit: "pro Stunde",
               description: "Webdesign, das funktioniert. Wir gestalten deine Website mit Fokus auf Struktur, Nutzerführung und einem stimmigen Gesamtbild - die Basis für die Webentwicklung. Ein Webdesign-Projekt beginnt bei 5 Stunden.",
               price: 100,
+              allowInstallments: false,
             },
             {
               title: "Web Entwicklung",
@@ -669,6 +671,7 @@ export default function HomePage() {
               unit: "pro Stunde",
               description: "Wir setzen deine Website technisch um – zuverlässig, flexibel und passend zu deinen Anforderungen. Ob mit CMS oder als individuelle Lösung: von der einfachen Landingpage bis zum komplexen Webprojekt ist alles möglich. Eine Website Entwicklung beginnt bei 8 Stunden.",
               price: 100,
+              allowInstallments: false,
             },
             {
               title: "Website Paket Starter",
