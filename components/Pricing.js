@@ -34,6 +34,9 @@ export const euroDash = (value, { star = false } = {}) => {
   return `${DEC0.format(rounded)},- ` + (star ? "*" : "");
 };
 
+// --- Rundungs-Helper: auf nächste 10 (5 rundet auf)
+const roundToTen = (n) => Math.round((Number(n) || 0) / 10) * 10;
+
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
     businessType: "Soloselbstständig",
@@ -119,6 +122,7 @@ export default function Pricing({ pricingData, servicesData }) {
     setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
   };
 
+  // Rabatt anwenden (Basis in €)
   const applyDiscount = (price) => {
     const p = Number(price) || 0;
     if (selectedCategory.businessType === "Soloselbstständig") {
@@ -138,14 +142,18 @@ export default function Pricing({ pricingData, servicesData }) {
   const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+
   const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
-  const totalPriceCents = selectedServices.reduce((sum, service) => {
-    const price = Number(service.price) || 0;
+
+  // --- Gesamtsumme in €: Basis -> 10er runden -> Rabatt -> erneut auf 10er runden
+  const totalRaw = selectedServices.reduce((sum, service) => {
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
-    const discounted = applyDiscount(price);
-    return sum + Math.round(discounted * 100) * count;
+    const baseRounded = roundToTen(Number(service.price) || 0);
+    const discounted = applyDiscount(baseRounded);
+    const finalTen = roundToTen(discounted);
+    return sum + finalTen * count;
   }, 0);
-  const totalPrice = totalPriceCents / 100;
+  const totalPrice = totalRaw; // schon glatte 10er
 
   const clearAllSelections = () => {
     setSelectedServices([]);
@@ -190,22 +198,21 @@ export default function Pricing({ pricingData, servicesData }) {
   const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
   const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
 
-  const allowedInstallmentsTotalCents = selectedServices.reduce((sum, s) => {
+  // --- Ratenfähige Summe: auch hier Endpreis pro Position auf 10er runden
+  const allowedInstallmentsTotal = selectedServices.reduce((sum, s) => {
     if (s.allowInstallments === false) return sum;
-    const price = Number(s.price) || 0;
     const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
-    return sum + Math.round(applyDiscount(price) * 100) * count;
+    const baseRounded = roundToTen(Number(s.price) || 0);
+    const discounted = applyDiscount(baseRounded);
+    const finalTen = roundToTen(discounted);
+    return sum + finalTen * count;
   }, 0);
-
-  const allowedInstallmentsTotal = allowedInstallmentsTotalCents / 100;
 
   const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
 
   // Dynamische Texte:
   const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
-
   const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
-
   const showInstallmentBadges = anyInstallmentsAllowed && anyInstallmentsForbidden;
 
   return (
@@ -284,7 +291,6 @@ export default function Pricing({ pricingData, servicesData }) {
                               <li key={index}>
                                 <SelectedItem>
                                   <ItemWrapper>
-                                    {/* <PiPushPinLight /> */}
                                     <RemoveButton onClick={() => removeService(service)}>
                                       <StyledRemoveIcon />
                                     </RemoveButton>
@@ -298,9 +304,6 @@ export default function Pricing({ pricingData, servicesData }) {
                                       </Counter>
                                     )}
                                   </ItemWrapper>
-                                  {/* <RemoveButton onClick={() => removeService(service)}>
-                                    <StyledRemoveIcon />
-                                  </RemoveButton> */}
                                 </SelectedItem>
                               </li>
                             );
@@ -330,6 +333,7 @@ export default function Pricing({ pricingData, servicesData }) {
                         </ClearAllButton>
                       )}
                       <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
+
                       {!hideInstallments && (
                         <>
                           <InstallmentPrice>
@@ -338,10 +342,9 @@ export default function Pricing({ pricingData, servicesData }) {
                         </>
                       )}
                       <OverlayInfo>
-                        *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen. {/* Optionaler Hinweis-Text unter der Rate */}
+                        *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen. <br />
                         <br />
-                        <br />
-                        <span>{scopeHint}</span>
+                        {!hideInstallments && scopeHint && <span>{scopeHint}</span>}
                       </OverlayInfo>
                       <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
                     </>
@@ -354,6 +357,9 @@ export default function Pricing({ pricingData, servicesData }) {
                     const key = service.id || service.title;
                     const isOpen = openKey === key;
                     const isSelected = selectedServices.some((s) => s.title === service.title);
+
+                    // Endpreis pro Service (für Anzeige): 10er->Rabatt->10er
+                    const displayPrice = roundToTen(applyDiscount(roundToTen(service.price)));
 
                     return (
                       <ServiceUL key={key} className={isOpen ? "open" : ""}>
@@ -372,15 +378,13 @@ export default function Pricing({ pricingData, servicesData }) {
                               {isOpen ? <PiMinus /> : <PiPlus />}
                             </ToggleIcon>
                           </ServiceTitleGroup>
-                          {/* {isOpen && (
-                            <OverlayDescription>
-                              <Description> */}
+
                           <OverlayDescription $open={isOpen} aria-hidden={!isOpen}>
                             <Description>
                               {service.description}
                               {service.price > 0 && (
                                 <ServicePrice>
-                                  Preis ab <span>{formatCeil(applyDiscount(service.price))}</span>,-
+                                  Preis ab <span>{DEC0.format(displayPrice)}</span>,-
                                   {service.isCountable && <span> {service.unit}</span>}
                                 </ServicePrice>
                               )}
@@ -391,7 +395,6 @@ export default function Pricing({ pricingData, servicesData }) {
                               )}
                             </Description>
                           </OverlayDescription>
-                          {/* )} */}
                         </Service>
                       </ServiceUL>
                     );
@@ -407,6 +410,416 @@ export default function Pricing({ pricingData, servicesData }) {
     </OuterWrapper>
   );
 }
+
+// import styled, { css } from "styled-components";
+// import { theme } from "@/styles";
+// import { useState, useEffect, useRef } from "react";
+// import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX } from "react-icons/pi";
+// import ContactOverlayForm from "./ContactOverlayForm";
+
+// const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
+// const ORG_SERVICE = {
+//   title: SPECIAL_SERVICE_TITLE,
+//   description: "Individuelle Angebote für gemeinnützige Organisationen, Vereine, NGOs & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
+//   category: "Spezial",
+//   price: 0,
+//   isCountable: false,
+//   unit: "",
+// };
+
+// const initialOverlayFormData = {
+//   firstName: "",
+//   lastName: "",
+//   pronouns: "",
+//   customPronouns: "",
+//   company: "",
+//   email: "",
+//   message: "",
+// };
+
+// const DEC0 = new Intl.NumberFormat("de-DE", {
+//   minimumFractionDigits: 0,
+//   maximumFractionDigits: 0,
+// });
+
+// export const euroDash = (value, { star = false } = {}) => {
+//   const rounded = Math.round(Number(value) || 0);
+//   return `${DEC0.format(rounded)},- ` + (star ? "*" : "");
+// };
+
+// export default function Pricing({ pricingData, servicesData }) {
+//   const [selectedCategory, setSelectedCategory] = useState({
+//     businessType: "Soloselbstständig",
+//     projectType: "Fotografie",
+//   });
+//   const [serviceCounts, setServiceCounts] = useState({});
+//   const [showOverlay, setShowOverlay] = useState(false);
+//   const [selectedServices, setSelectedServices] = useState([]);
+//   const [openKey, setOpenKey] = useState(null);
+//   const [isMobile, setIsMobile] = useState(false);
+//   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
+//   const [hoverKey, setHoverKey] = useState(null);
+
+//   const stashRef = useRef({ services: [], counts: {} });
+//   const selRef = useRef([]);
+//   const countsRef = useRef({});
+
+//   useEffect(() => {
+//     selRef.current = selectedServices;
+//   }, [selectedServices]);
+
+//   useEffect(() => {
+//     countsRef.current = serviceCounts;
+//   }, [serviceCounts]);
+
+//   useEffect(() => {
+//     setOpenKey(null);
+//   }, [selectedCategory.businessType, selectedCategory.projectType]);
+
+//   useEffect(() => {
+//     const handleResize = () => setIsMobile(window.innerWidth <= 750);
+//     handleResize();
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   useEffect(() => {
+//     const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+//     if (isOrg) {
+//       stashRef.current = {
+//         services: selRef.current.filter((s) => s.title !== ORG_SERVICE.title),
+//         counts: { ...countsRef.current },
+//       };
+//       setSelectedServices([ORG_SERVICE]);
+//       setServiceCounts({});
+//     } else {
+//       const withoutOrg = selRef.current.filter((s) => s.title !== ORG_SERVICE.title);
+//       const restoreServices = withoutOrg.length > 0 ? withoutOrg : stashRef.current.services || [];
+//       const restoreCounts = Object.keys(countsRef.current).length > 0 ? countsRef.current : stashRef.current.counts || {};
+//       setSelectedServices(restoreServices);
+//       setServiceCounts(restoreCounts);
+//     }
+//     setOpenKey(null);
+//   }, [selectedCategory.businessType]);
+
+//   const handleCategorySelection = (key, option) => {
+//     setSelectedCategory((prev) => ({ ...prev, [key]: option }));
+//   };
+//   const toggleOverlay = (key) => {
+//     setOpenKey((prev) => (prev === key ? null : key));
+//   };
+//   const handleServiceSelection = (service) => {
+//     setSelectedServices((prev) => {
+//       const isSelected = prev.some((s) => s.title === service.title);
+//       if (selectedCategory.businessType === "Vereine & Organisationen") {
+//         return isSelected ? [] : [service];
+//       }
+//       if (isSelected) {
+//         const updatedCounts = { ...serviceCounts };
+//         delete updatedCounts[service.title];
+//         setServiceCounts(updatedCounts);
+//         return prev.filter((s) => s.title !== service.title);
+//       } else {
+//         if (service.isCountable) {
+//           setServiceCounts((prevCounts) => ({ ...prevCounts, [service.title]: 1 }));
+//         }
+//         if (service.title === SPECIAL_SERVICE_TITLE) return prev;
+//         return [...prev, service];
+//       }
+//     });
+//   };
+//   const removeService = (serviceToRemove) => {
+//     setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
+//   };
+
+//   const applyDiscount = (price) => {
+//     const p = Number(price) || 0;
+//     if (selectedCategory.businessType === "Soloselbstständig") {
+//       return Math.round((p * 0.85 + Number.EPSILON) * 100) / 100;
+//     }
+//     return p;
+//   };
+
+//   const handleCountChange = (title, delta) => {
+//     setServiceCounts((prevCounts) => {
+//       const current = prevCounts[title] || 1;
+//       const newValue = Math.max(1, current + delta);
+//       return { ...prevCounts, [title]: newValue };
+//     });
+//   };
+
+//   const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+//   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+//   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+//   const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
+//   const totalPriceCents = selectedServices.reduce((sum, service) => {
+//     const price = Number(service.price) || 0;
+//     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
+//     const discounted = applyDiscount(price);
+//     return sum + Math.round(discounted * 100) * count;
+//   }, 0);
+//   const totalPrice = totalPriceCents / 100;
+
+//   const clearAllSelections = () => {
+//     setSelectedServices([]);
+//     setServiceCounts({});
+//     setOpenKey(null);
+//   };
+
+//   const formatCeil = (value) => {
+//     const num = Math.ceil(Number(value) || 0);
+//     return DEC0.format(num);
+//   };
+
+//   const outcomeListRef = useRef(null);
+//   const [showOutcomeHint, setShowOutcomeHint] = useState(false);
+
+//   useEffect(() => {
+//     const el = outcomeListRef.current;
+//     if (!el) {
+//       setShowOutcomeHint(false);
+//       return;
+//     }
+
+//     const update = () => {
+//       const canScroll = el.scrollHeight > el.clientHeight + 1;
+//       const atBottom = el.scrollTop >= el.scrollHeight - el.clientHeight - 2;
+//       setShowOutcomeHint(canScroll && !atBottom);
+//     };
+
+//     update();
+//     el.addEventListener("scroll", update, { passive: true });
+//     window.addEventListener("resize", update);
+//     return () => {
+//       el.removeEventListener("scroll", update);
+//       window.removeEventListener("resize", update);
+//     };
+//   }, [selectedServices.length]);
+
+//   const MARKUP_PCT = 8;
+//   const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+
+//   const MONTHS = 6;
+//   const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
+//   const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
+
+//   const allowedInstallmentsTotalCents = selectedServices.reduce((sum, s) => {
+//     if (s.allowInstallments === false) return sum;
+//     const price = Number(s.price) || 0;
+//     const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
+//     return sum + Math.round(applyDiscount(price) * 100) * count;
+//   }, 0);
+
+//   const allowedInstallmentsTotal = allowedInstallmentsTotalCents / 100;
+
+//   const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
+
+//   // Dynamische Texte:
+//   const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
+
+//   const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
+
+//   const showInstallmentBadges = anyInstallmentsAllowed && anyInstallmentsForbidden;
+
+//   return (
+//     <OuterWrapper>
+//       <InnerWrapper>
+//         <PricingContainer>
+//           {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
+//           <HeadlineContainer>
+//             <h2>Preiskalkulator</h2>
+//             {isMobile ? (
+//               <h4>Jedes Projekt ist individuell – genau wie dein Budget. Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.</h4>
+//             ) : (
+//               <h4>
+//                 Jedes Projekt ist individuell – genau wie dein Budget. <br />
+//                 Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.
+//               </h4>
+//             )}
+//           </HeadlineContainer>
+//           <CalculatorContainer>
+//             <CategoriesContainer>
+//               {pricingData.map((category, categoryIndex) => {
+//                 const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
+
+//                 return (
+//                   <CategoryContainer key={categoryIndex} $hide={hideThisCategory}>
+//                     <h6>{category.category}</h6>
+//                     <OptionContainer>
+//                       {category.options.map((option, i) => {
+//                         const checked = selectedCategory[category.key] === option;
+//                         return (
+//                           <Option key={i} $checked={checked}>
+//                             <HiddenCheckbox checked={checked} onChange={() => handleCategorySelection(category.key, option)} />
+//                             <Dot $checked={checked} />
+//                             <OptionName>{option}</OptionName>
+//                           </Option>
+//                         );
+//                       })}
+//                     </OptionContainer>
+//                   </CategoryContainer>
+//                 );
+//               })}
+//             </CategoriesContainer>
+//             <ServiceContainer>
+//               <OutcomeContainer>
+//                 <OutcomeContent>
+//                   {isOrg ? (
+//                     <>
+//                       <h6>Deine Auswahl</h6>
+
+//                       {isOrgSelected && (
+//                         <ul>
+//                           <li>
+//                             <SelectedItem>
+//                               <ItemWrapper>
+//                                 <PiPushPinLight />
+//                                 <span>Leistungen für Vereine & Organisationen</span>
+//                               </ItemWrapper>
+//                               <RemoveButton onClick={() => setSelectedServices([])}>
+//                                 <StyledRemoveIcon />
+//                               </RemoveButton>
+//                             </SelectedItem>
+//                           </li>
+//                         </ul>
+//                       )}
+//                       <OverlayInfo>Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und ein individuelles Angebot zu erstellen.</OverlayInfo>
+//                       <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+//                     </>
+//                   ) : (
+//                     <>
+//                       <h6>Deine Auswahl</h6>
+//                       <OutcomeListWrap>
+//                         <OutcomeList ref={outcomeListRef}>
+//                           {selectedServices.map((service, index) => {
+//                             const isCountable = service.isCountable;
+//                             return (
+//                               <li key={index}>
+//                                 <SelectedItem>
+//                                   <ItemWrapper>
+//                                     {/* <PiPushPinLight /> */}
+//                                     <RemoveButton onClick={() => removeService(service)}>
+//                                       <StyledRemoveIcon />
+//                                     </RemoveButton>
+//                                     <span>{service.title}</span>
+
+//                                     {isCountable && (
+//                                       <Counter>
+//                                         <button onClick={() => handleCountChange(service.title, -1)}>-</button>
+//                                         <span>{serviceCounts[service.title]}</span>
+//                                         <button onClick={() => handleCountChange(service.title, 1)}>+</button>
+//                                       </Counter>
+//                                     )}
+//                                   </ItemWrapper>
+//                                   {/* <RemoveButton onClick={() => removeService(service)}>
+//                                     <StyledRemoveIcon />
+//                                   </RemoveButton> */}
+//                                 </SelectedItem>
+//                               </li>
+//                             );
+//                           })}
+//                           {showOutcomeHint && (
+//                             <OutcomeScrollHint
+//                               type="button"
+//                               aria-label="Weiter nach unten"
+//                               title="Weiter nach unten"
+//                               onClick={() =>
+//                                 outcomeListRef.current?.scrollBy({
+//                                   top: outcomeListRef.current.clientHeight * 0.8,
+//                                   behavior: "smooth",
+//                                 })
+//                               }
+//                             >
+//                               <PiArrowDownThin />
+//                             </OutcomeScrollHint>
+//                           )}
+//                         </OutcomeList>
+//                       </OutcomeListWrap>
+
+//                       {selectedServices.length > 0 && (
+//                         <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Auswahl leeren">
+//                           <PiTrash />
+//                           <span>Gesamte Auswahl leeren</span>
+//                         </ClearAllButton>
+//                       )}
+//                       <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
+//                       {!hideInstallments && (
+//                         <>
+//                           <InstallmentPrice>
+//                             Oder in {MONTHS} Raten: {euroDash(installmentPriceWithMarkup(allowedInstallmentsTotal, MARKUP_PCT))} &nbsp;<span>{scopeInline}</span>
+//                           </InstallmentPrice>
+//                         </>
+//                       )}
+//                       <OverlayInfo>
+//                         *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen. {/* Optionaler Hinweis-Text unter der Rate */}
+//                         <br />
+//                         <br />
+//                         <span>{scopeHint}</span>
+//                       </OverlayInfo>
+//                       <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+//                     </>
+//                   )}
+//                 </OutcomeContent>
+//               </OutcomeContainer>
+//               <Services>
+//                 {Array.isArray(filteredServices) && filteredServices.length > 0 ? (
+//                   filteredServices.map((service) => {
+//                     const key = service.id || service.title;
+//                     const isOpen = openKey === key;
+//                     const isSelected = selectedServices.some((s) => s.title === service.title);
+
+//                     return (
+//                       <ServiceUL key={key} className={isOpen ? "open" : ""}>
+//                         <Service>
+//                           <ServiceTitleGroup $hovered={hoverKey === key}>
+//                             <TitleCheckboxContainer $checked={isSelected}>
+//                               <HiddenServiceCheckbox checked={isSelected} readOnly />
+//                               <ServiceDot $checked={isSelected} role="checkbox" aria-checked={isSelected} tabIndex={0} onClick={() => handleServiceSelection(service)} onKeyDown={(e) => (e.key === " " || e.key === "Enter") && handleServiceSelection(service)} />
+
+//                               <ServiceTitle role="button" aria-expanded={isOpen} onClick={() => toggleOverlay(key)} onMouseEnter={() => setHoverKey(key)} onMouseLeave={() => setHoverKey(null)} onFocus={() => setHoverKey(key)} onBlur={() => setHoverKey(null)}>
+//                                 {service.title}
+//                               </ServiceTitle>
+//                             </TitleCheckboxContainer>
+
+//                             <ToggleIcon onClick={() => toggleOverlay(key)} onMouseEnter={() => setHoverKey(key)} onMouseLeave={() => setHoverKey(null)} onFocus={() => setHoverKey(key)} onBlur={() => setHoverKey(null)}>
+//                               {isOpen ? <PiMinus /> : <PiPlus />}
+//                             </ToggleIcon>
+//                           </ServiceTitleGroup>
+//                           {/* {isOpen && (
+//                             <OverlayDescription>
+//                               <Description> */}
+//                           <OverlayDescription $open={isOpen} aria-hidden={!isOpen}>
+//                             <Description>
+//                               {service.description}
+//                               {service.price > 0 && (
+//                                 <ServicePrice>
+//                                   Preis ab <span>{formatCeil(applyDiscount(service.price))}</span>,-
+//                                   {service.isCountable && <span> {service.unit}</span>}
+//                                 </ServicePrice>
+//                               )}
+//                               {service.allowInstallments === false && (
+//                                 <Badge aria-label="Nicht ratenfähig" title="Nicht ratenfähig – nicht in der Ratenberechnung enthalten">
+//                                   Hinweis: Bei dieser Leistung ist keine Ratenzahlung möglich.
+//                                 </Badge>
+//                               )}
+//                             </Description>
+//                           </OverlayDescription>
+//                           {/* )} */}
+//                         </Service>
+//                       </ServiceUL>
+//                     );
+//                   })
+//                 ) : (
+//                   <p>Keine Services verfügbar</p>
+//                 )}
+//               </Services>
+//             </ServiceContainer>
+//           </CalculatorContainer>
+//         </PricingContainer>
+//       </InnerWrapper>
+//     </OuterWrapper>
+//   );
+// }
 
 const OuterWrapper = styled.section`
   width: 100%;
