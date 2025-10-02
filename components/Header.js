@@ -54,7 +54,7 @@ export default function Header({ useImageBackground = false }) {
       {useImageBackground ? (
         <ImageBackground src={section01_header_01} alt="Branding Fotografie by dakiekste" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1900px) 100vw, 80vw" priority />
       ) : (
-        <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture>
+        <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture poster="/videos/video-poster.png">
           <source src="/videos/Selections_Imagefilm.mp4" type="video/mp4" />
           Dein Browser unterstützt das Video-Tag nicht.
         </VideoBackground>
