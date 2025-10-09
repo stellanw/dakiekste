@@ -24,7 +24,7 @@ const SITE_URL = getSiteUrl();
 const DEFAULTS = {
   title: "DAKIEKSTE | Branding, Fotografie, Video & Website aus einer Hand",
   description: "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus Fotografie, Branding, Design, Video & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.",
-  imagePath: "/og.jpg?v=4",
+  imagePath: "/og.jpg",
 };
 
 export default function App({ Component, pageProps }) {
@@ -73,7 +73,8 @@ export default function App({ Component, pageProps }) {
             <meta property="og:image" content={imageAbs} />
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
-            <meta property="og:image:alt" content="DAKIEKSTE – Logo" />
+            <meta property="og:image:alt" content="DAKIEKSTE – Website preview" />
+            <meta property="og:image:type" content="image/jpeg" />
 
             {/* Twitter */}
             <meta name="twitter:card" content="summary_large_image" />
