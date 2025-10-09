@@ -33,6 +33,9 @@ const StyledTextWrapper = styled.div`
   justify-content: flex-start;
   width: 100%;
 
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    max-width: 535px;
+  }
   @media (min-width: ${theme.breakpoints.desktop}) {
     max-width: 50%;
   }

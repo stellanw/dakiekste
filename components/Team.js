@@ -13,11 +13,10 @@ export default function Team({ teamMembers = [] }) {
       <InnerWrapper>
         <TeamContainer>
           {teamMembers.map((member, index) => {
-            const isLast = index === teamMembers.length - 1;
             const isExpanded = expandedIndex === index;
 
             return (
-              <TeamCard key={index} data-last={isLast ? "1" : "0"}>
+              <TeamCard key={index}>
                 <ImageWrapper onClick={() => toggleExpand(index)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleExpand(index)} $isExpanded={isExpanded}>
                   <MemberImage src={member.image} alt={member.alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority />
                 </ImageWrapper>
@@ -41,6 +40,7 @@ export default function Team({ teamMembers = [] }) {
 
 const OuterWrapper = styled.section`
   width: 100%;
+  background-color: ${theme.color.beige};
 `;
 
 const InnerWrapper = styled.div`
@@ -51,39 +51,42 @@ const InnerWrapper = styled.div`
 `;
 
 const TeamContainer = styled.div`
-  --width-card-mobile: 310px;
-  --width-card-desktop: 350px;
+  --gap: var(--spacing-xl);
+  --width-card-desktop: 400px;
+
   --height-card-mobile: 400px;
-  --height-card-desktop: 450px;
+  --height-card-desktop: 500px;
 
   width: 100%;
-  margin: 0 0 var(--spacing-xxl) 0;
-
+  padding: 0 0 var(--spacing-xxl) 0;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-xl);
+  gap: var(--gap);
+  justify-content: flex-start;
   align-items: flex-start;
+  align-content: flex-start;
 `;
 
 const TeamCard = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   text-align: start;
-  min-width: var(--width-card-mobile);
-  max-width: var(--width-card-mobile);
-  flex: 0 0 var(--width-card-mobile);
+  width: 100%;
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    min-width: var(--width-card-desktop);
-    max-width: var(--width-card-desktop);
+  @media (min-width: ${theme.breakpoints.tablet}) and (max-width: ${theme.breakpoints.desktop}) {
+    flex: 0 0 calc((100% - var(--gap)) / 2);
+    max-width: calc((100% - var(--gap)) / 2);
+
+    &:last-child:nth-child(odd) {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
   }
 
-  &[data-last="1"] {
-    @media (min-width: ${theme.breakpoints.tablet}) {
-      min-width: calc(var(--width-card-desktop) * 1.5);
-      max-width: calc(var(--width-card-desktop) * 1.5);
-    }
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    flex: 0 0 var(--width-card-desktop);
+    max-width: var(--width-card-desktop);
   }
 `;
 
@@ -99,7 +102,7 @@ const ImageWrapper = styled.div`
   backface-visibility: hidden;
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    height: var(--height-card-desktop);
+    height: var(--height-card-mobile);
     margin-bottom: var(--spacing-xs);
   }
 `;
@@ -111,6 +114,16 @@ const MemberImage = styled(Image)`
   user-select: none;
   -webkit-user-drag: none;
   transform: scale(1.2);
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    transform: scale(1);
+    object-position: center;
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    transform: scale(1.1);
+    object-position: center;
+  }
 `;
 
 const TextContainer = styled.div`

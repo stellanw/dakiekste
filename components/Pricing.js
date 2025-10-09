@@ -898,7 +898,7 @@ const CategoryContainer = styled.div`
   display: ${({ $hide }) => ($hide ? "none" : "flex")};
   flex-direction: column;
   width: 100%;
-  @media (min-width: ${theme.breakpoints.tablet}) {
+  @media (min-width: ${theme.breakpoints.desktop}) {
     width: 50%;
   }
 `;
@@ -990,10 +990,14 @@ const OutcomeContent = styled.div`
   height: 100%;
   justify-content: end;
   width: 100%;
-  padding-top: var(--spacing-m);
+  padding-top: calc(1.5 * var(--spacing-xl));
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (min-width: ${theme.breakpoints.tablet}) {
     padding-top: calc(1.5 * var(--spacing-xl));
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    padding-top: var(--spacing-m);
   }
 
   ul {

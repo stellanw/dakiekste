@@ -125,29 +125,40 @@ const FilterBar = styled.div`
   gap: var(--spacing-xs);
   width: 100%;
   max-width: var(--max-content);
-  margin-bottom: var(--spacing-s);
+  margin-bottom: var(--spacing-xl);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     justify-content: space-between;
     margin-bottom: var(--spacing-l);
   }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    margin-bottom: var(--spacing-s);
+  }
 `;
 
 const FilterChip = styled.button`
   appearance: none;
-  width: 140px;
+
   border: 1px solid ${({ $active }) => ($active ? theme.color.green : theme.color.beige)};
   background: ${({ $active }) => ($active ? theme.color.green : "transparent")};
   color: ${({ $active }) => ($active ? theme.color.dark : theme.color.beige)};
-  padding: calc(0.4 * var(--spacing-s)) var(--spacing-s);
+
   border-radius: calc(0.5 * ${theme.borderRadius});
   font-size: var(--font-m);
   letter-spacing: 0.04em;
   cursor: pointer;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    padding: calc(0.85 * var(--spacing-s)) var(--spacing-s);
-    width: 48%;
+  padding: calc(0.85 * var(--spacing-s)) var(--spacing-s);
+  width: 100px;
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    max-width: 110px;
+  }
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    min-width: 140px;
+    max-width: 180px;
+    padding: calc(0.4 * var(--spacing-s)) var(--spacing-s);
   }
 
   &:hover {
@@ -210,12 +221,16 @@ const FAQItem = styled.li`
   background-color: ${({ $isOpen }) => ($isOpen ? theme.color.green : "transparent")};
   color: ${({ $isOpen }) => ($isOpen ? theme.color.dark : "inherit")};
   border-radius: ${({ $isOpen }) => ($isOpen ? theme.borderRadius : "0")};
+
   h2 {
-    min-width: 200px;
-    margin: 0;
+    min-width: 150px;
     padding: ${({ $isOpen }) => ($isOpen ? "var(--spacing-m) 0 var(--spacing-m) var(--spacing-m)" : "var(--spacing-m) 0")};
-    @media (max-width: ${theme.breakpoints.tablet}) {
+    margin-top: ${({ $isOpen }) => ($isOpen ? "4px" : "0")};
+    @media (max-width: ${theme.breakpoints.mobile}) {
       display: none;
+    }
+    @media (min-width: ${theme.breakpoints.desktop}) {
+      min-width: 200px;
     }
   }
 `;
@@ -234,6 +249,7 @@ const FAQQuestion = styled.span`
 const FAQItemContent = styled.div`
   display: flex;
   width: 100%;
+  align-items: ${({ $isOpen }) => ($isOpen ? "start" : "center")};
 `;
 
 const FAQItemDetails = styled.div`
@@ -270,6 +286,11 @@ const AnswerOverlay = styled.p`
       max-height: 1000px;
       opacity: 1;
     }
+  }
+
+  &::selection {
+    background-color: ${theme.color.beige};
+    color: ${theme.color.dark};
   }
 `;
 

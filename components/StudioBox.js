@@ -173,6 +173,13 @@ const StyledTextWrapper = styled.div`
 
 const TextInner = styled.div`
   width: 100%;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    max-width: 535px;
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    max-width: 100%;
+  }
 `;
 
 const CardContainer = styled.div`

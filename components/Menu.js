@@ -110,6 +110,11 @@ const Wrapper = styled.nav`
   z-index: var(--index-menu);
   transition: background-color 120ms ease;
 
+  box-shadow:
+    -4px 4px 4px rgba(37, 37, 34, 0.01),
+    /* harte Kante, kein Blur */ 1px 0 20px rgba(0, 0, 0, 0.06),
+    /* feine Seitenkante rechts */ -1px 0 0 rgba(0, 0, 0, 0.06); /* feine Seitenkante links */
+
   &:hover {
     transform: translateY(-1px);
     background-color: ${({ $isOpen }) => (!$isOpen ? theme.color.green : theme.color.beige)};
@@ -162,10 +167,11 @@ const EyesToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 var(--spacing-s);
+  padding: 0 calc(1.1 * var(--spacing-s)) 0 var(--spacing-s);
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
+    padding: 0 var(--spacing-s) 0 var(--spacing-xs);
   }
 
   -webkit-tap-highlight-color: transparent;
