@@ -13,15 +13,17 @@ export default function Hero({ headline, text, textMobile }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const desktopBp = parseInt(theme.breakpoints.desktop, 10);
+  const bpToPx = (bp) => (typeof bp === "string" && bp.endsWith("rem") ? parseFloat(bp) * 16 : parseInt(bp, 10));
 
-  const isMobile = windowWidth < desktopBp;
+  const desktopBpPx = bpToPx(theme.breakpoints.desktop);
+
+  const isMobileOrTablet = windowWidth < desktopBpPx;
 
   return (
     <StyledHeadBoxContainer>
       <StyledTopTextWrapper>
         <h2>{headline}</h2>
-        <h4>{isMobile ? textMobile || text : text}</h4>
+        <h4>{isMobileOrTablet ? textMobile || text : text}</h4>
       </StyledTopTextWrapper>
       <LogoCarousel />
     </StyledHeadBoxContainer>

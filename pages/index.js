@@ -1,3 +1,5 @@
+import styled from "styled-components";
+import { theme } from "@/styles";
 import Head from "next/head";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -40,7 +42,6 @@ import service_konzept from "/public/images/03_Service/behind-the-scenes-dakieks
 import service_erklaervideo from "/public/images/03_Service/behind-the-scenes-dakiekste-07.jpg";
 
 //04_Slider
-import section04_slider01 from "/public/images/04_Slider/business-portrait-fotografie-dakiekste-01.jpg";
 import section04_slider02 from "/public/images/04_Slider/business-portrait-fotografie-finanzexperten-dakiekste-01.jpg";
 import section04_slider03 from "/public/images/04_Slider/business-portrait-fotografie-finanzexperten-dakiekste-02.jpg";
 import section04_slider04 from "/public/images/04_Slider/team-portrait-fotografie-bildung-integration-verein-dakiekste-01.jpg";
@@ -92,6 +93,17 @@ import ProjectBox from "@/components/ProjectBox";
 
 //13_TextBox
 import section13_TextBox01 from "/public/images/13_Textbox/behind-the-scenes-dakiekste-05.jpg";
+
+const OnlyMobile = styled.div`
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+const OnlyTabletUp = styled.div`
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: none;
+  }
+`;
 
 export default function HomePage() {
   return (
@@ -192,39 +204,65 @@ export default function HomePage() {
         alt="Portrait – Business – Businessportrait"
         flexflow="row"
         flexflowMobile="column-reverse"
+        hide="mobile"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+      <OnlyMobile>
+        <ImageSlider
+          autoplay={true}
+          projects={[
+            {
+              alt: "Business Portrait Foto im Studio vor Orange",
+              image: section04_slider05,
+            },
+            {
+              alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
+              image: section04_slider03,
+            },
+            {
+              alt: "Business Portrait im Klub Studio",
+              image: section04_slider06,
+            },
+            {
+              alt: "Business Portrait Foto im Studio vor Orange",
+              image: section04_slider04,
+            },
+            {
+              alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
+              image: section04_slider02,
+            },
+          ]}
+        />
+      </OnlyMobile>
 
-      <ImageSliderLight
-        autoplay={true}
-        projects={[
-          {
-            alt: "Business Portrait Foto im Studio vor Orange",
-            image: section04_slider05,
-          },
-          {
-            alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
-            image: section04_slider03,
-          },
-          {
-            alt: "Business Portrait im Klub Studio",
-            image: section04_slider06,
-          },
-          {
-            alt: "Business Portrait Foto im Studio vor Orange",
-            image: section04_slider04,
-          },
-          {
-            alt: "Business Portrait Outdoor",
-            image: section04_slider01,
-          },
-          {
-            alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
-            image: section04_slider02,
-          },
-        ]}
-      />
+      <OnlyTabletUp>
+        <ImageSliderLight
+          autoplay={true}
+          projects={[
+            {
+              alt: "Business Portrait Foto im Studio vor Orange",
+              image: section04_slider05,
+            },
+            {
+              alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
+              image: section04_slider03,
+            },
+            {
+              alt: "Business Portrait im Klub Studio",
+              image: section04_slider06,
+            },
+            {
+              alt: "Business Portrait Foto im Studio vor Orange",
+              image: section04_slider04,
+            },
+            {
+              alt: "Business Portrait Outdoor on Location Hafencity Hamburg",
+              image: section04_slider02,
+            },
+          ]}
+        />
+      </OnlyTabletUp>
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
@@ -798,7 +836,7 @@ export default function HomePage() {
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <ImageElement image={section11_Image02} alt="Still Foto des Lounge- und Arbeitsbereichs im  Klub Studio" />
+      <ImageElement image={section11_Image02} alt="Still Foto des Lounge- und Arbeitsbereichs im  Klub Studio" hide="mobile" />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
       <section id="bilderpool">

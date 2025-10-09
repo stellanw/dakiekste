@@ -620,13 +620,20 @@ const StyledScrollBox = styled.div`
   flex-direction: column;
   align-items: start;
   color: ${theme.color.beige};
-  padding: 0 var(--spacing-xl) 0 0;
-  min-width: 600px;
+  padding: 0 calc(1.25 * var(--spacing-xl)) 0 0;
   flex: 0 0 1;
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    min-width: 350px;
-    margin-right: var(--spacing-xl);
+  min-width: 350px;
+  max-width: 400px;
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    min-width: 400px;
+    max-width: 500px;
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    min-width: 600px;
+    max-width: 600px;
   }
 
   @media (hover: none), (pointer: coarse) {
@@ -646,6 +653,10 @@ const StyledIcon = styled.span`
   height: 100%;
   margin-right: var(--spacing-xs);
   font-size: 1.3rem;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: none;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -719,9 +730,14 @@ const MobileArrowBase = styled.button`
 `;
 
 const MobileArrowLeft = styled(MobileArrowBase)`
-  right: calc(2.2 * var(--side-padding));
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  right: calc(3 * var(--side-padding));
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
     right: calc(3 * var(--side-padding));
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    right: calc(2.2 * var(--side-padding));
   }
 `;
 

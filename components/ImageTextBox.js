@@ -1,15 +1,15 @@
 import { theme } from "@/styles";
 import Image from "next/image";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { PiArrowUpRightLight } from "react-icons/pi";
 import Link from "next/link";
 
-export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow, flexflowMobile, link, url }) {
+export default function ImageTextBox({ topline, headline, text1, text2, image, alt, flexflow, flexflowMobile, link, url, hide }) {
   return (
     <OuterWrapper>
       <InnerWrapper>
         <StyledImageTextBox $flexflow={flexflow} $flexflowMobile={flexflowMobile}>
-          <StyledImageContainer $flexflow={flexflow}>
+          <StyledImageContainer $flexflow={flexflow} $hide={hide}>
             <ImageBox>
               <StyledImage src={image} alt={alt} fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
             </ImageBox>
@@ -97,6 +97,24 @@ const StyledImageContainer = styled.div`
   @media (min-width: ${theme.breakpoints.desktop}) {
     place-items: ${({ $flexflow }) => ($flexflow === "row-reverse" ? "end" : "start")};
   }
+
+  ${({ $hide }) => {
+    if (!$hide) return "";
+    const bpMap = {
+      mobile: theme.breakpoints.mobile,
+      tablet: theme.breakpoints.tablet,
+      desktop: theme.breakpoints.desktop,
+    };
+    const bp = bpMap[$hide];
+    if (!bp) return "";
+
+    // "hide" bedeutet: bis einschließlich dieses Breakpoints ausblenden
+    return css`
+      @media (max-width: ${bp}) {
+        display: none !important;
+      }
+    `;
+  }}
 `;
 
 const ImageBox = styled.div`
@@ -106,19 +124,19 @@ const ImageBox = styled.div`
   overflow: hidden;
   border-radius: 0;
 
+  aspect-ratio: 1 / 1;
+  height: var(--height-section);
+
   @media (min-width: ${theme.breakpoints.tablet}) {
     border-radius: ${theme.borderRadius};
-  }
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
+    aspect-ratio: 1 / 1;
+    max-height: 400px;
   }
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     aspect-ratio: 684 / 598;
-  }
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    height: var(--height-section);
+    max-height: 700px;
+    min-height: 600px;
   }
 `;
 

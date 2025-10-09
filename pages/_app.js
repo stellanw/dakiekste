@@ -23,8 +23,8 @@ const SITE_URL = getSiteUrl();
 
 const DEFAULTS = {
   title: "DAKIEKSTE | Branding, Fotografie, Video & Website aus einer Hand",
-  description: "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus Fotografie, Branding, Video & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.",
-  imagePath: "/og.jpg?v=3",
+  description: "Wir machen sichtbar, was dich ausmacht – mit durchdachten Gesamtlösungen aus Fotografie, Branding, Design, Video & Website für deine Marke. Denn wer gesehen wird, gestaltet mit.",
+  imagePath: "/og.jpg?v=4",
 };
 
 export default function App({ Component, pageProps }) {

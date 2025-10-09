@@ -26,34 +26,70 @@ export default function Footer() {
             <StyledIcon />
           </Link>
         </StyledLinkWrapper>
-        <StyledLinkWrapper>
-          <p>Instagram</p>
+
+        <OnlyMobile>
           <Link href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
-            <StyledIcon />
+            <StyledLinkWrapper>
+              <p>Instagram</p>
+              <StyledIcon />
+            </StyledLinkWrapper>
           </Link>
-        </StyledLinkWrapper>
-        <StyledLinkWrapper>
-          <p>LinkedIn</p>
+        </OnlyMobile>
+
+        <OnlyTabletUp>
+          <StyledLinkWrapper>
+            <p>Instagram</p>
+            <Link href="https://www.instagram.com/dakiekste_/" target="_blank" rel="noopener noreferrer">
+              <StyledIcon />
+            </Link>
+          </StyledLinkWrapper>
+        </OnlyTabletUp>
+
+        <OnlyMobile>
           <Link href="https://www.linkedin.com/company/dakiekste" target="_blank" rel="noopener noreferrer">
-            <StyledIcon />
+            <StyledLinkWrapper>
+              <p>LinkedIn</p>
+              <StyledIcon />
+            </StyledLinkWrapper>
           </Link>
-        </StyledLinkWrapper>
-        <StyledLinkWrapper>
-          <p>Map</p>
+        </OnlyMobile>
+
+        <OnlyTabletUp>
+          <StyledLinkWrapper>
+            <p>LinkedIn</p>
+            <Link href="https://www.linkedin.com/company/dakiekste" target="_blank" rel="noopener noreferrer">
+              <StyledIcon />
+            </Link>
+          </StyledLinkWrapper>
+        </OnlyTabletUp>
+
+        <OnlyMobile>
           <Link href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
-            <StyledIcon />
+            <StyledLinkWrapper>
+              <p>Map</p>
+              <StyledIcon />
+            </StyledLinkWrapper>
           </Link>
-        </StyledLinkWrapper>
+        </OnlyMobile>
+
+        <OnlyTabletUp>
+          <StyledLinkWrapper>
+            <p>Map</p>
+            <Link href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+              <StyledIcon />
+            </Link>
+          </StyledLinkWrapper>
+        </OnlyTabletUp>
       </StyledLinkListWrapper>
       <StyledBottomWrapper>
         <StyledCopyright>
           © 2025 | Dakiekste. Alle Rechte vorbehalten. <Link href="/impressum">Impressum</Link>
         </StyledCopyright>{" "}
         <StyledPrideWrapper>
+          <p>Wir möchten ein Saferspace für dich sein.</p>
           <FlagWrapper>
             <PrideFlag />
           </FlagWrapper>
-          <p>Wir möchten ein Saferspace für dich sein.</p>
         </StyledPrideWrapper>
       </StyledBottomWrapper>
     </StyledFooter>
@@ -93,7 +129,7 @@ const StyledPrideWrapper = styled.div`
   justify-content: end;
   align-items: end;
   p {
-    font-size: var(--font-l);
+    font-size: var(--font-s);
   }
 
   h3 {
@@ -104,9 +140,7 @@ const StyledPrideWrapper = styled.div`
 
   @media (max-width: ${theme.breakpoints.mobile}) {
     justify-content: start;
-    p {
-      font-size: var(--font-m);
-    }
+    flex-direction: row-reverse;
   }
 `;
 
@@ -122,6 +156,17 @@ const StyledLinkListWrapper = styled.div`
   @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
     align-items: start;
+  }
+`;
+
+const OnlyMobile = styled.div`
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+const OnlyTabletUp = styled.div`
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: none;
   }
 `;
 
@@ -160,6 +205,7 @@ const StyledCopyright = styled.p`
   flex-direction: row;
   align-items: end;
   font-size: var(--font-s);
+
   a {
     font-size: var(--font-s);
     margin-left: var(--spacing-s);
@@ -171,13 +217,19 @@ const StyledCopyright = styled.p`
   @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
     align-items: start;
-    padding-top: var(--spacing-l);
+    /* padding-top: var(--spacing-xxl); */
   }
 `;
 
 const FlagWrapper = styled.div`
-  margin-right: var(--spacing-xs);
-  width: 30px;
+  margin-left: var(--spacing-xs);
+  width: 25px;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    width: 20px;
+    margin-left: 0;
+    margin-right: var(--spacing-xs);
+  }
 `;
 
 const StyledBottomWrapper = styled.div`

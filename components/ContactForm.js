@@ -232,6 +232,10 @@ const StyledTextContainer = styled.div`
   padding: var(--spacing-xxxl) var(--side-padding) 0 var(--side-padding);
 
   @media (min-width: ${theme.breakpoints.tablet}) {
+    padding: var(--spacing-xxxl) var(--side-padding) var(--spacing-xxl) var(--side-padding);
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
     padding: var(--spacing-xxxl) var(--side-padding);
   }
 
@@ -252,6 +256,14 @@ const StyledForm = styled.form`
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     flex-basis: 50%;
+  }
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    padding: 0 var(--side-padding) var(--spacing-xxxl) var(--side-padding);
+  }
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    padding: var(--spacing-xxxl) var(--side-padding);
   }
 
   label {
