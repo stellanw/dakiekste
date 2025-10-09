@@ -71,8 +71,8 @@ export default function App({ Component, pageProps }) {
             <meta property="og:title" content={meta.title} />
             <meta property="og:description" content={meta.description} />
             <meta property="og:image" content={imageAbs} />
-            <meta property="og:image:width" content="1200" />
-            <meta property="og:image:height" content="630" />
+            <meta property="og:image:width" content="1728" />
+            <meta property="og:image:height" content="989" />
             <meta property="og:image:alt" content="DAKIEKSTE – Website preview" />
             <meta property="og:image:type" content="image/jpeg" />
 
