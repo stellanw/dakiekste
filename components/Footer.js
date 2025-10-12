@@ -212,6 +212,10 @@ const StyledCopyright = styled.p`
     &:hover {
       color: ${theme.color.beige};
     }
+
+    @media (max-width: ${theme.breakpoints.mobile}) {
+      margin-left: 0;
+    }
   }
 
   @media (max-width: ${theme.breakpoints.mobile}) {
