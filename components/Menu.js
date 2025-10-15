@@ -131,7 +131,7 @@ const Wrapper = styled.nav`
     visibility: hidden;
   }
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column-reverse;
     align-items: end;
     justify-content: center;
@@ -169,7 +169,7 @@ const EyesToggle = styled.div`
   cursor: pointer;
   padding: 0 calc(1.1 * var(--spacing-s)) 0 var(--spacing-s);
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
     padding: 0 var(--spacing-s) 0 var(--spacing-xs);
   }
@@ -208,7 +208,7 @@ const LinkList = styled.ul`
   padding: 0 var(--spacing-m);
   margin: 0;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column;
     padding: var(--spacing-xl);
     gap: var(--spacing-l);
@@ -231,7 +231,7 @@ const CloseButton = styled.button`
   position: absolute;
   display: none;
   z-index: var(--index-menu-content);
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     display: inline-flex;
   }
 

@@ -145,19 +145,19 @@ export default function ContactForm() {
 
               <Wrapper>
                 <label htmlFor="fullName">Vor und Nachname</label>
-                <StyledInput name="fullName" value={formData.fullName} onChange={handleChange} required />
+                <StyledInput name="fullName" id="fullName" value={formData.fullName} onChange={handleChange} required />
               </Wrapper>
             </SideBySideWrapper>
 
             <SideBySideWrapper>
               <Wrapper>
                 <label htmlFor="email">Email</label>
-                <StyledInput name="email" type="email" value={formData.email} onChange={handleChange} required />
+                <StyledInput name="email" id="email" type="email" value={formData.email} onChange={handleChange} required />
               </Wrapper>
             </SideBySideWrapper>
 
             <label htmlFor="message">Deine Nachricht</label>
-            <StyledTextArea name="message" value={formData.message} onChange={handleChange} required />
+            <StyledTextArea name="message" id="message" value={formData.message} onChange={handleChange} required />
 
             <StyledCheckboxGroup>
               <StyledLabel htmlFor="acceptedTerms">
@@ -237,6 +237,8 @@ const StyledTextContainer = styled.div`
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     padding: var(--spacing-xxxl) var(--side-padding);
+    min-width: 600px;
+    width: 40%;
   }
 
   h3 {
@@ -443,6 +445,10 @@ const StyledSuccessMessage = styled.div`
   p {
     font-size: var(--font-m);
     margin-bottom: var(--spacing-l);
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    flex-basis: 100%;
   }
 `;
 
