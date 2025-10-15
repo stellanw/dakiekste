@@ -56,6 +56,7 @@ export default function Header({ useImageBackground = false }) {
       ) : (
         <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture poster="/videos/video-poster.png">
           <source src="/videos/Selections_Imagefilm.mp4" type="video/mp4" />
+          <source src="/videos/Selections_Imagefilm.webm" type="video/webm" />
           Dein Browser unterstützt das Video-Tag nicht.
         </VideoBackground>
       )}

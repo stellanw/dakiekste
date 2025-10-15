@@ -74,6 +74,9 @@ export default function App({ Component, pageProps }) {
 
             {/* Canonical */}
             <link rel="canonical" href={canonicalUrl} />
+
+            <link rel="preload" as="video" href="/videos/Selections_Imagefilm.webm#t=0.001" type="video/webm" fetchpriority="high" />
+            <link rel="preload" as="video" href="/videos/Selections_Imagefilm.mp4#t=0.001" type="video/mp4" fetchpriority="high" />
           </Head>
           <Component {...pageProps} />
           <Analytics />
