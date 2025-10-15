@@ -14,12 +14,7 @@ const figtree = Figtree({
   variable: "--font-figtree",
 });
 
-const getSiteUrl = () => {
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return "http://localhost:3000";
-};
-const SITE_URL = getSiteUrl();
+const SITE_URL = "https://www.dakiekste.com";
 
 const DEFAULTS = {
   title: "DAKIEKSTE | Branding, Fotografie, Video & Website aus einer Hand",
@@ -29,14 +24,12 @@ const DEFAULTS = {
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  // kanonische URL der aktuellen Seite
-  const path = router.asPath?.split("#")[0]?.split("?")[0] || "/";
+
+  const path = (router.asPath || "/").split("#")[0].split("?")[0] || "/";
   const canonicalUrl = `${SITE_URL}${path === "/" ? "" : path}`;
 
   const meta = {
-    title: DEFAULTS.title,
-    description: DEFAULTS.description,
-    imagePath: DEFAULTS.imagePath,
+    ...DEFAULTS,
     ...(pageProps?.meta || {}),
   };
 
@@ -44,13 +37,9 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     const handleContextMenu = (e) => {
-      if (e.target.closest("a, p, h1, h2, h3, h4, h5, h6, span")) {
-        return;
-      }
-
+      if (e.target.closest("a, p, h1, h2, h3, h4, h5, h6, span")) return;
       e.preventDefault();
     };
-
     document.addEventListener("contextmenu", handleContextMenu);
     return () => document.removeEventListener("contextmenu", handleContextMenu);
   }, []);
