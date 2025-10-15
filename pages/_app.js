@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { Figtree } from "next/font/google";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { Analytics } from "@vercel/analytics/next";
 
 const figtree = Figtree({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default function App({ Component, pageProps }) {
             <link rel="canonical" href={canonicalUrl} />
           </Head>
           <Component {...pageProps} />
+          <Analytics />
         </div>
       </ThemeProvider>
     </StyleSheetManager>

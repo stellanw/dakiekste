@@ -114,6 +114,14 @@ export default function Impressum() {
             zur Auftragsverarbeitung (AVV) geschlossen.
           </p>
 
+          <h6>Web-Analyse (Vercel Web Analytics)</h6>
+          <p>
+            Wir nutzen Vercel Web Analytics zur Auswertung von Seitenaufrufen. Der Dienst arbeitet ohne Cookies und verarbeitet ausschließlich anonymisierte Nutzungsdaten (z. B. URL/Referrer, Zeitpunkt, ungefähre Region, Endgerät/Browser, Seitenpfad). Eine Zuordnung zu konkreten Personen findet nicht statt; Besucher werden über einen nicht rückrechenbaren
+            Hash des Requests gezählt. Sitzungsdaten werden nicht dauerhaft gespeichert (sie werden spätestens nach 24 Stunden verworfen). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Reichweitenmessung und stabiler Bereitstellung der Website). Dienstanbieter: Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA. Mit Vercel
+            besteht ein Auftragsverarbeitungsvertrag (AVV/DPA); eine etwaige Drittlandübermittlung erfolgt auf Grundlage der Standardvertragsklauseln (SCC) der EU-Kommission. Weitere Informationen findest du in der Vercel Web Analytics Privacy und der Vercel Privacy Policy. Hinweis: Da keine Cookies gesetzt werden, ist für diese Analyse keine Einwilligung
+            via Cookie-Banner erforderlich. Quellen: Vercel Analytics (cookielos/anonymisiert), Visitor-Hash & Session-Handling; DPA/SCC.
+          </p>
+
           <h6>Google Fonts (lokal)</h6>
           <p>
             Wir verwenden die Schriftart „Figtree“. Die Einbindung erfolgt ausschließlich lokal von unserem Server. Eine Verbindung zu Servern von Google findet dabei nicht statt; es werden insoweit keine personenbezogenen Daten an Google übermittelt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer einheitlichen Darstellung).
