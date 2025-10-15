@@ -67,7 +67,7 @@ export default function Header({ useImageBackground = false }) {
             "Branding, Fotografie und Website Für Gründer*innen & Unternehmen"
           ) : (
             <>
-              Branding, Fotografie und Website
+              Branding, Fotografie und Website&nbsp;
               <br />
               Für Gründer*innen & Unternehmen
             </>
@@ -121,9 +121,12 @@ const StyledHeadlineContainer = styled.div`
   padding-right: var(--side-padding);
   h1,
   h2 {
-    @media (max-width: ${theme.breakpoints.tablet}) {
+    br {
+      display: none;
+    }
+    @media (min-width: ${theme.breakpoints.desktop}) {
       br {
-        display: none;
+        display: block;
       }
     }
     margin: 0;

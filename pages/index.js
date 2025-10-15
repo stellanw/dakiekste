@@ -95,13 +95,15 @@ import ProjectBox from "@/components/ProjectBox";
 import section13_TextBox01 from "/public/images/13_Textbox/behind-the-scenes-dakiekste-05.jpg";
 
 const OnlyMobile = styled.div`
+  display: block;
   @media (min-width: ${theme.breakpoints.tablet}) {
     display: none;
   }
 `;
 const OnlyTabletUp = styled.div`
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    display: none;
+  display: none;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: block;
   }
 `;
 
@@ -204,7 +206,7 @@ export default function HomePage() {
         alt="Portrait – Business – Businessportrait"
         flexflow="row"
         flexflowMobile="column-reverse"
-        hide="mobile"
+        hide="tablet"
       />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}

@@ -138,7 +138,7 @@ const StyledPrideWrapper = styled.div`
     font-weight: ${theme.fontWeight.mediumBold};
   }
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     justify-content: start;
     flex-direction: row-reverse;
   }
@@ -160,13 +160,15 @@ const StyledLinkListWrapper = styled.div`
 `;
 
 const OnlyMobile = styled.div`
+  display: block;
   @media (min-width: ${theme.breakpoints.tablet}) {
     display: none;
   }
 `;
 const OnlyTabletUp = styled.div`
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    display: none;
+  display: none;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: block;
   }
 `;
 
@@ -178,7 +180,7 @@ const StyledLinkWrapper = styled.div`
   p {
     margin: 0;
     font-size: var(--font-l);
-    @media (max-width: ${theme.breakpoints.mobile}) {
+    @media (max-width: ${theme.breakpoints.tablet}) {
       font-size: var(--font-m);
     }
     font-weight: ${theme.fontWeight.light};
@@ -213,12 +215,12 @@ const StyledCopyright = styled.p`
       color: ${theme.color.beige};
     }
 
-    @media (max-width: ${theme.breakpoints.mobile}) {
+    @media (max-width: ${theme.breakpoints.tablet}) {
       margin-left: 0;
     }
   }
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column;
     align-items: start;
     /* padding-top: var(--spacing-xxl); */
@@ -229,7 +231,7 @@ const FlagWrapper = styled.div`
   margin-left: var(--spacing-xs);
   width: 25px;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     width: 20px;
     margin-left: 0;
     margin-right: var(--spacing-xs);
@@ -242,7 +244,7 @@ const StyledBottomWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  @media (max-width: ${theme.breakpoints.mobile}) {
+  @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column-reverse;
     gap: 0;
   }
