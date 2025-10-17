@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { theme } from "@/styles";
 import Link from "next/link";
 
@@ -18,6 +18,8 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+
+  const startedAtRef = useRef(Date.now());
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -57,6 +59,10 @@ export default function ContactForm() {
         pronouns,
         acceptedTerms: !!formData.acceptedTerms,
         source: "contact",
+
+        // SPAM-Schutz
+        hp_web: e.currentTarget.hp_web?.value || "",
+        ttft_ms: Date.now() - startedAtRef.current,
       };
 
       const res = await fetch("/api/contact", {
@@ -137,7 +143,7 @@ export default function ContactForm() {
                   {formData.pronouns === "andere" && (
                     <PronounCol>
                       <PronounLabel htmlFor="customPronouns">Eigene</PronounLabel>
-                      <StyledInput id="customPronouns" name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z.B. dey/deren" />
+                      <StyledInput id="customPronouns" name="customPronouns" value={formData.customPronouns} onChange={handleChange} placeholder="z.B. dey/deren" maxLength={20} />
                     </PronounCol>
                   )}
                 </PronounRow>
@@ -145,19 +151,24 @@ export default function ContactForm() {
 
               <Wrapper>
                 <label htmlFor="fullName">Vor und Nachname</label>
-                <StyledInput name="fullName" id="fullName" value={formData.fullName} onChange={handleChange} required />
+                <StyledInput name="fullName" id="fullName" value={formData.fullName} onChange={handleChange} required maxLength={120} />
               </Wrapper>
             </SideBySideWrapper>
 
             <SideBySideWrapper>
               <Wrapper>
                 <label htmlFor="email">Email</label>
-                <StyledInput name="email" id="email" type="email" value={formData.email} onChange={handleChange} required />
+                <StyledInput name="email" id="email" type="email" value={formData.email} onChange={handleChange} required maxLength={120} />
               </Wrapper>
             </SideBySideWrapper>
 
             <label htmlFor="message">Deine Nachricht</label>
-            <StyledTextArea name="message" id="message" value={formData.message} onChange={handleChange} required />
+            <StyledTextArea name="message" id="message" value={formData.message} onChange={handleChange} required maxLength={2000} />
+
+            <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 0, height: 0, overflow: "hidden" }}>
+              <label htmlFor="hp_web">Website (leer lassen)</label>
+              <input id="hp_web" name="hp_web" tabIndex={-1} autoComplete="off" />
+            </div>
 
             <StyledCheckboxGroup>
               <StyledLabel htmlFor="acceptedTerms">

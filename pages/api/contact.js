@@ -32,7 +32,41 @@ export default async function handler(req, res) {
   const hasLogo = !!logoBuffer;
 
   try {
-    const { email, name, company, message, roles, otherRole, budget, acceptedTerms, servicesHtml: servicesHtmlRaw, totalPrice: totalPriceRaw, businessType, source, selectedServices, pronouns } = req.body || {};
+    const { email, name, company, message, roles, otherRole, budget, acceptedTerms, servicesHtml: servicesHtmlRaw, totalPrice: totalPriceRaw, businessType, source, selectedServices, pronouns, hp_web, ttft_ms } = req.body || {};
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    // SPAM-SCHUTZ: Früh und billig rauswerfen – vor Sanitizing/Render/Mail
+    // 0) Honeypot gefüllt? (Bots füllen alles) – leise akzeptieren & beenden
+    if (hp_web && String(hp_web).trim() !== "") {
+      return res.status(200).json({ ok: true });
+    }
+    // 1) Mindest-Ausfüllzeit (Bots posten sehr schnell)
+    if (Number(ttft_ms) > 0 && Number(ttft_ms) < 2000) {
+      return res.status(200).json({ ok: true });
+    }
+    // 2) Feld-/Inhalts-Heuristiken
+    const tooManyLinks = (message || "").match(/https?:\/\//gi)?.length || 0;
+    if (tooManyLinks > 1) {
+      return res.status(200).json({ ok: true });
+    }
+    if ((name || "").length > 80) return res.status(200).json({ ok: true });
+    if ((email || "").length > 120) return res.status(200).json({ ok: true });
+    if ((message || "").length > 4000) return res.status(200).json({ ok: true });
+    // 3) E-Mail Grundformat prüfen (zusätzlich zum Frontend)
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "")) {
+      return res.status(400).json({ error: "invalid_email" });
+    }
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    // Optional: simples IP-Rate-Limit (1 Request / 15s)
+    const ip = (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "").toString().split(",")[0].trim();
+    globalThis.__dk_rate__ = globalThis.__dk_rate__ || new Map();
+    const now = Date.now();
+    const last = globalThis.__dk_rate__.get(ip) || 0;
+    if (now - last < 15_000) {
+      return res.status(429).json({ ok: false, error: "too_many_requests" });
+    }
+    globalThis.__dk_rate__.set(ip, now);
 
     if (!email || !name || !message) {
       return res.status(400).json({ error: "Missing fields" });

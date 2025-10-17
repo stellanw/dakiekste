@@ -20,13 +20,13 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
   const [isError, setIsError] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
 
+  const startedAtRef = useRef(Date.now());
+
   const isControlled = !!formData && !!setFormData;
   const rawData = isControlled ? (formData ?? {}) : localForm;
 
   const data = { ...initialForm, ...rawData };
 
-  // const isControlled = !!formData && !!setFormData;
-  // const data = isControlled ? formData : localForm;
   const setData = isControlled ? setFormData : setLocalForm;
 
   const showOnRequest = !!priceOnRequest;
@@ -110,6 +110,10 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
       priceDisplay: showOnRequest ? "auf Anfrage" : `${total.toFixed(2)} €`,
 
       pronouns: pronouns || undefined,
+
+      // SPAM-Schutz
+      hp_web: e.currentTarget.hp_web?.value || "",
+      ttft_ms: Date.now() - startedAtRef.current,
     };
 
     try {
@@ -302,19 +306,19 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
                 {data.pronouns === "andere" && (
                   <PronounCol>
                     <OverlayLabel htmlFor="customPronouns">Eigene</OverlayLabel>
-                    <OverlayInput id="customPronouns" name="customPronouns" value={data.customPronouns} onChange={handleChange} placeholder="z. B. dey/deren" required />
+                    <OverlayInput id="customPronouns" name="customPronouns" value={data.customPronouns} onChange={handleChange} placeholder="z. B. dey/deren" required maxLength={20} />
                   </PronounCol>
                 )}
               </PronounRow>
 
               <OverlayLabel htmlFor="fullName">Vor und Nachname</OverlayLabel>
-              <OverlayInput id="fullName" name="fullName" value={data.fullName} onChange={handleChange} placeholder="" required />
+              <OverlayInput id="fullName" name="fullName" value={data.fullName} onChange={handleChange} placeholder="" required maxLength={80} />
 
               <OverlayLabel htmlFor="company">Firma</OverlayLabel>
-              <OverlayInput id="company" name="company" value={data.company} onChange={handleChange} />
+              <OverlayInput id="company" name="company" value={data.company} onChange={handleChange} maxLength={120} />
 
               <OverlayLabel htmlFor="email">Email</OverlayLabel>
-              <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)" inputMode="email" autoComplete="email" required />
+              <OverlayInput id="email" name="email" type="email" value={data.email} onChange={handleChange} pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" title="Bitte gib eine gültige E-Mail-Adresse ein (z. B. name@domain.de)" inputMode="email" autoComplete="email" required maxLength={120} />
 
               <MobileListBox>
                 <StyledSummaryHeadline>Deine Auswahl</StyledSummaryHeadline>
@@ -347,7 +351,12 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
               </MobileListBox>
 
               <OverlayLabel htmlFor="message">Nachricht</OverlayLabel>
-              <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" />
+              <OverlayTextArea id="message" name="message" value={data.message} onChange={handleChange} placeholder="Was dürfen wir für dich umsetzen?" maxLength={2000} />
+
+              <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 0, height: 0, overflow: "hidden" }}>
+                <label htmlFor="hp_web">Website (leer lassen)</label>
+                <input id="hp_web" name="hp_web" tabIndex={-1} autoComplete="off" />
+              </div>
 
               <StyledCheckboxGroup>
                 <label htmlFor="acceptedTerms">
