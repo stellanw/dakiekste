@@ -4,16 +4,26 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import BackToTopButton from "@/components/BackToTopButton";
 import Footer from "@/components/Footer";
+import Menu from "@/components/Menu";
+import CookieBanner from "@/components/CookieBanner";
+import DakieksteLogo from "@/Icons/DakieksteLogo";
+import Link from "next/link";
 
 export default function Impressum() {
   const router = useRouter();
 
-  const email = "info" + "@" + "dakiekste" + ".com";
+  const user = ["i", "n", "f", "o"].join("");
+  const host = ["d", "a", "k", "i", "e", "k", "s", "t", "e", ".", "c", "o", "m"].join("");
+  const email = `${user}@${host}`;
 
   return (
     <>
-      <Header useImageBackground={false} />
+      <Menu />
       <BackToTopButton />
+      <CookieBanner />
+      <LogoWrapper href="/">
+        <DakieksteLogo color={theme.color.dark} transition="color 0.5s ease" width={200} />
+      </LogoWrapper>
       <ImpressumWrapper>
         <StyledImpressumContainer>
           <h2>Impressum</h2>
@@ -21,18 +31,23 @@ export default function Impressum() {
           <h6>Angaben gemäß § 5 TMG</h6>
           <p>
             <strong>Dakiekste GbR</strong>
+            <br />
+            Lienaustraße 32
+            <br />
+            22159 Hamburg
+            <br />
+            <a href={`mailto:${email}`} aria-label={`E-Mail: ${email}`}>
+              {email}
+            </a>
           </p>
-          <p>Lienaustraße 32</p>
-          <p>22159 Hamburg</p>
-          <p>{email}</p>
 
           <h6>Vertreten durch</h6>
           <p>Stellan Wetzig & Maischa Souaga</p>
 
           <h6>Umsatzsteuer-Identifikationsnummer</h6>
-          <p>-- beantragt --</p>
+          <p>-- folgt --</p>
 
-          <h6>Haftungsausschluss</h6>
+          {/* <h6>Haftungsausschluss</h6>
           <p>
             Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Dienstanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
             Dienstanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
@@ -96,30 +111,52 @@ export default function Impressum() {
 
           <h6>Cookies</h6>
 
-          <p>Unsere Website verwendet keine Cookies, außer solche, die für den Betrieb technisch notwendig sind. Diese speichern keine personenbezogenen Daten.</p>
+          <h6>Analyse & Statistik</h6>
 
-          <h6>Kontaktformular</h6>
+          <p>Wir setzen verschiedene Dienste zur statistischen Auswertung und Verbesserung unserer Website ein. Dabei achten wir darauf, dass personenbezogene Daten nur mit deiner Einwilligung verarbeitet werden oder – wenn technisch möglich – vollständig anonymisiert bleiben.</p>
 
-          <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Kontaktformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+          <h6>Google Analytics 4</h6>
 
-          <h6>Widerruf, Änderungen, Berichtigungen und Aktualisierungen</h6>
-
-          <p>Sie haben das Recht, auf Antrag unentgeltlich Auskunft darüber zu erhalten, welche personenbezogenen Daten über Sie gespeichert sind. Sie haben außerdem das Recht auf Berichtigung falscher Daten, Sperrung und Löschung Ihrer personenbezogenen Daten, sofern dem keine gesetzliche Aufbewahrungspflicht entgegensteht.</p>
-
-          <p>Bei weiteren Fragen zum Thema Datenschutz wenden Sie sich bitte an uns.</p>
-
-          <h6>Hosting</h6>
           <p>
-            Unsere Website wird bei Vercel gehostet. Wenn Sie unsere Website besuchen, erfasst Vercel Inc. verschiedene Logfiles inklusive Ihrer IP-Adressen. Der Einsatz erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO, da wir ein berechtigtes Interesse an einer möglichst zuverlässigen Darstellung unserer Website haben. Mit dem Anbieter wurde ein Vertrag
-            zur Auftragsverarbeitung (AVV) geschlossen.
+            Nach deiner Zustimmung verwenden wir <strong>Google Analytics 4</strong>, einen Webanalysedienst der Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Irland). Google Analytics nutzt Cookies und ähnliche Technologien, um das Nutzerverhalten auf unserer Website zu erfassen und auszuwerten. Die IP-Adresse wird dabei durch die
+            aktivierte Funktion <strong>anonymize_ip</strong> vor der Speicherung gekürzt, sodass kein direkter Personenbezug möglich ist.
           </p>
 
-          <h6>Web-Analyse (Vercel Web Analytics)</h6>
           <p>
-            Wir nutzen Vercel Web Analytics zur Auswertung von Seitenaufrufen. Der Dienst arbeitet ohne Cookies und verarbeitet ausschließlich anonymisierte Nutzungsdaten (z. B. URL/Referrer, Zeitpunkt, ungefähre Region, Endgerät/Browser, Seitenpfad). Eine Zuordnung zu konkreten Personen findet nicht statt; Besucher werden über einen nicht rückrechenbaren
-            Hash des Requests gezählt. Sitzungsdaten werden nicht dauerhaft gespeichert (sie werden spätestens nach 24 Stunden verworfen). Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Reichweitenmessung und stabiler Bereitstellung der Website). Dienstanbieter: Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA. Mit Vercel
-            besteht ein Auftragsverarbeitungsvertrag (AVV/DPA); eine etwaige Drittlandübermittlung erfolgt auf Grundlage der Standardvertragsklauseln (SCC) der EU-Kommission. Weitere Informationen findest du in der Vercel Web Analytics Privacy und der Vercel Privacy Policy. Hinweis: Da keine Cookies gesetzt werden, ist für diese Analyse keine Einwilligung
-            via Cookie-Banner erforderlich. Quellen: Vercel Analytics (cookielos/anonymisiert), Visitor-Hash & Session-Handling; DPA/SCC.
+            Wenn du der Nutzung für Analyse- und Werbezwecke zustimmst, kann Google die gewonnenen Informationen mit anderen Google-Diensten (z. B. Google Ads) verknüpfen, um personalisierte Werbung oder Conversion-Messungen durchzuführen. Rechtsgrundlage ist deine Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Du kannst diese Einwilligung jederzeit über den
+            Button „Cookie-Einstellungen“ im Footer widerrufen oder anpassen.
+          </p>
+
+          <p>
+            Weitere Informationen findest du in der{" "}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+              Datenschutzerklärung von Google
+            </a>{" "}
+            und in der{" "}
+            <a href="https://support.google.com/analytics/answer/12017362?hl=de" target="_blank" rel="noopener noreferrer">
+              Google Analytics 4-Hilfe
+            </a>
+            .
+          </p>
+
+          <h6>Vercel Web Analytics</h6>
+
+          <p>
+            Wir nutzen außerdem <strong>Vercel Web Analytics</strong> zur Auswertung von Seitenaufrufen. Der Dienst arbeitet ohne Cookies und verarbeitet ausschließlich anonymisierte Nutzungsdaten (z. B. URL/Referrer, Zeitpunkt, ungefähre Region, Endgerät/Browser, Seitenpfad). Eine Zuordnung zu konkreten Personen findet nicht statt; Besucher werden über
+            einen nicht rückrechenbaren Hash des Requests gezählt. Sitzungsdaten werden nicht dauerhaft gespeichert (sie werden spätestens nach 24 Stunden verworfen).
+          </p>
+
+          <p>
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Reichweitenmessung und stabiler Bereitstellung der Website). Dienstanbieter: Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA. Mit Vercel besteht ein Auftragsverarbeitungsvertrag (AVV/DPA); eine etwaige Drittlandübermittlung erfolgt auf Grundlage der
+            Standardvertragsklauseln (SCC) der EU-Kommission. Weitere Informationen findest du in der{" "}
+            <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">
+              Vercel Privacy Policy
+            </a>
+            .
+          </p>
+
+          <p>
+            <em>Hinweis:</em> Da keine Cookies gesetzt werden, ist für diese Analyse keine Einwilligung über das Cookie-Banner erforderlich.
           </p>
 
           <h6>Google Fonts (lokal)</h6>
@@ -143,7 +180,105 @@ export default function Impressum() {
           <p>
             Sofern innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben personenbezogene Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine
             anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen).
+          </p> */}
+
+          <h6>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h6>
+          <p>Dakiekste GbR</p>
+
+          <h6>Haftungsausschluss</h6>
+          <p>
+            Wir geben unser Bestes, alle Inhalte dieser Website sorgfältig zu erstellen und aktuell zu halten. Trotzdem können wir keine Gewähr für Richtigkeit, Vollständigkeit oder Aktualität übernehmen. Nach § 7 Abs. 1 TMG sind wir für eigene Inhalte auf diesen Seiten verantwortlich, nicht aber verpflichtet, übermittelte oder gespeicherte fremde
+            Informationen aktiv zu überwachen (§§ 8–10 TMG). Solltest du auf fehlerhafte oder rechtswidrige Inhalte stoßen, gib uns bitte kurz Bescheid – wir kümmern uns sofort darum.
           </p>
+
+          <h6>Haftung für Links</h6>
+          <p>Unsere Seite enthält Links zu externen Websites. Auf deren Inhalte haben wir keinen Einfluss, daher übernehmen wir keine Haftung dafür. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
+
+          <br />
+          <br />
+
+          <h2>Datenschutzerklärung</h2>
+
+          <h3>Datenschutz auf einen Blick</h3>
+
+          <p>Uns ist wichtig, dass du weißt, was mit deinen Daten passiert, wenn du unsere Website nutzt. Personenbezogene Daten sind alle Informationen, mit denen du direkt oder indirekt identifiziert werden kannst. In dieser Datenschutzerklärung erfährst du, welche Daten wir erfassen, wie wir sie verwenden und welche Rechte du hast.</p>
+
+          <h3>Verantwortliche Stelle</h3>
+          <p>
+            Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+            <br />
+            <strong>Dakiekste GbR</strong>
+            <br />
+            Lienaustraße 32
+            <br />
+            22159 Hamburg
+            <br />
+            <a href={`mailto:${email}`} aria-label={`E-Mail: ${email}`}>
+              {email}
+            </a>
+          </p>
+
+          <br />
+          <br />
+
+          <h3>Datenerfassung auf dieser Website</h3>
+
+          <h6>Formulare und Kontaktaufnahme</h6>
+          <p>
+            Wenn du uns über ein Formular kontaktierst, werden die Angaben, die du machst (z. B. Name, E-Mail-Adresse, Nachricht), gespeichert, um deine Anfrage zu bearbeiten. Diese Daten geben wir nicht ohne deine Zustimmung weiter. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Kommunikation) oder Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+            Interesse an effektiver Kommunikation).
+          </p>
+
+          <h6>Server-Logs</h6>
+          <p>
+            Beim Aufruf unserer Seiten erhebt unser Hosting-Anbieter automatisch technische Daten (z. B. IP-Adresse, Browsertyp, Uhrzeit, aufgerufene Seite). Diese Daten dienen ausschließlich der Sicherstellung eines reibungslosen Betriebs und der IT-Sicherheit und werden nicht mit anderen Datenquellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit.
+            f DSGVO.
+          </p>
+
+          <br />
+          <br />
+
+          <h3>Cookies und Einwilligungen</h3>
+          <p>Wir verwenden Cookies, um zu verstehen, wie unsere Website genutzt wird, und um unsere Sichtbarkeit zu verbessern (z. B. durch Google Analytics 4). Du entscheidest selbst, ob du zustimmst oder nur notwendige Cookies erlaubst. Deine Auswahl kannst du jederzeit über den Button „Cookie-Einstellungen“ im Footer ändern.</p>
+
+          <h6>Technisch notwendige Cookies</h6>
+          <p>Diese Cookies sind erforderlich, damit die Website funktioniert (z. B. um deine Cookie-Einwilligung zu speichern). Sie enthalten keine personenbezogenen Daten.</p>
+
+          <h6>Analyse und Werbung (mit Einwilligung)</h6>
+          <p>Mit deiner Zustimmung nutzen wir Google Analytics 4, um zu verstehen, wie Besucher:innen unsere Seite finden und nutzen. Wir erhalten dabei keine Informationen, mit denen du persönlich identifiziert werden kannst. Die IP-Adresse wird anonymisiert, bevor sie gespeichert wird.</p>
+
+          <p>
+            Dienstanbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Datenverarbeitung: Google kann die Daten in die USA übermitteln. Rechtsgrundlage sind die Standardvertragsklauseln (SCC) der EU-Kommission. Weitere Infos findest du in der <a href="https://policies.google.com/privacy">Google-Datenschutzerklärung</a>.
+          </p>
+
+          <br />
+          <br />
+
+          <h3>Weitere Analysen – cookielos</h3>
+
+          <h6>Vercel Web Analytics</h6>
+          <p>
+            Wir nutzen zusätzlich Vercel Web Analytics, um Seitenaufrufe auszuwerten – ganz ohne Cookies. Es werden ausschließlich anonymisierte Daten (z. B. URL, Zeitpunkt, ungefähre Region, Gerät/Browser) verarbeitet. Eine Zuordnung zu dir ist nicht möglich. Sitzungsdaten werden spätestens nach 24 Stunden gelöscht. Rechtsgrundlage: Art. 6 Abs. 1 lit. f
+            DSGVO (berechtigtes Interesse an Reichweitenmessung).
+          </p>
+
+          <p>
+            Dienstanbieter: Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA. Mit Vercel besteht ein Auftragsverarbeitungsvertrag (DPA/SCC). Weitere Infos findest du in der <a href="https://vercel.com/legal/privacy-policy">Vercel Privacy Policy</a>.
+          </p>
+
+          <br />
+          <br />
+
+          <h3>Deine Rechte</h3>
+          <p>
+            Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten. Außerdem kannst du eine erteilte Einwilligung jederzeit widerrufen. Schreib uns dazu einfach an <a href="mailto:[email]">{email}</a>.
+          </p>
+
+          <br />
+          <br />
+
+          <h3>Änderungen dieser Datenschutzerklärung</h3>
+          <p>Wir behalten uns vor, diese Datenschutzerklärung gelegentlich anzupassen, damit sie immer den aktuellen rechtlichen Anforderungen entspricht oder neue Funktionen beschreibt. Die jeweils aktuelle Version findest du immer hier auf unserer Website.</p>
         </StyledImpressumContainer>
       </ImpressumWrapper>
       <Footer />
@@ -151,8 +286,15 @@ export default function Impressum() {
   );
 }
 
+const LogoWrapper = styled(Link)`
+  position: absolute;
+  top: calc(0.75 * var(--side-padding));
+  left: var(--side-padding);
+`;
+
 const ImpressumWrapper = styled.section`
   background-color: ${theme.color.beige};
+  padding: var(--spacing-xl) 0;
 `;
 
 const StyledImpressumContainer = styled.div`
