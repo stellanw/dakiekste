@@ -64,7 +64,7 @@ export default function Footer() {
         </OnlyTabletUp>
 
         <OnlyMobile>
-          <Link href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+          <Link href="https://maps.app.goo.gl/U5qQZS9DziesNXbT6" target="_blank" rel="noopener noreferrer">
             <StyledLinkWrapper>
               <p>Map</p>
               <StyledIcon />
@@ -75,7 +75,7 @@ export default function Footer() {
         <OnlyTabletUp>
           <StyledLinkWrapper>
             <p>Map</p>
-            <Link href="https://www.google.com/maps/place/KLUB+STUDIO/@53.6293927,10.1252447,19z/data=!3m1!4b1!4m6!3m5!1s0x47b18b1dc2c88901:0x73c4a52033da48af!8m2!3d53.6293927!4d10.1258898!16s%2Fg%2F11vx3b9kkl?entry=ttu&g_ep=EgoyMDI1MDcyMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
+            <Link href="https://maps.app.goo.gl/U5qQZS9DziesNXbT6" target="_blank" rel="noopener noreferrer">
               <StyledIcon />
             </Link>
           </StyledLinkWrapper>
@@ -84,6 +84,23 @@ export default function Footer() {
       <StyledBottomWrapper>
         <StyledCopyright>
           © 2025 | Dakiekste. Alle Rechte vorbehalten. <Link href="/impressum">Impressum</Link>
+          <CookieButton
+            onClick={() => {
+              try {
+                localStorage.removeItem("dak:consent");
+                window[`ga-disable-${GA_ID}`] = true;
+                window.gtag?.("consent", "update", {
+                  ad_storage: "denied",
+                  ad_user_data: "denied",
+                  ad_personalization: "denied",
+                  analytics_storage: "denied",
+                });
+              } catch {}
+              window.dispatchEvent(new CustomEvent("dak:cookie-open"));
+            }}
+          >
+            Cookie-Einstellungen
+          </CookieButton>
         </StyledCopyright>{" "}
         <StyledPrideWrapper>
           <p>Wir möchten ein Saferspace für dich sein.</p>
@@ -104,7 +121,7 @@ const StyledFooter = styled.footer`
   align-items: end;
   gap: var(--spacing-s);
   width: 100%;
-  padding: var(--spacing-xxl) var(--side-padding);
+  padding: var(--spacing-xxl) var(--side-padding) var(--spacing-m) var(--side-padding);
   background-color: ${theme.color.green};
   @media (max-width: ${theme.breakpoints.mobile}) {
     justify-content: space-between;
@@ -247,5 +264,22 @@ const StyledBottomWrapper = styled.div`
   @media (max-width: ${theme.breakpoints.tablet}) {
     flex-direction: column-reverse;
     gap: 0;
+  }
+`;
+
+const CookieButton = styled.button`
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 2px;
+  margin-left: var(--spacing-xs);
+
+  &:hover {
+    transform: none !important;
+    color: ${theme.color.beige} !important;
+  }
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    margin-left: 0;
   }
 `;

@@ -17,6 +17,7 @@ import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import VideoTextBox from "@/components/VideoTextBox";
+import CookieBanner from "@/components/CookieBanner";
 
 //02_Slider
 import slider_branding_01 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-01.jpg";
@@ -121,6 +122,7 @@ export default function HomePage() {
         <meta name="author" content="Dein Name" />
       </Head>
 
+      <CookieBanner />
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <Hero

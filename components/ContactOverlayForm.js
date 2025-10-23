@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { theme } from "@/styles";
 import { PiArrowDownThin, PiX } from "react-icons/pi";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function ContactOverlayForm({ selectedServices = [], serviceCounts = {}, businessType, formData, setFormData, priceOnRequest = false, onClose }) {
   const initialForm = {
@@ -19,6 +20,9 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
+  const [pendingRedirect, setPendingRedirect] = useState(false);
+
+  const router = useRouter();
 
   const startedAtRef = useRef(Date.now());
 
@@ -48,6 +52,27 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+  const handleSuccessClose = () => {
+    onClose?.(); // Overlay zu
+
+    // kurz warten bis Overlay weg ist (Layout stabil)
+    setTimeout(() => {
+      // 1) Route wechseln OHNE Auto-Scroll (kein Top-Jump)
+      router.push("/#preise", undefined, { scroll: false });
+
+      // 2) manuell zum Anker scrollen (smooth)
+      requestAnimationFrame(() => {
+        const el = document.getElementById("preise");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      // 3) Restore-Flag über sessionStorage, NICHT per Query
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("dak:restore-flag", "1");
+      }
+    }, 60);
   };
 
   const toPlainText = (node) => {
@@ -130,6 +155,36 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
 
       setResponseMessage("Wir melden uns in Kürze bei dir mit weiteren Infos oder einem Angebot.");
       setIsSuccess(true);
+
+      // --- Auswahl/Form für Restore sichern ---
+      try {
+        const persist = {
+          selectedServices: structured,
+          serviceCounts,
+          businessType,
+          form: data,
+          ts: Date.now(),
+        };
+        if (typeof window !== "undefined") {
+          sessionStorage.setItem("dak:quote", JSON.stringify(persist));
+        }
+      } catch {}
+
+      // --- URL im Hintergrund auf /danke setzen (ohne zu navigieren) ---
+      if (typeof window !== "undefined") {
+        window.history.pushState({}, "", "/danke");
+
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "page_view", {
+            page_title: "Danke",
+            page_path: "/danke",
+            page_location: window.location.origin + "/danke",
+          });
+        }
+      }
+
+      setPendingRedirect(true);
+      return;
     } catch (err) {
       console.error("Fehler beim Senden:", err);
       setResponseMessage("Da ist etwas schiefgelaufen. Bitte versuch es nochmal.");
@@ -203,6 +258,15 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
     };
   }, []);
 
+  useEffect(() => {
+    const onPop = () => {
+      // Wenn wir die URL auf /danke gefaked haben und jemand "Zurück" klickt:
+      window.location.href = "/?restore=1#preise";
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
   return (
     <OverlayWrapper>
       <OverlayTwoCol>
@@ -268,7 +332,7 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
         <FormCol $isSuccess={isSuccess}>
           {isSuccess ? (
             <StyledSuccessMessage>
-              <CloseButton onClick={onClose}>
+              <CloseButton onClick={handleSuccessClose}>
                 <PiX />
               </CloseButton>
               <h3>Danke für deine Nachricht!</h3>
