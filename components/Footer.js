@@ -4,14 +4,14 @@ import { PiArrowUpRightLight } from "react-icons/pi";
 import { theme } from "@/styles";
 import PrideFlag from "@/Icons/PrideFlag";
 
-export default function Footer() {
+export default function Footer({ hideTitle }) {
   const email = "info" + "@" + "dakiekste" + ".com";
   const subject = "Anfrage";
 
   const createMailToLink = () => `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 
   return (
-    <StyledFooter>
+    <StyledFooter hideTitle={hideTitle}>
       <h3>
         Lass uns gemeinsam starten
         <br />
@@ -134,6 +134,7 @@ const StyledFooter = styled.footer`
   }
 
   h3 {
+    display: ${({ hideTitle }) => (hideTitle ? "none" : "inline")};
     @media (max-width: ${theme.breakpoints.mobile}) {
       font-size: var(--font-xl) !important;
     }

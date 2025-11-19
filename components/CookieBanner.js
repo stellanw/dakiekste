@@ -115,7 +115,7 @@ export default function CookieBanner() {
       </TextDesktop>
       <BtnRow>
         <Btn onClick={denyAll}>Nur notwendige</Btn>
-        <BtnPrimary onClick={acceptAll}>Alle akzeptieren</BtnPrimary>
+        <Btn onClick={acceptAll}>Alle akzeptieren</Btn>
       </BtnRow>
     </Wrap>
   );
@@ -207,9 +207,7 @@ const Btn = styled.button`
     background: ${theme.color.green};
   }
 `;
-const BtnPrimary = styled(Btn)`
-  font-weight: ${theme.fontWeight.bold};
-`;
+
 const StyledLink = styled(Link)`
   font-weight: ${theme.fontWeight.bold};
   color: ${theme.color.dark};
