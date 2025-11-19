@@ -98,7 +98,7 @@ export default function AnknipsenForm({ eventKey, eventLabel } = {}) {
             <br />
             KNIPSEN
           </Title>
-          <Subtitle>{eventLabel}</Subtitle>
+          <Subtitle>Melde dich an für das Event am {eventLabel}</Subtitle>
         </Inner>
       </HeaderWrapper>
       <StyledFormWrapper>
@@ -113,7 +113,7 @@ export default function AnknipsenForm({ eventKey, eventLabel } = {}) {
                 setIsSuccess(false);
               }}
             >
-              Weitere Adresse eintragen
+              Weitere Person anmelden
             </StyledButton>
           </StyledSuccessMessage>
         ) : (
@@ -233,16 +233,16 @@ const StyledForm = styled.form`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: var(--side-padding);
+  padding: var(--spacing-xxl) var(--side-padding);
   color: ${theme.color.dark}; // vorher beige
   position: relative;
-
+  max-width: 750px;
   @media (min-width: ${theme.breakpoints.desktop}) {
     flex-basis: 50%;
   }
 
   @media (min-width: ${theme.breakpoints.tablet}) {
-    padding: var(--spacing-xl) var(--side-padding);
+    padding: var(--spacing-xxxl) var(--side-padding);
   }
 
   @media (min-width: ${theme.breakpoints.desktop}) {
