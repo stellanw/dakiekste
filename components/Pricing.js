@@ -38,6 +38,32 @@ export const euroDash = (value, { star = false } = {}) => {
 // --- Rundungs-Helper: auf nächste 10 (5 rundet auf)
 const roundToTen = (n) => Math.round((Number(n) || 0) / 10) * 10;
 
+/* =========================
+   ACCESSIBILITY UTILITIES
+   ========================= */
+const srOnly = css`
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+`;
+
+const SROnly = styled.span`
+  ${srOnly}
+`;
+
+const HiddenRadio = styled.input.attrs({ type: "radio" })`
+  ${srOnly}
+`;
+const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
+  ${srOnly}
+`;
+
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
     businessType: "Soloselbstständig",
@@ -276,12 +302,14 @@ export default function Pricing({ pricingData, servicesData }) {
   const showInstallmentBadges = anyInstallmentsAllowed && anyInstallmentsForbidden;
 
   return (
-    <OuterWrapper>
+    <OuterWrapper aria-labelledby="calc-head" aria-describedby="calc-desc">
       <InnerWrapper>
         <PricingContainer>
           {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
+
           <HeadlineContainer>
-            <h2>Preiskalkulator</h2>
+            <h2 id="calc-head">Preiskalkulator</h2>
+            <SROnly id="calc-desc">Wähle dein Business, deinen Projekttyp und anschließend Leistungen. Preise und Raten aktualisieren sich automatisch.</SROnly>
             {isMobile ? (
               <h4>Jedes Projekt ist individuell – genau wie dein Budget. Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.</h4>
             ) : (
@@ -291,22 +319,24 @@ export default function Pricing({ pricingData, servicesData }) {
               </h4>
             )}
           </HeadlineContainer>
+
           <CalculatorContainer>
             <CategoriesContainer>
               {pricingData.map((category, categoryIndex) => {
                 const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
-
+                const groupId = `cat-${categoryIndex}`;
                 return (
                   <CategoryContainer key={categoryIndex} $hide={hideThisCategory}>
-                    <h6>{category.category}</h6>
-                    <OptionContainer>
+                    <h6 id={groupId}>{category.category}</h6>
+                    <OptionContainer role="radiogroup" aria-labelledby={groupId}>
                       {category.options.map((option, i) => {
                         const checked = selectedCategory[category.key] === option;
+                        const id = `${category.key}-${i}`;
                         return (
-                          <Option key={i} $checked={checked}>
-                            <HiddenCheckbox checked={checked} onChange={() => handleCategorySelection(category.key, option)} />
-                            <Dot $checked={checked} />
-                            <OptionName>{option}</OptionName>
+                          <Option key={id} $checked={checked} as="label" htmlFor={id}>
+                            <HiddenRadio id={id} name={category.key} checked={checked} onChange={() => handleCategorySelection(category.key, option)} aria-checked={checked} />
+                            <Dot aria-hidden="true" $checked={checked} />
+                            <OptionName $checked={checked}>{option}</OptionName>
                           </Option>
                         );
                       })}
@@ -315,22 +345,22 @@ export default function Pricing({ pricingData, servicesData }) {
                 );
               })}
             </CategoriesContainer>
+
             <ServiceContainer>
               <OutcomeContainer>
                 <OutcomeContent>
                   {isOrg ? (
                     <>
                       <h6>Deine Auswahl</h6>
-
                       {isOrgSelected && (
-                        <ul>
-                          <li>
+                        <ul role="list" aria-label="Ausgewählte Leistungen">
+                          <li role="listitem">
                             <SelectedItem>
                               <ItemWrapper>
                                 <PiPushPinLight />
                                 <span>Leistungen für Vereine & Organisationen</span>
                               </ItemWrapper>
-                              <RemoveButton onClick={() => setSelectedServices([])}>
+                              <RemoveButton type="button" onClick={() => setSelectedServices([])} aria-label="Spezialleistung entfernen" title="Spezialleistung entfernen">
                                 <StyledRemoveIcon />
                               </RemoveButton>
                             </SelectedItem>
@@ -338,29 +368,37 @@ export default function Pricing({ pricingData, servicesData }) {
                         </ul>
                       )}
                       <OverlayInfo>Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und ein individuelles Angebot zu erstellen.</OverlayInfo>
-                      <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+                      <StyledButton type="button" onClick={() => setShowOverlay(true)} aria-label="Anfrage für Vereine & Organisationen starten">
+                        Anfrage starten
+                      </StyledButton>
                     </>
                   ) : (
                     <>
                       <h6>Deine Auswahl</h6>
                       <OutcomeListWrap>
-                        <OutcomeList ref={outcomeListRef}>
+                        <OutcomeList ref={outcomeListRef} role="list" aria-label="Ausgewählte Leistungen">
                           {selectedServices.map((service, index) => {
                             const isCountable = service.isCountable;
                             return (
-                              <li key={index}>
+                              <li role="listitem" key={index}>
                                 <SelectedItem>
                                   <ItemWrapper>
-                                    <RemoveButton onClick={() => removeService(service)}>
+                                    <RemoveButton type="button" onClick={() => removeService(service)} aria-label={`${service.title} aus Auswahl entfernen`} title={`${service.title} entfernen`}>
                                       <StyledRemoveIcon />
                                     </RemoveButton>
                                     <span>{service.title}</span>
 
                                     {isCountable && (
                                       <Counter>
-                                        <button onClick={() => handleCountChange(service.title, -1)}>-</button>
-                                        <span>{serviceCounts[service.title]}</span>
-                                        <button onClick={() => handleCountChange(service.title, 1)}>+</button>
+                                        <button type="button" aria-label={`${service.title}: Anzahl verringern`} onClick={() => handleCountChange(service.title, -1)}>
+                                          –
+                                        </button>
+                                        <span aria-live="polite" aria-atomic="true">
+                                          {serviceCounts[service.title]}
+                                        </span>
+                                        <button type="button" aria-label={`${service.title}: Anzahl erhöhen`} onClick={() => handleCountChange(service.title, 1)}>
+                                          +
+                                        </button>
                                       </Counter>
                                     )}
                                   </ItemWrapper>
@@ -387,18 +425,25 @@ export default function Pricing({ pricingData, servicesData }) {
                       </OutcomeListWrap>
 
                       {selectedServices.length > 0 && (
-                        <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Auswahl leeren">
+                        <ClearAllButton type="button" onClick={clearAllSelections} aria-label="Gesamte Auswahl leeren">
                           <PiTrash />
                           <span>Gesamte Auswahl leeren</span>
                         </ClearAllButton>
                       )}
+
                       <Price>Preis ab {euroDash(totalPrice, { star: true })}</Price>
+                      <SROnly aria-live="polite" aria-atomic="true">
+                        Aktueller Gesamtpreis: {DEC0.format(totalPrice)},-
+                      </SROnly>
 
                       {!hideInstallments && (
                         <>
                           <InstallmentPrice>
                             Oder in {MONTHS} Raten: {euroDash(installmentPriceWithMarkup(allowedInstallmentsTotal, MARKUP_PCT))} &nbsp;<span>{scopeInline}</span>
                           </InstallmentPrice>
+                          <SROnly aria-live="polite" aria-atomic="true">
+                            Ratenoption verfügbar: {MONTHS} Zahlungen à {DEC0.format(Math.ceil(installmentPriceWithMarkup(allowedInstallmentsTotal, MARKUP_PCT)))},-
+                          </SROnly>
                         </>
                       )}
                       <OverlayInfo>
@@ -406,15 +451,19 @@ export default function Pricing({ pricingData, servicesData }) {
                         <br />
                         {!hideInstallments && scopeHint && <span>{scopeHint}</span>}
                       </OverlayInfo>
-                      <StyledButton onClick={() => setShowOverlay(true)}>Anfrage starten</StyledButton>
+                      <StyledButton type="button" onClick={() => setShowOverlay(true)} aria-label="Anfrage mit aktueller Auswahl starten">
+                        Anfrage starten
+                      </StyledButton>
                     </>
                   )}
                 </OutcomeContent>
               </OutcomeContainer>
+
               <Services>
                 {Array.isArray(filteredServices) && filteredServices.length > 0 ? (
                   filteredServices.map((service) => {
                     const key = service.id || service.title;
+                    const serviceKey = String(key);
                     const isOpen = openKey === key;
                     const isSelected = selectedServices.some((s) => s.title === service.title);
 
@@ -422,24 +471,33 @@ export default function Pricing({ pricingData, servicesData }) {
                     const displayPrice = roundToTen(applyDiscount(roundToTen(service.price)));
 
                     return (
-                      <ServiceUL key={key} className={isOpen ? "open" : ""}>
+                      <ServiceUL key={serviceKey} className={isOpen ? "open" : ""}>
                         <Service>
-                          <ServiceTitleGroup $hovered={hoverKey === key}>
-                            <TitleCheckboxContainer $checked={isSelected}>
-                              <HiddenServiceCheckbox checked={isSelected} readOnly />
-                              <ServiceDot $checked={isSelected} role="checkbox" aria-checked={isSelected} tabIndex={0} onClick={() => handleServiceSelection(service)} onKeyDown={(e) => (e.key === " " || e.key === "Enter") && handleServiceSelection(service)} />
-
-                              <ServiceTitle role="button" aria-expanded={isOpen} onClick={() => toggleOverlay(key)} onMouseEnter={() => setHoverKey(key)} onMouseLeave={() => setHoverKey(null)} onFocus={() => setHoverKey(key)} onBlur={() => setHoverKey(null)}>
-                                {service.title}
-                              </ServiceTitle>
+                          <ServiceTitleGroup $hovered={hoverKey === serviceKey}>
+                            {/* Checkbox + Titel als Label-Gruppe */}
+                            <TitleCheckboxContainer $checked={isSelected} as="label" htmlFor={`svc-${serviceKey}`}>
+                              <HiddenServiceCheckbox id={`svc-${serviceKey}`} checked={isSelected} onChange={() => handleServiceSelection(service)} aria-label={`${service.title} ${isSelected ? "abwählen" : "auswählen"}`} />
+                              <ServiceDot aria-hidden="true" $checked={isSelected} />
+                              <ServiceTitle id={`svc-title-${serviceKey}`}>{service.title}</ServiceTitle>
                             </TitleCheckboxContainer>
 
-                            <ToggleIcon onClick={() => toggleOverlay(key)} onMouseEnter={() => setHoverKey(key)} onMouseLeave={() => setHoverKey(null)} onFocus={() => setHoverKey(key)} onBlur={() => setHoverKey(null)}>
+                            {/* Toggle als Button, mit Verbindung zum Panel */}
+                            <ToggleButton
+                              type="button"
+                              aria-expanded={isOpen}
+                              aria-controls={`panel-${serviceKey}`}
+                              aria-label={`Details zu ${service.title} ${isOpen ? "schließen" : "öffnen"}`}
+                              onClick={() => toggleOverlay(key)}
+                              onMouseEnter={() => setHoverKey(serviceKey)}
+                              onMouseLeave={() => setHoverKey(null)}
+                              onFocus={() => setHoverKey(serviceKey)}
+                              onBlur={() => setHoverKey(null)}
+                            >
                               {isOpen ? <PiMinus /> : <PiPlus />}
-                            </ToggleIcon>
+                            </ToggleButton>
                           </ServiceTitleGroup>
 
-                          <OverlayDescription $open={isOpen} aria-hidden={!isOpen}>
+                          <OverlayDescription $open={isOpen} id={`panel-${serviceKey}`} role="region" aria-labelledby={`svc-title-${serviceKey}`} aria-hidden={!isOpen}>
                             <Description>
                               {service.description}
                               {service.price > 0 && (
@@ -470,6 +528,10 @@ export default function Pricing({ pricingData, servicesData }) {
     </OuterWrapper>
   );
 }
+
+/* =========================
+   STYLES
+   ========================= */
 
 const OuterWrapper = styled.section`
   width: 100%;
@@ -530,11 +592,9 @@ const CalculatorContainer = styled.div`
 
 const CategoriesContainer = styled.div`
   display: flex;
-
   flex-direction: row;
   gap: 0;
   padding: 0;
-
   border-bottom: 1px solid ${theme.color.dark};
 
   @media (max-width: ${theme.breakpoints.desktop}) {
@@ -574,7 +634,6 @@ const Option = styled.label`
   cursor: pointer;
   user-select: none;
   padding: var(--spacing-xxs) var(--spacing-xs);
-
   margin-right: var(--spacing-s);
 
   @media (min-width: ${theme.breakpoints.desktop}) {
@@ -593,14 +652,6 @@ const Option = styled.label`
     `}
 `;
 
-const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
-`;
-
 const Dot = styled.span`
   width: 15px;
   min-width: 15px;
@@ -616,7 +667,7 @@ const Dot = styled.span`
 const OptionName = styled.span`
   text-transform: uppercase;
   font-size: var(--font-xs);
-  color: ${({ $checked }) => ($checked ? theme.color.dark : theme.color.dark)};
+  color: ${theme.color.dark};
   transition: color 0.2s ease;
   font-weight: 500;
   letter-spacing: 0.03rem;
@@ -669,7 +720,6 @@ const SelectedItem = styled.div`
   align-items: center;
   justify-content: space-between;
   width: auto;
-  /* padding-right: var(--spacing-xs); */
   @media (min-width: ${theme.breakpoints.tablet}) {
     max-width: 310px;
   }
@@ -748,21 +798,12 @@ const ServiceUL = styled.ul`
   flex-direction: column;
 `;
 
-const TitleCheckboxContainer = styled.div`
+const TitleCheckboxContainer = styled.label`
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
   cursor: pointer;
   user-select: none;
-  margin: 0;
-`;
-
-const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
   margin: 0;
 `;
 
@@ -940,7 +981,7 @@ const OverlayInfo = styled.p`
   max-width: 310px;
 `;
 
-const ToggleIcon = styled.div`
+const ToggleButton = styled.button`
   margin-left: var(--spacing-m);
   font-size: var(--spacing-s);
   display: flex;
@@ -949,6 +990,8 @@ const ToggleIcon = styled.div`
   cursor: pointer;
   color: ${theme.color.dark};
   transition: color 0.3s ease;
+  background: none;
+  border: 0;
 
   &:hover {
     color: ${theme.color.green};
@@ -968,7 +1011,7 @@ const ServiceTitleGroup = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  ${ServiceTitle}, ${ToggleIcon} {
+  ${ServiceTitle}, ${ToggleButton} {
     color: ${theme.color.dark};
     transition: color 0.2s ease;
   }
@@ -976,7 +1019,7 @@ const ServiceTitleGroup = styled.div`
   ${({ $hovered }) =>
     $hovered &&
     css`
-      ${ToggleIcon} {
+      ${ToggleButton} {
         color: ${theme.color.green};
       }
     `}
@@ -1089,12 +1132,7 @@ const OutcomeScrollHint = styled.button`
 
 const Badge = styled.span`
   margin-left: var(--spacing-xxs);
-
   font-size: calc(1 * var(--font-xs));
   line-height: 1;
-
-  opacity: 0.7;
-  white-space: nowrap;
-
   opacity: 0.85;
 `;
