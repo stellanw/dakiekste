@@ -139,7 +139,7 @@ export default function AnknipsenForm({ eventKey, eventLabel } = {}) {
             <StyledCheckboxGroup>
               <input type="checkbox" id="acceptedTerms" name="acceptedTerms" checked={formData.acceptedTerms} onChange={handleChange} required />
               <StyledLabel htmlFor="acceptedTerms">
-                Ich akzeptiere die <StyledLink href="/impressum">Datenschutzerklärung</StyledLink> und bin einverstanden, dass ihr mir Neuigkeiten zu ANKNIPSEN per Email schickt. Falls du keine Neuigkeiten mehr per Email erhalten willst, kannst du dich hier jederzeit abmelden.
+                Ich akzeptiere die <StyledLink href="/impressum">Datenschutzerklärung</StyledLink> und bin einverstanden, dass ihr mir Neuigkeiten zu ANKNIPSEN per Email schickt. Falls du keine Neuigkeiten mehr per Email erhalten willst, kannst du dich <StyledLink href="/unsubscribe">hier</StyledLink> jederzeit abmelden.
               </StyledLabel>
             </StyledCheckboxGroup>
 
