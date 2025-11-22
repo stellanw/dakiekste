@@ -56,7 +56,7 @@ export default function UnsubscribePage() {
     <PageWrapper>
       <ContentWrapper>
         <h2>ANKNIPSEN EVENTS</h2>
-        <Heading>Newsletter Abmelden</Heading>
+        <Heading>Emails abmelden</Heading>
 
         {isSuccess ? (
           <>
@@ -112,10 +112,6 @@ const Heading = styled.h1`
   margin-bottom: var(--spacing-m);
 `;
 
-const Subheading = styled.p`
-  margin-bottom: var(--spacing-xl);
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -127,6 +123,7 @@ const Label = styled.label`
   font-weight: ${theme.fontWeight.bold};
   letter-spacing: 0.035rem;
   padding: 0;
+  color: ${theme.color.beige};
 `;
 
 const EmailInput = styled.input`
