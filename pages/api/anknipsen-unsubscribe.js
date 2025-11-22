@@ -8,84 +8,58 @@ export default async function handler(req, res) {
   const { email } = req.body || {};
 
   if (!email || typeof email !== "string") {
-    return res.status(400).json({ message: "Bitte gib eine gültige Emailadresse ein." });
+    return res.status(400).json({ message: "Bitte gib eine Emailadresse ein." });
   }
 
   const trimmedEmail = email.trim().toLowerCase();
-
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   if (!emailRegex.test(trimmedEmail)) {
     return res.status(400).json({ message: "Bitte gib eine gültige Emailadresse ein." });
   }
 
-  const apiKey = process.env.MAILERLITE_API_KEY;
+  const API_KEY = process.env.BREVO_API_KEY;
 
-  if (!apiKey) {
-    console.error("MAILERLITE_API_KEY fehlt.");
+  if (!API_KEY) {
+    console.error("BREVO_API_KEY fehlt.");
     return res.status(500).json({ message: "Serverkonfiguration fehlt." });
   }
 
-  const BASE_URL = "https://connect.mailerlite.com/api";
-
   try {
-    // 1) Subscriber über Email holen
-    const fetchRes = await fetch(`${BASE_URL}/subscribers/${encodeURIComponent(trimmedEmail)}`, {
-      method: "GET",
+    const brevoRes = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(trimmedEmail)}`, {
+      method: "DELETE",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
-        Accept: "application/json",
+        accept: "application/json",
+        "api-key": API_KEY,
       },
     });
 
-    // Wenn kein Subscriber mit der Email existiert:
-    if (fetchRes.status === 404) {
-      // Für Datenschutz/UX: trotzdem "erfolgreich" zurückgeben
+    // Kontakt existiert nicht → trotzdem "erfolgreich"
+    if (brevoRes.status === 404) {
       return res.status(200).json({
         ok: true,
         message: "Falls diese Adresse bei uns hinterlegt war, ist sie jetzt von ANKNIPSEN-Mails abgemeldet.",
       });
     }
 
-    if (!fetchRes.ok) {
-      console.error("Fehler beim Fetch Subscriber:", await fetchRes.text());
-      return res.status(500).json({ message: "Fehler bei der Abmeldung (FETCH)." });
-    }
-
-    const subscriberData = await fetchRes.json();
-    const subscriberId = subscriberData?.data?.id;
-
-    if (!subscriberId) {
-      console.warn("Kein Subscriber-ID im Response, behandle als erfolgreich.");
-      return res.status(200).json({
-        ok: true,
-        message: "Falls diese Adresse bei uns hinterlegt war, ist sie jetzt von ANKNIPSEN-Mails abgemeldet.",
+    if (!brevoRes.ok) {
+      const errText = await brevoRes.text();
+      console.error("Brevo Unsubscribe/Delete Error:", errText);
+      return res.status(500).json({
+        ok: false,
+        message: "Fehler bei der Abmeldung.",
       });
-    }
-
-    // 2) Subscriber auf "unsubscribed" setzen
-    const updateRes = await fetch(`${BASE_URL}/subscribers/${subscriberId}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        status: "unsubscribed",
-      }),
-    });
-
-    if (!updateRes.ok) {
-      console.error("Fehler beim Update Subscriber:", await updateRes.text());
-      return res.status(500).json({ message: "Fehler bei der Abmeldung (UPDATE)." });
     }
 
     return res.status(200).json({
       ok: true,
-      message: "Du bist von ANKNIPSEN-Mails abgemeldet.",
+      message: "Du bist von ANKNIPSEN-Mails abgemeldet und deine Adresse wurde gelöscht.",
     });
   } catch (err) {
-    console.error("Unhandled error in unsubscribe handler:", err);
-    return res.status(500).json({ message: "Unerwarteter Fehler bei der Abmeldung." });
+    console.error("Unhandled unsubscribe error:", err);
+    return res.status(500).json({
+      ok: false,
+      message: "Unerwarteter Fehler bei der Abmeldung.",
+    });
   }
 }

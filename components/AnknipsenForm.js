@@ -61,6 +61,7 @@ export default function AnknipsenForm({ eventKey, eventLabel } = {}) {
         acceptedTerms: !!formData.acceptedTerms,
         source: "anknipsen",
         eventKey,
+        eventLabel,
         ttft_ms: Date.now() - startedAtRef.current,
       };
 
@@ -375,9 +376,10 @@ const StyledLabel = styled.label`
   color: ${theme.color.dark};
   font-weight: ${theme.fontWeight.light};
   line-height: 1.5;
-  align-content: center;
+
   max-width: 800px;
   margin-bottom: 0;
+  padding-bottom: 0;
   text-transform: none;
 
   @media (max-width: ${theme.breakpoints.mobile}) {
@@ -390,6 +392,7 @@ const StyledCheckboxGroup = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   gap: 0.75rem;
   padding-bottom: var(--spacing-l);
   font-size: var(--font-xs);
