@@ -83,7 +83,7 @@ export default function AnknipsenForm({ eventKey, eventLabel } = {}) {
       setFormData(initialFormData);
     } catch (err) {
       console.error("Fehler:", err);
-      setResponseMessage("Ups! Da ist was schiefgelaufen. Versuch es bitte später noch einmal.");
+      setResponseMessage("Ups! Da ist was schiefgelaufen. Versuch es bitte später noch einmal oder gib uns bescheid.");
     } finally {
       setLoading(false);
     }
