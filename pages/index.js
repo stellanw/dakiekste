@@ -1118,7 +1118,6 @@ export default function HomePage() {
         topline="Unsere Werte"
         headline="Vertrauen entsteht im Miteinander"
         text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können – ohne Klischees, ohne Schablonen, ohne Druck. Aus unseren eigenen queer-, trans- und BiPoC-Erfahrungen wissen wir, wie verletzlich Sichtbarkeit sein kann und wie viel möglich wird, wenn Räume frei von Druck, Erwartungen und Zuschreibungen sind. Genau deshalb ist ein Safer Space für uns kein Zusatz, sondern Grundlage unserer Arbeit. Mit Respekt, Offenheit und Aufmerksamkeit begegnen wir den Menschen, mit denen wir arbeiten – ehrlich und auf Augenhöhe. So entstehen Bildwelten, die verbinden und Raum lassen für Persönlichkeit."
-        //text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können – ohne Klischees, ohne Schablonen, ohne Druck. Mit Respekt, Offenheit und dem Anspruch, einen echten Saferspace zu schaffen. In der Zusammenarbeit setzen wir auf echte Begegnung: Ehrlich, aufmerksam und auf Augenhöhe. So entstehen Bildwelten, die verbinden."
         text2=""
         image={section12_TextBox01}
         alt="Behind the scenes - Dakiekste - Maischa und Stellan im Gesrpäch"
