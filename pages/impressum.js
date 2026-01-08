@@ -47,7 +47,7 @@ export default function Impressum() {
           <p>Stellan Wetzig & Maischa Souaga</p>
 
           <h6>Umsatzsteuer-Identifikationsnummer</h6>
-          <p>-- folgt --</p>
+          <p>DE457178243</p>
 
           <h6>Haftungsausschluss</h6>
           <p>

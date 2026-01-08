@@ -103,7 +103,7 @@ export default function Footer({ hideTitle }) {
           </CookieButton>
         </StyledCopyright>{" "}
         <StyledPrideWrapper>
-          <p>Wir möchten ein Saferspace für dich sein.</p>
+          <p>Wir möchten ein Safer Space für dich sein.</p>
           <FlagWrapper>
             <PrideFlag />
           </FlagWrapper>
