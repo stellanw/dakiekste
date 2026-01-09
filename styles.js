@@ -45,7 +45,7 @@ export const theme = {
     xxxl: "6rem", // 48px
   },
 
-  maxContent: "2000px",
+  maxContent: "2200px",
   maxText: "700px",
 
   breakpoints: {
@@ -168,8 +168,7 @@ export default createGlobalStyle`
     font-family: "Figtree", sans-serif;
     font-size: 16px; 
   
-    //background-color: ${theme.color.beige};
-      background-color:white;
+  background-color: ${theme.color.beige};
     color: ${theme.color.dark};
     scroll-behavior: smooth;
 
