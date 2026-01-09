@@ -167,8 +167,7 @@ export default createGlobalStyle`
     width: 100%;
     font-family: "Figtree", sans-serif;
     font-size: 16px; 
-  
-  background-color: ${theme.color.beige};
+  background-color: ${theme.color.beige} !important;
     color: ${theme.color.dark};
     scroll-behavior: smooth;
 

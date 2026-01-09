@@ -612,6 +612,10 @@ const StyledScrollBoxInner = styled.div`
       transform: none;
     }
   }
+
+  p {
+    padding-bottom: var(--spacing-s);
+  }
 `;
 
 const StyledScrollBox = styled.div`

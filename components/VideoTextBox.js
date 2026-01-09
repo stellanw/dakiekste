@@ -42,10 +42,6 @@ const InnerWrapper = styled.div`
   max-width: var(--max-content);
   margin: 0 auto;
   padding: 0;
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    padding: var(--spacing-xl) 0;
-  }
 `;
 
 const StyledVideoTextBox = styled.div`

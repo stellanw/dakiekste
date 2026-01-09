@@ -185,11 +185,12 @@ export default function HomePage() {
         topline="Content Produktion"
         headline={
           <>
-            Mehr Sichtbarkeit <br />
-            für deine Marke
+            Deine Marke in
+            <br />
+            den Fokus rücken
           </>
         }
-        text1="Bilder und Videos sind heute die Grundlage, um mit Kund*innen in Kontakt zu treten – vor allem auf Social Media. Wir erstellen Content, der zu deiner Marke passt und sich vielseitig einsetzen lässt: von kurzen Clips und Reels über Fotostrecken bis hin zu Material für Website oder Kampagnen. So entsteht echter Mehrwert: Dein Auftritt gewinnt an Tiefe, wirkt professionell und macht dich für die Menschen sichtbar, die du erreichen willst."
+        text1="Bilder und Videos sind heute die Grundlage, um mit Kund*innen in Kontakt zu treten – vor allem auf Social Media. Wir erstellen Content, der zu deiner Marke passt und sich vielseitig einsetzen lässt: von kurzen Clips und Reels über Fotostrecken bis hin zu Material für Website oder Kampagnen. So entsteht echter Mehrwert: Dein Auftritt gewinnt an Tiefe, wirkt professionell und wird für die Menschen erkennbar, die du erreichen willst."
         text2=""
         image={section12_Image02}
         alt="Brandingfoto – Erneuerbare Energien – drei Mitarbeitende in Gesprächssituation draußen"
@@ -514,89 +515,13 @@ export default function HomePage() {
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <section id="team">
-        <TeamText
-          topline="Über uns"
-          headline={
-            <>
-              Zwei Perspektiven.
-              <br />
-              Ein gemeinsamer Anspruch.
-            </>
-          }
-          text={
-            <>
-              Wir arbeiten als kreatives Duo – mit Vertrauen, Empathie und echtem Interesse an den Menschen, mit denen wir zusammenarbeiten. Wir verstehen uns ohne viele Worte und ergänzen uns in unseren Kompetenzen: Fotografie, Film, Design und Webentwicklung greifen bei uns nahtlos ineinander. Daraus entstand Dakiekste – ein Ort, an dem wir Stärken
-              vereinen und Prozesse ohne Brüche entstehen.
-              <br />
-              <br />
-              2010 starteten wir gemeinsam in die Produkt- und Modefotografie Ausbildung. Aus der Zusammenarbeit entstand eine Freundschaft – und ein eingespieltes Team. Über die Jahre haben wir unsere Kompetenzen erweitert und sowohl als Selbstständige als auch in Unternehmen und Agenturen gearbeitet. Diese doppelte Erfahrung hilft uns, Marken nicht nur
-              kreativ zu gestalten, sondern auch Prozesse und Herausforderungen zu verstehen.{" "}
-            </>
-          }
-        />{" "}
-        <Team
-          teamMembers={[
-            {
-              name: "ÜBER MAÏSCHA",
-              image: section10_Team01,
-              alt: "Portrait – Dakiekste – Portrait von Maischa im Studio",
-              text: (
-                <>
-                  <p>
-                    Ich arbeite visuell und konzeptionell – mit einem Blick für Zusammenhänge, Inhalte und klare Gestaltung. Mein Schwerpunkt liegt in Fotografie, Video und Design, kombiniert mit dem Gestalten von digitalen Interfaces in Verbindung mit digitalem Userelebnis – UI/UX. Als kreative Allrounderin entwickle ich Gestaltungslösungen, die den Kern
-                    einer Vision treffen. Ich höre zu, sehe genau hin und finde visuelle Antworten, die Orientierung geben.
-                  </p>
-                </>
-              ),
-            },
-            {
-              name: "ÜBER STELLAN",
-              image: section10_Team02,
-              alt: "Portrait – Dakiekste – Portrait von Stellan im Studio",
-
-              text: (
-                <>
-                  <p>
-                    Fotografie, Video & Webentwicklung – bei mir greifen Kreativität und Struktur ineinander. Mein Blick fürs Ganze sorgt dafür, dass Projekte nicht nur ästhetisch überzeugen, sondern auch technisch und inhaltlich funktionieren. Ich lege Wert auf klare Prozesse und funktionierende Systeme, damit Ideen reibungslos Realität werden. Ich verbinde
-                    visuelle Gestaltung mit technischer Umsetzung und denke jedes Projekt als Einheit.
-                  </p>
-                </>
-              ),
-            },
-            {
-              name: "Unsere Mission",
-              image: section10_Team03,
-              alt: "Portrait – Dakiekste – Teamportrait von Dakiekste mit Maischa und Stellan im Studio",
-              text: (
-                <>
-                  <p>
-                    Wir arbeiten mit Menschen und Unternehmen, die gestalten und bewegen wollen. Digitale Sichtbarkeit verstehen wir als Chance, präsent zu sein, Beziehungen zu stärken und neue Möglichkeiten zu eröffnen. Unsere Perspektiven entstehen aus Erfahrungen, die oft unsichtbar bleiben – und prägen, wie wir zuhören, gestalten und begleiten. Darum
-                    fühlen wir uns besonders Vorhaben verbunden, die für Teilhabe, Miteinander und Fairness stehen.
-                    <br />
-                    <br />
-                    Denn: Wer gesehen wird, gestaltet mit.
-                  </p>
-                </>
-              ),
-            },
-          ]}
-        />
-      </section>
-
-      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
-
-      <Video src="/videos/11_Video/Selections_Workflow_Beratung.mp4" />
-
-      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
-
       <section id="preise">
         <Pricing
           pricingData={[
             {
               key: "businessType",
               category: "Dein Business",
-              options: ["Soloselbstständig", "Unternehmen", "Vereine & Organisationen"],
+              options: ["Soloselbstständige & Gründer*innen", "Unternehmen", "Vereine & Organisationen"],
             },
             {
               key: "projectType",
@@ -606,22 +531,22 @@ export default function HomePage() {
           ]}
           servicesData={[
             {
-              title: "Business Portrait",
+              title: "Gründer*innen Starter",
               category: "Fotografie",
               isCountable: false,
               unit: "",
-              description: "Aufwendige Portraits für Einzelpersonen (z. B. CEO, Soloselbstständige). Die Shootingzeit beträgt 2 Stunden vor Ort oder im Studio inkl. Outfitwechsel und 5 bearbeitete Bilder. Hair & Make-up optional zubuchbar.",
-              price: 650,
-              allowInstallments: false,
+              description:
+                "Wir kommen für 2 Stunden vorbei und fotografieren das, was da ist: dich, dein Arbeitsumfeld, Abläufe, Details und Situationen im Moment. Vorab besprechen wir kurz deine Ideen und was du dir wünscht. Enthalten sind 10 Bilder mit passendem Bildlook (Dieses Paket enthält kein Konzept, Workshop & Projektplanung). Ideal für Gründer*innen, Selbstständige oder kleine Teams, die schnell und bezahlbar Bildmaterial für Website, Social Media oder Profile brauchen.",
+              price: 750,
             },
             {
-              title: "Mitarbeiter*innen Portraits",
+              title: "Gründer*innen Pro",
               category: "Fotografie",
-              isCountable: true,
-              unit: "pro Person",
-              description: "Einzelaufnahmen von Mitarbeiter*innen, CEOs und Teamfotos. Die Shootingzeit beträgt 15min pro Person vor Ort oder im Studio inkl. Outfitwechsel, eine gemeinsame Bildauswahl und ein bearbeitetes Foto pro Person. Hair & Make-up optional zubuchbar. Info: Es fällt zusätzlich eine Grundgebühr pro Shooting-Tag von 300,- an.",
-              price: 130,
-              allowInstallments: false,
+              isCountable: false,
+              unit: "",
+              description:
+                "Ein halber Shooting-Tag. Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich, dein Team, deine Arbeit und dein Umfeld zeigt – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 20 finale Bilder auswählen kannst. Zusätzlich erstellen wir parallel immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
+              price: 2700,
             },
             {
               title: "Branding Fotografie",
@@ -633,23 +558,23 @@ export default function HomePage() {
               price: 3600,
             },
             {
-              title: "Branding Fotografie Gründer*innen",
+              title: "Business Portrait",
               category: "Fotografie",
               isCountable: false,
               unit: "",
-              description:
-                "Ein halber Shooting-Tag. Ein Bilderpool aus Portraits, Details und Arbeitssituationen, der dich, dein Team, deine Arbeit und dein Umfeld zeigt – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du bekommst eine große Bildauswahl, aus der du 20 finale Bilder auswählen kannst. Zusätzlich erstellen wir parallel immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
-              price: 2700,
+              description: "Hochwertige Portraitfotos für Einzelpersonen, die ein Portrait für Website, LinkedIn, Presse oder Social Media benötigen. Die Shootingzeit beträgt 1 Stunde vor Ort oder im Studio inkl. Outfitwechsel und 3 bearbeitete Bilder. Hair & Make-up optional zubuchbar.",
+              price: 400,
+              allowInstallments: false,
             },
 
             {
-              title: "Website Paket Plus & Brandingfotografie",
+              title: "Mitarbeiter*innen Portraits",
               category: "Fotografie",
-              isCountable: false,
-              unit: "",
-              description:
-                "Wir verbinden ein individuelles Website mit einem ganztägigen Branding-Shooting – für einen Auftritt aus einem Guss. Wir entwickeln ein klares Seitenkonzept (z. B. Startseite, Leistungen, Über uns, Kontakt), responsives Design, Impressum & Datenschutz, ein funktionsstarkes Kontaktformular sowie eine SEO-freundliche Grundstruktur. Parallel entsteht beim Shooting ein vielseitiger Bilderpool aus Portraits, Details und Arbeitssituationen – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du erhältst eine große Bildauswahl und wählst 35 finale Motive. Zusätzlich produzieren wir immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
-              price: 8800,
+              isCountable: true,
+              unit: "pro Person",
+              description: "Einzelaufnahmen von Mitarbeiter*innen, CEOs und Teamfotos. Die Shootingzeit beträgt 15min pro Person vor Ort oder im Studio inkl. Outfitwechsel, eine gemeinsame Bildauswahl und ein bearbeitetes Foto pro Person. Hair & Make-up optional zubuchbar. Info: Es fällt zusätzlich eine Grundgebühr pro Shooting-Tag von 300,- an.",
+              price: 130,
+              allowInstallments: false,
             },
             {
               title: "Eventfotografie",
@@ -715,50 +640,35 @@ export default function HomePage() {
               price: 100,
               allowInstallments: false,
             },
+
             {
               title: "Website Paket Starter",
               category: "Website",
               isCountable: false,
               unit: "",
               description:
-                "Eine einfache Landingpage als schlanker Einstieg: Wir setzen deine Seite in WordPress um, nutzen dafür ein bestehendes Template (kein individuelles Layout) und passen es an dein Logo und deine Farben an. Enthalten sind kurze Textabschnitte, Kontaktinformationen, sowie die Einbindung von Impressum & Datenschutz. Keine Unterseiten, kein individuelles UX/UI-Design – dafür ein schneller Webauftritt, der kein Baukasten ist und später jederzeit ausgebaut werden kann.",
+                "Ein übersichtlicher Onepager als schnellen Einstieg ins Web. Wir setzen deine Website in WordPress um und passen das Layout an dein Logo und deine Farben an. Inhalte werden klar strukturiert eingebunden (Kurztexte, Kontaktinfos). Enthalten sind Impressum & Datenschutz. Keine Unterseiten, kein individuelles UX/UI-Design – dafür ein solider, professioneller Webauftritt, der kein Baukasten ist und später problemlos erweitert werden kann.",
               price: 1800,
-            },
-            {
-              title: "Website Paket Compact",
-              category: "Website",
-              isCountable: false,
-              unit: "",
-              description:
-                "Dein professioneller Onepager – individuell gestaltet auf Basis von WordPress. Wir entwickeln ein stimmiges Layout für dich. Dein Logo, deine Farben und deine Inhalte werden auf einer Seite in eine klare Struktur eingebunden, wie z. B. Leistungen, Über-uns-Teil und Kontaktformular. Hinzu kommen Impressum & Datenschutz als eigene Pflichtseite. Der Vorteil: Eine umfangreiche, auf dich abgestimmte Website ohne Unterseiten – die jederzeit flexibel weiterentwickelt werden kann.",
-              price: 3600,
-            },
-            {
-              title: "Website Paket Plus",
-              category: "Website",
-              isCountable: false,
-              unit: "",
-              description:
-                "Eine Website, die über den Onepager hinausgeht: Wir entwickeln ein individuelles UX/UI-Design, das wir mit WordPress umsetzen. Anders als beim Compact-Paket bist du hier nicht auf eine Seite beschränkt, sondern kannst mehrere umfangreiche Unterseiten integrieren – z. B. Startseite, Leistungen, Über uns und Kontakt. Enthalten sind responsives Design, ein durchdachtes Seitenkonzept, Impressum & Datenschutz, ein Kontaktformular sowie eine SEO-freundliche Grundstruktur. Damit erhältst du einen maßgeschneiderten Webauftritt.",
-              price: 5500,
-            },
-            {
-              title: "Website Paket Plus & Brandingfotografie",
-              category: "Website",
-              isCountable: false,
-              unit: "",
-              description:
-                "Wir verbinden ein individuelles Website mit einem ganztägigen Branding-Shooting – für einen Auftritt aus einem Guss. Wir entwickeln ein klares Seitenkonzept (z. B. Startseite, Leistungen, Über uns, Kontakt), responsives Design, Impressum & Datenschutz, ein funktionsstarkes Kontaktformular sowie eine SEO-freundliche Grundstruktur. Parallel entsteht beim Shooting ein vielseitiger Bilderpool aus Portraits, Details und Arbeitssituationen – exakt auf deine Marke abgestimmt. Inklusive Konzept, Planung, Shooting und Bildretusche. Du erhältst eine große Bildauswahl und wählst 35 finale Motive. Zusätzlich produzieren wir immer Behind-the-Scenes-Content (Fotos und kurze Clips) und stellen ihn dir für Social Media & Co zur Verfügung.",
-              price: 8800,
             },
 
             {
-              title: "CI Branding Design",
-              category: "Design",
+              title: "Website Paket Advanced",
+              category: "Website",
               isCountable: false,
               unit: "",
-              description: "Logo, Typografie und Farben – wir entwickeln ein Corporate Design, das die zentralen Gestaltungselemente deiner Marke definiert und ein einheitliches Erscheinungsbild schafft. Alle Regeln und Anwendungen halten wir in einem Designmanual fest, das dir als klare Grundlage für alle weiteren Kommunikationsmittel dient.",
+              description:
+                "Eine individuell gestaltete, mehrseitige Website auf Basis von WordPress. Wir entwickeln ein stimmiges Layout und setzen mehrere Seiten um – z. B. Startseite, Leistungen, Über uns und Kontakt. Inhalte werden strukturiert auf die Seiten verteilt, ein Kontaktformular wird integriert. Enthalten sind responsives Design sowie Impressum & Datenschutz als Pflichtseiten. Dieses Paket eignet sich für alle, die mehr Inhalte zeigen möchten, ohne einen umfangreichen UX- oder Seitenkonzeptionsprozess.",
               price: 3600,
+            },
+
+            {
+              title: "Website Paket Pro",
+              category: "Website",
+              isCountable: false,
+              unit: "",
+              description:
+                "Eine umfangreiche, mehrseitige Website mit individuellem UX/UI-Design, durchdachtem Seitenkonzept und erweiterten Funktionen. Im Vergleich zum Advanced-Paket liegt der Fokus hier auf Tiefe, Struktur und technischer Erweiterbarkeit. Wir konzipieren die Seitenarchitektur, Nutzer*innenführung und Inhalte gemeinsam und setzen sie um – auf Basis von WordPress oder, je nach Anforderungen, mit individuell entwickelten Komponenten und eigenem Code. Neben mehreren umfangreichen Unterseiten integrieren wir ausgewählte Plugins oder programmieren passgenaue Funktionen, z. B. für Formulare, Buchung, Newsletter, Mehrsprachigkeit oder spezielle Interaktionen. Enthalten sind responsives Design, Kontaktformulare, Impressum & Datenschutz sowie eine SEO-freundliche Grundstruktur. Dieses Paket eignet sich für Unternehmen mit komplexeren Anforderungen und Wachstumsplänen.",
+              price: 5500,
             },
             {
               title: "Logo Design",
@@ -767,6 +677,14 @@ export default function HomePage() {
               unit: "",
               description: "Von den ersten Entwürfen bis zur finalen Version entwickeln wir ein Logo, das sich in allen Medien einsetzen lässt. In engem Austausch erstellen wir ein Konzept und ein kleines Manual für die korrekte Anwendung.",
               price: 1800,
+            },
+            {
+              title: "Corporate Design",
+              category: "Design",
+              isCountable: false,
+              unit: "",
+              description: "Logo, Typografie und Farben – wir entwickeln ein Corporate Design, das die zentralen Gestaltungselemente deiner Marke definiert und ein einheitliches Erscheinungsbild schafft. Alle Regeln und Anwendungen halten wir in einem Designmanual fest, das dir als klare Grundlage für alle weiteren Kommunikationsmittel dient.",
+              price: 3600,
             },
             {
               title: "Redesign",
@@ -789,22 +707,13 @@ export default function HomePage() {
             },
 
             {
-              title: "Content Abo Starter",
-              category: "Abo",
-              isCountable: true,
-              unit: "pro Monat",
-              description: "Mit unserem Starter-Abo bekommst du jeden Monat frisches Foto- oder Videomaterial. Ob Social Media Clips, Mitarbeiterportraits oder Produktfotos – du entscheidest, was gerade wichtig ist. Wir kommen einmal im Monat für einen halben Tag zu dir und produzieren den Content, den du gerade brauchst.",
-              price: 1800,
-              allowInstallments: false,
-            },
-            {
-              title: "Content Abo Plus",
+              title: "Foto & Video Content Abo",
               category: "Abo",
               isCountable: true,
               unit: "pro Monat",
               description:
-                "Im Plus-Abo sind wir jeden Monat einen ganzen Tag bei dir. Wir produzieren Fotos und kurze Videos (Reels & Snippets) – von Mitarbeiterportraits über Produkt- und Eventfotos bis hin zu Social-Media-Clips oder Interviews. Du bestimmst, worauf der Fokus liegt. So entsteht mit der Zeit ein vielseitiger Content-Pool, den du flexibel für Instagram, LinkedIn & Co. einsetzen kannst.",
-              price: 2800,
+                "Im Content Abo sind wir jeden Monat einen ganzen Tag bei dir. Wir produzieren Fotos und kurze Videos (Reels & Snippets) – von Mitarbeiterportraits über Produkt- und Eventfotos bis hin zu Social-Media-Clips oder Interviews. Du bestimmst, worauf der Fokus liegt. So entsteht mit der Zeit ein vielseitiger Content-Pool, den du flexibel für Instagram, LinkedIn & Co. einsetzen kannst.",
+              price: 1800,
               allowInstallments: false,
             },
             {
@@ -826,17 +735,46 @@ export default function HomePage() {
               allowInstallments: false,
             },
             {
-              title: "Website Service Komplett",
+              title: "Website Service Pro",
               category: "Abo",
               isCountable: true,
               unit: "pro Monat",
-              description: "Komplettpaket aus Technik, Content-Pflege und Erweiterungen. Enthält 6 Arbeitsstunden pro Monat und priorisierten Support.",
+              description:
+                "Umfassendes Service- und Weiterentwicklungs­paket für deine Website. Enthält die vollständige technische Betreuung sowie 6 Arbeitsstunden pro Monat für Content-Pflege, gezielte Optimierungen oder kleinere funktionale Erweiterungen. Zusätzlich erhältst du priorisierten Support und eine kontinuierliche Begleitung bei der Weiterentwicklung deiner Website. Ideal für Unternehmen, die ihre Website aktiv nutzen, regelmäßig anpassen und strategisch ausbauen möchten.",
               price: 280,
               allowInstallments: false,
             },
           ]}
         />
       </section>
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <Video src="/videos/11_Video/Selections_Workflow_Beratung.mp4" />
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <ImageTextBox
+        topline="Unsere Werte"
+        headline="Vertrauen entsteht im Miteinander"
+        text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können wie sie sind. Aus unseren eigenen queer-, trans- und BiPoC-Erfahrungen wissen wir, wie verletzlich Sichtbarkeit sein kann und wie viel möglich wird, wenn Räume frei von Druck, Erwartungen und Zuschreibungen sind. Genau deshalb ist ein Safer Space für uns kein Zusatz, sondern Grundlage unserer Arbeit. Mit Respekt, Offenheit und Aufmerksamkeit begegnen wir den Menschen, mit denen wir arbeiten – ehrlich und auf Augenhöhe. So entstehen Bildwelten, die verbinden und Raum lassen für Persönlichkeit."
+        text2=""
+        image={section12_TextBox01}
+        alt="Behind the scenes - Dakiekste - Maischa und Stellan im Gesrpäch"
+        flexflow="row"
+        flexflowMobile="column-reverse"
+      />
+
+      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
+
+      <ImageTextBox
+        topline="Engagement"
+        headline="Zusammen die Zukunft gestalten"
+        text1="Einmal im Jahr unterstützen wir ein gemeinnütziges Projekt mit einer Fotokampagne. So rücken wir Themen und Menschen ins Licht, die sonst oft übersehen werden – und leisten einen kleinen Beitrag zu mehr Teilhabe. Du kennst ein passendes Projekt? Dann meld dich gerne bei uns – wir freuen uns auf eure Ideen."
+        image={section13_TextBox01}
+        alt="Behind the scenes - Dakiekste - Stellan am Laptop sitzend"
+        flexflow="row-reverse"
+        flexflowMobile="column-reverse"
+      />
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
@@ -1114,29 +1052,75 @@ export default function HomePage() {
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
-      <ImageTextBox
-        topline="Unsere Werte"
-        headline="Vertrauen entsteht im Miteinander"
-        text1="Wir gestalten Räume vor und hinter der Kamera, in denen Menschen sich zeigen können – ohne Klischees, ohne Schablonen, ohne Druck. Aus unseren eigenen queer-, trans- und BiPoC-Erfahrungen wissen wir, wie verletzlich Sichtbarkeit sein kann und wie viel möglich wird, wenn Räume frei von Druck, Erwartungen und Zuschreibungen sind. Genau deshalb ist ein Safer Space für uns kein Zusatz, sondern Grundlage unserer Arbeit. Mit Respekt, Offenheit und Aufmerksamkeit begegnen wir den Menschen, mit denen wir arbeiten – ehrlich und auf Augenhöhe. So entstehen Bildwelten, die verbinden und Raum lassen für Persönlichkeit."
-        text2=""
-        image={section12_TextBox01}
-        alt="Behind the scenes - Dakiekste - Maischa und Stellan im Gesrpäch"
-        flexflow="row"
-        flexflowMobile="column-reverse"
-      />
+      <section id="team">
+        <TeamText
+          topline="Über uns"
+          headline={
+            <>
+              Zwei Perspektiven.
+              <br />
+              Ein gemeinsamer Anspruch.
+            </>
+          }
+          text={
+            <>
+              Wir arbeiten als kreatives Duo – mit Vertrauen, Empathie und echtem Interesse an den Menschen, mit denen wir zusammenarbeiten. Wir verstehen uns ohne viele Worte und ergänzen uns in unseren Kompetenzen: Fotografie, Film, Design und Webentwicklung greifen bei uns nahtlos ineinander. Daraus entstand Dakiekste – ein Ort, an dem wir Stärken
+              vereinen und Prozesse ohne Brüche entstehen.
+              <br />
+              <br />
+              2010 starteten wir gemeinsam in die Produkt- und Modefotografie Ausbildung. Aus der Zusammenarbeit entstand eine Freundschaft – und ein eingespieltes Team. Über die Jahre haben wir unsere Kompetenzen erweitert und sowohl als Selbstständige als auch in Unternehmen und Agenturen gearbeitet. Diese doppelte Erfahrung hilft uns, Marken nicht nur
+              kreativ zu gestalten, sondern auch Prozesse und Herausforderungen zu verstehen.{" "}
+            </>
+          }
+        />{" "}
+        <Team
+          teamMembers={[
+            {
+              name: "ÜBER MAÏSCHA",
+              image: section10_Team01,
+              alt: "Portrait – Dakiekste – Portrait von Maischa im Studio",
+              text: (
+                <>
+                  <p>
+                    Ich arbeite visuell und konzeptionell – mit einem Blick für Zusammenhänge, Inhalte und klare Gestaltung. Mein Schwerpunkt liegt in Fotografie, Video und Design, kombiniert mit dem Gestalten von digitalen Interfaces in Verbindung mit digitalem Userelebnis – UI/UX. Als kreative Allrounderin entwickle ich Gestaltungslösungen, die den Kern
+                    einer Vision treffen. Ich höre zu, sehe genau hin und finde visuelle Antworten, die Orientierung geben.
+                  </p>
+                </>
+              ),
+            },
+            {
+              name: "ÜBER STELLAN",
+              image: section10_Team02,
+              alt: "Portrait – Dakiekste – Portrait von Stellan im Studio",
 
-      {/* --------TRENNUNG--------------------------------------------------------------------------- */}
-
-      <ImageTextBox
-        topline="Engagement"
-        headline="Zusammen die Zukunft gestalten"
-        text1="Einmal im Jahr unterstützen wir ein gemeinnütziges Projekt mit einer Fotokampagne. So rücken wir Themen und Menschen ins Licht, die sonst oft übersehen werden – und leisten einen kleinen Beitrag zu mehr Teilhabe. Du kennst ein passendes Projekt? Dann meld dich gerne bei uns – wir freuen uns auf eure Ideen."
-        image={section13_TextBox01}
-        alt="Behind the scenes - Dakiekste - Stellan am Laptop sitzend"
-        flexflow="row-reverse"
-        flexflowMobile="column-reverse"
-      />
-
+              text: (
+                <>
+                  <p>
+                    Fotografie, Video & Webentwicklung – bei mir greifen Kreativität und Struktur ineinander. Mein Blick fürs Ganze sorgt dafür, dass Projekte nicht nur ästhetisch überzeugen, sondern auch technisch und inhaltlich funktionieren. Ich lege Wert auf klare Prozesse und funktionierende Systeme, damit Ideen reibungslos Realität werden. Ich verbinde
+                    visuelle Gestaltung mit technischer Umsetzung und denke jedes Projekt als Einheit.
+                  </p>
+                </>
+              ),
+            },
+            {
+              name: "Unsere Mission",
+              image: section10_Team03,
+              alt: "Portrait – Dakiekste – Teamportrait von Dakiekste mit Maischa und Stellan im Studio",
+              text: (
+                <>
+                  <p>
+                    Wir arbeiten mit Menschen und Unternehmen, die gestalten und bewegen wollen. Digitale Sichtbarkeit verstehen wir als Chance, präsent zu sein, Beziehungen zu stärken und neue Möglichkeiten zu eröffnen. Unsere Perspektiven entstehen aus Erfahrungen, die oft unsichtbar bleiben – und prägen, wie wir zuhören, gestalten und begleiten. Darum
+                    fühlen wir uns besonders Vorhaben verbunden, die für Teilhabe, Miteinander und Fairness stehen.
+                    <br />
+                    <br />
+                    Denn: Wer gesehen wird, gestaltet mit.
+                  </p>
+                </>
+              ),
+            },
+          ]}
+        />
+      </section>
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <section id="contact">

@@ -7,7 +7,7 @@
     "max-len": [
       "error",
       {
-        "code": 100,
+        "code": 2000,
         "ignoreStrings": true,
         "ignoreTemplateLiterals": true,
         "ignoreComments": true,
