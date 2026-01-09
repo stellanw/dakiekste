@@ -66,7 +66,7 @@ const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
 
 export default function Pricing({ pricingData, servicesData }) {
   const [selectedCategory, setSelectedCategory] = useState({
-    businessType: "Soloselbstständig",
+    businessType: "Soloselbstständige & Gründer*innen",
     projectType: "Fotografie",
   });
   const [serviceCounts, setServiceCounts] = useState({});
@@ -211,7 +211,7 @@ export default function Pricing({ pricingData, servicesData }) {
   // Rabatt anwenden (Basis in €)
   const applyDiscount = (price) => {
     const p = Number(price) || 0;
-    if (selectedCategory.businessType === "Soloselbstständig") {
+    if (selectedCategory.businessType === "Soloselbstständige & Gründer*innen") {
       return Math.round((p * 0.85 + Number.EPSILON) * 100) / 100;
     }
     return p;

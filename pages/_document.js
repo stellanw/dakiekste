@@ -33,7 +33,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="de">
         <Head>
-          <link rel="icon" href="/favicon.png" sizes="any" />{" "}
+          <link rel="icon" href="/favicon.png?v=2" sizes="any" />{" "}
         </Head>
         <body>
           <Main />
