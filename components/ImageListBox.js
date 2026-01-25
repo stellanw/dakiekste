@@ -4,9 +4,8 @@ import styled, { css } from "styled-components";
 import { PiArrowUpRightLight } from "react-icons/pi";
 import Link from "next/link";
 import AugenIcon from "@/Icons/AugenIcon";
-import { PiArrowRightBold } from "react-icons/pi";
 
-export default function ImageTextBox({
+export default function ImageListBox({
   topline = "",
   headline = "",
   text1 = "",
@@ -51,10 +50,9 @@ export default function ImageTextBox({
               <ul>
                 {listItems.map((item, idx) => (
                   <li key={idx}>
-                    {/* <IconWrapper>
+                    <IconWrapper>
                       <AugenIcon />
-                    </IconWrapper> */}
-                    <PiArrowRightBold />
+                    </IconWrapper>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -131,8 +129,8 @@ const StyledTextWrapper = styled.div`
     grid-template-columns: 20px 1fr;
     gap: var(--spacing-s);
     align-items: center;
-    padding-bottom: var(--spacing-xs);
-    // font-size: var(--font-l);
+    padding-bottom: var(--spacing-s);
+    font-size: var(--font-l);
   }
 
   span {
@@ -140,13 +138,11 @@ const StyledTextWrapper = styled.div`
   }
 
   a {
-    font-size: var(--font-m);
+    font-size: var(--font-l);
 
     &:hover {
       color: ${theme.color.green};
       transition: color ease 0.3s;
-    }
-    svg {
     }
   }
 `;
@@ -226,15 +222,15 @@ const StyledPiArrowUpRightLight = styled(PiArrowUpRightLight)`
 `;
 
 const IconWrapper = styled.div`
-  width: 15px;
-  height: 15px;
+  width: 40px;
+  height: 40px;
   margin: 0;
   padding: 0;
 
   svg {
+    width: 100%;
+    height: 100%;
     fill: ${theme.color.dark};
-    width: 15px;
-    height: 15px;
-    transform: rotate(-35deg);
+    transform: scale(1.25);
   }
 `;

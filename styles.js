@@ -188,7 +188,8 @@ a:visited { color: inherit; }
   }
 
   h1,h2,h3,h4,h5,h6 {
-    white-space: normal;
+    //white-space: normal;
+        white-space: pre-line;
       word-wrap: normal;
     word-break: keep-all !important;
       text-overflow: ellipsis;

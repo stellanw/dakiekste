@@ -19,6 +19,9 @@ import BackToTopButton from "@/components/BackToTopButton";
 import VideoTextBox from "@/components/VideoTextBox";
 import CookieBanner from "@/components/CookieBanner";
 
+//01_Header
+import section01_header_01 from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
+
 //02_Slider
 import slider_branding_01 from "/public/images/02_Slider/branding-fotografie-bildung-integration-verein-dakiekste-01.jpg";
 import slider_branding_02 from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-02.jpg";
@@ -516,7 +519,7 @@ export default function HomePage() {
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}
 
       <section id="preise">
-        <Pricing
+        {/* <Pricing
           pricingData={[
             {
               key: "businessType",
@@ -745,7 +748,8 @@ export default function HomePage() {
               allowInstallments: false,
             },
           ]}
-        />
+        /> */}
+        <Pricing />
       </section>
 
       {/* --------TRENNUNG--------------------------------------------------------------------------- */}

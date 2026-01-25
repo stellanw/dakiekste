@@ -1,86 +1,98 @@
-import styled, { keyframes } from "styled-components";
-import { useState, useEffect } from "react";
+import styled from "styled-components";
 import { theme } from "@/styles";
-import { PiArrowDownLight } from "react-icons/pi";
 import Image from "next/image";
-import section01_header_01 from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
 import Link from "next/link";
 import DakieksteLogo from "@/Icons/DakieksteLogo";
 import Menu from "./Menu";
 import { FixedContainer } from "./FixedContainer";
+import defaultHeaderImage from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
 
-const bounce = keyframes`
-  0% { transform: translateY(0); }
-  30% { transform: translateY(-10px); }
-  50% { transform: translateY(0); }
-  70% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-`;
+export default function Header({
+  /**
+   * Background switch:
+   * "video" | "image" | "color"
+   */
+  backgroundType = "video",
 
-export default function Header({ useImageBackground = false }) {
-  const [windowWidth, setWindowWidth] = useState(0);
+  // headline content
+  topline = "WER GESEHEN WIRD – GESTALTET MIT",
+  desktopH1 = "Branding, Fotografie und Website\nFür Gründer*innen & Unternehmen",
+  mobileH1 = "Branding, Fotografie und Website Für Gründer*innen & Unternehmen",
 
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+  // background (image)
+  backgroundImageSrc = defaultHeaderImage,
+  backgroundImageAlt = "Branding Fotografie by dakiekste",
 
-    setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
+  // background (video)
+  backgroundVideoPoster = "/videos/video-poster.png",
+  backgroundVideoSrcMp4 = "/videos/Selections_Imagefilm.mp4",
+  backgroundVideoSrcWebm = "/videos/Selections_Imagefilm.webm",
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  // background (color)
+  backgroundColor = theme.color.dark,
 
-  const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 120;
-  const iconWidth = 45;
+  // overlay
+  overlayColor = "",
 
-  const tabletBp = parseInt(theme.breakpoints.tablet, 10); // z.B. "768px" -> 768
-  const [mounted, setMounted] = useState(false);
+  // colors / UI
+  logoColor = theme.color.beige,
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // headline color
+  headlineColor = theme.color.beige,
 
-  const isMobile = mounted && windowWidth <= tabletBp;
+  // sizing
+  logoWidth, // number override
+}) {
+  const renderBackground = () => {
+    if (backgroundType === "image") {
+      return <ImageBackground src={backgroundImageSrc} alt={backgroundImageAlt} fill quality={100} sizes="(max-width: 1900px) 100vw, 80vw" priority />;
+    }
+
+    if (backgroundType === "color") {
+      return <ColorBackground $bg={backgroundColor} />;
+    }
+
+    return (
+      <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture poster={backgroundVideoPoster}>
+        <source src={backgroundVideoSrcMp4} type="video/mp4" />
+        <source src={backgroundVideoSrcWebm} type="video/webm" />
+        Dein Browser unterstützt das Video-Tag nicht.
+      </VideoBackground>
+    );
+  };
 
   return (
     <StyledHeadContainer>
+      {/* Logo */}
       <StyledLink href="/">
-        <DakieksteLogo color={theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
+        <DakieksteLogo color={logoColor} width={logoWidth ?? 140} />
       </StyledLink>
-      <FixedContainer>
-        <StyledMenu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
-      </FixedContainer>
-      {useImageBackground ? (
-        <ImageBackground src={section01_header_01} alt="Branding Fotografie by dakiekste" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1900px) 100vw, 80vw" priority />
-      ) : (
-        <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture poster="/videos/video-poster.png">
-          <source src="/videos/Selections_Imagefilm.mp4" type="video/mp4" />
-          <source src="/videos/Selections_Imagefilm.webm" type="video/webm" />
-          Dein Browser unterstützt das Video-Tag nicht.
-        </VideoBackground>
-      )}
 
-      <StyledHeadlineContainer>
-        <h2>WER GESEHEN WIRD – GESTALTET MIT</h2>
-        <h1>
-          {isMobile ? (
-            "Branding, Fotografie und Website Für Gründer*innen & Unternehmen"
-          ) : (
-            <>
-              Branding, Fotografie und Website&nbsp;
-              <br />
-              Für Gründer*innen & Unternehmen
-            </>
-          )}
-        </h1>
+      {/* Menu */}
+      <FixedContainer>
+        <Menu />
+      </FixedContainer>
+
+      {/* Background */}
+      {renderBackground()}
+
+      {/* Overlay */}
+      {overlayColor && <Overlay $overlay={overlayColor} />}
+
+      {/* Headline */}
+      <StyledHeadlineContainer $headlineColor={headlineColor}>
+        <h2>{topline}</h2>
+
+        <DesktopH1>{desktopH1}</DesktopH1>
+        <MobileH1>{mobileH1}</MobileH1>
       </StyledHeadlineContainer>
-      {/* <StyledPiArrowDownLight /> */}
     </StyledHeadContainer>
   );
 }
 
-const StyledHeadContainer = styled.div`
+/* ================== Styles ================== */
+
+const StyledHeadContainer = styled.header`
   display: flex;
   position: relative;
   justify-content: start;
@@ -96,12 +108,10 @@ const StyledHeadContainer = styled.div`
 
 const VideoBackground = styled.video`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: translate(-50%, -50%);
   z-index: 0;
 `;
 
@@ -109,6 +119,38 @@ const ImageBackground = styled(Image)`
   object-fit: cover;
   object-position: center;
   z-index: 0;
+`;
+
+const ColorBackground = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: ${({ $bg }) => $bg};
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  background: ${({ $overlay }) => $overlay};
+  /* opacity: 0.05;
+  background-color: ${({ $overlay }) => $overlay || theme.color.beige};
+  mask-image: url("/DAKIEKSTE_Web_Menu_Augen.svg");
+  mask-size: 20px 20px;
+  mask-repeat: repeat;
+  background-size: 10px 10px; */
+`;
+
+const StyledLink = styled(Link)`
+  position: absolute;
+  top: calc(0.75 * var(--side-padding));
+  left: var(--side-padding);
+  z-index: 5;
+
+  @media (max-width: ${theme.breakpoints.tablet}) {
+    top: calc(1.1 * var(--side-padding));
+  }
 `;
 
 const StyledHeadlineContainer = styled.div`
@@ -120,45 +162,27 @@ const StyledHeadlineContainer = styled.div`
   bottom: var(--side-padding);
   left: var(--side-padding);
   padding-right: var(--side-padding);
-  h1,
-  h2 {
-    br {
-      display: none;
-    }
-    @media (min-width: ${theme.breakpoints.desktop}) {
-      br {
-        display: block;
-      }
-    }
+
+  h2,
+  h1 {
     margin: 0;
-    color: ${theme.color.beige};
+    color: ${({ $headlineColor }) => $headlineColor || theme.color.beige};
     text-transform: uppercase;
   }
 `;
 
-const StyledPiArrowDownLight = styled(PiArrowDownLight)`
-  position: absolute;
-  left: 50%;
-  bottom: var(--spacing-xl);
-  font-size: var(--font-xl);
-  color: ${theme.color.beige};
-  animation: ${bounce} 3s ease infinite;
+const DesktopH1 = styled.h1`
+  display: none;
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    display: none;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: block;
   }
 `;
 
-const StyledLink = styled(Link)`
-  position: absolute;
-  top: calc(0.75 * var(--side-padding));
-  left: var(--side-padding);
-  z-index: 5;
-`;
+const MobileH1 = styled.h1`
+  display: block;
 
-const StyledMenu = styled(Menu)`
-  position: fixed;
-  top: var(--side-padding);
-  right: var(--side-padding);
-  z-index: 5000;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: none;
+  }
 `;

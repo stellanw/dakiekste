@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX } from "react-icons/pi";
 import ContactOverlayForm from "./ContactOverlayForm";
 import { useRouter } from "next/router";
+import pricingConfig from "@/content/pricing/pricingData";
 
 const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
 const ORG_SERVICE = {
@@ -64,7 +65,10 @@ const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
   ${srOnly}
 `;
 
-export default function Pricing({ pricingData, servicesData }) {
+export default function Pricing({ pricingData = pricingConfig.pricingData, servicesData = pricingConfig.servicesData }) {
+  const resolvedPricingData = Array.isArray(pricingData) ? pricingData : pricingConfig.pricingData;
+  const resolvedServicesData = Array.isArray(servicesData) ? servicesData : pricingConfig.servicesData;
+
   const [selectedCategory, setSelectedCategory] = useState({
     businessType: "Soloselbstständige & Gründer*innen",
     projectType: "Fotografie",
@@ -229,7 +233,7 @@ export default function Pricing({ pricingData, servicesData }) {
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
 
-  const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
+  const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : resolvedServicesData && resolvedServicesData.length > 0 ? resolvedServicesData.filter((service) => service.category === selectedCategory.projectType) : [];
 
   // --- Gesamtsumme in €: Basis -> 10er runden -> Rabatt -> erneut auf 10er runden
   const totalRaw = selectedServices.reduce((sum, service) => {
@@ -322,7 +326,7 @@ export default function Pricing({ pricingData, servicesData }) {
 
           <CalculatorContainer>
             <CategoriesContainer>
-              {pricingData.map((category, categoryIndex) => {
+              {resolvedPricingData.map((category, categoryIndex) => {
                 const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
                 const groupId = `cat-${categoryIndex}`;
                 return (
@@ -528,7 +532,6 @@ export default function Pricing({ pricingData, servicesData }) {
     </OuterWrapper>
   );
 }
-
 /* =========================
    STYLES
    ========================= */
