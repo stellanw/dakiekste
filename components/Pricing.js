@@ -1,10 +1,14 @@
+// Pricing.js
 import styled, { css } from "styled-components";
+import Link from "next/link";
 import { theme } from "@/styles";
-import { useState, useEffect, useRef } from "react";
-import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX } from "react-icons/pi";
+import { useState, useEffect, useRef, useLayoutEffect, useMemo } from "react";
+import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX, PiArrowLeftBold } from "react-icons/pi";
 import ContactOverlayForm from "./ContactOverlayForm";
 import { useRouter } from "next/router";
 import pricingConfig from "@/content/pricing/pricingData";
+import Toast from "@/components/Toast";
+import useSessionStorageState from "@/hooks/useSessionStorageState";
 
 const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
 const ORG_SERVICE = {
@@ -61,18 +65,22 @@ const SROnly = styled.span`
 const HiddenRadio = styled.input.attrs({ type: "radio" })`
   ${srOnly}
 `;
+
 const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
   ${srOnly}
 `;
 
 export default function Pricing({ pricingData = pricingConfig.pricingData, servicesData = pricingConfig.servicesData }) {
   const resolvedPricingData = Array.isArray(pricingData) ? pricingData : pricingConfig.pricingData;
-  const resolvedServicesData = Array.isArray(servicesData) ? servicesData : pricingConfig.servicesData;
+  const resolvedServicesData = useMemo(() => {
+    return Array.isArray(servicesData) ? servicesData : pricingConfig.servicesData;
+  }, [servicesData]);
 
   const [selectedCategory, setSelectedCategory] = useState({
     businessType: "Soloselbstständige & Gründer*innen",
     projectType: "Fotografie",
   });
+
   const [serviceCounts, setServiceCounts] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
@@ -80,12 +88,176 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
   const [isMobile, setIsMobile] = useState(false);
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
   const [hoverKey, setHoverKey] = useState(null);
+  const [toast, setToast] = useState({ visible: false, message: "" });
+
+  const [calcPersist, setCalcPersist] = useSessionStorageState("dak_calc", {
+    selectedCategory: {
+      businessType: "Soloselbstständige & Gründer*innen",
+      projectType: "Fotografie",
+    },
+    selectedServices: [],
+    serviceCounts: {},
+    lastFrom: null,
+  });
 
   const stashRef = useRef({ services: [], counts: {} });
   const selRef = useRef([]);
   const countsRef = useRef({});
   const router = useRouter();
 
+  const didHydrateRef = useRef(false);
+  const restoringRef = useRef(false);
+
+  useEffect(() => {
+    if (didHydrateRef.current) return;
+    if (typeof window === "undefined") return;
+
+    // Restore nur, wenn wirklich was gespeichert ist
+    if (calcPersist?.selectedServices?.length) {
+      restoringRef.current = true;
+
+      setSelectedServices(calcPersist.selectedServices || []);
+      setServiceCounts(calcPersist.serviceCounts || {});
+      setSelectedCategory(calcPersist.selectedCategory || selectedCategory);
+    }
+
+    didHydrateRef.current = true;
+
+    // wichtig: erst NACH dem Restore entsperren
+    queueMicrotask(() => {
+      restoringRef.current = false;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!didHydrateRef.current) return;
+
+    setCalcPersist((prev) => ({
+      ...prev,
+      selectedCategory,
+      selectedServices,
+      serviceCounts,
+    }));
+  }, [selectedCategory, selectedServices, serviceCounts, setCalcPersist]);
+
+  // Scroll/Fokus Lock
+  const scrollYRef = useRef(0);
+  const lastFocusRef = useRef(null);
+
+  const openOverlay = () => {
+    if (typeof window !== "undefined") {
+      scrollYRef.current = window.scrollY || 0;
+      lastFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    }
+    setShowOverlay(true);
+  };
+
+  const closeOverlay = () => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+    setShowOverlay(false);
+  };
+
+  // --- Helpers für Query-Init (PackagesBox -> Preiskalkulator)
+  const normalizeTitle = (v) =>
+    String(v || "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+
+  const mapCategoryToProjectType = (cat) => {
+    const c = String(cat || "")
+      .toLowerCase()
+      .trim();
+    if (c === "website") return "Website";
+    if (c === "abo") return "Abo";
+    if (c === "design") return "Design";
+    if (c === "foto" || c === "fotografie") return "Fotografie";
+    if (c === "video") return "Video";
+    return null;
+  };
+
+  const labelFromPath = (path) => {
+    const map = {
+      "/fotografie": "Fotografie",
+      "/video": "Video",
+      "/website": "Website",
+      "/branding": "Branding",
+    };
+    return map[path] || "zur vorherigen Seite";
+  };
+
+  /* =========================
+     OVERLAY SCROLL LOCK (clean)
+     ========================= */
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!showOverlay) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+
+    const y = scrollYRef.current ?? window.scrollY ?? 0;
+
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyLeft: body.style.left,
+      bodyRight: body.style.right,
+      bodyWidth: body.style.width,
+    };
+
+    html.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${y}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+
+    return () => {
+      html.style.overflow = prev.htmlOverflow;
+      body.style.position = prev.bodyPosition;
+      body.style.top = prev.bodyTop;
+      body.style.left = prev.bodyLeft;
+      body.style.right = prev.bodyRight;
+      body.style.width = prev.bodyWidth;
+
+      window.scrollTo(0, y);
+    };
+  }, [showOverlay]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (showOverlay) return;
+
+    requestAnimationFrame(() => {
+      const el = lastFocusRef.current;
+      if (el && typeof el.focus === "function") {
+        try {
+          el.focus({ preventScroll: true });
+        } catch {
+          el.focus();
+        }
+      }
+    });
+  }, [showOverlay]);
+
+  // Optional: verhindert Browser-Auto-Scroll-Restore
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!("scrollRestoration" in window.history)) return;
+
+    const prev = window.history.scrollRestoration;
+    if (showOverlay) window.history.scrollRestoration = "manual";
+    return () => {
+      window.history.scrollRestoration = prev;
+    };
+  }, [showOverlay]);
+
+  /* =========================
+     REFS SYNC
+     ========================= */
   useEffect(() => {
     selRef.current = selectedServices;
   }, [selectedServices]);
@@ -98,6 +270,9 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     setOpenKey(null);
   }, [selectedCategory.businessType, selectedCategory.projectType]);
 
+  /* =========================
+     RESPONSIVE
+     ========================= */
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 750);
     handleResize();
@@ -105,7 +280,12 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  /* =========================
+     ORG MODE TOGGLE
+     ========================= */
   useEffect(() => {
+    if (!didHydrateRef.current) return;
+    if (restoringRef.current) return;
     const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
     if (isOrg) {
       stashRef.current = {
@@ -125,75 +305,94 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
   }, [selectedCategory.businessType]);
 
   useEffect(() => {
+    if (!router.isReady) return;
     if (typeof window === "undefined") return;
 
-    const shouldRestore = sessionStorage.getItem("dak:restore-flag") === "1";
-    if (!shouldRestore) return;
+    const { category, package: pkg, businessType, from } = router.query;
 
-    try {
-      const raw = sessionStorage.getItem("dak:quote");
-      if (!raw) {
-        sessionStorage.removeItem("dak:restore-flag");
-        return;
-      }
-
-      const saved = JSON.parse(raw);
-      if (Date.now() - (saved.ts || 0) > 30 * 60 * 1000) {
-        sessionStorage.removeItem("dak:quote");
-        sessionStorage.removeItem("dak:restore-flag");
-        return;
-      }
-
-      // Auswahl & Counts
-      setSelectedServices(Array.isArray(saved.selectedServices) ? saved.selectedServices : []);
-      setServiceCounts(saved.serviceCounts || {});
-
-      // Business-Typ
-      if (saved.businessType) {
-        setSelectedCategory((prev) => ({ ...prev, businessType: saved.businessType }));
-      }
-
-      // Formular
-      const form = saved.form || {};
-      const restoredForm = {
-        fullName: form.fullName || [form.firstName, form.lastName].filter(Boolean).join(" ").trim(),
-        pronouns: form.pronouns || "",
-        customPronouns: form.customPronouns || "",
-        company: form.company || "",
-        email: form.email || "",
-        message: form.message || "",
-        acceptedTerms: !!form.acceptedTerms,
-      };
-      setOverlayFormData((prev) => ({ ...prev, ...restoredForm }));
-
-      // Overlay öffnen
-      setShowOverlay(true);
-    } catch (_) {
-      // noop
-    } finally {
-      // Aufräumen
-      sessionStorage.removeItem("dak:quote");
-      sessionStorage.removeItem("dak:restore-flag");
-
-      // URL auf #preise belassen (falls nötig)
-      if (location.hash !== "#preise") {
-        history.replaceState({}, "", "/#preise");
+    // 1) businessType setzen
+    if (businessType) {
+      const bt = String(businessType);
+      const allowed = ["Soloselbstständige & Gründer*innen", "Unternehmen", "Vereine & Organisationen"];
+      if (allowed.includes(bt)) {
+        setSelectedCategory((prev) => ({ ...prev, businessType: bt }));
       }
     }
-  }, []);
 
+    // 2) category => projectType setzen
+    if (category) {
+      const mapped = mapCategoryToProjectType(category);
+      if (mapped) {
+        setSelectedCategory((prev) => ({ ...prev, projectType: mapped }));
+      }
+    }
+
+    // 3) package hinzufügen
+    if (pkg) {
+      const wanted = normalizeTitle(pkg);
+      const svc = resolvedServicesData.find((s) => normalizeTitle(s.title) === wanted) || null;
+
+      if (from && typeof from === "string") {
+        setCalcPersist((prev) => ({ ...prev, lastFrom: from }));
+      }
+
+      if (svc) {
+        let added = false;
+
+        setSelectedServices((prev) => {
+          const exists = prev.some((s) => s.title === svc.title);
+          if (exists) return prev;
+          added = true;
+          return [...prev, svc];
+        });
+
+        if (added) {
+          if (svc.isCountable) {
+            setServiceCounts((prevCounts) => ({
+              ...prevCounts,
+              [svc.title]: prevCounts[svc.title] || 1,
+            }));
+          }
+
+          setToast({
+            visible: true,
+            message: `„${svc.title}“ zur Kalkulation hinzugefügt ✓`,
+          });
+        }
+
+        setOpenKey(null);
+      }
+    }
+
+    // Query entfernen + scroll
+    if (pkg || category || businessType) {
+      router.replace("/preise", undefined, { shallow: true });
+
+      requestAnimationFrame(() => {
+        document.getElementById("calc-head")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [router.isReady, router.query.category, router.query.package, router.query.businessType, router.query.from, resolvedServicesData, setCalcPersist, router]);
+
+  /* =========================
+     ACTIONS
+     ========================= */
   const handleCategorySelection = (key, option) => {
     setSelectedCategory((prev) => ({ ...prev, [key]: option }));
   };
-  const toggleOverlay = (key) => {
+
+  const toggleServiceDetails = (key) => {
     setOpenKey((prev) => (prev === key ? null : key));
   };
+
   const handleServiceSelection = (service) => {
     setSelectedServices((prev) => {
       const isSelected = prev.some((s) => s.title === service.title);
+
       if (selectedCategory.businessType === "Vereine & Organisationen") {
         return isSelected ? [] : [service];
       }
+
       if (isSelected) {
         const updatedCounts = { ...serviceCounts };
         delete updatedCounts[service.title];
@@ -208,11 +407,20 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
       }
     });
   };
+
   const removeService = (serviceToRemove) => {
     setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
   };
 
-  // Rabatt anwenden (Basis in €)
+  const clearAllSelections = () => {
+    setSelectedServices([]);
+    setServiceCounts({});
+    setOpenKey(null);
+  };
+
+  /* =========================
+     PRICING
+     ========================= */
   const applyDiscount = (price) => {
     const p = Number(price) || 0;
     if (selectedCategory.businessType === "Soloselbstständige & Gründer*innen") {
@@ -235,7 +443,6 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
 
   const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : resolvedServicesData && resolvedServicesData.length > 0 ? resolvedServicesData.filter((service) => service.category === selectedCategory.projectType) : [];
 
-  // --- Gesamtsumme in €: Basis -> 10er runden -> Rabatt -> erneut auf 10er runden
   const totalRaw = selectedServices.reduce((sum, service) => {
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
     const baseRounded = roundToTen(Number(service.price) || 0);
@@ -243,18 +450,8 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     const finalTen = roundToTen(discounted);
     return sum + finalTen * count;
   }, 0);
-  const totalPrice = totalRaw; // schon glatte 10er
 
-  const clearAllSelections = () => {
-    setSelectedServices([]);
-    setServiceCounts({});
-    setOpenKey(null);
-  };
-
-  const formatCeil = (value) => {
-    const num = Math.ceil(Number(value) || 0);
-    return DEC0.format(num);
-  };
+  const totalPrice = totalRaw;
 
   const outcomeListRef = useRef(null);
   const [showOutcomeHint, setShowOutcomeHint] = useState(false);
@@ -282,13 +479,13 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
   }, [selectedServices.length]);
 
   const MARKUP_PCT = 8;
+  const MONTHS = 6;
+
   const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
 
-  const MONTHS = 6;
   const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
   const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
 
-  // --- Ratenfähige Summe: auch hier Endpreis pro Position auf 10er runden
   const allowedInstallmentsTotal = selectedServices.reduce((sum, s) => {
     if (s.allowInstallments === false) return sum;
     const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
@@ -300,26 +497,24 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
 
   const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
 
-  // Dynamische Texte:
   const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
   const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
-  const showInstallmentBadges = anyInstallmentsAllowed && anyInstallmentsForbidden;
 
   return (
     <OuterWrapper aria-labelledby="calc-head" aria-describedby="calc-desc">
       <InnerWrapper>
         <PricingContainer>
-          {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
+          {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={closeOverlay} priceOnRequest={priceOnRequest} />}
 
           <HeadlineContainer>
             <h2 id="calc-head">Preiskalkulator</h2>
             <SROnly id="calc-desc">Wähle dein Business, deinen Projekttyp und anschließend Leistungen. Preise und Raten aktualisieren sich automatisch.</SROnly>
             {isMobile ? (
-              <h4>Jedes Projekt ist individuell – genau wie dein Budget. Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.</h4>
+              <h4>Stell dir hier dein Projekt zusammen und verschaffe dir einen realistischen Überblick über deinen Invest.</h4>
             ) : (
               <h4>
-                Jedes Projekt ist individuell – genau wie dein Budget. <br />
-                Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.
+                Stell dir hier dein Projekt zusammen <br />
+                und verschaffe dir einen realistischen Überblick über deinen Invest.
               </h4>
             )}
           </HeadlineContainer>
@@ -372,7 +567,7 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                         </ul>
                       )}
                       <OverlayInfo>Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und ein individuelles Angebot zu erstellen.</OverlayInfo>
-                      <StyledButton type="button" onClick={() => setShowOverlay(true)} aria-label="Anfrage für Vereine & Organisationen starten">
+                      <StyledButton type="button" onClick={openOverlay} aria-label="Anfrage für Vereine & Organisationen starten">
                         Anfrage starten
                       </StyledButton>
                     </>
@@ -410,6 +605,7 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                               </li>
                             );
                           })}
+
                           {showOutcomeHint && (
                             <OutcomeScrollHint
                               type="button"
@@ -450,14 +646,25 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                           </SROnly>
                         </>
                       )}
+
                       <OverlayInfo>
-                        *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen. <br />
+                        *EUR zzgl. MwSt. Die Preisangaben dienen als unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts. Wir melden uns persönlich mit einem Angebot oder zur weiteren Abstimmung.
+                        <br />
                         <br />
                         {!hideInstallments && scopeHint && <span>{scopeHint}</span>}
                       </OverlayInfo>
-                      <StyledButton type="button" onClick={() => setShowOverlay(true)} aria-label="Anfrage mit aktueller Auswahl starten">
+
+                      <StyledButton type="button" onClick={openOverlay} aria-label="Anfrage mit aktueller Auswahl starten">
                         Anfrage starten
                       </StyledButton>
+                      {calcPersist?.lastFrom && calcPersist.lastFrom !== "/preise" && (
+                        <BackLinkWrap>
+                          <BackLink href={calcPersist.lastFrom}>
+                            <BackIcon aria-hidden="true" />
+                            <span>Zurück zur Seite {labelFromPath(calcPersist.lastFrom)}</span>
+                          </BackLink>
+                        </BackLinkWrap>
+                      )}
                     </>
                   )}
                 </OutcomeContent>
@@ -471,27 +678,24 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                     const isOpen = openKey === key;
                     const isSelected = selectedServices.some((s) => s.title === service.title);
 
-                    // Endpreis pro Service (für Anzeige): 10er->Rabatt->10er
                     const displayPrice = roundToTen(applyDiscount(roundToTen(service.price)));
 
                     return (
                       <ServiceUL key={serviceKey} className={isOpen ? "open" : ""}>
                         <Service>
                           <ServiceTitleGroup $hovered={hoverKey === serviceKey}>
-                            {/* Checkbox + Titel als Label-Gruppe */}
                             <TitleCheckboxContainer $checked={isSelected} as="label" htmlFor={`svc-${serviceKey}`}>
                               <HiddenServiceCheckbox id={`svc-${serviceKey}`} checked={isSelected} onChange={() => handleServiceSelection(service)} aria-label={`${service.title} ${isSelected ? "abwählen" : "auswählen"}`} />
                               <ServiceDot aria-hidden="true" $checked={isSelected} />
                               <ServiceTitle id={`svc-title-${serviceKey}`}>{service.title}</ServiceTitle>
                             </TitleCheckboxContainer>
 
-                            {/* Toggle als Button, mit Verbindung zum Panel */}
                             <ToggleButton
                               type="button"
                               aria-expanded={isOpen}
                               aria-controls={`panel-${serviceKey}`}
                               aria-label={`Details zu ${service.title} ${isOpen ? "schließen" : "öffnen"}`}
-                              onClick={() => toggleOverlay(key)}
+                              onClick={() => toggleServiceDetails(key)}
                               onMouseEnter={() => setHoverKey(serviceKey)}
                               onMouseLeave={() => setHoverKey(null)}
                               onFocus={() => setHoverKey(serviceKey)}
@@ -506,8 +710,16 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                               {service.description}
                               {service.price > 0 && (
                                 <ServicePrice>
-                                  Preis ab <span>{DEC0.format(displayPrice)}</span>,-
-                                  {service.isCountable && <span> {service.unit}</span>}
+                                  {service.pricingNote ? (
+                                    <>
+                                      <span>{service.pricingNote}:</span> <span>{DEC0.format(displayPrice)}</span>,-
+                                    </>
+                                  ) : (
+                                    <>
+                                      Preis ab <span>{DEC0.format(displayPrice)}</span>,-
+                                      {service.isCountable && <span> {service.unit}</span>}
+                                    </>
+                                  )}
                                 </ServicePrice>
                               )}
                               {service.allowInstallments === false && (
@@ -529,6 +741,8 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
           </CalculatorContainer>
         </PricingContainer>
       </InnerWrapper>
+
+      <Toast visible={toast.visible} message={toast.message} onClose={() => setToast((t) => ({ ...t, visible: false }))} />
     </OuterWrapper>
   );
 }
@@ -539,7 +753,7 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
 const OuterWrapper = styled.section`
   width: 100%;
   background-color: ${theme.color.beige};
-  padding: var(--spacing-xxxl) 0;
+  padding: var(--spacing-xl) 0 var(--spacing-xxxl) 0;
 `;
 
 const InnerWrapper = styled.div`
@@ -580,6 +794,10 @@ const HeadlineContainer = styled.div`
   justify-content: center;
   margin-bottom: var(--spacing-xxl);
   width: 100%;
+
+  h2#calc-head {
+    scroll-margin-top: 50px;
+  }
 
   h4 {
     text-align: center;
@@ -851,6 +1069,7 @@ const OPACITY_DUR = "200ms";
 const EASE = "cubic-bezier(0.16,1,0.3,1)";
 
 const OverlayDescription = styled.div`
+  white-space: pre-line;
   display: grid;
   grid-template-rows: ${({ $open }) => ($open ? "1fr" : "0fr")};
   opacity: ${({ $open }) => ($open ? 1 : 0)};
@@ -1138,4 +1357,29 @@ const Badge = styled.span`
   font-size: calc(1 * var(--font-xs));
   line-height: 1;
   opacity: 0.85;
+`;
+
+const BackLinkWrap = styled.div`
+  margin-top: var(--spacing-s);
+`;
+
+const BackIcon = styled(PiArrowLeftBold)`
+  width: 1rem;
+  height: 1rem;
+  margin-right: 10px;
+`;
+
+const BackLink = styled(Link)`
+  margin-top: var(--spacing-s);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xxs);
+  font-size: var(--font-s);
+  text-transform: uppercase;
+
+  color: ${theme.color.dark};
+
+  &:hover {
+    color: ${theme.color.green};
+  }
 `;

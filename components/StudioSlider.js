@@ -38,14 +38,7 @@ export default function StudioSlider({ studio }) {
       <StyledSlider ref={sliderRef} {...settings}>
         {studio.map((item, index) => (
           <Slide key={index}>
-            <StyledImage
-              src={item.image}
-              alt={item.alt}
-              quality={80}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw"
-              priority={false}
-              placeholder="empty"
-            />
+            <StyledImage src={item.image} alt={item.alt} quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority={false} placeholder="empty" />
           </Slide>
         ))}
       </StyledSlider>

@@ -57,13 +57,13 @@ export default function Menu({ iconWidth = 13, color }) {
     { label: "Home", href: "/" },
     { label: "Fotografie", href: "/fotografie" },
     { label: "Website", href: "/website" },
-    { label: "Design", href: "/design" },
+    { label: "Branding", href: "/branding" },
     { label: "Video", href: "/video" },
     { label: "Studio", href: "/studio" },
-    { label: "Team", href: "/team" },
+    { label: "About", href: "/about" },
     { label: "Preise", href: "/preise" },
     { label: "FAQ", href: "/#faq" },
-    { label: "Kontakt", href: "/contact" },
+    { label: "Kontakt", href: "/#contact" },
   ];
 
   return (

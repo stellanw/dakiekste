@@ -41,6 +41,7 @@ export default function Team({ teamMembers = [] }) {
 const OuterWrapper = styled.section`
   width: 100%;
   background-color: ${theme.color.beige};
+  padding: var(--spacing-xl) 0 var(--spacing-xxxl) 0;
 `;
 
 const InnerWrapper = styled.div`
@@ -51,20 +52,16 @@ const InnerWrapper = styled.div`
 `;
 
 const TeamContainer = styled.div`
-  --gap: var(--spacing-xl);
-  --width-card-desktop: 400px;
-
   --height-card-mobile: 400px;
-  --height-card-desktop: 500px;
+  --height-card-desktop: 480px;
 
-  width: 100%;
-  padding: 0 0 var(--spacing-xxl) 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap);
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: flex-start;
+  display: grid;
+  gap: var(--spacing-xl);
+  grid-template-columns: 1fr;
+
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    grid-template-columns: 1fr 1fr 1.5fr;
+  }
 `;
 
 const TeamCard = styled.div`
@@ -73,23 +70,7 @@ const TeamCard = styled.div`
   align-items: flex-start;
   text-align: start;
   width: 100%;
-
-  @media (min-width: ${theme.breakpoints.tablet}) and (max-width: ${theme.breakpoints.desktop}) {
-    flex: 0 0 calc((100% - var(--gap)) / 2);
-    max-width: calc((100% - var(--gap)) / 2);
-
-    &:last-child:nth-child(odd) {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-  }
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    flex: 0 0 var(--width-card-desktop);
-    max-width: var(--width-card-desktop);
-  }
 `;
-
 const ImageWrapper = styled.div`
   position: relative;
   width: 100%;
@@ -97,15 +78,30 @@ const ImageWrapper = styled.div`
   margin-bottom: var(--spacing-s);
   overflow: hidden;
   border-radius: ${theme.borderRadius};
-  contain: paint;
-  transform: translateZ(0);
-  backface-visibility: hidden;
 
-  @media (min-width: ${theme.breakpoints.tablet}) {
-    height: var(--height-card-mobile);
-    margin-bottom: var(--spacing-xs);
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    max-height: var(--height-card-desktop);
+    min-height: var(--height-card-desktop);
+    height: var(--height-card-desktop);
   }
 `;
+
+// const ImageWrapper = styled.div`
+//   position: relative;
+//   width: 100%;
+//   height: var(--height-card-mobile);
+//   margin-bottom: var(--spacing-s);
+//   overflow: hidden;
+//   border-radius: ${theme.borderRadius};
+//   contain: paint;
+//   transform: translateZ(0);
+//   backface-visibility: hidden;
+
+//   @media (min-width: ${theme.breakpoints.tablet}) {
+//     height: var(--height-card-mobile);
+//     margin-bottom: var(--spacing-xs);
+//   }
+// `;
 
 const MemberImage = styled(Image)`
   object-fit: cover;

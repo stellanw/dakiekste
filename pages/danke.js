@@ -13,7 +13,7 @@ export default function DankePage() {
       sessionStorage.setItem("dak:restore-flag", "1");
     }
 
-    router.push("/#preise", undefined, { scroll: false });
+    router.push("/preise", undefined, { scroll: false });
   };
 
   return (

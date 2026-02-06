@@ -6,12 +6,12 @@ import ScrollBox from "@/components/ScrollBox";
 import Footer from "@/components/Footer";
 import BackToTopButton from "@/components/BackToTopButton";
 import CookieBanner from "@/components/CookieBanner";
-import ServiceHeader from "./ServiceHeader";
 import Header from "./Header";
-import ImageSlider from "./ImageSlider";
 import Hero from "./Hero";
 import PackagesBox from "@/components/PackagesBox";
 import pricingConfig from "@/content/pricing/pricingData";
+import ProcessSteps from "./ProcessSteps";
+import TextAndSteps from "./TextAndSteps";
 
 export default function ServicePage({ data }) {
   return (
@@ -28,15 +28,15 @@ export default function ServicePage({ data }) {
 
       <CookieBanner />
       {data?.hero && <Hero {...data.hero} showLogoCarousel={false} />}
-      {/* 2) Problem */}
+
+      {/* Hook */}
+      {data?.hook && <ImageTextBox {...data.hook} />}
+
+      {/* Problem */}
       {data?.problem && <ImageTextBox {...data.problem} />}
 
-      {/* 5) Packages */}
-      {/* {data?.packages && <PackagesBox {...data.packages} />} */}
-      {data?.packages && <PackagesBox {...data.packages} servicesData={pricingConfig.servicesData} businessType="Soloselbstständige & Gründer*innen" />}
-
-      {/* 4) Wie wir es machen */}
-      {data?.how && <ImageTextBox {...data.how} />}
+      {/* Packages */}
+      <PackagesBox {...data.packages} showPrices servicesData={pricingConfig.servicesData} />
 
       {/* 3) Lösungen / Bausteine */}
       {data?.solution && (
@@ -44,9 +44,13 @@ export default function ServicePage({ data }) {
           <ScrollBox {...data.solution} />
         </section>
       )}
+      {/* Prozess */}
+      {data?.how && <TextAndSteps {...data.how} />}
+
+      {/* {data?.how && <ProcessSteps {...data.process} />} */}
 
       {/* 5) Proof */}
-      {data?.proof && <ImageSlider {...data.proof} />}
+      {/* {data?.proof && <ImageSlider {...data.proof} />} */}
 
       {/* 6) CTA */}
       {data?.cta && <ImageTextBox {...data.cta} />}

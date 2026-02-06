@@ -54,27 +54,6 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
     }));
   };
 
-  const handleSuccessClose = () => {
-    onClose?.(); // Overlay zu
-
-    // kurz warten bis Overlay weg ist (Layout stabil)
-    setTimeout(() => {
-      // 1) Route wechseln OHNE Auto-Scroll (kein Top-Jump)
-      router.push("/#preise", undefined, { scroll: false });
-
-      // 2) manuell zum Anker scrollen (smooth)
-      requestAnimationFrame(() => {
-        const el = document.getElementById("preise");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      // 3) Restore-Flag über sessionStorage, NICHT per Query
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("dak:restore-flag", "1");
-      }
-    }, 60);
-  };
-
   const toPlainText = (node) => {
     if (node == null) return "";
     if (typeof node === "string" || typeof node === "number") return String(node);
@@ -172,7 +151,7 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
 
       // --- URL im Hintergrund auf /danke setzen (ohne zu navigieren) ---
       if (typeof window !== "undefined") {
-        window.history.pushState({}, "", "/danke");
+        window.history.pushState({ dak_fake_thanks: true }, "", "/danke");
 
         if (typeof window.gtag === "function") {
           window.gtag("event", "page_view", {
@@ -239,29 +218,9 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
   }, [isMobile, structured.length]);
 
   useEffect(() => {
-    const html = document.documentElement;
-    const body = document.body;
-
-    const prevHtmlOverflow = html.style.overflow;
-    const prevBodyOverflow = body.style.overflow;
-
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-
-    html.classList.add("overlay-open");
-
-    return () => {
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
-
-      html.classList.remove("overlay-open");
-    };
-  }, []);
-
-  useEffect(() => {
-    const onPop = () => {
-      // Wenn wir die URL auf /danke gefaked haben und jemand "Zurück" klickt:
-      window.location.href = "/?restore=1#preise";
+    const onPop = (e) => {
+      if (!e.state?.dak_fake_thanks) return;
+      window.location.href = "/preise#calc-head";
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
@@ -332,7 +291,12 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
         <FormCol $isSuccess={isSuccess}>
           {isSuccess ? (
             <StyledSuccessMessage>
-              <CloseButton onClick={handleSuccessClose}>
+              <CloseButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClose?.();
+                }}
+              >
                 <PiX />
               </CloseButton>
               <h3>Danke für deine Nachricht!</h3>
@@ -346,7 +310,12 @@ export default function ContactOverlayForm({ selectedServices = [], serviceCount
             </StyledSuccessMessage>
           ) : (
             <OverlayFormContainer onSubmit={handleSubmit}>
-              <CloseButton onClick={onClose}>
+              <CloseButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClose?.();
+                }}
+              >
                 <PiX />
               </CloseButton>
               <h5>Angebotsanfrage</h5>
@@ -615,7 +584,7 @@ const OverlaySubmitButton = styled.button`
   }
 `;
 
-const CloseButton = styled.button`
+const CloseButton = styled.button.attrs({ type: "button" })`
   position: absolute;
   top: var(--spacing-l);
   right: var(--spacing-l);
@@ -849,7 +818,7 @@ const TotalRow = styled(Row)`
   }
 `;
 
-const ChangeButton = styled.button`
+const ChangeButton = styled.button.attrs({ type: "button" })`
   font-size: var(--font-s);
   padding: var(--spacing-xs);
   margin-top: var(--spacing-xs);

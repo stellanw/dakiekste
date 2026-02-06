@@ -129,10 +129,10 @@ const StyledTextWrapper = styled.div`
   li {
     display: grid;
     grid-template-columns: 20px 1fr;
-    gap: var(--spacing-s);
+    gap: calc(0.5 * var(--spacing-xs));
     align-items: center;
     padding-bottom: var(--spacing-xs);
-    // font-size: var(--font-l);
+    font-size: var(--font-l);
   }
 
   span {
@@ -222,19 +222,5 @@ const StyledPiArrowUpRightLight = styled(PiArrowUpRightLight)`
     transition:
       color ease 0.3s,
       transform ease 0.2s;
-  }
-`;
-
-const IconWrapper = styled.div`
-  width: 15px;
-  height: 15px;
-  margin: 0;
-  padding: 0;
-
-  svg {
-    fill: ${theme.color.dark};
-    width: 15px;
-    height: 15px;
-    transform: rotate(-35deg);
   }
 `;

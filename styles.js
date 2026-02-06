@@ -74,15 +74,6 @@ export default createGlobalStyle`
     --index-overlay-backdrop: 2000;
     --index-overlay-content: 2010;
 
-//--font-xxxl: clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);     //56px → h1 
-//--font-xxl:  clamp(1.75rem, 1.45rem + 1.2vw, 2.875rem);    // 46px → h3 / h4 
-//--font-xl:   clamp(1.25rem, 1.05rem + 1vw, 2.25rem);       // 36px → gestyltes p 
-//--font-l:    clamp(1rem, 0.9rem + 0.8vw, 1.25rem);         // 20px → Standard p / h5 
-//--font-m:    clamp(0.875rem, 0.8rem + 0.6vw, 1rem);        // 16px → h2 
-//--font-s:    clamp(0.875rem, 0.85rem + 0.2vw, 0.875rem);   // 14px → kleine Schrift (konstant) 
-//--font-xs:   clamp(0.625rem, 0.6rem + 0.4vw, 0.75rem);     // 12px → z. B. für Meta, Labels
-
-//kleiner
 --font-xxxl: clamp(2rem, 1.5rem + 2vw, 3rem);       /* ~48px → h1 */
 --font-xxl:  clamp(1.5rem, 1.3rem + 1.1vw, 2.5rem); /* ~40px → h3 / h4 */
 --font-xl:   clamp(1.125rem, 1rem + 0.9vw, 2rem);   /* ~32px → gestyltes p */
@@ -169,7 +160,7 @@ export default createGlobalStyle`
     font-size: 16px; 
   background-color: ${theme.color.beige} !important;
     color: ${theme.color.dark};
-    scroll-behavior: smooth;
+    //scroll-behavior: smooth;
 
     max-width: var(--max-content);
     margin-inline: auto;
@@ -189,7 +180,7 @@ a:visited { color: inherit; }
 
   h1,h2,h3,h4,h5,h6 {
     //white-space: normal;
-        white-space: pre-line;
+        white-space: pre-line !important;
       word-wrap: normal;
     word-break: keep-all !important;
       text-overflow: ellipsis;
