@@ -1,86 +1,114 @@
-import styled, { keyframes } from "styled-components";
-import { useState, useEffect } from "react";
+import styled from "styled-components";
 import { theme } from "@/styles";
-import { PiArrowDownLight } from "react-icons/pi";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import section01_header_01 from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
 import Link from "next/link";
 import DakieksteLogo from "@/Icons/DakieksteLogo";
 import Menu from "./Menu";
 import { FixedContainer } from "./FixedContainer";
+import defaultHeaderImage from "/public/images/01_Header/branding-fotografie-erneuerbare-energie-dakiekste-01.jpg";
 
-const bounce = keyframes`
-  0% { transform: translateY(0); }
-  30% { transform: translateY(-10px); }
-  50% { transform: translateY(0); }
-  70% { transform: translateY(-5px); }
-  100% { transform: translateY(0); }
-`;
+export default function Header({
+  /**
+   * Background switch:
+   * "video" | "image" | "color"
+   */
+  backgroundType = "video",
 
-export default function Header({ useImageBackground = false }) {
-  const [windowWidth, setWindowWidth] = useState(0);
+  // headline content
+  topline = "WER GESEHEN WIRD – GESTALTET MIT",
+  desktopH1 = "Branding, Fotografie und Website\nFür Gründer*innen & Unternehmen",
+  mobileH1 = "Branding, Fotografie und Website Für Gründer*innen & Unternehmen",
+
+  // background (image)
+  backgroundImageSrc = defaultHeaderImage,
+  backgroundImageAlt = "Branding Fotografie by dakiekste",
+
+  // background (video)
+  backgroundVideoPoster = "/videos/video-poster.png",
+  backgroundVideoSrcMp4 = "/videos/Selections_Imagefilm.mp4",
+  backgroundVideoSrcWebm = "/videos/Selections_Imagefilm.webm",
+
+  // background (color)
+  backgroundColor = theme.color.dark,
+
+  // overlay
+  overlayColor = "",
+
+  // colors / UI
+  logoColor = theme.color.beige,
+
+  // headline color
+  headlineColor = theme.color.beige,
+
+  // sizing
+  logoWidth, // number override
+}) {
+  // Mobile logoWidth berechnung
+  const desktopLogoWidth = logoWidth ?? 180;
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
+    const mq = window.matchMedia(`(max-width: ${theme.breakpoints.tablet})`);
+    const update = () => setIsMobile(mq.matches);
 
-    setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
 
-  const logoWidth = windowWidth > parseInt(theme.breakpoints.desktop) ? 200 : 120;
-  const iconWidth = 45;
+  const computedLogoWidth = isMobile ? Math.round(desktopLogoWidth * 0.85) : desktopLogoWidth;
 
-  const tabletBp = parseInt(theme.breakpoints.tablet, 10); // z.B. "768px" -> 768
-  const [mounted, setMounted] = useState(false);
+  const renderBackground = () => {
+    if (backgroundType === "image") {
+      return <ImageBackground src={backgroundImageSrc} alt={backgroundImageAlt} fill quality={100} sizes="(max-width: 1900px) 100vw, 80vw" priority />;
+    }
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (backgroundType === "color") {
+      return <ColorBackground $bg={backgroundColor} />;
+    }
 
-  const isMobile = mounted && windowWidth <= tabletBp;
+    return (
+      <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture poster={backgroundVideoPoster}>
+        <source src={backgroundVideoSrcMp4} type="video/mp4" />
+        <source src={backgroundVideoSrcWebm} type="video/webm" />
+        Dein Browser unterstützt das Video-Tag nicht.
+      </VideoBackground>
+    );
+  };
 
   return (
     <StyledHeadContainer>
+      {/* Logo */}
       <StyledLink href="/">
-        <DakieksteLogo color={theme.color.beige} transition="color 0.5s ease" width={logoWidth} />
+        <DakieksteLogo color={logoColor} width={computedLogoWidth} />
       </StyledLink>
-      <FixedContainer>
-        <StyledMenu color={theme.color.dark} transition="background-color 0.5s ease" iconWidth={iconWidth} />
-      </FixedContainer>
-      {useImageBackground ? (
-        <ImageBackground src={section01_header_01} alt="Branding Fotografie by dakiekste" fill quality={100} sizes="(max-width: 768px) 100vw, (max-width: 1900px) 100vw, 80vw" priority />
-      ) : (
-        <VideoBackground autoPlay loop muted playsInline preload="auto" controls={false} disablePictureInPicture poster="/videos/video-poster.png">
-          <source src="/videos/Selections_Imagefilm.mp4" type="video/mp4" />
-          <source src="/videos/Selections_Imagefilm.webm" type="video/webm" />
-          Dein Browser unterstützt das Video-Tag nicht.
-        </VideoBackground>
-      )}
 
-      <StyledHeadlineContainer>
-        <h2>WER GESEHEN WIRD – GESTALTET MIT</h2>
-        <h1>
-          {isMobile ? (
-            "Branding, Fotografie und Website Für Gründer*innen & Unternehmen"
-          ) : (
-            <>
-              Branding, Fotografie und Website&nbsp;
-              <br />
-              Für Gründer*innen & Unternehmen
-            </>
-          )}
-        </h1>
+      {/* Menu */}
+      <FixedContainer>
+        <Menu />
+      </FixedContainer>
+
+      {/* Background */}
+      {renderBackground()}
+
+      {/* Overlay */}
+      {overlayColor && <Overlay $overlay={overlayColor} />}
+
+      {/* Headline */}
+      <StyledHeadlineContainer $headlineColor={headlineColor}>
+        <h2>{topline}</h2>
+
+        <DesktopH1>{desktopH1}</DesktopH1>
+        <MobileH1>{mobileH1}</MobileH1>
       </StyledHeadlineContainer>
-      {/* <StyledPiArrowDownLight /> */}
     </StyledHeadContainer>
   );
 }
 
-const StyledHeadContainer = styled.div`
+/* ================== Styles ================== */
+
+const StyledHeadContainer = styled.header`
   display: flex;
   position: relative;
   justify-content: start;
@@ -96,12 +124,10 @@ const StyledHeadContainer = styled.div`
 
 const VideoBackground = styled.video`
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: translate(-50%, -50%);
   z-index: 0;
 `;
 
@@ -109,6 +135,28 @@ const ImageBackground = styled(Image)`
   object-fit: cover;
   object-position: center;
   z-index: 0;
+`;
+
+const ColorBackground = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: ${({ $bg }) => $bg};
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  background: ${({ $overlay }) => $overlay};
+`;
+
+const StyledLink = styled(Link)`
+  position: absolute;
+  top: 3rem;
+  left: var(--side-padding);
+  z-index: 5;
 `;
 
 const StyledHeadlineContainer = styled.div`
@@ -120,45 +168,27 @@ const StyledHeadlineContainer = styled.div`
   bottom: var(--side-padding);
   left: var(--side-padding);
   padding-right: var(--side-padding);
-  h1,
-  h2 {
-    br {
-      display: none;
-    }
-    @media (min-width: ${theme.breakpoints.desktop}) {
-      br {
-        display: block;
-      }
-    }
+
+  h2,
+  h1 {
     margin: 0;
-    color: ${theme.color.beige};
+    color: ${({ $headlineColor }) => $headlineColor || theme.color.beige};
     text-transform: uppercase;
   }
 `;
 
-const StyledPiArrowDownLight = styled(PiArrowDownLight)`
-  position: absolute;
-  left: 50%;
-  bottom: var(--spacing-xl);
-  font-size: var(--font-xl);
-  color: ${theme.color.beige};
-  animation: ${bounce} 3s ease infinite;
+const DesktopH1 = styled.h1`
+  display: none;
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    display: none;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: block;
   }
 `;
 
-const StyledLink = styled(Link)`
-  position: absolute;
-  top: calc(0.75 * var(--side-padding));
-  left: var(--side-padding);
-  z-index: 5;
-`;
+const MobileH1 = styled.h1`
+  display: block;
 
-const StyledMenu = styled(Menu)`
-  position: fixed;
-  top: var(--side-padding);
-  right: var(--side-padding);
-  z-index: 5000;
+  @media (min-width: ${theme.breakpoints.tablet}) {
+    display: none;
+  }
 `;

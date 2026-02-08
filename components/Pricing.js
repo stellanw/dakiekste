@@ -1,13 +1,21 @@
+// Pricing.js
 import styled, { css } from "styled-components";
+import Link from "next/link";
 import { theme } from "@/styles";
-import { useState, useEffect, useRef } from "react";
-import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX } from "react-icons/pi";
+import { useState, useEffect, useRef, useLayoutEffect, useMemo } from "react";
+import { PiPushPinLight, PiPlus, PiMinus, PiTrash, PiArrowDownThin, PiX, PiArrowLeftBold } from "react-icons/pi";
 import ContactOverlayForm from "./ContactOverlayForm";
 import { useRouter } from "next/router";
+import pricingConfig from "@/content/pricing/pricingData";
+import Toast from "@/components/Toast";
+import useSessionStorageState from "@/hooks/useSessionStorageState";
+
+const ORG_KEY = "org-service";
 
 const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
 const ORG_SERVICE = {
   title: SPECIAL_SERVICE_TITLE,
+  id: ORG_KEY,
   description: "Individuelle Angebote für gemeinnützige Organisationen, Vereine, NGOs & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
   category: "Spezial",
   price: 0,
@@ -23,6 +31,11 @@ const initialOverlayFormData = {
   email: "",
   message: "",
   acceptedTerms: false,
+};
+
+const DEFAULT_CATEGORY = {
+  businessType: "Unternehmen",
+  projectType: "Fotografie",
 };
 
 const DEC0 = new Intl.NumberFormat("de-DE", {
@@ -60,15 +73,22 @@ const SROnly = styled.span`
 const HiddenRadio = styled.input.attrs({ type: "radio" })`
   ${srOnly}
 `;
+
 const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
   ${srOnly}
 `;
 
-export default function Pricing({ pricingData, servicesData }) {
-  const [selectedCategory, setSelectedCategory] = useState({
-    businessType: "Soloselbstständige & Gründer*innen",
-    projectType: "Fotografie",
-  });
+export default function Pricing({ pricingData = pricingConfig.pricingData, servicesData = pricingConfig.servicesData }) {
+  const router = useRouter();
+
+  const resolvedPricingData = Array.isArray(pricingData) ? pricingData : pricingConfig.pricingData;
+
+  const resolvedServicesData = useMemo(() => {
+    return Array.isArray(servicesData) ? servicesData : pricingConfig.servicesData;
+  }, [servicesData]);
+
+  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
+
   const [serviceCounts, setServiceCounts] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
@@ -76,12 +96,181 @@ export default function Pricing({ pricingData, servicesData }) {
   const [isMobile, setIsMobile] = useState(false);
   const [overlayFormData, setOverlayFormData] = useState(initialOverlayFormData);
   const [hoverKey, setHoverKey] = useState(null);
+  const [toast, setToast] = useState({ visible: false, message: "" });
 
+  const [calcPersist, setCalcPersist] = useSessionStorageState("dak_calc", {
+    selectedCategory: DEFAULT_CATEGORY,
+    selectedServices: [],
+    serviceCounts: {},
+    lastFrom: null,
+  });
+
+  /* =========================
+     REFS
+     ========================= */
   const stashRef = useRef({ services: [], counts: {} });
   const selRef = useRef([]);
   const countsRef = useRef({});
-  const router = useRouter();
+  const outcomeListRef = useRef(null);
 
+  const didHydrateRef = useRef(false);
+  const restoringRef = useRef(false);
+
+  const pendingOpenKeyRef = useRef(null);
+
+  /* =========================
+     Helpers (Query + Mapping)
+     ========================= */
+  const normalizeTitle = (v) =>
+    String(v || "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+
+  const mapCategoryToProjectType = (cat) => {
+    const raw = Array.isArray(cat) ? cat[0] : cat;
+    const c = String(raw || "")
+      .toLowerCase()
+      .trim();
+
+    if (c === "website") return "Website";
+    if (c === "abo") return "Abo";
+    if (c === "branding") return "Branding";
+    if (c === "foto" || c === "fotografie") return "Fotografie";
+    if (c === "video") return "Video";
+    return null;
+  };
+
+  const labelFromPath = (path) => {
+    const map = {
+      "/fotografie": "Fotografie",
+      "/video": "Video",
+      "/website": "Website",
+      "/branding": "Branding",
+    };
+    return map[path] || "zur vorherigen Seite";
+  };
+
+  /* =========================
+     Restore (Session Storage)
+     ========================= */
+  useEffect(() => {
+    if (didHydrateRef.current) return;
+    if (typeof window === "undefined") return;
+
+    if (calcPersist?.selectedServices?.length) {
+      restoringRef.current = true;
+
+      setSelectedServices(calcPersist.selectedServices || []);
+      setServiceCounts(calcPersist.serviceCounts || {});
+      setSelectedCategory(calcPersist.selectedCategory || selectedCategory);
+    }
+
+    didHydrateRef.current = true;
+
+    queueMicrotask(() => {
+      restoringRef.current = false;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!didHydrateRef.current) return;
+
+    setCalcPersist((prev) => ({
+      ...prev,
+      selectedCategory,
+      selectedServices,
+      serviceCounts,
+    }));
+  }, [selectedCategory, selectedServices, serviceCounts, setCalcPersist]);
+
+  /* =========================
+     Scroll/Fokus Lock (Overlay)
+     ========================= */
+  const scrollYRef = useRef(0);
+  const lastFocusRef = useRef(null);
+
+  const openOverlay = () => {
+    if (typeof window !== "undefined") {
+      scrollYRef.current = window.scrollY || 0;
+      lastFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    }
+    setShowOverlay(true);
+  };
+
+  const closeOverlay = () => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+    setShowOverlay(false);
+  };
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!showOverlay) return;
+
+    const html = document.documentElement;
+    const body = document.body;
+
+    const y = scrollYRef.current ?? window.scrollY ?? 0;
+
+    const prev = {
+      htmlOverflow: html.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyLeft: body.style.left,
+      bodyRight: body.style.right,
+      bodyWidth: body.style.width,
+    };
+
+    html.style.overflow = "hidden";
+    body.style.position = "fixed";
+    body.style.top = `-${y}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+
+    return () => {
+      html.style.overflow = prev.htmlOverflow;
+      body.style.position = prev.bodyPosition;
+      body.style.top = prev.bodyTop;
+      body.style.left = prev.bodyLeft;
+      body.style.right = prev.bodyRight;
+      body.style.width = prev.bodyWidth;
+
+      window.scrollTo(0, y);
+    };
+  }, [showOverlay]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (showOverlay) return;
+
+    requestAnimationFrame(() => {
+      const el = lastFocusRef.current;
+      if (el && typeof el.focus === "function") {
+        try {
+          el.focus({ preventScroll: true });
+        } catch {
+          el.focus();
+        }
+      }
+    });
+  }, [showOverlay]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!("scrollRestoration" in window.history)) return;
+
+    const prev = window.history.scrollRestoration;
+    if (showOverlay) window.history.scrollRestoration = "manual";
+    return () => {
+      window.history.scrollRestoration = prev;
+    };
+  }, [showOverlay]);
+
+  /* =========================
+     Refs Sync
+     ========================= */
   useEffect(() => {
     selRef.current = selectedServices;
   }, [selectedServices]);
@@ -90,10 +279,9 @@ export default function Pricing({ pricingData, servicesData }) {
     countsRef.current = serviceCounts;
   }, [serviceCounts]);
 
-  useEffect(() => {
-    setOpenKey(null);
-  }, [selectedCategory.businessType, selectedCategory.projectType]);
-
+  /* =========================
+     Responsive
+     ========================= */
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 750);
     handleResize();
@@ -101,114 +289,123 @@ export default function Pricing({ pricingData, servicesData }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  /* =========================
+     ORG MODE TOGGLE
+     ========================= */
   useEffect(() => {
+    if (!didHydrateRef.current) return;
+    if (restoringRef.current) return;
+
     const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+
     if (isOrg) {
+      // vorherige Auswahl sichern
       stashRef.current = {
-        services: selRef.current.filter((s) => s.title !== ORG_SERVICE.title),
+        services: selRef.current.filter((s) => s.id !== ORG_KEY),
         counts: { ...countsRef.current },
       };
+
+      // ORG-Service setzen + Description öffnen
       setSelectedServices([ORG_SERVICE]);
       setServiceCounts({});
+      setOpenKey(ORG_KEY);
     } else {
-      const withoutOrg = selRef.current.filter((s) => s.title !== ORG_SERVICE.title);
+      // ORG verlassen → vorherige Auswahl wiederherstellen
+      const withoutOrg = selRef.current.filter((s) => s.id !== ORG_KEY);
+
       const restoreServices = withoutOrg.length > 0 ? withoutOrg : stashRef.current.services || [];
+
       const restoreCounts = Object.keys(countsRef.current).length > 0 ? countsRef.current : stashRef.current.counts || {};
+
       setSelectedServices(restoreServices);
       setServiceCounts(restoreCounts);
+
+      // nur schließen, wenn ORG-Panel offen war
+      setOpenKey((prev) => (prev === ORG_KEY ? null : prev));
     }
-    setOpenKey(null);
   }, [selectedCategory.businessType]);
 
+  /* =========================
+     Query Init (ServicePages / PackagesBox -> /preise)
+     ========================= */
   useEffect(() => {
+    if (!router.isReady) return;
     if (typeof window === "undefined") return;
 
-    const shouldRestore = sessionStorage.getItem("dak:restore-flag") === "1";
-    if (!shouldRestore) return;
+    const { category, package: pkg, businessType, from } = router.query;
 
-    try {
-      const raw = sessionStorage.getItem("dak:quote");
-      if (!raw) {
-        sessionStorage.removeItem("dak:restore-flag");
-        return;
-      }
-
-      const saved = JSON.parse(raw);
-      if (Date.now() - (saved.ts || 0) > 30 * 60 * 1000) {
-        sessionStorage.removeItem("dak:quote");
-        sessionStorage.removeItem("dak:restore-flag");
-        return;
-      }
-
-      // Auswahl & Counts
-      setSelectedServices(Array.isArray(saved.selectedServices) ? saved.selectedServices : []);
-      setServiceCounts(saved.serviceCounts || {});
-
-      // Business-Typ
-      if (saved.businessType) {
-        setSelectedCategory((prev) => ({ ...prev, businessType: saved.businessType }));
-      }
-
-      // Formular
-      const form = saved.form || {};
-      const restoredForm = {
-        fullName: form.fullName || [form.firstName, form.lastName].filter(Boolean).join(" ").trim(),
-        pronouns: form.pronouns || "",
-        customPronouns: form.customPronouns || "",
-        company: form.company || "",
-        email: form.email || "",
-        message: form.message || "",
-        acceptedTerms: !!form.acceptedTerms,
-      };
-      setOverlayFormData((prev) => ({ ...prev, ...restoredForm }));
-
-      // Overlay öffnen
-      setShowOverlay(true);
-    } catch (_) {
-      // noop
-    } finally {
-      // Aufräumen
-      sessionStorage.removeItem("dak:quote");
-      sessionStorage.removeItem("dak:restore-flag");
-
-      // URL auf #preise belassen (falls nötig)
-      if (location.hash !== "#preise") {
-        history.replaceState({}, "", "/#preise");
+    // 1) businessType setzen
+    if (businessType) {
+      const bt = Array.isArray(businessType) ? businessType[0] : String(businessType);
+      const allowed = ["Soloselbstständige & Gründer*innen", "Unternehmen", "Vereine & Organisationen"];
+      if (allowed.includes(bt)) {
+        setSelectedCategory((prev) => ({ ...prev, businessType: bt }));
       }
     }
-  }, []);
 
-  const handleCategorySelection = (key, option) => {
-    setSelectedCategory((prev) => ({ ...prev, [key]: option }));
-  };
-  const toggleOverlay = (key) => {
-    setOpenKey((prev) => (prev === key ? null : key));
-  };
-  const handleServiceSelection = (service) => {
-    setSelectedServices((prev) => {
-      const isSelected = prev.some((s) => s.title === service.title);
-      if (selectedCategory.businessType === "Vereine & Organisationen") {
-        return isSelected ? [] : [service];
+    // 2) category => projectType setzen
+    if (category) {
+      const mapped = mapCategoryToProjectType(category);
+      if (mapped) {
+        setSelectedCategory((prev) => ({ ...prev, projectType: mapped }));
       }
-      if (isSelected) {
-        const updatedCounts = { ...serviceCounts };
-        delete updatedCounts[service.title];
-        setServiceCounts(updatedCounts);
-        return prev.filter((s) => s.title !== service.title);
-      } else {
-        if (service.isCountable) {
-          setServiceCounts((prevCounts) => ({ ...prevCounts, [service.title]: 1 }));
-        }
-        if (service.title === SPECIAL_SERVICE_TITLE) return prev;
-        return [...prev, service];
-      }
-    });
-  };
-  const removeService = (serviceToRemove) => {
-    setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
-  };
+    }
 
-  // Rabatt anwenden (Basis in €)
+    // 3) package hinzufügen (merken zum Öffnen)
+    if (pkg) {
+      const rawPkg = Array.isArray(pkg) ? pkg[0] : pkg;
+      const wanted = normalizeTitle(rawPkg);
+
+      const svc = resolvedServicesData.find((s) => normalizeTitle(s.title) === wanted) || null;
+
+      if (from && typeof from === "string") {
+        setCalcPersist((prev) => ({ ...prev, lastFrom: from }));
+      }
+
+      if (svc) {
+        const key = svc.id || svc.title;
+
+        setSelectedServices((prev) => {
+          const exists = prev.some((s) => s.title === svc.title);
+          if (exists) return prev;
+
+          if (svc.isCountable) {
+            setServiceCounts((prevCounts) => ({
+              ...prevCounts,
+              [svc.title]: prevCounts[svc.title] || 1,
+            }));
+          }
+
+          setToast({
+            visible: true,
+            message: `„${svc.title}“ zur Kalkulation hinzugefügt ✓`,
+          });
+
+          return [...prev, svc];
+        });
+
+        pendingOpenKeyRef.current = key;
+      }
+    }
+
+    // Query entfernen + scroll
+    if (pkg || category || businessType) {
+      requestAnimationFrame(() => {
+        router.replace("/preise", undefined, { shallow: true });
+
+        requestAnimationFrame(() => {
+          document.getElementById("calc-head")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
+      });
+    }
+  }, [router.isReady, router.query.category, router.query.package, router.query.businessType, router.query.from, resolvedServicesData, setCalcPersist, router]);
+
+  /* =========================
+     PRICING
+     ========================= */
   const applyDiscount = (price) => {
     const p = Number(price) || 0;
     if (selectedCategory.businessType === "Soloselbstständige & Gründer*innen") {
@@ -217,21 +414,33 @@ export default function Pricing({ pricingData, servicesData }) {
     return p;
   };
 
-  const handleCountChange = (title, delta) => {
-    setServiceCounts((prevCounts) => {
-      const current = prevCounts[title] || 1;
-      const newValue = Math.max(1, current + delta);
-      return { ...prevCounts, [title]: newValue };
-    });
-  };
-
   const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
 
-  const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : servicesData && servicesData.length > 0 ? servicesData.filter((service) => service.category === selectedCategory.projectType) : [];
+  const filteredServices = useMemo(() => {
+    if (isOrg) return [ORG_SERVICE];
 
-  // --- Gesamtsumme in €: Basis -> 10er runden -> Rabatt -> erneut auf 10er runden
+    if (!Array.isArray(resolvedServicesData) || resolvedServicesData.length === 0) return [];
+
+    return resolvedServicesData.filter((service) => service.category === selectedCategory.projectType);
+  }, [isOrg, resolvedServicesData, selectedCategory.projectType]);
+
+  // ✅ Öffnet Panel erst, wenn Service in der aktuell gerenderten Liste existiert
+  useEffect(() => {
+    const key = pendingOpenKeyRef.current;
+    if (!key) return;
+
+    const existsInView = filteredServices?.some((s) => (s.id || s.title) === key);
+    if (!existsInView) return;
+
+    requestAnimationFrame(() => {
+      setOpenKey(key);
+      pendingOpenKeyRef.current = null;
+    });
+  }, [filteredServices, selectedCategory.projectType, selectedServices]);
+
   const totalRaw = selectedServices.reduce((sum, service) => {
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
     const baseRounded = roundToTen(Number(service.price) || 0);
@@ -239,20 +448,35 @@ export default function Pricing({ pricingData, servicesData }) {
     const finalTen = roundToTen(discounted);
     return sum + finalTen * count;
   }, 0);
-  const totalPrice = totalRaw; // schon glatte 10er
 
-  const clearAllSelections = () => {
-    setSelectedServices([]);
-    setServiceCounts({});
-    setOpenKey(null);
-  };
+  const totalPrice = totalRaw;
 
-  const formatCeil = (value) => {
-    const num = Math.ceil(Number(value) || 0);
-    return DEC0.format(num);
-  };
+  const MARKUP_PCT = 8;
+  const MONTHS = 6;
 
-  const outcomeListRef = useRef(null);
+  const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+
+  const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
+
+  const allowedInstallmentsTotal = selectedServices.reduce((sum, s) => {
+    if (s.allowInstallments === false) return sum;
+    const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
+    const baseRounded = roundToTen(Number(s.price) || 0);
+    const discounted = applyDiscount(baseRounded);
+    const finalTen = roundToTen(discounted);
+    return sum + finalTen * count;
+  }, 0);
+
+  const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
+
+  const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
+
+  const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
+  const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
+
+  /* =========================
+     Outcome Scroll Hint
+     ========================= */
   const [showOutcomeHint, setShowOutcomeHint] = useState(false);
 
   useEffect(() => {
@@ -277,52 +501,79 @@ export default function Pricing({ pricingData, servicesData }) {
     };
   }, [selectedServices.length]);
 
-  const MARKUP_PCT = 8;
-  const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+  /* =========================
+     ACTIONS
+     ========================= */
+  const handleCategorySelection = (key, option) => {
+    setOpenKey(null);
+    setSelectedCategory((prev) => ({ ...prev, [key]: option }));
+  };
 
-  const MONTHS = 6;
-  const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
-  const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
+  const toggleServiceDetails = (key) => {
+    setOpenKey((prev) => (prev === key ? null : key));
+  };
 
-  // --- Ratenfähige Summe: auch hier Endpreis pro Position auf 10er runden
-  const allowedInstallmentsTotal = selectedServices.reduce((sum, s) => {
-    if (s.allowInstallments === false) return sum;
-    const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
-    const baseRounded = roundToTen(Number(s.price) || 0);
-    const discounted = applyDiscount(baseRounded);
-    const finalTen = roundToTen(discounted);
-    return sum + finalTen * count;
-  }, 0);
+  const handleServiceSelection = (service, key) => {
+    setSelectedServices((prev) => {
+      const isSelected = prev.some((s) => s.title === service.title);
 
-  const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
+      if (selectedCategory.businessType === "Vereine & Organisationen") {
+        if (!isSelected) setOpenKey(key);
+        else setOpenKey(null);
+        return isSelected ? [] : [service];
+      }
 
-  // Dynamische Texte:
-  const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
-  const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
-  const showInstallmentBadges = anyInstallmentsAllowed && anyInstallmentsForbidden;
+      if (isSelected) {
+        const updatedCounts = { ...serviceCounts };
+        delete updatedCounts[service.title];
+        setServiceCounts(updatedCounts);
+
+        setOpenKey((prevOpen) => (prevOpen === key ? null : prevOpen));
+        return prev.filter((s) => s.title !== service.title);
+      } else {
+        if (service.isCountable) {
+          setServiceCounts((prevCounts) => ({ ...prevCounts, [service.title]: 1 }));
+        }
+        if (service.title === SPECIAL_SERVICE_TITLE) return prev;
+
+        setOpenKey(key);
+        return [...prev, service];
+      }
+    });
+  };
+
+  const removeService = (serviceToRemove) => {
+    setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
+  };
+
+  const clearAllSelections = () => {
+    setSelectedServices([]);
+    setServiceCounts({});
+    setOpenKey(null);
+  };
 
   return (
     <OuterWrapper aria-labelledby="calc-head" aria-describedby="calc-desc">
       <InnerWrapper>
         <PricingContainer>
-          {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={() => setShowOverlay(false)} priceOnRequest={priceOnRequest} />}
+          {showOverlay && <ContactOverlayForm selectedServices={selectedServices} serviceCounts={serviceCounts} businessType={selectedCategory.businessType} formData={overlayFormData} setFormData={setOverlayFormData} onClose={closeOverlay} priceOnRequest={priceOnRequest} />}
 
           <HeadlineContainer>
             <h2 id="calc-head">Preiskalkulator</h2>
             <SROnly id="calc-desc">Wähle dein Business, deinen Projekttyp und anschließend Leistungen. Preise und Raten aktualisieren sich automatisch.</SROnly>
             {isMobile ? (
-              <h4>Jedes Projekt ist individuell – genau wie dein Budget. Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.</h4>
+              <h4>Stell dir hier dein Projekt zusammen und verschaffe dir einen realistischen Überblick über deinen Invest.</h4>
             ) : (
               <h4>
-                Jedes Projekt ist individuell – genau wie dein Budget. <br />
-                Für eine erste Orientierung nutze unseren Preiskalkulator, um deinen Invest zu planen.
+                Stell dir hier dein Projekt zusammen <br />
+                und verschaffe dir einen realistischen Überblick über deinen Invest.
               </h4>
             )}
           </HeadlineContainer>
 
           <CalculatorContainer>
             <CategoriesContainer>
-              {pricingData.map((category, categoryIndex) => {
+              {resolvedPricingData.map((category, categoryIndex) => {
                 const hideThisCategory = selectedCategory.businessType === "Vereine & Organisationen" && category.category === "Dein Projekt";
                 const groupId = `cat-${categoryIndex}`;
                 return (
@@ -368,7 +619,7 @@ export default function Pricing({ pricingData, servicesData }) {
                         </ul>
                       )}
                       <OverlayInfo>Mit deiner Anfrage buchst du noch nichts – wir vereinbaren zunächst ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen und ein individuelles Angebot zu erstellen.</OverlayInfo>
-                      <StyledButton type="button" onClick={() => setShowOverlay(true)} aria-label="Anfrage für Vereine & Organisationen starten">
+                      <StyledButton type="button" onClick={openOverlay} aria-label="Anfrage für Vereine & Organisationen starten">
                         Anfrage starten
                       </StyledButton>
                     </>
@@ -406,6 +657,7 @@ export default function Pricing({ pricingData, servicesData }) {
                               </li>
                             );
                           })}
+
                           {showOutcomeHint && (
                             <OutcomeScrollHint
                               type="button"
@@ -446,14 +698,23 @@ export default function Pricing({ pricingData, servicesData }) {
                           </SROnly>
                         </>
                       )}
+
                       <OverlayInfo>
-                        *EUR zzgl. MwSt. Die Preisangaben sind eine unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts – du erhältst entweder direkt ein individuelles Angebot oder wir vereinbaren ein Erstgespräch, um den Umfang deines Projekts genauer zu bestimmen. <br />
+                        *EUR zzgl. MwSt. Die Preisangaben dienen als unverbindliche Ersteinschätzung. Mit deiner Anfrage buchst du noch nichts. Wir melden uns persönlich mit einem Angebot oder zur weiteren Abstimmung.
+                        <br />
                         <br />
                         {!hideInstallments && scopeHint && <span>{scopeHint}</span>}
                       </OverlayInfo>
-                      <StyledButton type="button" onClick={() => setShowOverlay(true)} aria-label="Anfrage mit aktueller Auswahl starten">
+
+                      <StyledButton type="button" onClick={openOverlay} aria-label="Anfrage mit aktueller Auswahl starten">
                         Anfrage starten
                       </StyledButton>
+                      {calcPersist?.lastFrom && calcPersist.lastFrom !== "/preise" && (
+                        <BackLink href={calcPersist.lastFrom}>
+                          <BackIcon aria-hidden="true" />
+                          Zurück zu »{labelFromPath(calcPersist.lastFrom)}«
+                        </BackLink>
+                      )}
                     </>
                   )}
                 </OutcomeContent>
@@ -467,27 +728,24 @@ export default function Pricing({ pricingData, servicesData }) {
                     const isOpen = openKey === key;
                     const isSelected = selectedServices.some((s) => s.title === service.title);
 
-                    // Endpreis pro Service (für Anzeige): 10er->Rabatt->10er
                     const displayPrice = roundToTen(applyDiscount(roundToTen(service.price)));
 
                     return (
                       <ServiceUL key={serviceKey} className={isOpen ? "open" : ""}>
                         <Service>
                           <ServiceTitleGroup $hovered={hoverKey === serviceKey}>
-                            {/* Checkbox + Titel als Label-Gruppe */}
                             <TitleCheckboxContainer $checked={isSelected} as="label" htmlFor={`svc-${serviceKey}`}>
-                              <HiddenServiceCheckbox id={`svc-${serviceKey}`} checked={isSelected} onChange={() => handleServiceSelection(service)} aria-label={`${service.title} ${isSelected ? "abwählen" : "auswählen"}`} />
+                              <HiddenServiceCheckbox id={`svc-${serviceKey}`} checked={isSelected} onChange={() => handleServiceSelection(service, key)} aria-label={`${service.title} ${isSelected ? "abwählen" : "auswählen"}`} />
                               <ServiceDot aria-hidden="true" $checked={isSelected} />
                               <ServiceTitle id={`svc-title-${serviceKey}`}>{service.title}</ServiceTitle>
                             </TitleCheckboxContainer>
 
-                            {/* Toggle als Button, mit Verbindung zum Panel */}
                             <ToggleButton
                               type="button"
                               aria-expanded={isOpen}
                               aria-controls={`panel-${serviceKey}`}
                               aria-label={`Details zu ${service.title} ${isOpen ? "schließen" : "öffnen"}`}
-                              onClick={() => toggleOverlay(key)}
+                              onClick={() => toggleServiceDetails(key)}
                               onMouseEnter={() => setHoverKey(serviceKey)}
                               onMouseLeave={() => setHoverKey(null)}
                               onFocus={() => setHoverKey(serviceKey)}
@@ -502,8 +760,16 @@ export default function Pricing({ pricingData, servicesData }) {
                               {service.description}
                               {service.price > 0 && (
                                 <ServicePrice>
-                                  Preis ab <span>{DEC0.format(displayPrice)}</span>,-
-                                  {service.isCountable && <span> {service.unit}</span>}
+                                  {service.pricingNote ? (
+                                    <>
+                                      <span>{service.pricingNote}:</span> <span>{DEC0.format(displayPrice)}</span>,-
+                                    </>
+                                  ) : (
+                                    <>
+                                      Preis ab <span>{DEC0.format(displayPrice)}</span>,-
+                                      {service.isCountable && <span> {service.unit}</span>}
+                                    </>
+                                  )}
                                 </ServicePrice>
                               )}
                               {service.allowInstallments === false && (
@@ -525,10 +791,11 @@ export default function Pricing({ pricingData, servicesData }) {
           </CalculatorContainer>
         </PricingContainer>
       </InnerWrapper>
+
+      <Toast visible={toast.visible} message={toast.message} onClose={() => setToast((t) => ({ ...t, visible: false }))} />
     </OuterWrapper>
   );
 }
-
 /* =========================
    STYLES
    ========================= */
@@ -536,7 +803,7 @@ export default function Pricing({ pricingData, servicesData }) {
 const OuterWrapper = styled.section`
   width: 100%;
   background-color: ${theme.color.beige};
-  padding: var(--spacing-xxxl) 0;
+  padding: var(--spacing-xl) 0 var(--spacing-xxxl) 0;
 `;
 
 const InnerWrapper = styled.div`
@@ -577,6 +844,10 @@ const HeadlineContainer = styled.div`
   justify-content: center;
   margin-bottom: var(--spacing-xxl);
   width: 100%;
+
+  h2#calc-head {
+    scroll-margin-top: 50px;
+  }
 
   h4 {
     text-align: center;
@@ -848,6 +1119,7 @@ const OPACITY_DUR = "200ms";
 const EASE = "cubic-bezier(0.16,1,0.3,1)";
 
 const OverlayDescription = styled.div`
+  white-space: pre-line;
   display: grid;
   grid-template-rows: ${({ $open }) => ($open ? "1fr" : "0fr")};
   opacity: ${({ $open }) => ($open ? 1 : 0)};
@@ -1135,4 +1407,43 @@ const Badge = styled.span`
   font-size: calc(1 * var(--font-xs));
   line-height: 1;
   opacity: 0.85;
+`;
+
+const BackIcon = styled(PiArrowLeftBold)`
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+`;
+
+const BackLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(0.5 * var(--spacing-xs));
+  margin-top: var(--spacing-xs);
+  width: 310px;
+  padding: var(--spacing-xs);
+  color: ${theme.color.beige} !important;
+  background-color: ${theme.color.dark};
+  font-size: var(--font-s);
+  font-weight: ${theme.fontWeight.regular};
+  letter-spacing: 0.08rem;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  border: 1px solid ${theme.color.dark};
+  text-transform: uppercase;
+  border-radius: calc(0.5 * ${theme.borderRadius});
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: 3.5rem;
+  }
+
+  &:hover {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark} !important;
+    transform: translateY(-1px);
+  }
+  &:active {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark} !important;
+  }
 `;

@@ -5,7 +5,7 @@ import { theme } from "@/styles";
 import AugenIcon from "@/Icons/AugenIcon";
 import { PiX } from "react-icons/pi";
 
-export default function Menu({ iconWidth = 45, color }) {
+export default function Menu({ iconWidth = 13, color }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
@@ -55,17 +55,17 @@ export default function Menu({ iconWidth = 45, color }) {
 
   const menuItems = [
     { label: "Home", href: "/" },
-    { label: "Leistungen", href: "/#leistungen" },
-    { label: "Workflow", href: "/#workflow" },
-    { label: "Studio", href: "/#studio" },
-    { label: "Team", href: "/#team" },
-    { label: "Preise", href: "/#preise" },
-    { label: "FAQ", href: "/#faq" },
-    { label: "Kontakt", href: "/#contact" },
+    { label: "Fotografie", href: "/fotografie" },
+    { label: "Website", href: "/website" },
+    { label: "Branding", href: "/branding" },
+    { label: "Video", href: "/video" },
+    { label: "Preise", href: "/preise" },
+    { label: "About", href: "/about" },
+    { label: "Kontakt", href: "/kontakt" },
   ];
 
   return (
-    <Wrapper ref={menuRef} $isOpen={menuOpen}>
+    <Wrapper ref={menuRef} $isOpen={menuOpen} onClick={toggleMenu}>
       {menuOpen && (
         <CloseButton type="button" onClick={() => setMenuOpen(false)} aria-label="Menü schließen">
           <PiX />
@@ -84,7 +84,7 @@ export default function Menu({ iconWidth = 45, color }) {
         </LinkList>
       </MenuContainer>
 
-      <EyesToggle $isOpen={menuOpen} onClick={toggleMenu} aria-expanded={menuOpen}>
+      <EyesToggle $isOpen={menuOpen} aria-expanded={menuOpen}>
         <EyesAnchor ref={eyesRef} style={{ "--rot": `${rotation}deg` }}>
           <StyledIconWrapper>
             <AugenIcon color={color} width={iconWidth} height={iconWidth} />
@@ -101,14 +101,14 @@ export default function Menu({ iconWidth = 45, color }) {
 const Wrapper = styled.nav`
   display: flex;
   position: fixed;
-  top: calc(1 * var(--spacing-s));
-  right: -6px;
+  top: 1.75rem;
+  right: 0;
   align-items: center;
   background-color: ${theme.color.beige};
   border-radius: calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius});
-  padding: calc(0.5 * var(--spacing-xs)) 0;
   z-index: var(--index-menu);
   transition: background-color 120ms ease;
+  padding: 1.5rem 0;
 
   box-shadow:
     -4px 4px 4px rgba(37, 37, 34, 0.01),
@@ -131,14 +131,12 @@ const Wrapper = styled.nav`
     visibility: hidden;
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column-reverse;
     align-items: end;
     justify-content: center;
-    right: -8px;
-    padding: var(--spacing-xs);
-    top: calc(1.8 * var(--spacing-s));
-
+    right: 0;
+    top: 1.5rem;
     transform: none;
     transition: background-color 100ms ease;
 
@@ -167,11 +165,10 @@ const EyesToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 calc(1.1 * var(--spacing-s)) 0 var(--spacing-s);
+  padding: 0 1.5rem;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
-    padding: 0 var(--spacing-s) 0 var(--spacing-xs);
   }
 
   -webkit-tap-highlight-color: transparent;
@@ -193,7 +190,7 @@ const StyledIconWrapper = styled.div`
   display: flex;
   transform: rotate(var(--rot, 0deg));
   transition: transform 120ms ease;
-  margin: 0 -0.9rem;
+  margin: 0;
 `;
 
 const MenuContainer = styled.div`
@@ -207,8 +204,9 @@ const LinkList = styled.ul`
   list-style: none;
   padding: 0 var(--spacing-m);
   margin: 0;
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  line-height: 1 !important;
+  margin-bottom: -2px;
+  @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
     padding: var(--spacing-xl);
     gap: var(--spacing-l);
@@ -267,9 +265,8 @@ const CloseButton = styled.button`
   }
 
   svg {
-    stroke-width: 4px;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 `;
 

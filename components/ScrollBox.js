@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "@/styles";
 import { useRef, useEffect, useLayoutEffect, useMemo, useState, useCallback } from "react";
 import { PiArrowRightLight, PiArrowLeftLight, PiArrowBendDownRightLight } from "react-icons/pi";
+import Link from "next/link";
 
 const MOBILE_CYCLIC = false;
 
@@ -316,6 +317,11 @@ export default function ScrollBox({ boxData = [], headline1, headline2, headline
 
     if (dist <= CLICK_MAX_DIST && elapsed <= CLICK_MAX_TIME) {
       const elUnder = document.elementFromPoint(e.clientX, e.clientY);
+      const linkEl = elUnder?.closest?.('a[data-image-link="1"]');
+      if (linkEl) {
+        linkEl.click();
+        return;
+      }
       const cardEl = elUnder?.closest?.("[data-card-idx]");
       const idx = cardEl ? Number(cardEl.dataset.cardIdx) : null;
       if (idx !== null && !Number.isNaN(idx)) {
@@ -344,25 +350,45 @@ export default function ScrollBox({ boxData = [], headline1, headline2, headline
     setMobileIndex(0);
   }, [isTouch, data.length]);
 
-  const onPrev = () => {
+  const onMobilePrev = useCallback(() => {
+    const count = mobileMax + 1;
+    const current = getNearestIndex();
+    const next = MOBILE_CYCLIC ? (current - 1 + count) % count : Math.max(0, current - 1);
+    setMobileIndex(next);
+    scrollToIndexMobile(next);
+  }, [mobileMax, getNearestIndex]);
+
+  const onMobileNext = useCallback(() => {
+    const count = mobileMax + 1;
+    const current = getNearestIndex();
+    const next = MOBILE_CYCLIC ? (current + 1) % count : Math.min(mobileMax, current + 1);
+    setMobileIndex(next);
+    scrollToIndexMobile(next);
+  }, [mobileMax, getNearestIndex]);
+
+  const onPrev = useCallback(() => {
     if (isTouch) return onMobilePrev();
+
     const base = boxData.length || 1;
     const iAbs = getNearestIndex();
     const baseIdx = ((iAbs % base) + base) % base;
     const desiredBase = (baseIdx - 1 + base) % base;
+
     const tgt = getNearestCopyIndex(desiredBase);
     centerCard(tgt, () => setFocusedIndex(getNearestIndex()));
-  };
+  }, [isTouch, onMobilePrev, boxData.length, getNearestIndex, getNearestCopyIndex, centerCard]);
 
-  const onNext = () => {
+  const onNext = useCallback(() => {
     if (isTouch) return onMobileNext();
+
     const base = boxData.length || 1;
     const iAbs = getNearestIndex();
     const baseIdx = ((iAbs % base) + base) % base;
     const desiredBase = (baseIdx + 1) % base;
+
     const tgt = getNearestCopyIndex(desiredBase);
     centerCard(tgt, () => setFocusedIndex(getNearestIndex()));
-  };
+  }, [isTouch, onMobileNext, boxData.length, getNearestIndex, getNearestCopyIndex, centerCard]);
 
   const handleKeyNav = useCallback(
     (e) => {
@@ -404,22 +430,6 @@ export default function ScrollBox({ boxData = [], headline1, headline2, headline
     setTimeout(() => {
       mobileAnimatingRef.current = false;
     }, 350);
-  };
-
-  const onMobilePrev = () => {
-    const count = mobileMax + 1;
-    const current = getNearestIndex();
-    const next = MOBILE_CYCLIC ? (current - 1 + count) % count : Math.max(0, current - 1);
-    setMobileIndex(next);
-    scrollToIndexMobile(next);
-  };
-
-  const onMobileNext = () => {
-    const count = mobileMax + 1;
-    const current = getNearestIndex();
-    const next = MOBILE_CYCLIC ? (current + 1) % count : Math.min(mobileMax, current + 1);
-    setMobileIndex(next);
-    scrollToIndexMobile(next);
   };
 
   const leftDisabled = !MOBILE_CYCLIC && mobileIndex <= 0;
@@ -485,17 +495,25 @@ export default function ScrollBox({ boxData = [], headline1, headline2, headline
           data-touch={isTouch ? "1" : "0"}
         >
           <StyledTrack ref={trackRef}>
-            {data.map(({ title, text, image, alt, showIcon: itemShowIcon }, i) => {
+            {data.map(({ title, text, image, alt, more, moreHref, showIcon: itemShowIcon }, i) => {
               const focused = focusedIndex === i;
 
               const showIconEffective = typeof itemShowIcon === "boolean" ? itemShowIcon : showIcon === true || showIcon === "true";
 
+              const hasMore = Boolean(moreHref);
+
               return (
-                <StyledScrollBox key={i} data-card-idx={i} style={{ zIndex: focused ? 5 : 0 }}>
-                  <StyledScrollBoxInner $focused={focused && !isTouch}>
+                <StyledScrollBox key={i} data-card-idx={i} style={{ zIndex: focused ? 5 : 0 }} $hasMore={hasMore} data-touch={isTouch ? "1" : "0"}>
+                  <StyledScrollBoxInner $focused={focused && !isTouch} $hasMore={hasMore}>
                     {image && (
                       <ImageWrapper>
-                        <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
+                        {moreHref ? (
+                          <ImageLink href={moreHref} data-image-link="1" aria-label={typeof title === "string" ? title : "Mehr erfahren"}>
+                            <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
+                          </ImageLink>
+                        ) : (
+                          <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
+                        )}
                       </ImageWrapper>
                     )}
 
@@ -542,6 +560,7 @@ const Viewport = styled.div`
 `;
 
 const StyledScrollBoxWrapper = styled.div`
+  white-space: pre-line;
   user-select: none;
   background-color: transparent;
   min-width: 250px;
@@ -591,26 +610,63 @@ const StyledTextBox = styled.div`
   }
 `;
 
+const StyledIcon = styled.span`
+  display: inline-flex;
+  vertical-align: text-bottom;
+  height: 100%;
+  margin-right: var(--spacing-xs);
+  font-size: 1.3rem;
+
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    display: none;
+  }
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  margin-bottom: var(--spacing-m);
+  aspect-ratio: 3 / 2;
+  width: 100%;
+  overflow: hidden;
+  z-index: 5;
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    margin-bottom: var(--spacing-xl);
+  }
+`;
+
+const StyledImage = styled(Image)`
+  object-fit: cover;
+  object-position: center;
+  border-radius: ${theme.borderRadius};
+`;
+
+const ImageLink = styled(Link)`
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: ${theme.borderRadius};
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+`;
+
 const StyledScrollBoxInner = styled.div`
   will-change: transform;
   backface-visibility: hidden;
-  transform: ${({ $focused }) => ($focused ? "translateZ(0) scale(1.05)" : "translateZ(0) scale(1)")};
+
+  transform: ${({ $focused, $hasMore }) => ($focused && $hasMore ? "translateZ(0) scale(1.05)" : "translateZ(0) scale(1)")};
+
   transition: transform ${({ $focused }) => ($focused ? "50ms" : "55ms")} cubic-bezier(0.22, 0.61, 0.36, 1);
+
   transform-origin: center center;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
 
-  &:hover {
-    transform: scale(1.05);
-  }
-
   @media (max-width: ${theme.breakpoints.mobile}) {
     transform: none;
-    &:hover {
-      transform: none;
-    }
   }
 
   p {
@@ -645,40 +701,19 @@ const StyledScrollBox = styled.div`
     scroll-snap-stop: always;
   }
 
-  /* p {
-    line-height: ${theme.lineHeight.xxl};
-    font-weight: ${theme.fontWeight.light};
-  } */
-`;
+  ${({ $hasMore }) =>
+    !$hasMore &&
+    `
+      cursor: default;
+    `}
 
-const StyledIcon = styled.span`
-  display: inline-flex;
-  vertical-align: text-bottom;
-  height: 100%;
-  margin-right: var(--spacing-xs);
-  font-size: 1.3rem;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    display: none;
-  }
-`;
-
-const ImageWrapper = styled.div`
-  position: relative;
-  margin-bottom: var(--spacing-m);
-  aspect-ratio: 3 / 2;
-  width: 100%;
-  overflow: hidden;
-
-  @media (max-width: ${theme.breakpoints.mobile}) {
-    margin-bottom: var(--spacing-xl);
-  }
-`;
-
-const StyledImage = styled(Image)`
-  object-fit: cover;
-  object-position: center;
-  border-radius: ${theme.borderRadius};
+  ${({ $hasMore }) =>
+    $hasMore === true &&
+    `
+      &[data-touch="0"]:hover ${StyledScrollBoxInner} {
+        transform: translateZ(0) scale(1.05);
+      }
+    `}
 `;
 
 const ArrowsLayer = styled.div`

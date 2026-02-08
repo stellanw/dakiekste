@@ -35,6 +35,7 @@ const OuterWrapper = styled.div`
   width: 100%;
   background-color: ${theme.color.beige};
   margin: -2px 0;
+  white-space: pre-line;
 `;
 
 const InnerWrapper = styled.div`
@@ -55,6 +56,7 @@ const StyledVideoTextBox = styled.div`
 `;
 
 const StyledTextWrapper = styled.div`
+  white-space: pre-line;
   display: flex;
   flex-direction: column;
   justify-content: center;
