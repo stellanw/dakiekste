@@ -18,11 +18,7 @@ export default function AboutPage() {
     mobileH1: "Das DAKIEKSTE Team – Wir stellen uns vor",
 
     // ServiceHeader Props
-    backgroundColor: theme.color.dark,
-    headlineColor: theme.color.green,
-    logoColor: theme.color.green,
     backgroundType: "image",
-    overlayColor: "#116083",
     backgroundImageSrc: head_image,
   };
   return (

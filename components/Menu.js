@@ -59,15 +59,13 @@ export default function Menu({ iconWidth = 13, color }) {
     { label: "Website", href: "/website" },
     { label: "Branding", href: "/branding" },
     { label: "Video", href: "/video" },
-    { label: "Studio", href: "/studio" },
-    { label: "About", href: "/about" },
     { label: "Preise", href: "/preise" },
-    { label: "FAQ", href: "/#faq" },
-    { label: "Kontakt", href: "/#contact" },
+    { label: "About", href: "/about" },
+    { label: "Kontakt", href: "/kontakt" },
   ];
 
   return (
-    <Wrapper ref={menuRef} $isOpen={menuOpen}>
+    <Wrapper ref={menuRef} $isOpen={menuOpen} onClick={toggleMenu}>
       {menuOpen && (
         <CloseButton type="button" onClick={() => setMenuOpen(false)} aria-label="Menü schließen">
           <PiX />
@@ -86,7 +84,7 @@ export default function Menu({ iconWidth = 13, color }) {
         </LinkList>
       </MenuContainer>
 
-      <EyesToggle $isOpen={menuOpen} onClick={toggleMenu} aria-expanded={menuOpen}>
+      <EyesToggle $isOpen={menuOpen} aria-expanded={menuOpen}>
         <EyesAnchor ref={eyesRef} style={{ "--rot": `${rotation}deg` }}>
           <StyledIconWrapper>
             <AugenIcon color={color} width={iconWidth} height={iconWidth} />
@@ -103,14 +101,14 @@ export default function Menu({ iconWidth = 13, color }) {
 const Wrapper = styled.nav`
   display: flex;
   position: fixed;
-  top: var(--spacing-m);
+  top: 1.75rem;
   right: 0;
   align-items: center;
   background-color: ${theme.color.beige};
   border-radius: calc(0.5 * ${theme.borderRadius}) 0 0 calc(0.5 * ${theme.borderRadius});
   z-index: var(--index-menu);
   transition: background-color 120ms ease;
-  padding: var(--spacing-s) 0;
+  padding: 1.5rem 0;
 
   box-shadow:
     -4px 4px 4px rgba(37, 37, 34, 0.01),
@@ -133,14 +131,12 @@ const Wrapper = styled.nav`
     visibility: hidden;
   }
 
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column-reverse;
     align-items: end;
     justify-content: center;
     right: 0;
-    /* padding: var(--spacing-l) 0; */
-    top: calc(1 * var(--spacing-l));
-    padding: calc(1.5 * var(--spacing-m)) 0;
+    top: 1.5rem;
     transform: none;
     transition: background-color 100ms ease;
 
@@ -169,11 +165,10 @@ const EyesToggle = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0 var(--spacing-s);
+  padding: 0 1.5rem;
 
   @media (max-width: ${theme.breakpoints.tablet}) {
     display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
-    padding: 0 calc(1.2 * var(--spacing-m));
   }
 
   -webkit-tap-highlight-color: transparent;
@@ -211,7 +206,7 @@ const LinkList = styled.ul`
   margin: 0;
   line-height: 1 !important;
   margin-bottom: -2px;
-  @media (max-width: ${theme.breakpoints.tablet}) {
+  @media (max-width: ${theme.breakpoints.mobile}) {
     flex-direction: column;
     padding: var(--spacing-xl);
     gap: var(--spacing-l);

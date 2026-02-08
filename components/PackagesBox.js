@@ -1,11 +1,39 @@
 // PackagesBox.js
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Link from "next/link";
 import { theme } from "@/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import AugenIcon from "@/Icons/AugenIcon";
 import { PiArrowUpRight, PiArrowRight, PiCircleFill } from "react-icons/pi";
+
+const slideDockUp = keyframes`
+  0% {
+    transform: translateY(160px);
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  75% {
+    transform: translateY(0);
+  }
+
+  85% {
+    transform: translateY(10px);  /* kleiner overshoot */
+  }
+
+  95% {
+    transform: translateY(-2px);   /* sanft zurück */
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 export default function PackagesBox({
   topline,
@@ -41,14 +69,65 @@ export default function PackagesBox({
      Local State (Toggle)
   ------------------------ */
   const [localBusinessType, setLocalBusinessType] = useState(businessType);
+  const [visibleMap, setVisibleMap] = useState({});
   /* ------------------------
     Router
   ------------------------ */
   const router = useRouter();
 
+  /* ------------------------
+    Ref
+  ------------------------ */
+  const cardRefs = useRef([]);
+
+  /* ------------------------
+    UseEffect
+  ------------------------ */
   useEffect(() => {
     setLocalBusinessType(businessType);
   }, [businessType]);
+
+  /* ------------------------
+    Animation - Cards
+  ------------------------ */
+  useEffect(() => {
+    const total = (items?.length || 0) + (extras?.length || 0);
+    if (!total) return;
+
+    const prefersReduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+    if (prefersReduced) {
+      const all = {};
+      for (let i = 0; i < total; i++) all[i] = true;
+      setVisibleMap(all);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setVisibleMap((prev) => {
+          const next = { ...prev };
+
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const idx = parseInt(entry.target.dataset.idx, 10);
+              next[idx] = true;
+              observer.unobserve(entry.target); // einmalig
+            }
+          }
+
+          return next;
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: "0px 0px 20% 0px", // wirkt "später" beim Scrollen
+      }
+    );
+
+    cardRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [items, extras]);
 
   /* ------------------------
      Helpers
@@ -144,7 +223,7 @@ export default function PackagesBox({
                   </SwitchTrack>
                 </SwitchButton>
 
-                <SwitchText $active={isFounder}>Solo Gründer*innen (-15%)</SwitchText>
+                <SwitchText $active={isFounder}>Soloselbstständige & Gründer*innen (-15%)</SwitchText>
               </SwitchWrap>
             </SwitchRow>
           )}
@@ -169,8 +248,10 @@ export default function PackagesBox({
 
             const ctaHref = getCtaHrefForService(rawServiceTitle);
 
+            const globalIdx = idx;
+
             return (
-              <Card key={`${cleanServiceTitleForUrl}-${idx}`} $highlighted={p.highlighted}>
+              <Card key={`${cleanServiceTitleForUrl}-${idx}`} $highlighted={p.highlighted} ref={(el) => (cardRefs.current[globalIdx] = el)} data-idx={globalIdx} $visible={!!visibleMap[globalIdx]} style={{ animationDelay: `${globalIdx * 250}ms` }}>
                 {p.badge && <Badge $highlighted={p.highlighted}>{p.badge}</Badge>}
 
                 {displayTitle && <h3>{displayTitle}</h3>}
@@ -212,8 +293,10 @@ export default function PackagesBox({
 
               const ctaHref = getCtaHrefForService(rawServiceTitle);
               const extraBadge = e.badge;
+              const globalIdx = items.length + idx;
+
               return (
-                <ExtraCard key={`${toCleanTitle(rawServiceTitle)}-${idx}`}>
+                <ExtraCard key={`${toCleanTitle(rawServiceTitle)}-${idx}`} ref={(el) => (cardRefs.current[globalIdx] = el)} data-idx={globalIdx} $visible={!!visibleMap[globalIdx]} style={{ animationDelay: `${globalIdx * 250}ms` }}>
                   {extraBadge && <ExtraBadge>{extraBadge}</ExtraBadge>}
                   {displayTitle && <h3>{displayTitle}</h3>}
                   {description && <CardText>{description}</CardText>}
@@ -285,11 +368,25 @@ const Grid = styled.div`
 `;
 
 const Card = styled.div`
+  /* Animation */
+  transform: translateY(280px);
+  opacity: 0;
+
+  animation: ${({ $visible }) => ($visible ? slideDockUp : "none")} 1150ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  will-change: transform, opacity;
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    opacity: 1;
+    animation: none;
+  }
+
   position: relative;
   display: flex;
   flex-direction: column;
-  background: ${({ $highlighted }) => ($highlighted ? theme.color.lightGreen : theme.color.dark)};
-  color: ${({ $highlighted }) => ($highlighted ? theme.color.dark : theme.color.beige)};
+  background: ${theme.color.dark};
+  color: ${theme.color.beige};
   border-radius: ${theme.borderRadius};
   border: none;
   min-width: 0;
@@ -364,7 +461,7 @@ const IconWrapper = styled.div`
   svg {
     width: 100%;
     height: 100%;
-    fill: ${({ $highlighted }) => ($highlighted ? theme.color.dark : theme.color.beige)};
+    fill: ${theme.color.beige};
     transform: rotate(-45deg);
   }
 `;
@@ -376,8 +473,6 @@ const Badge = styled.div`
   font-size: var(--font-s);
   padding: 8px 14px;
   border-radius: 5px;
-  //background: ${({ $highlighted }) => ($highlighted ? theme.color.dark : theme.color.green)};
-  //color: ${({ $highlighted }) => ($highlighted ? theme.color.beige : theme.color.dark)};
   background: ${theme.color.green};
   color: ${theme.color.dark};
 `;
@@ -392,9 +487,9 @@ const CardCtaLink = styled(Link)`
   width: 100%;
   padding: var(--spacing-s) var(--spacing-m);
   border: 1px solid;
-  border-color: ${({ $highlighted }) => ($highlighted ? theme.color.dark : theme.color.beige)};
-  background: ${({ $highlighted }) => ($highlighted ? theme.color.lightGreen : theme.color.dark)};
-  color: ${({ $highlighted }) => ($highlighted ? theme.color.dark : theme.color.beige)};
+  border-color: ${theme.color.beige};
+  background: ${theme.color.dark};
+  color: ${theme.color.beige};
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
@@ -439,6 +534,21 @@ const ExtraCard = styled.div`
   @media (min-width: ${theme.breakpoints.desktop}) {
     padding: var(--spacing-l);
   }
+
+  /* Animation */
+  transform: translateY(280px);
+  opacity: 0;
+
+  animation: ${({ $visible }) => ($visible ? slideDockUp : "none")} 1150ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  will-change: transform, opacity;
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+    opacity: 1;
+    animation: none;
+  }
+
   h3 {
     margin: 0;
 
@@ -514,10 +624,9 @@ const SwitchRow = styled.div`
   align-items: center;
   gap: var(--spacing-xs);
   margin-top: var(--spacing-m);
-  background: ${theme.color.dark};
-  color: ${theme.color.beige};
-  padding: var(--spacing-xs) var(--side-padding);
-  border-radius: calc(0.5 * ${theme.borderRadius});
+  background: ${theme.color.beige};
+  color: ${theme.color.dark};
+  padding: var(--spacing-xs) 0;
   max-width: fit-content;
 `;
 
@@ -526,7 +635,6 @@ const SwitchLabel = styled.span`
   text-transform: uppercase;
   letter-spacing: 0.04rem;
   opacity: 0.8;
-  font-weight: ${theme.fontWeight.bold};
 `;
 
 const SwitchWrap = styled.div`
@@ -541,7 +649,8 @@ const SwitchText = styled.span`
   letter-spacing: 0.04rem;
   :hover {
   }
-  color: ${({ $active }) => ($active ? theme.color.green : theme.color.beige)};
+
+  font-weight: ${({ $active }) => ($active ? 700 : 300)};
 `;
 
 const SwitchButton = styled.button`
@@ -564,8 +673,7 @@ const SwitchTrack = styled.span`
   height: 24px;
   border-radius: 999px;
   border: 1px solid ${theme.color.dark};
-  //background: ${({ $on }) => ($on ? theme.color.green : "transparent")};
-  background: ${theme.color.green};
+  background: ${({ $on }) => ($on ? theme.color.green : "transparent")};
   position: relative;
   transition: background-color 0.2s ease;
 `;

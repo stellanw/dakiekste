@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Pricing from "@/components/Pricing";
 import Head from "next/head";
-import head_image from "/public/images/Head_Image.jpg";
+import head_image from "/public/images/02_Slider/branding-fotografie-erneuerbare-energie-dakiekste-02.jpg";
 import TextAndSteps from "@/components/TextAndSteps";
 
 export default function PreisePage() {
@@ -14,11 +14,7 @@ export default function PreisePage() {
     mobileH1: "Berechne deinen Invest mit unserem Preiskalkulator",
 
     // ServiceHeader Props
-    backgroundColor: theme.color.dark,
-    headlineColor: theme.color.green,
-    logoColor: theme.color.green,
-    backgroundType: "color",
-    overlayColor: "#116083",
+    backgroundType: "image",
     backgroundImageSrc: head_image,
   };
 

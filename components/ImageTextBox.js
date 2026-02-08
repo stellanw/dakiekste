@@ -108,7 +108,7 @@ const StyledTextWrapper = styled.div`
   align-items: flex-start;
   padding: var(--spacing-xxxl) var(--side-padding);
   width: 100%;
-
+  white-space: pre-line;
   @media (min-width: ${theme.breakpoints.tablet}) {
     min-width: 50%;
     max-width: 50%;

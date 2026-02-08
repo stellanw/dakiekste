@@ -1,13 +1,84 @@
 // components/TextAndSteps.js
-
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { theme } from "@/styles";
 
 export default function TextAndSteps({ topline = "", headline = "", intro = "", steps = [], ariaLabel = "" }) {
   const hasSteps = Array.isArray(steps) && steps.length > 0;
 
+  const sectionRef = useRef(null); // NEW
+  const itemRefs = useRef([]);
+  const [visibleMap, setVisibleMap] = useState({});
+  const lastYRef = useRef(0);
+  const scrollDirRef = useRef("down");
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      scrollDirRef.current = y > lastYRef.current ? "down" : "up";
+      lastYRef.current = y;
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Reset nur bei DOWN-scroll (wenn du weiter nach unten gehst)
+  useEffect(() => {
+    if (!hasSteps) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) return;
+
+        // nur resetten, wenn user nach UNTEN scrollt
+        if (scrollDirRef.current === "down") {
+          setVisibleMap({});
+        }
+      },
+      { threshold: 0 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [hasSteps]);
+
+  // Reveal pro Item (nur true)
+  useEffect(() => {
+    if (!hasSteps) return;
+
+    const prefersReduced = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+    if (prefersReduced) {
+      const all = {};
+      steps.forEach((_, i) => (all[i] = true));
+      setVisibleMap(all);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setVisibleMap((prev) => {
+          const next = { ...prev };
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              const idx = parseInt(entry.target.dataset.idx, 10);
+              next[idx] = true;
+            }
+          }
+          return next;
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    itemRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [hasSteps, steps]);
+
   return (
-    <Outer>
+    <Outer ref={sectionRef}>
       <Inner>
         <Header>
           {topline && <h2>{topline}</h2>}
@@ -18,9 +89,9 @@ export default function TextAndSteps({ topline = "", headline = "", intro = "", 
         {hasSteps && (
           <List role="list" aria-label={ariaLabel}>
             {steps.map((s, idx) => (
-              <Item key={`${idx}-${s.title || "step"}`}>
+              <Item key={`${idx}-${s.title || "step"}`} ref={(el) => (itemRefs.current[idx] = el)} data-idx={idx} $visible={!!visibleMap[idx]} style={{ transitionDelay: visibleMap[idx] ? `${idx * 120}ms` : "0ms" }}>
                 <Marker aria-hidden="true">
-                  <Number>{String(idx + 1).padStart(2, "0")}</Number>
+                  <StepNumber>{String(idx + 1).padStart(2, "0")}</StepNumber>
                   {idx < steps.length - 1 && <Line />}
                 </Marker>
 
@@ -89,12 +160,17 @@ const List = styled.ul`
 
 const Item = styled.li`
   display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: var(--spacing-m);
-  align-items: start;
-
   grid-template-columns: 48px 1fr;
   gap: var(--spacing-s);
+  align-items: start;
+
+  /* Reveal animation */
+  opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+  transform: ${({ $visible }) => ($visible ? "translateY(0)" : "translateY(20px)")};
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+  will-change: opacity, transform;
 `;
 
 const Marker = styled.div`
@@ -104,7 +180,7 @@ const Marker = styled.div`
   padding-top: 2px;
 `;
 
-const Number = styled.div`
+const StepNumber = styled.div`
   width: 44px;
   height: 44px;
   border-radius: 999px;
@@ -151,9 +227,12 @@ const StepTitle = styled.h4`
   margin: 0 0 var(--spacing-xs) 0;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
+  font-size: var(--font-l);
+  font-weight: ${theme.fontWeight.bold};
 `;
 
 const StepText = styled.p`
   margin: 0;
-  opacity: 0.9;
+
+  font-size: var(--font-m);
 `;

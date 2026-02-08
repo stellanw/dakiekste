@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "@/styles";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import DakieksteLogo from "@/Icons/DakieksteLogo";
@@ -43,6 +44,21 @@ export default function Header({
   // sizing
   logoWidth, // number override
 }) {
+  // Mobile logoWidth berechnung
+  const desktopLogoWidth = logoWidth ?? 180;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${theme.breakpoints.tablet})`);
+    const update = () => setIsMobile(mq.matches);
+
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const computedLogoWidth = isMobile ? Math.round(desktopLogoWidth * 0.85) : desktopLogoWidth;
+
   const renderBackground = () => {
     if (backgroundType === "image") {
       return <ImageBackground src={backgroundImageSrc} alt={backgroundImageAlt} fill quality={100} sizes="(max-width: 1900px) 100vw, 80vw" priority />;
@@ -65,7 +81,7 @@ export default function Header({
     <StyledHeadContainer>
       {/* Logo */}
       <StyledLink href="/">
-        <DakieksteLogo color={logoColor} width={logoWidth ?? 140} />
+        <DakieksteLogo color={logoColor} width={computedLogoWidth} />
       </StyledLink>
 
       {/* Menu */}
@@ -134,23 +150,13 @@ const Overlay = styled.div`
   z-index: 1;
   opacity: 0;
   background: ${({ $overlay }) => $overlay};
-  /* opacity: 0.05;
-  background-color: ${({ $overlay }) => $overlay || theme.color.beige};
-  mask-image: url("/DAKIEKSTE_Web_Menu_Augen.svg");
-  mask-size: 20px 20px;
-  mask-repeat: repeat;
-  background-size: 10px 10px; */
 `;
 
 const StyledLink = styled(Link)`
   position: absolute;
-  top: calc(0.75 * var(--side-padding));
+  top: 3rem;
   left: var(--side-padding);
   z-index: 5;
-
-  @media (max-width: ${theme.breakpoints.tablet}) {
-    top: calc(1.1 * var(--side-padding));
-  }
 `;
 
 const StyledHeadlineContainer = styled.div`

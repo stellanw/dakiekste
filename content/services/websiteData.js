@@ -21,11 +21,7 @@ const websiteData = {
     mobileH1: "Webdesign & Webentwicklung ganzheitlich gedacht",
 
     // ServiceHeader Props
-    backgroundColor: theme.color.dark,
-    headlineColor: theme.color.beige,
-    logoColor: theme.color.green,
     backgroundType: "image",
-    overlayColor: "#116083",
     backgroundImageSrc: service_webdev,
   },
 
@@ -142,40 +138,6 @@ const websiteData = {
         alt: "Website Technik – Fixes & Betreuung",
         title: "Technik, Fixes & Betreuung",
         text: "Wir halten dein Setup stabil: Updates, Fehlerbehebung, Performance, kleine Anpassungen. Du bekommst schnelle Hilfe, klare Prioritäten und eine Website, die verlässlich funktioniert.",
-      },
-    ],
-  },
-
-  // Prozess
-  how: {
-    topline: "So arbeiten wir",
-    headline: (
-      <>
-        Klarer Prozess.
-        <br />
-        Weniger Stress.
-      </>
-    ),
-    steps: [
-      {
-        title: "Kurz-Check",
-        text: "Wir schauen uns an, wo du stehst, was gerade hakt und was du erreichen willst.",
-      },
-      {
-        title: "Vorschlag",
-        text: "Du bekommst von uns eine klare Empfehlung: nächster Schritt, sinnvoller Umfang und realistischer Aufwand.",
-      },
-      {
-        title: "Umsetzung",
-        text: "Design, Inhalt und Technik setzen wir strukturiert um – ohne Reibung, ohne Dauerabstimmung.",
-      },
-      {
-        title: "Feinschliff",
-        text: "Wir testen, optimieren Details und machen die Website sauber startklar.",
-      },
-      {
-        title: "Optional",
-        text: "Auf Wunsch begleiten wir dich weiter und kümmern uns um Updates, Anpassungen und Weiterentwicklung.",
       },
     ],
   },

@@ -92,8 +92,13 @@ export default function ContactForm() {
     <StyledFormWrapper>
       <InnerWrapper>
         <StyledTextContainer>
-          <h2>Kontakt</h2>
-          <h4>Egal ob Frage oder Projektidee – wir freuen uns auf deine Nachricht.</h4>
+          {/* <h2>Nur eine Nachricht entfernt</h2> */}
+          <h4>
+            Schreib uns kurz, worum es geht, oder vereinbare ein Erstgespräch.
+            <br />
+            Wir nehmen uns Zeit, hören zu und sagen dir, was sinnvoll ist – persönlich, per Videocall oder bei uns im Studio.
+          </h4>
+          {/* <h4>Egal ob Frage oder Projektidee – wir freuen uns auf deine Nachricht.</h4> */}
         </StyledTextContainer>
 
         {isSuccess ? (
@@ -251,11 +256,6 @@ const StyledTextContainer = styled.div`
     min-width: 600px;
     width: 40%;
   }
-
-  h3 {
-    text-transform: uppercase;
-    font-weight: ${theme.fontWeight.bold};
-  }
 `;
 
 const StyledForm = styled.form`
@@ -283,12 +283,10 @@ const StyledForm = styled.form`
     font-weight: ${theme.fontWeight.bold};
     letter-spacing: 0.035rem;
     color: ${theme.color.beige};
-    padding-top: calc(0.5 * var(--spacing-xs));
     margin-bottom: calc(0.75 * var(--spacing-xs)) !important;
     @media (max-width: ${theme.breakpoints.mobile}) {
       font-size: var(--font-xs) !important;
       font-weight: ${theme.fontWeight.regular};
-      padding-top: var(--spacing-s);
     }
   }
 
@@ -359,7 +357,7 @@ const StyledButton = styled.button`
 
 const StyledInput = styled.input`
   ${fieldBase};
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-s);
   padding: var(--spacing-xs);
   height: calc(2.8 * var(--spacing-m));
 
@@ -400,7 +398,6 @@ const StyledLabel = styled.label`
   flex-wrap: wrap;
   justify-content: start;
   align-items: center;
-
   margin-bottom: var(--spacing-xs);
   color: ${theme.color.beige};
 

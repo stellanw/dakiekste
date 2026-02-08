@@ -29,13 +29,6 @@ const fotografieData = {
     backgroundVideoPoster: "/videos/video-poster.png",
     backgroundVideoSrcMp4: "/videos/11_Video/Selections_Workflow_Beratung.mp4",
     backgroundVideoSrcWebm: "/videos/Selections_Imagefilm.webm",
-
-    // backgroundType: "image",
-    // backgroundImageSrc: service_branding,
-
-    backgroundColor: theme.color.dark,
-    headlineColor: theme.color.beige,
-    logoColor: theme.color.green,
   },
 
   /* ================= PROBLEM ================= */
@@ -161,6 +154,8 @@ const fotografieData = {
         entspannte Umsetzung
       </>
     ),
+    intro: "Introtext",
+    ariaLabel: "So arbeiten wir",
     steps: [
       {
         title: "Kurz-Check",

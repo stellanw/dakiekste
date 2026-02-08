@@ -317,6 +317,11 @@ export default function ScrollBox({ boxData = [], headline1, headline2, headline
 
     if (dist <= CLICK_MAX_DIST && elapsed <= CLICK_MAX_TIME) {
       const elUnder = document.elementFromPoint(e.clientX, e.clientY);
+      const linkEl = elUnder?.closest?.('a[data-image-link="1"]');
+      if (linkEl) {
+        linkEl.click();
+        return;
+      }
       const cardEl = elUnder?.closest?.("[data-card-idx]");
       const idx = cardEl ? Number(cardEl.dataset.cardIdx) : null;
       if (idx !== null && !Number.isNaN(idx)) {
@@ -495,21 +500,19 @@ export default function ScrollBox({ boxData = [], headline1, headline2, headline
 
               const showIconEffective = typeof itemShowIcon === "boolean" ? itemShowIcon : showIcon === true || showIcon === "true";
 
-              const hasMore = typeof more === "string" ? more.trim().length > 0 : Boolean(more);
+              const hasMore = Boolean(moreHref);
 
               return (
                 <StyledScrollBox key={i} data-card-idx={i} style={{ zIndex: focused ? 5 : 0 }} $hasMore={hasMore} data-touch={isTouch ? "1" : "0"}>
                   <StyledScrollBoxInner $focused={focused && !isTouch} $hasMore={hasMore}>
                     {image && (
                       <ImageWrapper>
-                        <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
-                        {hasMore && (
-                          <>
-                            <ImageOverlay />
-                            <MoreButton as={moreHref ? "a" : "button"} href={moreHref || undefined} type={moreHref ? undefined : "button"}>
-                              {typeof more === "string" ? more : "Mehr erfahren"}
-                            </MoreButton>
-                          </>
+                        {moreHref ? (
+                          <ImageLink href={moreHref} data-image-link="1" aria-label={typeof title === "string" ? title : "Mehr erfahren"}>
+                            <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
+                          </ImageLink>
+                        ) : (
+                          <StyledImage src={image} alt={alt} fill quality={80} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 80vw" priority />
                         )}
                       </ImageWrapper>
                     )}
@@ -557,6 +560,7 @@ const Viewport = styled.div`
 `;
 
 const StyledScrollBoxWrapper = styled.div`
+  white-space: pre-line;
   user-select: none;
   background-color: transparent;
   min-width: 250px;
@@ -636,40 +640,15 @@ const StyledImage = styled(Image)`
   border-radius: ${theme.borderRadius};
 `;
 
-const ImageOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background: ${theme.color.beige};
-  opacity: 0;
-  transition: opacity 160ms ease;
-  pointer-events: none;
-  z-index: 1000;
+const ImageLink = styled(Link)`
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
   border-radius: ${theme.borderRadius};
-`;
-
-const MoreButton = styled(Link)`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition:
-    opacity 160ms ease,
-    transform 160ms ease;
-  z-index: 1001;
-  padding: 0.75rem 1.1rem;
-  border-radius: calc(0.5 * ${theme.borderRadius});
-  border: none;
-  background: ${theme.color.dark};
-  color: ${theme.color.beige};
+  overflow: hidden;
   text-decoration: none;
   cursor: pointer;
-
-  &:hover {
-    transform: translate(-50%, -50%) scale(1.03);
-    background: ${theme.color.green};
-    color: ${theme.color.dark};
-  }
 `;
 
 const StyledScrollBoxInner = styled.div`
@@ -733,16 +712,6 @@ const StyledScrollBox = styled.div`
     `
       &[data-touch="0"]:hover ${StyledScrollBoxInner} {
         transform: translateZ(0) scale(1.05);
-      }
-
-      &[data-touch="0"]:hover ${ImageOverlay} {
-        opacity: 0.5;
-        z-indes: 9000;
-      }
-
-      &[data-touch="0"]:hover ${MoreButton} {
-        opacity: 1;
-             z-indes: 9000;
       }
     `}
 `;

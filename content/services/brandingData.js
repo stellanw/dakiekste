@@ -22,11 +22,7 @@ const brandingData = {
     mobileH1: "Branding & Design",
 
     // ServiceHeader Props
-    backgroundColor: theme.color.dark,
-    headlineColor: theme.color.beige,
-    logoColor: theme.color.green,
     backgroundType: "image",
-    overlayColor: "#116083",
     backgroundImageSrc: service_corporate,
   },
 

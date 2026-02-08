@@ -4,12 +4,12 @@ export const pricingData = [
   {
     key: "businessType",
     category: "Dein Business",
-    options: ["Soloselbstständige & Gründer*innen", "Unternehmen", "Vereine & Organisationen"],
+    options: ["Unternehmen", "Soloselbstständige & Gründer*innen", "Vereine & Organisationen"],
   },
   {
     key: "projectType",
     category: "Dein Projekt",
-    options: ["Fotografie", "Video", "Design", "Website", "Abo"],
+    options: ["Fotografie", "Video", "Branding", "Website", "Abo"],
   },
 ];
 
@@ -228,7 +228,7 @@ export const servicesData = [
 
   {
     title: "Logo Design",
-    category: "Design",
+    category: "Branding",
     isCountable: false,
     unit: "",
     description: "Von den ersten Entwürfen bis zur finalen Version entwickeln wir ein Logo, das sich in allen Medien einsetzen lässt. In engem Austausch erstellen wir ein Konzept und ein kleines Manual für die korrekte Anwendung.",
@@ -236,7 +236,7 @@ export const servicesData = [
   },
   {
     title: "Corporate Design",
-    category: "Design",
+    category: "Branding",
     isCountable: false,
     unit: "",
     description: "Logo, Typografie und Farben – wir entwickeln ein Corporate Design, das die zentralen Gestaltungselemente deiner Marke definiert und ein einheitliches Erscheinungsbild schafft. Alle Regeln und Anwendungen halten wir in einem Designmanual fest, das dir als klare Grundlage für alle weiteren Kommunikationsmittel dient.",
@@ -244,7 +244,7 @@ export const servicesData = [
   },
   {
     title: "Redesign",
-    category: "Design",
+    category: "Branding",
     isCountable: false,
     unit: "",
     description: "Beim Redesign modernisieren wir dein Logo, Farbwelt und Typografie und bringen das Erscheinungsbild deiner Marke auf den neuesten Stand. Das Ergebnis: ein moder, klares und zeitgemäßes Design mit Wiedererkennungswert das neue Impulse setzt.",
@@ -252,7 +252,7 @@ export const servicesData = [
   },
   {
     title: "Konzeption & Workshop",
-    category: "Design",
+    category: "Branding",
     isCountable: false,
     unit: "",
     description:

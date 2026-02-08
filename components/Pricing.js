@@ -10,9 +10,12 @@ import pricingConfig from "@/content/pricing/pricingData";
 import Toast from "@/components/Toast";
 import useSessionStorageState from "@/hooks/useSessionStorageState";
 
+const ORG_KEY = "org-service";
+
 const SPECIAL_SERVICE_TITLE = "Leistungen für Vereine & Organisationen";
 const ORG_SERVICE = {
   title: SPECIAL_SERVICE_TITLE,
+  id: ORG_KEY,
   description: "Individuelle Angebote für gemeinnützige Organisationen, Vereine, NGOs & Initiativen – fair, bedarfsorientiert und an eurer Mission ausgerichtet.",
   category: "Spezial",
   price: 0,
@@ -28,6 +31,11 @@ const initialOverlayFormData = {
   email: "",
   message: "",
   acceptedTerms: false,
+};
+
+const DEFAULT_CATEGORY = {
+  businessType: "Unternehmen",
+  projectType: "Fotografie",
 };
 
 const DEC0 = new Intl.NumberFormat("de-DE", {
@@ -71,15 +79,15 @@ const HiddenServiceCheckbox = styled.input.attrs({ type: "checkbox" })`
 `;
 
 export default function Pricing({ pricingData = pricingConfig.pricingData, servicesData = pricingConfig.servicesData }) {
+  const router = useRouter();
+
   const resolvedPricingData = Array.isArray(pricingData) ? pricingData : pricingConfig.pricingData;
+
   const resolvedServicesData = useMemo(() => {
     return Array.isArray(servicesData) ? servicesData : pricingConfig.servicesData;
   }, [servicesData]);
 
-  const [selectedCategory, setSelectedCategory] = useState({
-    businessType: "Soloselbstständige & Gründer*innen",
-    projectType: "Fotografie",
-  });
+  const [selectedCategory, setSelectedCategory] = useState(DEFAULT_CATEGORY);
 
   const [serviceCounts, setServiceCounts] = useState({});
   const [showOverlay, setShowOverlay] = useState(false);
@@ -91,28 +99,65 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
   const [toast, setToast] = useState({ visible: false, message: "" });
 
   const [calcPersist, setCalcPersist] = useSessionStorageState("dak_calc", {
-    selectedCategory: {
-      businessType: "Soloselbstständige & Gründer*innen",
-      projectType: "Fotografie",
-    },
+    selectedCategory: DEFAULT_CATEGORY,
     selectedServices: [],
     serviceCounts: {},
     lastFrom: null,
   });
 
+  /* =========================
+     REFS
+     ========================= */
   const stashRef = useRef({ services: [], counts: {} });
   const selRef = useRef([]);
   const countsRef = useRef({});
-  const router = useRouter();
+  const outcomeListRef = useRef(null);
 
   const didHydrateRef = useRef(false);
   const restoringRef = useRef(false);
 
+  const pendingOpenKeyRef = useRef(null);
+
+  /* =========================
+     Helpers (Query + Mapping)
+     ========================= */
+  const normalizeTitle = (v) =>
+    String(v || "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+
+  const mapCategoryToProjectType = (cat) => {
+    const raw = Array.isArray(cat) ? cat[0] : cat;
+    const c = String(raw || "")
+      .toLowerCase()
+      .trim();
+
+    if (c === "website") return "Website";
+    if (c === "abo") return "Abo";
+    if (c === "branding") return "Branding";
+    if (c === "foto" || c === "fotografie") return "Fotografie";
+    if (c === "video") return "Video";
+    return null;
+  };
+
+  const labelFromPath = (path) => {
+    const map = {
+      "/fotografie": "Fotografie",
+      "/video": "Video",
+      "/website": "Website",
+      "/branding": "Branding",
+    };
+    return map[path] || "zur vorherigen Seite";
+  };
+
+  /* =========================
+     Restore (Session Storage)
+     ========================= */
   useEffect(() => {
     if (didHydrateRef.current) return;
     if (typeof window === "undefined") return;
 
-    // Restore nur, wenn wirklich was gespeichert ist
     if (calcPersist?.selectedServices?.length) {
       restoringRef.current = true;
 
@@ -123,7 +168,6 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
 
     didHydrateRef.current = true;
 
-    // wichtig: erst NACH dem Restore entsperren
     queueMicrotask(() => {
       restoringRef.current = false;
     });
@@ -141,7 +185,9 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     }));
   }, [selectedCategory, selectedServices, serviceCounts, setCalcPersist]);
 
-  // Scroll/Fokus Lock
+  /* =========================
+     Scroll/Fokus Lock (Overlay)
+     ========================= */
   const scrollYRef = useRef(0);
   const lastFocusRef = useRef(null);
 
@@ -158,38 +204,6 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     setShowOverlay(false);
   };
 
-  // --- Helpers für Query-Init (PackagesBox -> Preiskalkulator)
-  const normalizeTitle = (v) =>
-    String(v || "")
-      .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase();
-
-  const mapCategoryToProjectType = (cat) => {
-    const c = String(cat || "")
-      .toLowerCase()
-      .trim();
-    if (c === "website") return "Website";
-    if (c === "abo") return "Abo";
-    if (c === "design") return "Design";
-    if (c === "foto" || c === "fotografie") return "Fotografie";
-    if (c === "video") return "Video";
-    return null;
-  };
-
-  const labelFromPath = (path) => {
-    const map = {
-      "/fotografie": "Fotografie",
-      "/video": "Video",
-      "/website": "Website",
-      "/branding": "Branding",
-    };
-    return map[path] || "zur vorherigen Seite";
-  };
-
-  /* =========================
-     OVERLAY SCROLL LOCK (clean)
-     ========================= */
   useLayoutEffect(() => {
     if (typeof window === "undefined") return;
     if (!showOverlay) return;
@@ -243,7 +257,6 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     });
   }, [showOverlay]);
 
-  // Optional: verhindert Browser-Auto-Scroll-Restore
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!("scrollRestoration" in window.history)) return;
@@ -256,7 +269,7 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
   }, [showOverlay]);
 
   /* =========================
-     REFS SYNC
+     Refs Sync
      ========================= */
   useEffect(() => {
     selRef.current = selectedServices;
@@ -266,12 +279,8 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     countsRef.current = serviceCounts;
   }, [serviceCounts]);
 
-  useEffect(() => {
-    setOpenKey(null);
-  }, [selectedCategory.businessType, selectedCategory.projectType]);
-
   /* =========================
-     RESPONSIVE
+     Responsive
      ========================= */
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 750);
@@ -286,24 +295,39 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
   useEffect(() => {
     if (!didHydrateRef.current) return;
     if (restoringRef.current) return;
+
     const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
+
     if (isOrg) {
+      // vorherige Auswahl sichern
       stashRef.current = {
-        services: selRef.current.filter((s) => s.title !== ORG_SERVICE.title),
+        services: selRef.current.filter((s) => s.id !== ORG_KEY),
         counts: { ...countsRef.current },
       };
+
+      // ORG-Service setzen + Description öffnen
       setSelectedServices([ORG_SERVICE]);
       setServiceCounts({});
+      setOpenKey(ORG_KEY);
     } else {
-      const withoutOrg = selRef.current.filter((s) => s.title !== ORG_SERVICE.title);
+      // ORG verlassen → vorherige Auswahl wiederherstellen
+      const withoutOrg = selRef.current.filter((s) => s.id !== ORG_KEY);
+
       const restoreServices = withoutOrg.length > 0 ? withoutOrg : stashRef.current.services || [];
+
       const restoreCounts = Object.keys(countsRef.current).length > 0 ? countsRef.current : stashRef.current.counts || {};
+
       setSelectedServices(restoreServices);
       setServiceCounts(restoreCounts);
+
+      // nur schließen, wenn ORG-Panel offen war
+      setOpenKey((prev) => (prev === ORG_KEY ? null : prev));
     }
-    setOpenKey(null);
   }, [selectedCategory.businessType]);
 
+  /* =========================
+     Query Init (ServicePages / PackagesBox -> /preise)
+     ========================= */
   useEffect(() => {
     if (!router.isReady) return;
     if (typeof window === "undefined") return;
@@ -312,7 +336,7 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
 
     // 1) businessType setzen
     if (businessType) {
-      const bt = String(businessType);
+      const bt = Array.isArray(businessType) ? businessType[0] : String(businessType);
       const allowed = ["Soloselbstständige & Gründer*innen", "Unternehmen", "Vereine & Organisationen"];
       if (allowed.includes(bt)) {
         setSelectedCategory((prev) => ({ ...prev, businessType: bt }));
@@ -327,9 +351,11 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
       }
     }
 
-    // 3) package hinzufügen
+    // 3) package hinzufügen (merken zum Öffnen)
     if (pkg) {
-      const wanted = normalizeTitle(pkg);
+      const rawPkg = Array.isArray(pkg) ? pkg[0] : pkg;
+      const wanted = normalizeTitle(rawPkg);
+
       const svc = resolvedServicesData.find((s) => normalizeTitle(s.title) === wanted) || null;
 
       if (from && typeof from === "string") {
@@ -337,16 +363,12 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
       }
 
       if (svc) {
-        let added = false;
+        const key = svc.id || svc.title;
 
         setSelectedServices((prev) => {
           const exists = prev.some((s) => s.title === svc.title);
           if (exists) return prev;
-          added = true;
-          return [...prev, svc];
-        });
 
-        if (added) {
           if (svc.isCountable) {
             setServiceCounts((prevCounts) => ({
               ...prevCounts,
@@ -358,65 +380,28 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
             visible: true,
             message: `„${svc.title}“ zur Kalkulation hinzugefügt ✓`,
           });
-        }
 
-        setOpenKey(null);
+          return [...prev, svc];
+        });
+
+        pendingOpenKeyRef.current = key;
       }
     }
 
     // Query entfernen + scroll
     if (pkg || category || businessType) {
-      router.replace("/preise", undefined, { shallow: true });
-
       requestAnimationFrame(() => {
-        document.getElementById("calc-head")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        router.replace("/preise", undefined, { shallow: true });
+
+        requestAnimationFrame(() => {
+          document.getElementById("calc-head")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
       });
     }
   }, [router.isReady, router.query.category, router.query.package, router.query.businessType, router.query.from, resolvedServicesData, setCalcPersist, router]);
-
-  /* =========================
-     ACTIONS
-     ========================= */
-  const handleCategorySelection = (key, option) => {
-    setSelectedCategory((prev) => ({ ...prev, [key]: option }));
-  };
-
-  const toggleServiceDetails = (key) => {
-    setOpenKey((prev) => (prev === key ? null : key));
-  };
-
-  const handleServiceSelection = (service) => {
-    setSelectedServices((prev) => {
-      const isSelected = prev.some((s) => s.title === service.title);
-
-      if (selectedCategory.businessType === "Vereine & Organisationen") {
-        return isSelected ? [] : [service];
-      }
-
-      if (isSelected) {
-        const updatedCounts = { ...serviceCounts };
-        delete updatedCounts[service.title];
-        setServiceCounts(updatedCounts);
-        return prev.filter((s) => s.title !== service.title);
-      } else {
-        if (service.isCountable) {
-          setServiceCounts((prevCounts) => ({ ...prevCounts, [service.title]: 1 }));
-        }
-        if (service.title === SPECIAL_SERVICE_TITLE) return prev;
-        return [...prev, service];
-      }
-    });
-  };
-
-  const removeService = (serviceToRemove) => {
-    setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
-  };
-
-  const clearAllSelections = () => {
-    setSelectedServices([]);
-    setServiceCounts({});
-    setOpenKey(null);
-  };
 
   /* =========================
      PRICING
@@ -429,19 +414,32 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     return p;
   };
 
-  const handleCountChange = (title, delta) => {
-    setServiceCounts((prevCounts) => {
-      const current = prevCounts[title] || 1;
-      const newValue = Math.max(1, current + delta);
-      return { ...prevCounts, [title]: newValue };
-    });
-  };
-
   const priceOnRequest = selectedCategory.businessType === "Vereine & Organisationen" || selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
+
   const isOrg = selectedCategory.businessType === "Vereine & Organisationen";
   const isOrgSelected = selectedServices.some((s) => s.title === SPECIAL_SERVICE_TITLE);
 
-  const filteredServices = selectedCategory.businessType === "Vereine & Organisationen" ? [ORG_SERVICE] : resolvedServicesData && resolvedServicesData.length > 0 ? resolvedServicesData.filter((service) => service.category === selectedCategory.projectType) : [];
+  const filteredServices = useMemo(() => {
+    if (isOrg) return [ORG_SERVICE];
+
+    if (!Array.isArray(resolvedServicesData) || resolvedServicesData.length === 0) return [];
+
+    return resolvedServicesData.filter((service) => service.category === selectedCategory.projectType);
+  }, [isOrg, resolvedServicesData, selectedCategory.projectType]);
+
+  // ✅ Öffnet Panel erst, wenn Service in der aktuell gerenderten Liste existiert
+  useEffect(() => {
+    const key = pendingOpenKeyRef.current;
+    if (!key) return;
+
+    const existsInView = filteredServices?.some((s) => (s.id || s.title) === key);
+    if (!existsInView) return;
+
+    requestAnimationFrame(() => {
+      setOpenKey(key);
+      pendingOpenKeyRef.current = null;
+    });
+  }, [filteredServices, selectedCategory.projectType, selectedServices]);
 
   const totalRaw = selectedServices.reduce((sum, service) => {
     const count = service.isCountable ? serviceCounts[service.title] || 1 : 1;
@@ -453,7 +451,32 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
 
   const totalPrice = totalRaw;
 
-  const outcomeListRef = useRef(null);
+  const MARKUP_PCT = 8;
+  const MONTHS = 6;
+
+  const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+
+  const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
+
+  const allowedInstallmentsTotal = selectedServices.reduce((sum, s) => {
+    if (s.allowInstallments === false) return sum;
+    const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
+    const baseRounded = roundToTen(Number(s.price) || 0);
+    const discounted = applyDiscount(baseRounded);
+    const finalTen = roundToTen(discounted);
+    return sum + finalTen * count;
+  }, 0);
+
+  const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
+
+  const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
+
+  const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
+  const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
+
+  /* =========================
+     Outcome Scroll Hint
+     ========================= */
   const [showOutcomeHint, setShowOutcomeHint] = useState(false);
 
   useEffect(() => {
@@ -478,27 +501,56 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
     };
   }, [selectedServices.length]);
 
-  const MARKUP_PCT = 8;
-  const MONTHS = 6;
+  /* =========================
+     ACTIONS
+     ========================= */
+  const handleCategorySelection = (key, option) => {
+    setOpenKey(null);
+    setSelectedCategory((prev) => ({ ...prev, [key]: option }));
+  };
 
-  const installmentPriceWithMarkup = (total, pct = 0, months = 6) => (total * (1 + pct / 100)) / months;
+  const toggleServiceDetails = (key) => {
+    setOpenKey((prev) => (prev === key ? null : key));
+  };
 
-  const anyInstallmentsAllowed = selectedServices.some((s) => s.allowInstallments !== false);
-  const anyInstallmentsForbidden = selectedServices.some((s) => s.allowInstallments === false);
+  const handleServiceSelection = (service, key) => {
+    setSelectedServices((prev) => {
+      const isSelected = prev.some((s) => s.title === service.title);
 
-  const allowedInstallmentsTotal = selectedServices.reduce((sum, s) => {
-    if (s.allowInstallments === false) return sum;
-    const count = s.isCountable ? serviceCounts[s.title] || 1 : 1;
-    const baseRounded = roundToTen(Number(s.price) || 0);
-    const discounted = applyDiscount(baseRounded);
-    const finalTen = roundToTen(discounted);
-    return sum + finalTen * count;
-  }, 0);
+      if (selectedCategory.businessType === "Vereine & Organisationen") {
+        if (!isSelected) setOpenKey(key);
+        else setOpenKey(null);
+        return isSelected ? [] : [service];
+      }
 
-  const hideInstallments = priceOnRequest || !anyInstallmentsAllowed || allowedInstallmentsTotal <= 0;
+      if (isSelected) {
+        const updatedCounts = { ...serviceCounts };
+        delete updatedCounts[service.title];
+        setServiceCounts(updatedCounts);
 
-  const scopeInline = anyInstallmentsForbidden ? "(Hinweis beachten)" : "";
-  const scopeHint = anyInstallmentsForbidden ? "Hinweis: Die Rate berechnet sich nur aus den ratenfähigen Leistungen. Nicht ratenfähige Bausteine sind nicht enthalten." : "";
+        setOpenKey((prevOpen) => (prevOpen === key ? null : prevOpen));
+        return prev.filter((s) => s.title !== service.title);
+      } else {
+        if (service.isCountable) {
+          setServiceCounts((prevCounts) => ({ ...prevCounts, [service.title]: 1 }));
+        }
+        if (service.title === SPECIAL_SERVICE_TITLE) return prev;
+
+        setOpenKey(key);
+        return [...prev, service];
+      }
+    });
+  };
+
+  const removeService = (serviceToRemove) => {
+    setSelectedServices((prev) => prev.filter((s) => s.title !== serviceToRemove.title));
+  };
+
+  const clearAllSelections = () => {
+    setSelectedServices([]);
+    setServiceCounts({});
+    setOpenKey(null);
+  };
 
   return (
     <OuterWrapper aria-labelledby="calc-head" aria-describedby="calc-desc">
@@ -658,12 +710,10 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                         Anfrage starten
                       </StyledButton>
                       {calcPersist?.lastFrom && calcPersist.lastFrom !== "/preise" && (
-                        <BackLinkWrap>
-                          <BackLink href={calcPersist.lastFrom}>
-                            <BackIcon aria-hidden="true" />
-                            <span>Zurück zur Seite {labelFromPath(calcPersist.lastFrom)}</span>
-                          </BackLink>
-                        </BackLinkWrap>
+                        <BackLink href={calcPersist.lastFrom}>
+                          <BackIcon aria-hidden="true" />
+                          Zurück zu »{labelFromPath(calcPersist.lastFrom)}«
+                        </BackLink>
                       )}
                     </>
                   )}
@@ -685,7 +735,7 @@ export default function Pricing({ pricingData = pricingConfig.pricingData, servi
                         <Service>
                           <ServiceTitleGroup $hovered={hoverKey === serviceKey}>
                             <TitleCheckboxContainer $checked={isSelected} as="label" htmlFor={`svc-${serviceKey}`}>
-                              <HiddenServiceCheckbox id={`svc-${serviceKey}`} checked={isSelected} onChange={() => handleServiceSelection(service)} aria-label={`${service.title} ${isSelected ? "abwählen" : "auswählen"}`} />
+                              <HiddenServiceCheckbox id={`svc-${serviceKey}`} checked={isSelected} onChange={() => handleServiceSelection(service, key)} aria-label={`${service.title} ${isSelected ? "abwählen" : "auswählen"}`} />
                               <ServiceDot aria-hidden="true" $checked={isSelected} />
                               <ServiceTitle id={`svc-title-${serviceKey}`}>{service.title}</ServiceTitle>
                             </TitleCheckboxContainer>
@@ -1359,27 +1409,41 @@ const Badge = styled.span`
   opacity: 0.85;
 `;
 
-const BackLinkWrap = styled.div`
-  margin-top: var(--spacing-s);
-`;
-
 const BackIcon = styled(PiArrowLeftBold)`
   width: 1rem;
   height: 1rem;
-  margin-right: 10px;
+  flex-shrink: 0;
 `;
 
 const BackLink = styled(Link)`
-  margin-top: var(--spacing-s);
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-xxs);
+  justify-content: center;
+  gap: calc(0.5 * var(--spacing-xs));
+  margin-top: var(--spacing-xs);
+  width: 310px;
+  padding: var(--spacing-xs);
+  color: ${theme.color.beige} !important;
+  background-color: ${theme.color.dark};
   font-size: var(--font-s);
+  font-weight: ${theme.fontWeight.regular};
+  letter-spacing: 0.08rem;
+  cursor: pointer;
+  transition: background-color 0.1s ease;
+  border: 1px solid ${theme.color.dark};
   text-transform: uppercase;
-
-  color: ${theme.color.dark};
+  border-radius: calc(0.5 * ${theme.borderRadius});
+  @media (max-width: ${theme.breakpoints.mobile}) {
+    height: 3.5rem;
+  }
 
   &:hover {
-    color: ${theme.color.green};
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark} !important;
+    transform: translateY(-1px);
+  }
+  &:active {
+    background-color: ${theme.color.green};
+    color: ${theme.color.dark} !important;
   }
 `;
