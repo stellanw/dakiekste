@@ -536,8 +536,8 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description:
-                "Wir kommen für 2 Stunden vorbei und fotografieren das, was da ist: dich, dein Arbeitsumfeld, Abläufe, Details und Situationen im Moment. Vorab besprechen wir kurz deine Ideen und was du dir wünscht. Enthalten sind 10 Bilder mit passendem Bildlook (Dieses Paket enthält kein Konzept, Workshop & Projektplanung). Ideal für Gründer*innen, Selbstständige oder kleine Teams, die schnell und bezahlbar Bildmaterial für Website, Social Media oder Profile brauchen.",
-              price: 750,
+                "Wir kommen für 2 Stunden vorbei und fotografieren das, was da ist: dich, dein Arbeitsumfeld, Abläufe, Details und Situationen im Moment. Vorab besprechen wir kurz deine Ideen und was du dir wünscht. Enthalten sind 5 Bilder mit passendem Bildlook (Dieses Paket enthält kein Konzept, Workshop & Projektplanung). Ideal für Gründer*innen, Selbstständige oder kleine Teams, die schnell und bezahlbar Bildmaterial für Website, Social Media oder Profile brauchen.",
+              price: 550,
             },
             {
               title: "Gründer*innen Pro",
@@ -566,7 +566,6 @@ export default function HomePage() {
               price: 400,
               allowInstallments: false,
             },
-
             {
               title: "Mitarbeiter*innen Portraits",
               category: "Fotografie",
@@ -595,7 +594,6 @@ export default function HomePage() {
               price: 45,
               allowInstallments: false,
             },
-
             {
               title: "Bildretusche",
               category: "Fotografie",
@@ -613,7 +611,6 @@ export default function HomePage() {
               description: "Wir produzieren kurze, markenkonforme Videos, die für Instagram, LinkedIn und Co. zugeschnitten sind. Von der Planung über den Dreh bis zum Schnitt und zur Formatanpassung – alles ist inklusive.",
               price: 1200,
             },
-
             {
               title: "Imagefilm",
               category: "Video",
@@ -623,6 +620,14 @@ export default function HomePage() {
               price: 2100,
             },
             {
+              title: "Videoschnitt & Postproduktion",
+              category: "Video",
+              isCountable: false,
+              unit: "pro Stunde",
+              description: "Du hast Material und brauchst den letzten Schritt: Schnitt, Rhythmus, Ton, Untertitel und Export in die passenden Formate – damit es wirklich raus kann.",
+              price: 70,
+            },
+            {
               title: "Web Design (UI/UX)",
               category: "Website",
               isCountable: true,
@@ -630,6 +635,7 @@ export default function HomePage() {
               description: "Webdesign, das funktioniert. Wir gestalten deine Website mit Fokus auf Struktur, Nutzerführung und einem stimmigen Gesamtbild - die Basis für die Webentwicklung. Ein Webdesign-Projekt beginnt bei 5 Stunden.",
               price: 100,
               allowInstallments: false,
+              pricingNote: "Fixpreis",
             },
             {
               title: "Web Entwicklung",
@@ -639,15 +645,35 @@ export default function HomePage() {
               description: "Wir setzen deine Website technisch um – zuverlässig, flexibel und passend zu deinen Anforderungen. Ob mit CMS oder als individuelle Lösung: von der einfachen Landingpage bis zum komplexen Webprojekt ist alles möglich. Eine Website Entwicklung beginnt bei 8 Stunden.",
               price: 100,
               allowInstallments: false,
+              pricingNote: "Fixpreis",
             },
-
+            {
+              title: "Website Technik-Check",
+              category: "Website",
+              isCountable: false,
+              unit: "",
+              description:
+                "Deine Website macht Probleme oder fühlt sich technisch unstimmig an? Wir prüfen dein bestehendes Setup strukturiert – Technik, Theme, Plugins, Performance und typische Fehlerquellen. Kleinere Probleme beheben wir direkt, größere Themen fassen wir transparent zusammen.\n\nDu bekommst eine ehrliche Einschätzung, was sinnvoll repariert werden kann und wo sich größere Maßnahmen lohnen. Der Preis für den Technik-Check wird bei einer weiterführenden Beauftragung ab 1.000 ,- angerechnet.",
+              price: 160,
+              pricingNote: "Fixpreis",
+              allowInstallments: false,
+            },
+            {
+              title: "Website Reparatur Umsetzung",
+              category: "Website",
+              isCountable: true,
+              unit: "pro Stunde",
+              description: "Technische Reparaturen und Bugfixes auf Basis des vorherigen Technik-Checks. Fokus auf Stabilität, Funktion und saubere Umsetzung – keine konzeptionelle Weiterentwicklung.",
+              price: 80,
+              allowInstallments: false,
+            },
             {
               title: "Website Paket Starter",
               category: "Website",
               isCountable: false,
               unit: "",
               description:
-                "Ein übersichtlicher Onepager als schnellen Einstieg ins Web. Wir setzen deine Website in WordPress um und passen das Layout an dein Logo und deine Farben an. Inhalte werden klar strukturiert eingebunden (Kurztexte, Kontaktinfos). Enthalten sind Impressum & Datenschutz. Keine Unterseiten, kein individuelles UX/UI-Design – dafür ein solider, professioneller Webauftritt, der kein Baukasten ist und später problemlos erweitert werden kann.",
+                "Ein klar strukturierter Einstieg ins Web auf Basis von WordPress. Wir setzen deine Website mit einem geführten Layout um und passen Design, Farben und Typografie an dein bestehendes Erscheinungsbild an. Inhalte (Texte und Bilder) werden von dir bereitgestellt und von uns sauber eingebunden. Dieses Paket eignet sich für alle, die schnell und professionell online sein möchten, klare Vorgaben haben und ihre Inhalte selbst definieren. Die technische Basis ist stabil aufgebaut und kann später erweitert werden.",
               price: 1800,
             },
 
@@ -657,7 +683,7 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description:
-                "Eine individuell gestaltete, mehrseitige Website auf Basis von WordPress. Wir entwickeln ein stimmiges Layout und setzen mehrere Seiten um – z. B. Startseite, Leistungen, Über uns und Kontakt. Inhalte werden strukturiert auf die Seiten verteilt, ein Kontaktformular wird integriert. Enthalten sind responsives Design sowie Impressum & Datenschutz als Pflichtseiten. Dieses Paket eignet sich für alle, die mehr Inhalte zeigen möchten, ohne einen umfangreichen UX- oder Seitenkonzeptionsprozess.",
+                "Eine strukturierte Website mit klarer Nutzerführung und einem stabilen technischen Setup. Wir entwickeln ein konsistentes Designsystem und setzen die Website in WordPress ohne Page-Builder um – Inhalte und Layout sind sauber voneinander getrennt. Über ein übersichtliches CMS (Content-Management-System) kannst du Texte und Bilder jederzeit selbst pflegen, ohne Technikstress. Struktur und Gestaltung bleiben dabei fest definiert, sodass alles einfach zu bedienen ist und dauerhaft übersichtlich bleibt.\n\nJe nach Ausgangslage können bestehende Inhalte übernommen oder gemeinsam geschärft werden. Dieses Paket eignet sich für Unternehmen und Selbstständige, die ihre Website regelmäßig aktualisieren möchten und Wert auf Klarheit, Ordnung und einen verlässlichen Webauftritt legen.",
               price: 3600,
             },
 
@@ -667,12 +693,32 @@ export default function HomePage() {
               isCountable: false,
               unit: "",
               description:
-                "Eine umfangreiche, mehrseitige Website mit individuellem UX/UI-Design, durchdachtem Seitenkonzept und erweiterten Funktionen. Im Vergleich zum Advanced-Paket liegt der Fokus hier auf Tiefe, Struktur und technischer Erweiterbarkeit. Wir konzipieren die Seitenarchitektur, Nutzer*innenführung und Inhalte gemeinsam und setzen sie um – auf Basis von WordPress oder, je nach Anforderungen, mit individuell entwickelten Komponenten und eigenem Code. Neben mehreren umfangreichen Unterseiten integrieren wir ausgewählte Plugins oder programmieren passgenaue Funktionen, z. B. für Formulare, Buchung, Newsletter, Mehrsprachigkeit oder spezielle Interaktionen. Enthalten sind responsives Design, Kontaktformulare, Impressum & Datenschutz sowie eine SEO-freundliche Grundstruktur. Dieses Paket eignet sich für Unternehmen mit komplexeren Anforderungen und Wachstumsplänen.",
+                "Eine individuell entwickelte Website als zentrales Aushängeschild. Wir übernehmen Konzeption, Struktur und Design und entwickeln ein maßgeschneidertes System, das zu deinem Unternehmen und deinen Zielen passt. Die inhaltliche Grundlage (Struktur, Tonalität und Kernbotschaften) wird gemeinsam erarbeitet und bildet das Fundament für Design und Nutzerführung. Die Website wird mit einem klaren CMS-Setup umgesetzt, sodass du Inhalte intuitiv pflegen kannst – ohne Technikstress oder ständige Entscheidungen zu Aufbau und Gestaltung.\n\nDieses Paket eignet sich für Unternehmen mit höheren Ansprüchen an Markenwirkung, Klarheit und langfristige Entwicklung und für alle, die Verantwortung für Struktur, Inhalte und technische Umsetzung bewusst abgeben möchten.",
               price: 5500,
             },
+
+            {
+              title: "Website Inhaltskonzept & Redaktion",
+              category: "Website",
+              isCountable: false,
+              unit: "",
+              description:
+                "Wir entwickeln die inhaltliche Grundlage deiner Website: Struktur, Schwerpunkte, Tonalität und Kernbotschaften. Gemeinsam klären wir, was kommuniziert werden soll, in welcher Reihenfolge und mit welchem Fokus. Auf dieser Basis entstehen klar formulierte, verständliche Texte für die zentralen Seiten deiner Website. Diese konzeptionelle Arbeit bildet das Fundament für Design, Struktur und Nutzerführung und sorgt dafür, dass dein Auftritt nach außen stimmig, klar und nachvollziehbar ist.",
+              price: 1200,
+            },
+            {
+              title: "Website Texterstellung",
+              category: "Website",
+              isCountable: true,
+              unit: "pro Seite",
+              description:
+                "Erstellung oder Überarbeitung einzelner Seiteninhalte auf Basis eines vorhandenen Inhaltskonzepts. Die Texte werden klar strukturiert, verständlich formuliert und suchmaschinenfreundlich umgesetzt (z. B. saubere Überschriften, sinnvolle Textlängen). Geeignet für zusätzliche Unterseiten, Leistungsseiten oder inhaltliche Ergänzungen.",
+              price: 250,
+            },
+
             {
               title: "Logo Design",
-              category: "Design",
+              category: "Branding",
               isCountable: false,
               unit: "",
               description: "Von den ersten Entwürfen bis zur finalen Version entwickeln wir ein Logo, das sich in allen Medien einsetzen lässt. In engem Austausch erstellen wir ein Konzept und ein kleines Manual für die korrekte Anwendung.",
@@ -680,7 +726,7 @@ export default function HomePage() {
             },
             {
               title: "Corporate Design",
-              category: "Design",
+              category: "Branding",
               isCountable: false,
               unit: "",
               description: "Logo, Typografie und Farben – wir entwickeln ein Corporate Design, das die zentralen Gestaltungselemente deiner Marke definiert und ein einheitliches Erscheinungsbild schafft. Alle Regeln und Anwendungen halten wir in einem Designmanual fest, das dir als klare Grundlage für alle weiteren Kommunikationsmittel dient.",
@@ -688,16 +734,15 @@ export default function HomePage() {
             },
             {
               title: "Redesign",
-              category: "Design",
+              category: "Branding",
               isCountable: false,
               unit: "",
               description: "Beim Redesign modernisieren wir dein Logo, Farbwelt und Typografie und bringen das Erscheinungsbild deiner Marke auf den neuesten Stand. Das Ergebnis: ein moder, klares und zeitgemäßes Design mit Wiedererkennungswert das neue Impulse setzt.",
               price: 2800,
             },
-
             {
               title: "Konzeption & Workshop",
-              category: "Design",
+              category: "Branding",
               isCountable: false,
               unit: "",
               description:
@@ -705,7 +750,6 @@ export default function HomePage() {
               price: 450,
               allowInstallments: false,
             },
-
             {
               title: "Foto & Video Content Abo",
               category: "Abo",
@@ -721,7 +765,7 @@ export default function HomePage() {
               category: "Abo",
               isCountable: true,
               unit: "pro Monat",
-              description: "Hosting, Sicherheitsupdates, Backups und technische Betreuung deiner Website. Ideal, wenn du dich nicht selbst um die Technik kümmern möchtest.",
+              description: "Hosting, Sicherheitsupdates, Backups und technische Betreuung deiner Website. Wir übernehmen die technische Verantwortung – du musst dich um nichts kümmern. Ideal, wenn du dich nicht selbst um die Technik kümmern möchtest.",
               price: 50,
               allowInstallments: false,
             },
